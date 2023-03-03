@@ -12,8 +12,25 @@ public class TableController {
 	public String data() {
 		return "/tables/tables-data";
 	}
+	
 	@GetMapping("/general")
 	public String general() {
 		return "/tables/tables-general";
 	}
+	
+	@GetMapping("/managermembershiplist")
+	public String managermembershiplist() {
+		return "/tables/tables-managermembershiplist";
+	}
+	
+	@GetMapping("/projectlist")
+	public String projectlist() {
+		return "/tables/tables-projectlist";
+	}
+	
+	@GetMapping("/projectlist2")
+	public String projectlist2() {
+		return "/tables/tables-projectlist2";
+	}
+	
 }
