@@ -6,18 +6,60 @@
 <div class="wrap">
   <main id="main" class="main">
 
+	<div class="pagetitle">
+				<h1 class="card-title">
+					<i class="bx bxs-star"></i> 공부 프로젝트
+				</h1>
+				<h6>
+					<i class="ri-bookmark-fill"></i> 열심히 공부해서 정처기 따기
+				</h6>
+
+				<nav>
+
+
+					<!-- Bordered Tabs Justified -->
+					<ul class="nav nav-tabs nav-tabs-bordered d-flex"
+						id="borderedTabJustified" role="tablist">
+						<li class="nav-item flex-fill" role="presentation">
+							<button class="nav-link w-100 " id="home-tab"
+								data-bs-toggle="tab" data-bs-target="#bordered-justified-home"
+								type="button" role="tab" aria-controls="home"
+								aria-selected="true" onclick="location.href='/project/projectStarted'">홈</button>
+						</li>
+						<li class="nav-item flex-fill" role="presentation">
+							<button class="nav-link w-100 " id="profile-tab"
+								data-bs-toggle="tab"
+								data-bs-target="#bordered-justified-profile" type="button"
+								role="tab" aria-controls="profile" aria-selected="false" onclick="location.href='/userboards/teamBoardList'">게시판</button>
+						</li>
+						<li class="nav-item flex-fill" role="presentation">
+							<button class="nav-link w-100" id="contact-tab"
+								data-bs-toggle="tab"
+								data-bs-target="#bordered-justified-contact" type="button"
+								role="tab" aria-controls="contact" aria-selected="false" onclick="location.href='/project/projectCalendar'">캘린더</button>
+						</li>
+						<li class="nav-item flex-fill" role="presentation">
+							<button class="nav-link w-100 active" id="contact-tab"
+								data-bs-toggle="tab"
+								data-bs-target="#bordered-justified-contact" type="button"
+								role="tab" aria-controls="contact" aria-selected="false" onclick="location.href='/project/projectUserTeamChart'">업무진척률</button>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<!-- End Page Title -->
+	
     <div class="pagetitle">
-      <h1>프로젝트 진척률 현황</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="userchart1">전체 진척률 보기</a></li>
-          <li class="breadcrumb-item active"><a href="userchart2">내 진척률 보기</li>
+          <li class="breadcrumb-item"><a href="/project/projectUserTeamChart">팀 진척률 보기</a></li>
+          <li class="breadcrumb-item"><a href="/project/projectUserMyChart">내 진척률 보기</a></li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
     
    
-		 <section class="section">
+	<section class="section">
       <div class="row">
 
         <div class="col-lg-6">

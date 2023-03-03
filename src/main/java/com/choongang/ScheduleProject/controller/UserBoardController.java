@@ -5,41 +5,43 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/tables")
-public class TableController {
+@RequestMapping("/userboards")
+public class UserBoardController {
 	
-	@GetMapping("/data")
-	public String data() {
-		return "/tables/noticeTableList";
-	}
 	
-	@GetMapping("/general")
+	@GetMapping("/teamBoardList")
 	public String general() {
-		return "/tables/teamTableList";
+		return "/userboards/teamBoardList";
 	}
-	@GetMapping("/regist")
+	@GetMapping("/teamBoardRegist")
 	public String regist() {
-		return "tables/tableRegist";
+		return "/userboards/teamBoardRegist";
 	}
-	@GetMapping("/modify")
+	@GetMapping("/teamBoardModify")
 	public String modify() {
-		return "tables/tableModify";
+		return "/userboards/teamBoardModify";
 	}
-	@GetMapping("/content")
+	@GetMapping("/teamBoardContent")
 	public String content() {
-		return "tables/tableContent";
+		return "/userboards/teamBoardContent";
 	}
-	@GetMapping("/noticecontent")
+	
+	
+	@GetMapping("/noticeTableList")
+	public String data() {
+		return "/userboards/noticeTableList";
+	}
+	@GetMapping("/noticeContent")
 	public String noticeContent() {
-		return "tables/noticeContent";
+		return "/userboards/noticeContent";
 	}
-	@GetMapping("/noticeregist")
+	@GetMapping("/noticeRegist")
 	public String noticeRegist() {
-		return "tables/noticeRegist";
+		return "/userboards/noticeRegist";
 	}
-	@GetMapping("/noticemodify")
+	@GetMapping("/noticeModify")
 	public String noticeModify() {
-		return "tables/noticeModify";
+		return "/userboards/noticeModify";
 	}
 	
 	@GetMapping("/managermembershiplist")
