@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+
+<div class="wrap">
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>프로젝트 진척률 현황</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="userchart1">전체 진척률 보기</a></li>
+          <li class="breadcrumb-item active"><a href="userchart2">내 진척률 보기</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    
+   
+		 <section class="section">
+      <div class="row">
+
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">주 단위 진척률</h5>
+
+              <!-- Line Chart -->
+              <canvas id="lineChart" style="max-height: 400px;"></canvas>
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new Chart(document.querySelector('#lineChart'), {
+                    type: 'line',
+                    data: {
+                      labels: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+                      datasets: [{
+                        label: '요일별',
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                      }]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    }
+                  });
+                });
+              </script>
+              <!-- End Line CHart -->
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">월 단위 진척률</h5>
+
+              <!-- Bar Chart -->
+              <canvas id="barChart" style="max-height: 400px;"></canvas>
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new Chart(document.querySelector('#barChart'), {
+                    type: 'bar',
+                    data: {
+                      labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                      datasets: [{
+                        label: '월 별',
+                        data: [65, 59, 80, 81, 56, 55, 40, 35, 25, 15, 15, 24],
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(255, 159, 64, 0.2)',
+                          'rgba(255, 205, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(255, 159, 64)',
+                          'rgb(255, 205, 86)',
+                          'rgb(75, 192, 192)',
+                          'rgb(54, 162, 235)',
+                          'rgb(153, 102, 255)',
+                          'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                      }]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    }
+                  });
+                });
+              </script>
+              <!-- End Bar CHart -->
+
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">완료 현황</h5>
+
+              <!-- Radial Bar Chart -->
+              <div id="radialBarChart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new ApexCharts(document.querySelector("#radialBarChart"), {
+                    series: [25, 50, 25, 25, 55],
+                    chart: {
+                      height: 350,
+                      type: 'radialBar',
+                      toolbar: {
+                        show: true
+                      }
+                    },
+                    plotOptions: {
+                      radialBar: {
+                        dataLabels: {
+                          name: {
+                            fontSize: '22px',
+                          },
+                          value: {
+                            fontSize: '16px',
+                          },
+                          total: {
+                            show: true,
+                            label: 'Total',
+                            formatter: function(w) {
+                              // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+                              return 100
+                            }
+                          }
+                        }
+                      }
+                    },
+                    labels: ['항목 1', '항목 2', '항목 3', '항목 4', '항목 5'],
+                  }).render();
+                });
+              </script>
+              <!-- End Radial Bar Chart -->
+
+            </div>
+          </div>
+        </div>
+
+
+        
+      
+        
+
+   
+  </main><!-- End #main -->
+</div>
+</th:block>
+
+</html>

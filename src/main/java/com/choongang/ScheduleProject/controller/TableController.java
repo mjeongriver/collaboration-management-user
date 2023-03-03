@@ -10,10 +10,51 @@ public class TableController {
 	
 	@GetMapping("/data")
 	public String data() {
-		return "/tables/tables-data";
+		return "/tables/noticeTableList";
 	}
+	
 	@GetMapping("/general")
 	public String general() {
-		return "/tables/tables-general";
+		return "/tables/teamTableList";
 	}
+	@GetMapping("/regist")
+	public String regist() {
+		return "tables/tableRegist";
+	}
+	@GetMapping("/modify")
+	public String modify() {
+		return "tables/tableModify";
+	}
+	@GetMapping("/content")
+	public String content() {
+		return "tables/tableContent";
+	}
+	@GetMapping("/noticecontent")
+	public String noticeContent() {
+		return "tables/noticeContent";
+	}
+	@GetMapping("/noticeregist")
+	public String noticeRegist() {
+		return "tables/noticeRegist";
+	}
+	@GetMapping("/noticemodify")
+	public String noticeModify() {
+		return "tables/noticeModify";
+	}
+	
+	@GetMapping("/managermembershiplist")
+	public String managermembershiplist() {
+		return "/tables/tables-managermembershiplist";
+	}
+	
+	@GetMapping("/projectlist")
+	public String projectlist() {
+		return "/tables/tables-projectlist";
+	}
+	
+	@GetMapping("/projectlist2")
+	public String projectlist2() {
+		return "/tables/tables-projectlist2";
+	}
+	
 }
