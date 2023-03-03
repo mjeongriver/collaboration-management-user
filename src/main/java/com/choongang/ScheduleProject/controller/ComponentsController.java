@@ -64,4 +64,8 @@ public class ComponentsController {
 	public String tooltips() {
 		return "/components/components-tooltips";
 	}
+	@GetMapping("/chat")
+	public String chat() {
+		return "/components/mainchat";
+	}
 }
