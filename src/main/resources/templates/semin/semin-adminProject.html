@@ -1,0 +1,161 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="/assets/css/modal.css" />
+<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+
+<div class="wrap">
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>프로젝트 목록</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">General</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+                
+                <div style="margin-top:20px">
+                <input type="text" class="form-control" style="width:30%; float:left">
+                   <button type="button" class="btn btn-outline-dark" style="display:inline;"><i class="ri ri-search-line"></i></button>
+                <select>
+                   <option>10개씩 보기</option>
+                   <option>20개씩 보기</option>
+                   <option>50개씩 보기</option>
+                </select>
+                </div>
+              
+              
+              <!-- Bordered Table -->
+              <table class="table table-bordered" style="text-align:center; margin-top:20px">
+                <thead>
+                  <tr>
+                    
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">전체 선택하기</th>
+                    <th scope="col"><input class="form-check-input" type="checkbox" id="gridCheck1"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <thead>
+                  <tr>
+                    
+                    <th scope="col">프로젝트명</th>
+                    <th scope="col">팀장</th>
+                    <th scope="col">팀원 수</th>
+                    <th scope="col">팀 수정</th>
+                    <th scope="col">팀 삭제</th>
+                    <th scope="col">프로젝트 활성화여부</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">최종프로젝트</th>
+                    
+                    <td>이승완</td>
+                    <td>6</td>
+                    <td>
+                    <span class="badge bg-primary modalOn" style="cursor:pointer">팀 수정하기</span>
+                    </td>
+                    <td>
+                      <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    </td>
+                    <td>
+                    <select>
+                    	<option selected>활성화</option>
+                    	<option>비활성화</option>
+                    </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4강의실</th>
+                    
+                    <td>박인욱</td>
+                    <td>28</td>
+                    <td>
+                    <span class="badge bg-primary modalOn" style="cursor:pointer">팀 수정하기</span>
+                    </td>
+                    <td>
+                      <input class="form-check-input" type="checkbox" id="gridCheck1">
+                    </td>
+                    <td>
+                    <select>
+                    	<option>활성화</option>
+                    	<option selected>비활성화</option>
+                    </select>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              <!-- End Bordered Table -->
+              <button type="button" class="btn btn-danger" style="float:right">완료</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+    
+    
+    <!-- 모달창 -->
+		<div id="basicModal" class="modal-overlay">
+			<div class="modal-content">
+				<p class="title"></p>
+				<div class="content">
+					<div class="sub-form">
+						<div>
+						<input type="text" class="form-control" placeholder="이름 혹은 부서를 입력하세요" style="width:90%; float:left">
+						<button class="btn btn-primary w-20">검색</button>
+						</div>
+						<div style="padding-top:10px">
+						<textarea class="form-control" style="height: 150px; width: 100%; resize: none; float:left; overflow:auto;" readonly>검색 후 선택한 사람 들어가는 항목</textarea>
+						</div>
+		
+						<div style="padding-top:160px">
+						<textarea class="form-control" style="height: 100px; width: 48%; resize: none; float:left;" readonly>현재 팀원 목록</textarea>
+						<textarea class="form-control" style="height: 100px; width: 48%; resize: none; float:right" readonly>수정할 팀원 목록</textarea>
+						</div>
+						
+						<div style="text-align: center;">
+						<button class="btn btn-primary w-20 modalOff ">확인</button>
+						</div>
+						<!-- 						
+		              	<div style="float:right; padding-top:10px; padding-bottom:10px">
+						<button class="btn btn-primary w-20">추가</button>
+		              	</div>
+						
+		              	<input class="form-control" type="text" readonly value="추가목록">		
+		              	<div style="padding-top:20px"></div>				
+						<button class="modalOff btn btn-primary w-20">완료</button> -->
+					</div>
+					</div>
+				</div>
+
+
+			</div>
+
+  </main><!-- End #main -->
+
+    </div>
+
+</th:block>
+<script src="/assets/js/modal.js"></script>
+	<script>
+	$(".modalOn").click(function(e) {
+			$("#basicModal").children().find(".title").html("팀 수정하기<br>프로젝트명: " + e.target.parentElement.parentElement.children[0].innerHTML);
+	});
+	</script>
+</html>
