@@ -8,7 +8,8 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String index() {
-		return "index";
+			System.out.println(21311);
+		return "projectList";
 	}
 	
 	

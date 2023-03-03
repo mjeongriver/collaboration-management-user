@@ -1,32 +1,47 @@
 package com.choongang.ScheduleProject.controller;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/project")
 public class ProjectController {
 
-	//로그인 후 첫 진입 화면
-	@GetMapping("/projectstart")
-	public String projectstart() {
-		return "project/projectstart";
+	//프로젝트 생성
+	@GetMapping("/projectAdd")
+	public String projectAdd() {
+		return "/project/projectAdd";
 	}
+	
+	@GetMapping("/projectStarted")
+	public String projectStarted() {
+		System.out.println(123);
+		
+		return "/project/projectStarted";
+	}
+	
+//	//로그인 후 첫 진입 화면
+//	@GetMapping("/projectList")
+//	public String projectList() {
+//		return "/project/projectList";
+//	}
 	
 	//전체 진척률 보기
-	@GetMapping("/userchart1")
-	public String userchart1() {
-		return "project/userchart1";
+	@GetMapping("/projectUserTeamChart")
+	public String projectUserTeamChart() {
+		return "/project/projectUserTeamChart";
 	}
 	
-	@GetMapping("/userchart2")
-	public String userchart2() {
-		return "project/userchart2";
+	@GetMapping("/projectUserMyChart")
+	public String projectUserMyChart() {
+		return "/project/projectUserMyChart";
 	}
 	
-	@GetMapping("/calendar")
-	public String calendar() {
-		return "project/calendar";
+	@GetMapping("/projectCalendar")
+	public String projectCalendar() {
+		return "/project/projectCalendar";
 	}
-	
 	
 }

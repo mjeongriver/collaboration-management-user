@@ -5,12 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/semin")
-public class SeminController {
+@RequestMapping("/mypages")
+public class MyPageController {
 
-	@GetMapping("/makeTeam")
-	public String makeTeam() {
-		return "/semin/semin-makeTeam";
+	@GetMapping("/confirmMypage")
+	public String confirmMypage() {
+		return "/mypages/confirmMypage";
 	}
-
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "/mypages/mypage";
+	}
 }
