@@ -1,0 +1,147 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+
+<div class="wrap">
+
+  <main id="main" class="main">
+   
+   
+   
+    <div class="pagetitle">
+      <h1>공지사항</h1>
+      
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+              <!-- 일정관리 겁색창 -->
+               <div class="search-bar" >
+			      <form class="search-form d-flex align-items-center" method="POST" action="#" style="justify-content:right;" >
+			      	<div style="border:1px solid gray; border-radius:4px">
+			        <input type="text" name="query" placeholder="Search" title="Enter search keyword" style=" border:none; padding:10px; outline:none;">
+			        <button type="submit" title="Search" style="background-color:transparent; border:none;"><i class="bi bi-search"></i></button>
+			        </div>
+			      </form>
+			    </div><!-- End Search Bar -->
+			    
+             
+              
+              <!-- Table Variants -->
+              <table class="table">
+                <thead>
+                  <tr>
+                    
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">작성일</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                 
+                  <tr class="table-primary">
+                  
+                    
+                    <td>Cell</td>
+                    <td><a href="noticecontent">Cell</a></td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    
+                  </tr>
+                  <tr class="table-primary">
+                    
+                    <td>Cell</td>
+                    <td><a href="noticecontent">Cell</a></td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    
+                  </tr>
+                  <tr class="table-primary">
+                    
+                    <td>Cell</td>
+                    <td><a href="noticecontent">Cell</a></td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    
+                  </tr>
+                  <tr>
+                    
+                    <td>1</td>
+                    <td><a href="noticecontent">Cell</a></td>
+                    <td>이동민</td>
+                    <td>2023-03-02</td>
+                    
+                  </tr>
+                  <tr>
+                    
+                    <td>1</td>
+                    <td><a href="noticecontent">Cell</a>
+                    </td>
+                    <td>이동민</td>
+                    <td>2023-03-02</td>
+                    
+                  </tr>
+                  <!-- <tr class="table-danger">
+                    <th scope="row">진행중</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    
+                  </tr> -->
+                </tbody>
+              </table>
+              <!-- End Table Variants -->
+			<!-- 글 작성 버튼  -->
+				<!-- <div style="display:flex; justify-content:right;">
+			 		<button type="button" class="btn btn-dark">작성하기</button>
+			 		
+				</div> -->
+            </div>
+            <!-- 페이지네이션 -->
+            
+	            <nav aria-label="Page navigation example">
+	                <ul class="pagination" style="justify-content:center;">
+	                  <li class="page-item">
+	                    <a class="page-link" href="#" aria-label="Previous">
+	                      <span aria-hidden="true">&laquo;</span>
+	                    </a>
+	                  </li>
+	                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+	                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+	                  <li class="page-item">
+	                    <a class="page-link" href="#" aria-label="Next">
+	                      <span aria-hidden="true">&raquo;</span>
+	                    </a>
+	                  </li>
+	                </ul>
+	              </nav>  
+	              
+	              
+          </div>
+
+        </div>
+      </div>
+    </section>
+   
+   
+   
+   
+  </main><!-- End #main -->
+
+  </div>
+
+</th:block>
+
+</html>
