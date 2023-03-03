@@ -12,6 +12,7 @@ public class TableController {
 	public String data() {
 		return "/tables/noticeTableList";
 	}
+	
 	@GetMapping("/general")
 	public String general() {
 		return "/tables/teamTableList";
@@ -40,4 +41,20 @@ public class TableController {
 	public String noticeModify() {
 		return "tables/noticeModify";
 	}
+	
+	@GetMapping("/managermembershiplist")
+	public String managermembershiplist() {
+		return "/tables/tables-managermembershiplist";
+	}
+	
+	@GetMapping("/projectlist")
+	public String projectlist() {
+		return "/tables/tables-projectlist";
+	}
+	
+	@GetMapping("/projectlist2")
+	public String projectlist2() {
+		return "/tables/tables-projectlist2";
+	}
+	
 }

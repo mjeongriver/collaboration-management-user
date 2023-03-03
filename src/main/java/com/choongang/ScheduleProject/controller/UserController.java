@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/users")
 public class UserController {
 
+	@GetMapping("/enterpasswordprofile")
+	public String enterpasswordprofile() {
+		return "/users/users-enterpasswordprofile";
+	}
+	
 	@GetMapping("/profile")
 	public String profile() {
 		return "/users/users-profile";
