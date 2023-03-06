@@ -21,16 +21,28 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <!-- 일정관리 겁색창 -->
-               <div class="search-bar" >
-			      <form class="search-form d-flex align-items-center" method="POST" action="#" style="justify-content:right;" >
-			      	<div style="border:1px solid gray; border-radius:4px">
-			        <input type="text" name="query" placeholder="Search" title="Enter search keyword" style=" border:none; padding:10px; outline:none;">
-			        <button type="submit" title="Search" style="background-color:transparent; border:none;"><i class="bi bi-search"></i></button>
-			        </div>
-			      </form>f
-			    </div><!-- End Search Bar -->
+              <div style="margin: 20px 0px;height:40px">
+								<!-- 일정관리 검색창 -->
+               					<div class="search-bar" >
+			      					<form class="search-form d-flex align-items-center" method="POST" action="#" style="justify-content:right;" >
+			      				<div style="border:1px solid #E0E5EE; border-radius:15px;">
+			      					<select class="form-select" style="float:left;height:34px;width:220px;margin:10px;border:none">
+										<option>제목으로 검색</option>
+										<option>작성일로 검색</option>
+									</select> 
+			        				<input type="text" name="query" placeholder="Search" title="Enter search keyword" style=" border:none; padding-top:15px; outline:none;">
+			        				<button type="submit" title="Search" style="background-color:transparent; border:none; padding-right:18px"><i class="bi bi-search"></i></button>
+			        			</div>
+			    				</form>
+			    				</div><!-- End Search Bar -->
+			    					<div>검색 결과: 300건
+										<select class="form-select" style="float: right;height:34px;width : 140px; margin-bottom:7px">
+											<option>10개씩 보기</option>
+											<option>20개씩 보기</option>
+											<option>50개씩 보기</option>
+										</select>
+									</div>	
+								</div>
 			    
              
               
