@@ -111,14 +111,15 @@
 
                                 <div style="float: right; width: 49%">
                                     <p style="float:left">추가 목록</p>
-                                    <p style="float:right">일괄 삭제 <input type=checkbox style="padding: 10px"></p>
+                                    <p style="float:right">일괄 삭제 
+                                    <input type=checkbox name="memberDelete" style="padding: 10px" onclick="selectAllMemberDelete(this)"></p>
                                     <div class="form-control" type="text" style="height: 400px; overflow: auto;" readonly>
-                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
                                     </div>
                                     <div style="padding-top: 10px"></div>
                                     <button class="modalOn btn btn-primary w-20" style="float: left;">삭제</button>
@@ -147,6 +148,16 @@
     $(".modalOn").click(function(e) {
         $("#basicModal").children().find(".title").html(e.target.innerHTML);
     });
+    
+ 
+	//팀원 삭제 전체선택
+		function selectAllMemberDelete(selectAll){
+			const checkboxes = document.getElementsByName('memberDelete');
+			  
+		 	checkboxes.forEach((checkbox) => {
+		    	checkbox.checked = selectAll.checked;
+		  	})
+		}
 </script>
 
 
