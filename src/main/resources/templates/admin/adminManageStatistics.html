@@ -25,20 +25,23 @@
 
 						<div class="card">
 							<div class="card-body">
-
-								<div style="margin-top: 20px">
-									<input type="text" class="form-control"
-										style="width: 30%; float: left">
-									<button type="button" class="btn btn-outline-dark"
-										style="display: inline;">
-										<i class="ri ri-search-line"></i>
-									</button>
-									<select>
+								<div style="margin: 20px 0px;height:40px">
+								<!-- 일정관리 검색창 -->
+               					<div class="search-bar" >
+			      					<form class="search-form d-flex align-items-center" method="POST" action="#" style="justify-content:right;" >
+			      					<select class="form-select" style="float:right;height:34px;width:150px;margin:10px">
 										<option>팀명으로 검색</option>
 										<option>팀장으로 검색</option>
 										<option>팀 생성일로 검색</option>
 										<option>완료/미완료로 검색</option>
-									</select> <select style="float: right">
+									</select> 
+			      				<div style="border:1px solid gray; border-radius:4px">
+			        				<input type="text" name="query" placeholder="Search" title="Enter search keyword" style=" border:none; padding:10px; outline:none;">
+			        				<button type="submit" title="Search" style="background-color:transparent; border:none;"><i class="bi bi-search"></i></button>
+			        			</div>
+			    				</form>
+			    				</div><!-- End Search Bar -->
+									<select class="form-select" style="float: right;height:34px;width : 140px; margin-bottom:7px">
 										<option>10개씩 보기</option>
 										<option>20개씩 보기</option>
 										<option>50개씩 보기</option>
@@ -50,14 +53,6 @@
 								<!-- Bordered Table -->
 								<table class="table table-bordered"
 									style="text-align: center; margin-top: 20px">
-									<div class="statusWrap">
-										<div class="status left" style="float: left;">
-											<p class="content" style="padding: 15 0 0 0;">팀별 테스트 현황</p>
-										</div>
-										<div class="status right" style="float: right">
-											<p class="content" style="padding: 15 0 0 0;">진척률 현황</p>
-										</div>
-									</div>
 									<thead>
 										<tr>
 											<th scope="col">글번호</th>

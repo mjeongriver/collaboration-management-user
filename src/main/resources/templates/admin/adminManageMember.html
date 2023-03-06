@@ -17,22 +17,25 @@
 
 						<div class="card">
 							<div class="card-body">
-
-								<div style="margin-top: 20px">
-									<input type="text" class="form-control"
-										style="width: 30%; float: left" placeholder="검색">
-									<button type="button" class="btn btn-outline-dark"
-										style="display: inline;">
-										<i class="ri ri-search-line"></i>
-									</button>
-									<select>
+								<div style="margin: 20px 0px;height:40px">
+								<!-- 일정관리 검색창 -->
+               					<div class="search-bar" >
+			      					<form class="search-form d-flex align-items-center" method="POST" action="#" style="justify-content:right;" >
+			      					<select class="form-select" style="float:right;height:34px;width:150px;margin:10px">
 										<option>아이디로 검색</option>
 										<option>이름으로 검색</option>
 										<option>휴대폰번호로 검색</option>
 										<option>이메일로 검색</option>
 										<option>가입일로 검색</option>
 										<option>활성화/비활성화로 검색</option>
-									</select> <select style="float: right">
+									</select> 
+			      				<div style="border:1px solid gray; border-radius:4px">
+			        				<input type="text" name="query" placeholder="Search" title="Enter search keyword" style=" border:none; padding:10px; outline:none;">
+			        				<button type="submit" title="Search" style="background-color:transparent; border:none;"><i class="bi bi-search"></i></button>
+			        			</div>
+			    				</form>
+			    				</div><!-- End Search Bar -->
+									<select class="form-select" style="float: right;height:34px;width : 140px; margin-bottom:7px">
 										<option>10개씩 보기</option>
 										<option>20개씩 보기</option>
 										<option>50개씩 보기</option>
@@ -43,36 +46,23 @@
 								<!-- Bordered Table -->
 								<table class="table table-bordered"
 									style="text-align: center; margin-top: 20px">
-									<thead>
-										<tr>
-											<th scope="col"></th>
-											<th scope="col"></th>
-											<th scope="col"></th>
-											<th scope="col"></th>
-											<th scope="col"></th>
-											<th scope="col"></th>
-											<th scope="col"></th>
-											<th scope="col">전체 선택하기</th>
-											<th scope="col"><input class="form-check-input"
+									
+									<thead >
+										<tr >
+											<th scope="col" style="line-height:30px;height:30px" >글 번호</th>
+											<th scope="col" style="line-height:30px;height:30px">아이디</th>
+											<th scope="col" style="line-height:30px;height:30px">이름</th>
+											<th scope="col" style="line-height:30px;height:30px">휴대폰번호</th>
+											<th scope="col" style="line-height:30px;height:30px">이메일</th>
+											<th scope="col" style="line-height:30px;height:30px">가입일</th>
+											<th scope="col" style="line-height:30px;height:30px">마지막 로그인 기록</th>
+											<th scope="col" style="line-height:30px;height:30px">활성화/비활성화</th>
+											<th scope="col" style="line-height:30px;height:30px">비밀번호초기화<hr style="margin:0" /><div><input class="form-check-input"
 												type="checkbox" id="gridCheck1" name="pwReset"
-												onclick="selectAllPwReset(this)"></th>
-											<th scope="col"><input class="form-check-input"
+												onclick="selectAllPwReset(this)"></div></th>
+											<th scope="col" style="line-height:30px;height:30px">회원 삭제<hr style="margin:0" /><div><input class="form-check-input"
 												type="checkbox" id="gridCheck1" name="memberDelete"
-												onclick="selectAllMemberDelete(this)"></th>
-										</tr>
-									</thead>
-									<thead>
-										<tr>
-											<th scope="col">글 번호</th>
-											<th scope="col">아이디</th>
-											<th scope="col">이름</th>
-											<th scope="col">휴대폰번호</th>
-											<th scope="col">이메일</th>
-											<th scope="col">가입일</th>
-											<th scope="col">마지막 로그인 기록</th>
-											<th scope="col">활성화/비활성화</th>
-											<th scope="col">비밀번호 초기화</th>
-											<th scope="col">회원 삭제</th>
+												onclick="selectAllMemberDelete(this)"></div></th>
 										</tr>
 									</thead>
 									<tbody>
