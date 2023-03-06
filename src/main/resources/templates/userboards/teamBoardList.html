@@ -79,7 +79,7 @@
               <!-- Table Variants -->
               <table class="table">
                 <thead>
-                  <tr>
+                  <tr style="border-top:1px solid ; border-color:inherit;">
                     <th scope="col">진행 과정</th>
                     <th scope="col">번호</th>
                     <th scope="col">제목</th>
@@ -92,7 +92,7 @@
                   <tr>
                     <th scope="row">진행 중</th>
                     <td>1</td>
-                    <td><a href="content">개발/컨트롤러 구성</a></td>
+                    <td><a href="teamBoardContent">개발/컨트롤러 구성</a></td>
                     <td>이동민</td>
                     <td>2023-03-02</td>
                     <td>34%</td>
@@ -103,7 +103,7 @@
                   <tr class="table-success">
                     <th scope="row">완료</th>
                     <td>Cell</td>
-                    <td><a href="content">개발/컨트롤러 구성</a></td>
+                    <td><a href="teamBoardContent">개발/컨트롤러 구성</a></td>
                     <td>Cell</td>
                     <td>Cell</td>
                     <td>Cell</td>
@@ -122,14 +122,14 @@
               <!-- End Table Variants -->
 			<!-- 글 작성 버튼  -->
 				<div style="display:flex; justify-content:right;">
-			 		<button type="button" class="btn btn-dark">작성하기</button>
+			 		<button type="button" class="btn btn-dark" onclick="location.href='/userboards/teamBoardRegist'">작성하기</button>
 			 		
 				</div>
             </div>
             <!-- 페이지네이션 -->
             
-	            <nav aria-label="Page navigation example">
-	                <ul class="pagination" style="justify-content:center;">
+	            <nav aria-label="Page navigation example" style="display:flex; justify-content:center;">
+	                <ul class="pagination" >
 	                  <li class="page-item">
 	                    <a class="page-link" href="#" aria-label="Previous">
 	                      <span aria-hidden="true">&laquo;</span>

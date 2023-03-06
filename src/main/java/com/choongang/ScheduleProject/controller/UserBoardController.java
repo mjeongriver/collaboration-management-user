@@ -10,25 +10,25 @@ public class UserBoardController {
 	
 	
 	@GetMapping("/teamBoardList")
-	public String general() {
+	public String teamBoardList() {
 		return "/userboards/teamBoardList";
 	}
 	@GetMapping("/teamBoardRegist")
-	public String regist() {
+	public String teamBoardRegist() {
 		return "/userboards/teamBoardRegist";
 	}
 	@GetMapping("/teamBoardModify")
-	public String modify() {
+	public String teamBoardModify() {
 		return "/userboards/teamBoardModify";
 	}
 	@GetMapping("/teamBoardContent")
-	public String content() {
+	public String teamBoardContent() {
 		return "/userboards/teamBoardContent";
 	}
 	
 	
 	@GetMapping("/noticeTableList")
-	public String data() {
+	public String noticeTableList() {
 		return "/userboards/noticeTableList";
 	}
 	@GetMapping("/noticeContent")
@@ -44,19 +44,5 @@ public class UserBoardController {
 		return "/userboards/noticeModify";
 	}
 	
-	@GetMapping("/managermembershiplist")
-	public String managermembershiplist() {
-		return "/tables/tables-managermembershiplist";
-	}
-	
-	@GetMapping("/projectlist")
-	public String projectlist() {
-		return "/tables/tables-projectlist";
-	}
-	
-	@GetMapping("/projectlist2")
-	public String projectlist2() {
-		return "/tables/tables-projectlist2";
-	}
 	
 }
