@@ -24,9 +24,9 @@
                					<div class="search-bar" >
 			      					<form class="search-form d-flex align-items-center" method="POST" action="#" style="justify-content:right;" >
 			      					<select class="form-select" style="float:right;height:34px;width:150px;margin:10px">
-										<option>팀명으로 검색</option>
+										<option>프로젝트 명으로 검색</option>
 										<option>팀장으로 검색</option>
-										<option>팀 생성일로 검색</option>
+										<option>프로젝트 생성일로 검색</option>
 										<option>완료/미완료로 검색</option>
 									</select> 
 			      				<div style="border:1px solid gray; border-radius:4px">
@@ -49,10 +49,10 @@
 									style="text-align: center; margin-top: 20px">
 									<thead>
 										<tr>
-											<th scope="col">글번호</th>
-											<th scope="col">팀명</th>
+											
+											<th scope="col">프로젝트 명</th>
 											<th scope="col">팀장</th>
-											<th scope="col">팀 생성일</th>
+											<th scope="col">프로젝트 생성일</th>
 											<th scope="col">완료/미완료</th>
 											<th scope="col">진척률 현황</th>
 											<th scope="col">통계 상세보기</th>
@@ -60,52 +60,77 @@
 									</thead>
 									<tbody>
 										<tr>
-											<th scope="row" style="font-weight: 400;">1</th>
+											
 											<td>double z</td>
 											<td>짱구</td>
 											<td>2023/03/04</td>
 											<td>완료</td>
-											<td>10%</td>
+											<td><div class="progress">
+													<div class="progress-bar" role="progressbar"
+														style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+														aria-valuemax="100">25%</div>
+												</div>
+												</td>
 											<td><span class="badge bg-primary modalOn"
 												style="cursor: pointer">통계 상세보기</span></td>
 										</tr>
 										<tr>
-											<th scope="row" style="font-weight: 400;">2</th>
+											
 											<td>bread</td>
 											<td>철수</td>
 											<td>2023/03/04</td>
 											<td>미완료</td>
-											<td>30%</td>
+											<td><div class="progress">
+													<div class="progress-bar" role="progressbar"
+														style="width: 70%" aria-valuenow="70" aria-valuemin="0"
+														aria-valuemax="100">70%</div>
+												</div>
+												</td>
 											<td><span class="badge bg-primary modalOn"
 												style="cursor: pointer">통계 상세보기</span></td>
 										</tr>
 										<tr>
-											<th scope="row" style="font-weight: 400;">3</th>
+											
 											<td>mom</td>
 											<td>유리</td>
 											<td>2023/03/04</td>
 											<td>미완료</td>
-											<td>0%</td>
+											<td><div class="progress">
+													<div class="progress-bar" role="progressbar"
+														style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+														aria-valuemax="100">0%</div>
+												</div>
+												</td>
 											<td><span class="badge bg-primary modalOn"
 												style="cursor: pointer">통계 상세보기</span></td>
 										</tr>
 										<tr>
-											<th scope="row" style="font-weight: 400;">4</th>
+											
 											<td>mimi</td>
 											<td>맹구</td>
 											<td>2023/03/04</td>
 											<td>미완료</td>
-											<td>50%</td>
+											<td><div class="progress">
+													<div class="progress-bar" role="progressbar"
+														style="width: 30%" aria-valuenow="30" aria-valuemin="0"
+														aria-valuemax="100">30%</div>
+												</div>
+												</td>
 											<td><span class="badge bg-primary modalOn"
 												style="cursor: pointer">통계 상세보기</span></td>
 										</tr>
 										<tr>
-											<th scope="row" style="font-weight: 400;">5</th>
+											
 											<td>hoon</td>
 											<td>훈이</td>
 											<td>2023/03/04</td>
 											<td>미완료</td>
-											<td>45%</td>
+											<td><div class="progress">
+													<div class="progress-bar" role="progressbar"
+														style="width: 45%" aria-valuenow="0" aria-valuemin="0"
+														aria-valuemax="100">45%</div>
+												</div>
+												</td>
 											<td><span class="badge bg-primary modalOn"
 												style="cursor: pointer">통계 상세보기</span></td>
 										</tr>
