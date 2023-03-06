@@ -16,9 +16,7 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/projectStarted")
-	public String projectStarted() {
-		System.out.println(123);
-		
+	public String projectStarted() {		
 		return "/project/projectStarted";
 	}
 	
