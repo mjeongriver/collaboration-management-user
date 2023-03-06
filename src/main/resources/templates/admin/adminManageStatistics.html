@@ -163,11 +163,55 @@
 					<p class="title"></p>
 					<div class="content">
 						<div class="sub-form">
-							
 
-							<div style="text-align: center;">
-								<button class="btn btn-primary w-20 modalOff ">확인</button>
-							</div>
+							<h5 class="card-title">팀원 진척률</h5>
+
+							<!-- Bar Chart -->
+							<canvas id="barChart" style="max-height: 400px;"></canvas>
+							<script>
+				                document.addEventListener("DOMContentLoaded", () => {
+				                  new Chart(document.querySelector('#barChart'), {
+				                    type: 'bar',
+				                    data: {
+				                      labels: ['강민정', '권도은', '이동민', '이세민', '이승완', '이서윤'],
+				                      datasets: [{
+				                        label: '진행',
+				                        data: [65, 59, 80, 81, 56, 55 ],
+				                        backgroundColor: [
+				                          'rgba(255, 99, 132, 0.2)',
+				                          'rgba(255, 159, 64, 0.2)',
+				                          'rgba(255, 205, 86, 0.2)',
+				                          'rgba(75, 192, 192, 0.2)',
+				                          'rgba(54, 162, 235, 0.2)',
+				                          'rgba(153, 102, 255, 0.2)',
+				                          'rgba(201, 203, 207, 0.2)'
+				                        ],
+				                        borderColor: [
+				                          'rgb(255, 99, 132)',
+				                          'rgb(255, 159, 64)',
+				                          'rgb(255, 205, 86)',
+				                          'rgb(75, 192, 192)',
+				                          'rgb(54, 162, 235)',
+				                          'rgb(153, 102, 255)',
+				                          'rgb(201, 203, 207)'
+				                        ],
+				                        borderWidth: 1
+				                      }]
+				                    },
+				                    options: {
+				                      scales: {
+				                        y: {
+				                          beginAtZero: true
+				                        }
+				                      }
+				                    }
+				                  });
+				                });
+				              </script>
+							<!-- End Bar CHart -->
+
+
+
 							<!-- 						
 		              	<div style="float:right; padding-top:10px; padding-bottom:10px">
 						<button class="btn btn-primary w-20">추가</button>
@@ -178,6 +222,11 @@
 						<button class="modalOff btn btn-primary w-20">완료</button> -->
 						</div>
 					</div>
+					
+					<div style="text-align: center; margin-top:60px;">
+						<button class="btn btn-primary w-20 modalOff ">확인</button>
+					</div>
+					
 				</div>
 
 
