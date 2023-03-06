@@ -10,39 +10,42 @@
 				<h1 class="card-title">
 					<i class="bx bxs-star"></i> 공부 프로젝트
 				</h1>
-				<h6>
+				<h6 style="padding-bottom: 20px">
 					<i class="ri-bookmark-fill"></i> 열심히 공부해서 정처기 따기
 				</h6>
 
 				<nav>
 
-
 					<!-- Bordered Tabs Justified -->
 					<ul class="nav nav-tabs nav-tabs-bordered d-flex"
 						id="borderedTabJustified" role="tablist">
-						<li class="nav-item flex-fill" role="presentation">
+						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100 active" id="home-tab"
 								data-bs-toggle="tab" data-bs-target="#bordered-justified-home"
 								type="button" role="tab" aria-controls="home"
-								aria-selected="true" onclick="location.href='/project/projectStarted'">홈</button>
+								aria-selected="true"
+								onclick="location.href='/project/projectStarted'">홈</button>
 						</li>
-						<li class="nav-item flex-fill" role="presentation">
+						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="profile-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-profile" type="button"
-								role="tab" aria-controls="profile" aria-selected="false" onclick="location.href='/userboards/teamBoardList'">게시판</button>
+								role="tab" aria-controls="profile" aria-selected="false"
+								onclick="location.href='/userboards/teamBoardList'">게시판</button>
 						</li>
-						<li class="nav-item flex-fill" role="presentation">
+						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
-								role="tab" aria-controls="contact" aria-selected="false" onclick="location.href='/project/projectCalendar'">캘린더</button>
+								role="tab" aria-controls="contact" aria-selected="false"
+								onclick="location.href='/project/projectCalendar'">캘린더</button>
 						</li>
-						<li class="nav-item flex-fill" role="presentation">
+						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
-								role="tab" aria-controls="contact" aria-selected="false" onclick="location.href='/project/projectUserTeamChart'">업무진척률</button>
+								role="tab" aria-controls="contact" aria-selected="false"
+								onclick="location.href='/project/projectUserTeamChart'">진척률</button>
 						</li>
 					</ul>
 				</nav>
@@ -56,50 +59,155 @@
 						<div class="card">
 							<div class="card-body">
 								<h5 class="card-title">대화 내용</h5>
-								<p class="nav-link nav-profile d-flex align-items-center pe-0">
-									<img src="/assets/img/profile-img.jpg" width="40px"
-										alt="Profile" class="rounded-circle"> <span
-										class="d-none d-md-block">김햄버거<br />17:50
-									</span> <span> : ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-								</p>
+								<div style="display: flex;">
+									<div>
+										<img src="/assets/img/profile-img.jpg" width="40px"
+											alt="Profile" class="rounded-circle">
+									</div>
+									<div style="margin-left: 15px">
+										<div>
+											<span style="font-weight: 1000">김햄버거</span> <span
+												style="font-size: 10px">17:52</span>
+										</div>
+										<div>
+											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
+										</div>
+									</div>
+									<div class="filter">
+										<a class="icon" href="#" data-bs-toggle="dropdown"><i
+											class="bi bi-three-dots"></i></a>
+										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+											<li class="dropdown-header text-start">
+												<h6>추가 작업</h6>
+											</li>
+											<li><a class="dropdown-item" href="#">복사</a></li>
+											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
+											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
+										</ul>
+									</div>
+								</div>
 								<hr />
-								<p class="nav-link nav-profile d-flex align-items-center pe-0">
-									<img src="/assets/img/profile-img.jpg" width="40px"
-										alt="Profile" class="rounded-circle"> <span
-										class="d-none d-md-block">김햄버거<br />17:52
-									</span> <span> : ㅋㅋㅋㅋ안녕ㅋㅋ</span>
-								</p>
+								<div style="display: flex;">
+									<div>
+										<img src="/assets/img/profile-img.jpg" width="40px"
+											alt="Profile" class="rounded-circle">
+									</div>
+									<div style="margin-left: 15px">
+										<div>
+											<span style="font-weight: 1000">김햄버거</span> <span
+												style="font-size: 10px">17:52</span>
+										</div>
+										<div>
+											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
+										</div>
+									</div>
+									<div class="filter">
+										<a class="icon" href="#" data-bs-toggle="dropdown"><i
+											class="bi bi-three-dots"></i></a>
+										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+											<li class="dropdown-header text-start">
+												<h6>추가 작업</h6>
+											</li>
+											<li><a class="dropdown-item" href="#">복사</a></li>
+											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
+											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
+										</ul>
+									</div>
+								</div>
 								<hr />
-								<p class="nav-link nav-profile d-flex align-items-center pe-0">
-									<img src="/assets/img/profile-img.jpg" width="40px"
-										alt="Profile" class="rounded-circle"> <span
-										class="d-none d-md-block">김햄버거<br />17:55
-									</span> <span> : ㅋㅋㅋㅋㅋㅋ하이ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-								</p>
+								<div style="display: flex;">
+									<div>
+										<img src="/assets/img/profile-img.jpg" width="40px"
+											alt="Profile" class="rounded-circle">
+									</div>
+									<div style="margin-left: 15px">
+										<div>
+											<span style="font-weight: 1000">김햄버거</span> <span
+												style="font-size: 10px">17:52</span>
+										</div>
+										<div>
+											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
+										</div>
+									</div>
+									<div class="filter">
+										<a class="icon" href="#" data-bs-toggle="dropdown"><i
+											class="bi bi-three-dots"></i></a>
+										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+											<li class="dropdown-header text-start">
+												<h6>추가 작업</h6>
+											</li>
+											<li><a class="dropdown-item" href="#">복사</a></li>
+											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
+											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
+										</ul>
+									</div>
+								</div>
 								<hr />
-								<p class="nav-link nav-profile d-flex align-items-center pe-0">
-									<img src="/assets/img/profile-img.jpg" width="40px"
-										alt="Profile" class="rounded-circle"> <span
-										class="d-none d-md-block">김햄버거<br />17:59
-									</span> <span> : ㅋㅋㅋㅋㅋㅋㅋㅋ바이ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-								</p>
+								<div style="display: flex;">
+									<div>
+										<img src="/assets/img/profile-img.jpg" width="40px"
+											alt="Profile" class="rounded-circle">
+									</div>
+									<div style="margin-left: 15px">
+										<div>
+											<span style="font-weight: 1000">김햄버거</span> <span
+												style="font-size: 10px">17:52</span>
+										</div>
+										<div>
+											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
+										</div>
+									</div>
+									<div class="filter">
+										<a class="icon" href="#" data-bs-toggle="dropdown"><i
+											class="bi bi-three-dots"></i></a>
+										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+											<li class="dropdown-header text-start">
+												<h6>추가 작업</h6>
+											</li>
+											<li><a class="dropdown-item" href="#">복사</a></li>
+											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
+											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
+										</ul>
+									</div>
+								</div>
 								<hr />
-								<p class="nav-link nav-profile d-flex align-items-center pe-0">
-									<img src="/assets/img/profile-img.jpg" width="40px"
-										alt="Profile" class="rounded-circle"> <span
-										class="d-none d-md-block">김햄버거<br />17:59
-									</span> <span> :
-										ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-								</p>
+								<div style="display: flex;">
+									<div>
+										<img src="/assets/img/profile-img.jpg" width="40px"
+											alt="Profile" class="rounded-circle">
+									</div>
+									<div style="margin-left: 15px">
+										<div>
+											<span style="font-weight: 1000">김햄버거</span> <span
+												style="font-size: 10px">17:52</span>
+										</div>
+										<div>
+											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
+										</div>
+									</div>
+									<div class="filter">
+										<a class="icon" href="#" data-bs-toggle="dropdown"><i
+											class="bi bi-three-dots"></i></a>
+										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+											<li class="dropdown-header text-start">
+												<h6>추가 작업</h6>
+											</li>
+											<li><a class="dropdown-item" href="#">복사</a></li>
+											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
+											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
+										</ul>
+									</div>
+								</div>
 								<hr />
-
+								
 								<div class="list-group-item-secondary">
 									<div style="padding: 20px 10px">
 
 										<div class="form-floating">
 											<textarea class="form-control" placeholder="입력"
 												id="floatingTextarea" style="height: 100px;"></textarea>
-											<label for="floatingTextarea">줄바꿈 Shift+Enter / 입력 Enter 입니다.</label>
+											<label for="floatingTextarea">줄바꿈 Shift+Enter / 입력
+												Enter 입니다.</label>
 										</div>
 
 
@@ -118,13 +226,14 @@
 
 							<div class="card-body">
 
-								<h5 class="card-title">참여자</h5>
-
+								<h5 class="card-title" style="padding-bottom:5px">참여자</h5>
+								<input type="text" placeholder="검색" onkeyup="filter()"
+									id="search" class="form-control">
 								<!-- Default Table -->
 								<table class="table">
 									<thead>
 										<tr>
-											<th scope="col">#</th>
+											<th scope="col"></th>
 											<th scope="col">이름</th>
 											<th scope="col">부서</th>
 											<th scope="col">직급</th>
@@ -132,32 +241,32 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<tr class="listInner">
 											<th scope="row">1</th>
-											<td>이짱구</td>
-											<td>영업팀</td>
-											<td>부장</td>
+											<td class="name">이짱구</td>
+											<td class="department">영업팀</td>
+											<td class="position">부장</td>
 
 										</tr>
-										<tr>
+										<tr class="listInner">
 											<th scope="row">2</th>
-											<td>박철수</td>
-											<td>전략기획팀</td>
-											<td>과장</td>
+											<td class="name">박철수</td>
+											<td class="department">전략기획팀</td>
+											<td class="position">과장</td>
 
 										</tr>
-										<tr>
+										<tr class="listInner">
 											<th scope="row">3</th>
-											<td>조유리</td>
-											<td>전략기획팀</td>
-											<td>대리</td>
+											<td class="name">조유리</td>
+											<td class="department">전략기획팀</td>
+											<td class="position">대리</td>
 
 										</tr>
-										<tr>
+										<tr class="listInner">
 											<th scope="row">4</th>
-											<td>김맹구</td>
-											<td>디자인팀</td>
-											<td>사원</td>
+											<td class="name">김맹구</td>
+											<td class="department">디자인팀</td>
+											<td class="position">사원</td>
 
 										</tr>
 
@@ -168,8 +277,8 @@
 
 						</div>
 					</div>
-			
-              
+
+
 				</div>
 			</section>
 
@@ -179,5 +288,26 @@
 	</div>
 
 </th:block>
+<script>
+	//실시간 검색 구현
+	function filter() {
+		var search = document.getElementById("search").value.toLowerCase();
+		var listInner = document.getElementsByClassName("listInner");
 
+		for (var i = 0; i < listInner.length; i++) {
+			var name = listInner[i].getElementsByClassName("name");
+			var department = listInner[i].getElementsByClassName("department");
+			var position = listInner[i].getElementsByClassName("position");
+
+			if (name[0].innerHTML.toLowerCase().includes(search)
+					|| department[0].innerHTML.toLowerCase().includes(search)
+					|| position[0].innerHTML.toLowerCase().includes(search)) {
+				listInner[i].style.display = "";
+			} else {
+				listInner[i].style.display = "none";
+			}
+		}
+
+	}
+</script>
 </html>
