@@ -1,5 +1,5 @@
 /* z-index: modal:50, sidenav:30 */
-@media (max-width:767px){
+@media (max-width:900px){
   #basicModal{
       display: none;
   }
@@ -22,8 +22,8 @@
   top: 20%;
   left: 0;
   margin: 0 auto;
-  width: 700px;
-  min-height: 500px;
+  width: 900px;
+  min-height: 600px;
   background-color: white;
   box-shadow: 0px 8px 32px rgba(11,19,30,.37);
   padding: 10px 20px;
@@ -37,7 +37,7 @@
 
 #basicModal .content{
   border-top: 1px solid #bebebe;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 #basicModal .sub-form {
@@ -54,8 +54,6 @@
 }
 #basicModal .modalOff {
   display: inline;
-  float: right;
-  padding-right: 10px;
   cursor: pointer;
   text-shadow: 1px 1px 2px gray;
   color: white;
@@ -123,4 +121,37 @@
   cursor: pointer;
   text-shadow: 1px 1px 2px gray;
   color: #000;
+}
+
+/* 카테고리 */
+.categoryListWrap {
+    height: 244px;
+    margin: 10px 10px 10px 0;
+    border: 1px solid #ccc;
+}
+.categoryListWrap .categoryList {
+    box-sizing: border-box;
+    float: left;
+    overflow: auto;
+    overflow-x: none;
+    width: 30%;
+    height: 100%;
+    padding: 7px  0;
+    border-left: 1px  solid #ccc;
+}
+.categoryListWrap .categoryList > li {
+    padding: 0px;
+}
+.categoryListWrap .categoryList a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    height: 35px;
+    padding: 0 20px;
+    color: #000;
+}
+.categoryListWrap .categoryList .on a {
+    background: #1db09e;
+    color: #fff;
 }

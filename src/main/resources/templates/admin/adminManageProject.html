@@ -24,28 +24,28 @@
 
 						<div class="card">
 							<div class="card-body">
-
 								<div style="margin: 20px 0px;height:40px">
-									<select class="form-select" style="float:left;height:34px;width:150px">
+								<!-- 일정관리 검색창 -->
+               					<div class="search-bar" >
+			      					<form class="search-form d-flex align-items-center" method="POST" action="#" style="justify-content:right;" >
+			      					<select class="form-select" style="float:right;height:34px;width:150px;margin:10px">
 										<option>팀명으로 검색</option>
 										<option>팀장으로 검색</option>
 										<option>팀 생성일로 검색</option>
 										<option>팀 활성화/비활성화로 검색</option>
 									</select> 
-									<input type="text" class="form-control"
-										style="width: 30%; float: left;margin-left:10px">
-									<button type="button" class="btn btn-outline-dark"
-										style="display: inline;float:left;margin-left:10px">
-										<i class="ri ri-search-line"></i>
-									</button>
-								
-									<select class="form-select" style="float: right;height:34px;width : 140px">
+			      				<div style="border:1px solid gray; border-radius:4px">
+			        				<input type="text" name="query" placeholder="Search" title="Enter search keyword" style=" border:none; padding:10px; outline:none;">
+			        				<button type="submit" title="Search" style="background-color:transparent; border:none;"><i class="bi bi-search"></i></button>
+			        			</div>
+			    				</form>
+			    				</div><!-- End Search Bar -->
+									<select class="form-select" style="float: right;height:34px;width : 140px; margin-bottom:7px">
 										<option>10개씩 보기</option>
 										<option>20개씩 보기</option>
 										<option>50개씩 보기</option>
 									</select>
 								</div>
-
 
 								<!-- Bordered Table -->
 								<table class="table table-bordered"

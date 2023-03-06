@@ -4,92 +4,151 @@
 <th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
 
 
-<div class="wrap">
-	<main id="main" class="main">
+    <div class="wrap">
+        <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>프로젝트 생성</h1>
-      <nav>
-        <ol class="breadcrumb">
-         
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-	
-	<section class="section">
-      <div class="row" style="justify-content:center">
-        <div class="col-lg-12" >
+            <div class="pagetitle">
+                <h1>프로젝트 생성</h1>
+                <nav>
+                    <ol class="breadcrumb">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title" style="text-align: center">프로젝트 생성</h5>
-              
-              <hr/>
-              <input class="form-control" type="text" placeholder="프로젝트 제목을 입력하세요."><br>
-              <input class="form-control" type="text" placeholder="프로젝트에 관한 설명 입력(옵션)" style="height: 100px"><br>
-              	<input class="form-control" type="text" readonly value="팀원 목록" >
-              	<div style="padding-top:10px"></div>
-              	<button class="modalOn btn btn-primary w-20">프로젝트 팀원 초대하기</button>
-              	<div style="padding-top:20px"></div>
-              	
-              	<input class="form-control" type="text" readonly value="옵저버 목록">
-              	<div style="padding-top:10px"></div>
-              	<div style="width:100%;">
-	              	<button class="modalOn btn btn-primary w-20" style="float:left;">프로젝트 옵저버 초대하기</button>
-	              	<form action="/project/projectStarted">
-					<button style="float:right;" class="btn btn-primary w-20" type="submit">프로젝트 생성하기</button>
-					</form>
-				</div>
+                    </ol>
+                </nav>
             </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-	
-    <!-- 모달창 -->
-		<div id="basicModal" class="modal-overlay">
-			<div class="modal-content">
-				<p class="title"></p>
-	
-				<div class="content">
-					<div class="sub-form">
-						<!-- <input type="text" class="form-control" placeholder="이름 혹은 부서를 입력하세요 여기다 onchange를 건다"> -->
-						<select>
-							<option>개발부</option>
-							<option>영업부</option>
-							<option>마케팅부</option>
-							<option>인사부</option>
-						</select>
-						<div style="float:right; padding-top:10px; padding-bottom:10px">
-						<button class="btn btn-primary w-20">검색</button>
-						</div>
-						
-		              	<div style="float:right; padding-top:10px; padding-bottom:10px">
-						<button class="btn btn-primary w-20">추가</button>
-		              	</div>
-						
-		              	<input class="form-control" type="text" readonly value="추가목록">		
-		              	<div style="padding-top:20px"></div>				
-						<button class="modalOff btn btn-primary w-20">완료</button>
-					</div>
-					</div>
-				</div>
 
 
-			</div>
+            <section class="section">
+                <div class="row" style="justify-content: center">
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 style="text-align: center; font-size: 18px; font-weight: 500; padding-top: 20px">프로젝트 생성</h5>
+                                <hr />
+                                <form action="/project/projectStarted">
+                                    <div>
+                                        <input class="form-control" type="text" placeholder="프로젝트 제목을 입력하세요."><br> <input class="form-control" type="text" placeholder="프로젝트에 관한 설명을 입력하세요." style="height: 200px"><br>
+                                    </div>
+                                    <div>
+                                        <!-- 팀원 목록 -->
+                                        <div style="float: left; width: 49%;">
+                                            <div class="form-control" type="text" style="height: 200px; overflow: auto;" readonly>
+                                                <p>강민정 <i class="bi bi-x-square"></i></p>
+                                                <p>이승완 <i class="bi bi-x-square"></i></p>
+                                                <p>이세민 <i class="bi bi-x-square"></i></p>
+                                                <p>이동민 <i class="bi bi-x-square"></i></p>
+                                                <p>권도은 <i class="bi bi-x-square"></i></p>
+                                                <p>이서윤 <i class="bi bi-x-square"></i></p>
 
-		</main>
-		
-	</div>
+                                            </div>
+                                            <div style="padding-top: 10px">
+                                                <button class="modalOn btn btn-primary w-20">팀원 초대</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- 옵저버 목록 -->
+                                        <div style="float: right; width: 49%">
+                                            <div class="form-control" type="text" style="height: 200px; overflow: auto;" readonly>
+                                                <p>강민정 <i class="bi bi-x-square"></i></p>
+                                                <p>이승완 <i class="bi bi-x-square"></i></p>
+                                                <p>이세민 <i class="bi bi-x-square"></i></p>
+                                                <p>이동민 <i class="bi bi-x-square"></i></p>
+                                                <p>권도은 <i class="bi bi-x-square"></i></p>
+                                                <p>이서윤 <i class="bi bi-x-square"></i></p>
+                                            </div>
+                                            <div style="padding-top: 10px"></div>
+                                            <button class="modalOn btn btn-primary w-20" style="float: left;">옵저버 초대</button>
+                                        </div>
+                                    </div>
+
+                                    <div align="center">
+                                        <button class="btn btn-primary w-20" type="submit" style="margin-top:30px;">프로젝트 생성</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 모달창 -->
+            <div id="basicModal" class="modal-overlay">
+                <div class="modal-content">
+                    <p class="title" style="padding-top: 20px"></p>
+
+                    <div class="content">
+                        <div class="sub-form">
+
+                            <div>
+                                <div style="float: left; width: 49%;">
+                                    <p>전체 목록</p>
+                                    <div class="categoryListWrap">
+                                        <div class="form-control" type="text" style="height: 300px; overflow: auto;">
+                                            <ul class="categoryList" style="position: relative;" onclick="getCategory_List(event);">
+                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "A" }'>기획부</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "B" }'>영업부</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>개발부</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>총무부</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>인사부</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>회계부</a></li>
+
+                                            </ul>
+                                            <ul class="categoryList" style="position: relative;" onclick="getCategory_List(event);">
+                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>강민정</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>이동민</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>이승완</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>이세민</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>권도은</a></li>
+                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>이서윤</a></li>
+                                            </ul>
+                                        </div>
+                                        <div style="padding-top: 10px">
+                                            <button class="modalOn btn btn-primary w-20">추가</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div style="float: right; width: 49%">
+                                    <p style="float:left">추가 목록</p>
+                                    <p style="float:right">일괄 삭제 <input type=checkbox style="padding: 10px"></p>
+                                    <div class="form-control" type="text" style="height: 300px; overflow: auto;" readonly>
+                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
+                                        <p><input type=checkbox style="padding: 10px"> 강민정</p>
+                                    </div>
+                                    <div style="padding-top: 10px"></div>
+                                    <button class="modalOn btn btn-primary w-20" style="float: left;">삭제</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                            <div align="center">
+                                <button class="modalOff btn btn-primary w-20" style="margin-top: 30px">완료</button>
+                            </div>
+                </div>
+
+
+            </div>
+
+        </main>
+
+    </div>
 
 </th:block>
-	<script src="/assets/js/modal.js"></script>
-	<script>
-	$(".modalOn").click(function(e) {
-			$("#basicModal").children().find(".title").html(e.target.innerHTML);
-	});
-	</script>
+<script src="/assets/js/modal.js"></script>
+<script>
+    $(".modalOn").click(function(e) {
+        $("#basicModal").children().find(".title").html(e.target.innerHTML);
+    });
+</script>
+
+
 
 </html>
