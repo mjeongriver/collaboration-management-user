@@ -20,22 +20,22 @@ repositories {
 }
 
 dependencies {
-   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-   implementation 'org.springframework.boot:spring-boot-starter-web'
-   compileOnly 'org.projectlombok:lombok'
-   developmentOnly 'org.springframework.boot:spring-boot-devtools'
-   //유효성검사 추가해야함
-   implementation 'org.springframework.boot:spring-boot-starter-validation'
-   runtimeOnly 'com.mysql:mysql-connector-j'
-   runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
-   annotationProcessor 'org.projectlombok:lombok'
-   providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-   testImplementation 'org.springframework.boot:spring-boot-starter-test'
-   //기본 외적인 mybatis 설정
-   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
-   
-   //sql 실행 로그 기능
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//유효성검사 추가해야함
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//기본 외적인 mybatis 설정
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+	
+	//sql 실행 로그 기능
    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 
    //이미지 썸네일
@@ -45,7 +45,8 @@ dependencies {
    implementation 'com.google.code.gson:gson:2.8.5'
    
    //타임리프 뷰를 사용하려면
-   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 tasks.named('test') {
