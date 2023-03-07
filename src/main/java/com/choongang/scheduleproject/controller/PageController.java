@@ -10,14 +10,14 @@ public class PageController {
 
 	@GetMapping("/login")
 	public String login() {
-		return "/pages/pages-login";
+		return "/pages/pagesLogin";
 	}
 	@GetMapping("/register")
 	public String register() {
-		return "/pages/pages-register";
+		return "/pages/pagesRegister";
 	}
 	@GetMapping("/statistics")
 	public String statistics() {
-		return "/pages/pages-statistics";
+		return "/pages/pagesStatistics";
 	}
 }
