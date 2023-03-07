@@ -36,5 +36,9 @@ public class AdminController {
 	public String noticeTableList() {
 		return "/admin/adminNoticeTableList";
 	}
+	@GetMapping("/noticeLogin")
+	public String noticeLogin() {
+		return "/admin/adminNoticeLogin";
+	}
 	
 }
