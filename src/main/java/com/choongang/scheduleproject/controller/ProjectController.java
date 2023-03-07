@@ -1,4 +1,4 @@
-package com.choongang.ScheduleProject.controller;
+package com.choongang.scheduleproject.controller;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
