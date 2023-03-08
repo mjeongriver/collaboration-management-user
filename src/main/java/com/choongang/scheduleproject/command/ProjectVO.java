@@ -17,6 +17,7 @@ public class ProjectVO {
 	private String pj_active;
 	private String pj_member;
 	private String pj_bookmark;
+	private String pj_description;
 	
 
 }

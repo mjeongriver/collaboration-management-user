@@ -3,13 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-    <mapper namespace="com.choongang.scheduleproject.service.ProjectMapper">
+    <mapper namespace="com.choongang.scheduleproject.project.service.ProjectMapper">
     
     <insert id="regist" parameterType="ProjectVO">
     	insert into USER_PROJECT(pj_name,
-    							pj_active )
+    							pj_description )
     		values ( #{pj_name},
-    				#{pj_active} )
+    				#{pj_description} )
     		
     </insert>
     

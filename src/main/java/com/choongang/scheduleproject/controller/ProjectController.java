@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.command.ProjectVO;
-import com.choongang.scheduleproject.service.ProjectService;
+import com.choongang.scheduleproject.project.service.ProjectService;
 
 @Controller
 @RequestMapping("/project")
@@ -33,11 +33,6 @@ public class ProjectController {
 		return "/project/projectStarted";
 	}
 	
-//	//로그인 후 첫 진입 화면
-//	@GetMapping("/projectList")
-//	public String projectList() {
-//		return "/project/projectList";
-//	}
 	
 	//전체 진척률 보기
 	@GetMapping("/projectUserTeamChart")
