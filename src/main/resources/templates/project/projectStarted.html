@@ -2,6 +2,17 @@
 
 <th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
 
+<style>
+.hidden {
+  display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+</style>
+
 	<div class="wrap">
 
 		<main id="main" class="main">
@@ -59,153 +70,47 @@
 						<div class="card">
 							<div class="card-body">
 								<h5 class="card-title">대화 내용</h5>
-								<div style="display: flex;">
-									<div>
-										<img src="/assets/img/profile-img.jpg" width="40px"
-											alt="Profile" class="rounded-circle">
-									</div>
-									<div style="margin-left: 15px">
+								<div class="chat-content"
+									style="border: none; height: 480px; overflow: auto;">
+									<!-- <div style="display: flex;">
 										<div>
-											<span style="font-weight: 1000">김햄버거</span> <span
-												style="font-size: 10px">17:52</span>
+											<img src="/assets/img/profile-img.jpg" width="40px"
+												alt="Profile" class="rounded-circle">
 										</div>
-										<div>
-											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
+										<div style="margin-left: 15px">
+											<div>
+												<span style="font-weight: 1000">김햄버거</span> <span
+													style="font-size: 10px">17:52</span>
+											</div>
+											<div>
+												<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
+											</div>
 										</div>
-									</div>
-									<div class="filter">
-										<a class="icon" href="#" data-bs-toggle="dropdown"><i
-											class="bi bi-three-dots"></i></a>
-										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-											<li class="dropdown-header text-start">
-												<h6>추가 작업</h6>
-											</li>
-											<li><a class="dropdown-item" href="#">복사</a></li>
-											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
-											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
-										</ul>
-									</div>
+										<div class="filter">
+											<a class="icon" href="#" data-bs-toggle="dropdown"><i
+												class="bi bi-three-dots"></i></a>
+											<ul
+												class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+												<li class="dropdown-header text-start">
+													<h6>추가 작업</h6>
+												</li>
+												<li><a class="dropdown-item" href="#">복사</a></li>
+												<li><a class="dropdown-item" href="#"
+													style="color: blue">수정</a></li>
+												<li><a class="dropdown-item" href="#"
+													style="color: red">삭제</a></li>
+											</ul>
+										</div>
+									</div> -->
 								</div>
-								<hr />
-								<div style="display: flex;">
-									<div>
-										<img src="/assets/img/profile-img.jpg" width="40px"
-											alt="Profile" class="rounded-circle">
-									</div>
-									<div style="margin-left: 15px">
-										<div>
-											<span style="font-weight: 1000">김햄버거</span> <span
-												style="font-size: 10px">17:52</span>
-										</div>
-										<div>
-											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-										</div>
-									</div>
-									<div class="filter">
-										<a class="icon" href="#" data-bs-toggle="dropdown"><i
-											class="bi bi-three-dots"></i></a>
-										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-											<li class="dropdown-header text-start">
-												<h6>추가 작업</h6>
-											</li>
-											<li><a class="dropdown-item" href="#">복사</a></li>
-											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
-											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
-										</ul>
-									</div>
-								</div>
-								<hr />
-								<div style="display: flex;">
-									<div>
-										<img src="/assets/img/profile-img.jpg" width="40px"
-											alt="Profile" class="rounded-circle">
-									</div>
-									<div style="margin-left: 15px">
-										<div>
-											<span style="font-weight: 1000">김햄버거</span> <span
-												style="font-size: 10px">17:52</span>
-										</div>
-										<div>
-											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-										</div>
-									</div>
-									<div class="filter">
-										<a class="icon" href="#" data-bs-toggle="dropdown"><i
-											class="bi bi-three-dots"></i></a>
-										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-											<li class="dropdown-header text-start">
-												<h6>추가 작업</h6>
-											</li>
-											<li><a class="dropdown-item" href="#">복사</a></li>
-											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
-											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
-										</ul>
-									</div>
-								</div>
-								<hr />
-								<div style="display: flex;">
-									<div>
-										<img src="/assets/img/profile-img.jpg" width="40px"
-											alt="Profile" class="rounded-circle">
-									</div>
-									<div style="margin-left: 15px">
-										<div>
-											<span style="font-weight: 1000">김햄버거</span> <span
-												style="font-size: 10px">17:52</span>
-										</div>
-										<div>
-											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-										</div>
-									</div>
-									<div class="filter">
-										<a class="icon" href="#" data-bs-toggle="dropdown"><i
-											class="bi bi-three-dots"></i></a>
-										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-											<li class="dropdown-header text-start">
-												<h6>추가 작업</h6>
-											</li>
-											<li><a class="dropdown-item" href="#">복사</a></li>
-											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
-											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
-										</ul>
-									</div>
-								</div>
-								<hr />
-								<div style="display: flex;">
-									<div>
-										<img src="/assets/img/profile-img.jpg" width="40px"
-											alt="Profile" class="rounded-circle">
-									</div>
-									<div style="margin-left: 15px">
-										<div>
-											<span style="font-weight: 1000">김햄버거</span> <span
-												style="font-size: 10px">17:52</span>
-										</div>
-										<div>
-											<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-										</div>
-									</div>
-									<div class="filter">
-										<a class="icon" href="#" data-bs-toggle="dropdown"><i
-											class="bi bi-three-dots"></i></a>
-										<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-											<li class="dropdown-header text-start">
-												<h6>추가 작업</h6>
-											</li>
-											<li><a class="dropdown-item" href="#">복사</a></li>
-											<li><a class="dropdown-item" href="#" style="color:blue">수정</a></li>
-											<li><a class="dropdown-item" href="#" style="color:red">삭제</a></li>
-										</ul>
-									</div>
-								</div>
-								<hr />
-								
+
 								<div class="list-group-item-secondary">
 									<div style="padding: 20px 10px">
 
 										<div class="form-floating">
 											<textarea class="form-control" placeholder="입력"
-												id="floatingTextarea" style="height: 100px;"></textarea>
+												id="floatingTextarea" style="height: 100px;"
+												onkeypress="if( event.keyCode == 13 ){if(event.shiftKey){} else {enterKey();}}"></textarea>
 											<label for="floatingTextarea">줄바꿈 Shift+Enter / 입력
 												Enter 입니다.</label>
 										</div>
@@ -226,7 +131,7 @@
 
 							<div class="card-body">
 
-								<h5 class="card-title" style="padding-bottom:5px">참여자</h5>
+								<h5 class="card-title" style="padding-bottom: 5px">참여자</h5>
 								<input type="text" placeholder="검색" onkeyup="filter()"
 									id="search" class="form-control">
 								<!-- Default Table -->
@@ -241,34 +146,15 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="listInner">
-											<th scope="row">1</th>
-											<td class="name">이짱구</td>
-											<td class="department">영업팀</td>
-											<td class="position">부장</td>
+
+										<tr class="listInner" th:each="vo, status: ${list}">
+											<th scope="row" th:text="${status.count}"></th>
+											<td class="name">[[${vo.user_name}]]</td>
+											<td class="department">[[${vo.department_name}]]</td>
+											<td class="position">[[${vo.user_position}]]</td>
 
 										</tr>
-										<tr class="listInner">
-											<th scope="row">2</th>
-											<td class="name">박철수</td>
-											<td class="department">전략기획팀</td>
-											<td class="position">과장</td>
 
-										</tr>
-										<tr class="listInner">
-											<th scope="row">3</th>
-											<td class="name">조유리</td>
-											<td class="department">전략기획팀</td>
-											<td class="position">대리</td>
-
-										</tr>
-										<tr class="listInner">
-											<th scope="row">4</th>
-											<td class="name">김맹구</td>
-											<td class="department">디자인팀</td>
-											<td class="position">사원</td>
-
-										</tr>
 
 									</tbody>
 								</table>
@@ -289,7 +175,242 @@
 
 </th:block>
 <script>
-	//실시간 검색 구현
+	var chatList = $(".chat-content");
+	var chatScroll = document.querySelector(".chat-content");
+	// 스크롤 위치 기억
+	function rememberScrollPosition() {
+		scrollTop = chatScroll.scrollTop;
+	}
+
+	// 스크롤 위치 이동
+	function restoreScrollPosition() {
+		chatScroll.scrollTop = chatScroll.scrollHeight;
+	}
+	var chatNum = 0;
+
+	function getChat() {
+		$.ajax({
+					url : "../getChat",
+					type : "get",
+					dataType : "json",
+					success : function(response) {
+						// 스크롤 위치 기억
+						rememberScrollPosition();
+						chatList.empty();
+
+						for (var i = 0; i < response.length; i++) {
+							var str = "";
+							chatNum = response[i].chat_num;
+							str += '<div style="display: flex;"><div><img src="/assets/img/profile-img.jpg" width="40px" alt="Profile" class="rounded-circle"></div>';
+							str += '<div style="margin-left: 15px">';
+							str += '<div><span style="font-weight: 1000">'
+									+ response[i].chat_writer
+									+ '</span> <span style="font-size: 10px">'
+									+ response[i].chat_regdate
+									+ '</span></div>';
+							str += '<div class="chatContentWrap"><span class="chatContent">'
+									+ response[i].chat_content
+									+ '</span></div>';
+							str += '</div>';
+							str += '<div class="filter">';
+							str += '<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>';
+							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
+							str += '<h6>추가 작업</h6>';
+							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
+							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
+							str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
+									+response[i].chat_content.replaceAll("<br>","\r\n")
+									+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chat_num+');" style="float:right;margin-top:5px">저장</buton></li>';
+							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chat_num+');" style="color: red">삭제</a></li>';
+							str += '</ul></div></div><hr style="margin:;0 0 1px 0"/>';
+
+							chatList.append(str);
+							// 스크롤 위치 이동
+							restoreScrollPosition();
+						}
+
+					},
+					error : function(err) {
+						console.log("Error");
+					}
+
+				})
+	}
+	$(document).ready(getChat);
+	
+	function addChat() {
+		$.ajax({
+					url : "../getChat",
+					type : "get",
+					dataType : "json",
+					success : function(response) {
+						
+
+
+						for (var i = 0; i < response.length; i++) {
+							if(response[i].chat_num>chatNum){
+							var str = "";
+							chatNum = response[i].chat_num;
+							str += '<div style="display: flex;"><div><img src="/assets/img/profile-img.jpg" width="40px" alt="Profile" class="rounded-circle"></div>';
+							str += '<div style="margin-left: 15px">';
+							str += '<div><span style="font-weight: 1000">'
+									+ response[i].chat_writer
+									+ '</span> <span style="font-size: 10px">'
+									+ response[i].chat_regdate
+									+ '</span></div>';
+							str += '<div class="chatContentWrap"><span class="chatContent">'
+									+ response[i].chat_content
+									+ '</span></div>';
+							str += '</div>';
+							str += '<div class="filter">';
+							str += '<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>';
+							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
+							str += '<h6>추가 작업</h6>';
+							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
+							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
+							str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
+									+response[i].chat_content.replaceAll("<br>","\r\n")
+									+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chat_num+');" style="float:right;margin-top:5px">저장</buton></li>';
+							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chat_num+')" style="color: red">삭제</a></li>';
+							str += '</ul></div></div><hr style="margin:;0 0 1px 0"/>';
+
+							chatList.append(str);
+							// 스크롤 위치 이동
+							restoreScrollPosition();
+							}
+						}
+
+					},
+					error : function(err) {
+						console.log("Error");
+					}
+
+				})
+	}
+	
+	function checkChat(){
+
+		$.ajax({
+			url : "../getChat",
+			type : "get",
+			dataType : "json",
+			success : function(response){
+
+			
+				if(response[response.length-1].chat_num>chatNum){
+					addChat();
+				}
+				
+			}
+			
+		})
+	}
+	
+	setInterval( checkChat , 500);
+
+	//입력 창
+	var chat_content = document.getElementById('floatingTextarea');
+
+	function enterKey(e) {
+
+		console.log(chat_content.value);
+		$.ajax({
+			url : "../setChat",
+			type : "POST",
+			data : {
+				"chat_content" : chat_content.value.replace(/\n/g, "<br>") //줄바꿈 시 db에 줄바꾼것을 인식하기위해
+			},
+			dataType : "JSON",
+			success : function(result) {
+				document.getElementById('floatingTextarea').value = ''; //입력 후 입력창 비워줌
+				console.log(result);
+
+			},
+			error : function(err) {
+				alert("error")
+			}
+
+		})
+
+	}
+
+	function deleteChat(chat_num){
+		console.log(chat_num);
+		$.ajax({
+			url : "../deleteChat",
+			type : "get",
+			data : {"chat_num" : chat_num},
+			success : function(result){
+				alert("삭제 완료");
+				getChat();
+			},
+			error : function(error) {
+				alert("삭제 실패");
+			}
+		})
+		
+	}
+	
+	
+	//수정 textaria 숨겨져있음. 토글 방식으로 나타남
+	function toggleHidden(element) {
+		  const hiddenLi = element.nextElementSibling;
+		  hiddenLi.style.display = hiddenLi.style.display === "block" ? "none" : "block";
+		}
+	
+	const toggleButtons = document.querySelectorAll('.dropdown-toggle');
+
+	  toggleButtons.forEach(button => {
+	    button.addEventListener('click', event => {
+	      event.stopPropagation();
+	      const dropdownMenu = event.target.closest('.dropdown').querySelector('.dropdown-menu');
+	      dropdownMenu.classList.toggle('show');
+	    });
+	  });
+	
+	  
+	// 수정 입력 창
+	 function modifyChat(event, chat_num){
+		
+			var parent = event.target.parentNode;
+		    var modifyContent = parent.querySelector('.modifyTextarea');
+
+		 $.ajax({
+				url : "../modifyChat",
+				type : "get",
+				data : {"chat_num" : chat_num,
+						"modifyContent": modifyContent.value.replace(/\n/g, "<br>") //줄바꿈 시 db에 줄바꾼것을 인식하기위해
+						},
+				dataType : "JSON",
+				success : function(result){
+					alert("수정 완료");
+					getChat();
+				},
+				error : function(error) {
+					alert("수정 실패");
+				}
+			})
+	 }
+	 
+	
+	function copy(event){
+		
+		
+			 var textArea = document.createElement("textarea");
+			var copyText = event.target.parentNode.parentNode.parentNode.parentNode
+						.querySelector(".chatContentWrap").querySelector(".chatContent");
+
+			textArea.value = copyText.innerHTML.replaceAll(/\n/g,'<br>');
+			textArea.value = copyText.innerHTML.replaceAll("<br>","\r\n");
+			document.body.appendChild(textArea);
+			textArea.select();
+			document.execCommand("Copy");
+			textArea.remove(); 
+	}
+		 
+	
+	
+	// 실시간 검색 구현
 	function filter() {
 		var search = document.getElementById("search").value.toLowerCase();
 		var listInner = document.getElementsByClassName("listInner");
