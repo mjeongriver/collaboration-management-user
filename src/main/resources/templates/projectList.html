@@ -211,4 +211,12 @@
 </div>
 </th:block>
 
+<script th:inline="javascript">
+	var msg = JSON.parse('[[${msg}]]');
+	console.log(msg);
+	if(msg != null) {
+		alert(msg);
+	}
+</script>
+
 </html>
