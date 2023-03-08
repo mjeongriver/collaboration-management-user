@@ -1,4 +1,4 @@
-package com.choongang.scheduleproject.service;
+package com.choongang.scheduleproject.project.service;
 
 import com.choongang.scheduleproject.command.ProjectVO;
 
