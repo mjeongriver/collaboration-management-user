@@ -773,6 +773,10 @@ h6 {
   background-color: #4154f1;
 }
 
+.sidenav .sub_menu_toggle > a.sub_menu_select,
+a.sub_menu_select {color: #f1f1f1; background-color: #00acac;}
+
+
 /*--------------------------------------------------------------
 # Dashboard
 --------------------------------------------------------------*/

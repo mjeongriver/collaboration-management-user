@@ -5,14 +5,31 @@
   
     <mapper namespace="com.choongang.scheduleproject.project.service.ProjectMapper">
     
+    <!-- 프로젝트 생성  -->
     <insert id="regist" parameterType="ProjectVO">
-    	insert into USER_PROJECT(pj_name,
+    	 insert into USER_PROJECT(pj_name,
+    							pj_startdate,
+    							pj_enddate,
     							pj_description )
     		values ( #{pj_name},
-    				#{pj_description} )
-    		
+    				#{pj_startdate},
+    				#{pj_enddate},
+    				#{pj_description}
+    				) 
     </insert>
     
+    <!-- 부서 목록 -->
+    <select id="getDepList" resultType="ProjectVO">
+     select department_name, department_id from user_department
+    </select>
+    
+    <!-- 부서별 인원 목록 -->
+     <select id="getDepMemberList" resultType="ProjectVO">
+		select user_name, user_department.department_id, user_id
+		from user_user left join user_department
+		on user_user.department_id = user_department.department_id
+		where user_user.department_id = #{department_id}; 
+	</select>
     
     
     </mapper>
