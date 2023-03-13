@@ -10,6 +10,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 
 @Data
@@ -53,5 +57,6 @@ public class UserVO {
 	private int user_loginfail;
 	private LocalDateTime user_regdate;
 	private String user_img;
+	private String department_name;
 }
 
