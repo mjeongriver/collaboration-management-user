@@ -1,5 +1,6 @@
 package com.choongang.scheduleproject.command;
 
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -9,9 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Data
 @NoArgsConstructor
@@ -55,3 +54,4 @@ public class UserVO {
 	private LocalDateTime user_regdate;
 	private String user_img;
 }
+
