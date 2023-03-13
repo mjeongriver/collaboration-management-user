@@ -38,7 +38,7 @@ public class AdminController {
 	}
 	@GetMapping("/noticeLogin")
 	public String noticeLogin() {
-		return "/admin/adminNoticeLogin";
+		return "http://172.30.1.26:8787"; // 동민이형 서버로 보내야함
 	}
 	
 }
