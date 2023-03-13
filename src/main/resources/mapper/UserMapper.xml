@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.choongang.scheduleproject.user.service.UserMapper">
+    
+    <insert id="register" parameterType="UserVO">
+    	insert into USER_USER(user_id,
+    						  department_id,
+    						  user_role,
+    						  user_email,
+    						  user_name,
+    						  user_pw,
+    						  user_cell,
+    						  user_birth,
+    						  user_active,
+    						  user_position,
+    						  user_employeenumber,
+    						  user_regdate)
+    		values (#{user_id},
+    				#{department_id},
+    				#{user_role},
+    				#{user_email},
+    				#{user_name},
+    				#{user_pw},
+    				#{user_cell},
+    				#{user_birth},
+    				#{user_active},
+    				#{user_position},
+    				#{user_employeenumber},
+    				#{user_regdate})
+    </insert>
+    
+    <select id="checkAllId" resultType="String">
+    	select user_id from user_user where user_id = #{user_id}
+    </select>
+    
+    <select id="checkAllEmail" resultType="String">
+    	select user_email from user_user where user_email = #{user_email}
+    </select>
+    
+    <select id="getAllDepartment" resultType="DepartmentVO">
+    	select department_id, department_name from user_department
+    </select>
+    
+    <select id="login" parameterType="UserVO" resultType="UserVO">
+    	select user_id, department_id, user_role, user_email, user_name, user_pw, user_cell, user_birth, user_active, user_position, user_employeenumber, user_regdate, user_img, user_loginfail
+    	from user_user
+    	where user_id = #{user_id} 
+    </select>
+    
+    <select id="findId" parameterType="UserVO" resultType="UserVO">
+    	select user_id 
+    	from user_user
+    	where user_name = #{user_name} and user_email = #{user_email}
+    </select>
+    
+    <update id="resetPw" parameterType="UserVO">
+    	update user_user
+		set user_pw = #{user_pw}
+		where user_name = #{user_name} and user_id = #{user_id}
+    </update>
+    
+    <select id="kakaoLogin" parameterType="UserVO" resultType="UserVO">
+    	select user_id, department_id, user_role, user_email, user_name, user_pw, user_cell, user_birth, user_position, user_employeenumber
+    	from user_user
+    	where user_email = #{user_email} 
+    </select>
+    
+    <update id="failCount" parameterType="UserVO">
+    	update user_user
+		set user_loginfail = #{user_loginfail}
+		where user_id = #{user_id}
+    </update>
+    
+    <update id="lockAccount" parameterType="UserVO">
+    	update user_user
+    	set user_active = 0
+    	where user_id = #{user_id}
+    </update>
+    
+    <update id="failReset" parameterType="UserVO">
+    	update user_user
+		set user_loginfail = 0
+		where user_id = #{user_id}
+    </update>
+    
+    <insert id="insertLog" parameterType="UserVO">
+    	insert into user_log(user_id,
+    						 log_date)
+    		   values (#{user_id},
+    		   		   #{user_regdate})
+    </insert>
+    
+    <update id="unlockAccount" parameterType="UserVO">
+    	update user_user
+    	set user_active = 1
+    	where user_id = #{user_id}
+    </update>
+    
+    <insert id="sendVerifyCode" parameterType="EmailVO">
+    	insert into email_verify(email,
+    							 code,
+    							 expire_time,
+    							 joinreset)
+    		values (#{email},
+    				#{code},
+    				#{expire_time},
+    				#{joinReset})
+    </insert>
+    
+    <select id="verifyMail" parameterType="EmailVO" resultType="EmailVO">
+    	select email, code, expire_time, joinreset
+    	from email_verify
+    	where email = #{email} and joinreset = #{joinReset}
+    	order by verify_num desc
+    	limit 1;
+    </select>
+    
+    <select id="checkIdAndEmail" parameterType="UserVO" resultType="UserVO">
+    	select user_id, user_email 
+    	from user_user
+    	where user_id = #{user_id} and user_email = #{user_email}
+    </select>
+    
+    </mapper>
