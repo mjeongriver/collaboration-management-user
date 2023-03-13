@@ -5,6 +5,7 @@
   
     <mapper namespace="com.choongang.scheduleproject.project.service.ProjectMapper">
     
+
     <!-- 프로젝트 생성  -->
 <insert id="regist" parameterType="ProjectVO">
     <selectKey keyProperty="pj_num" resultType="int" order="AFTER">
@@ -21,6 +22,7 @@
     INSERT INTO mapping (pj_num, user_id, isObserver, mnum)
     VALUES (#{pj_num}, #{user_id}, #{isObserver}, #{mnum})
 </insert>
+
     
     <!-- 부서 목록 -->
     <select id="getDepList" resultType="ProjectVO">
@@ -34,6 +36,35 @@
 		on user_user.department_id = user_department.department_id
 		where user_user.department_id = #{department_id}; 
 	</select>
+    
+    
+    <select id="getProjectMember" resultType="UserVO">
+		select u.user_name, d.department_name, u.user_position from user_user 
+			as u inner join user_department as d on u.department_id = d.department_id
+       		right join mapping as m on m.user_id = u.user_id
+       		where m.pj_num = #{pj_num};
+    </select>
+    
+    <insert id="setChat" parameterType="ChatVO">
+    	insert into user_chat (pj_num, chat_writer, chat_content, chat_regdate) 
+    			values (#{pj_num},#{chat_writer},#{chat_content},now());
+    	
+    </insert>
+    
+    <select id="getChat" resultType="ChatVO">
+    	select chat_num,chat_writer, chat_content, chat_regdate from user_chat
+				where pj_num =#{pj_num};
+    </select>
+    
+    <delete id="deleteChat" parameterType="int">
+    	delete from user_chat where chat_num=#{chat_num};
+    </delete>
+    
+    <update id="modifyChat" parameterType="map">
+    	update user_chat set chat_content = #{modifyContent} where chat_num=#{chat_num};
+    </update>
+    
+    
     
     
     </mapper>

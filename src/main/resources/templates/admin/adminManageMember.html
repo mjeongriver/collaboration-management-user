@@ -17,57 +17,72 @@
 
 						<div class="card">
 							<div class="card-body">
-								<div style="margin: 20px 0px;height:40px">
-								<!-- 일정관리 검색창 -->
-               					<div class="search-bar" >
-			      					<form class="search-form d-flex align-items-center" method="POST" action="#" style="justify-content:right;" >
-			      				<div style="border:1px solid #E0E5EE; border-radius:15px;">
-			      					<select class="form-select" style="float:left;height:34px;width:220px;margin:10px;border:none">
-										<option>사원번호로 검색</option>
-										<option>아이디로 검색</option>
-										<option>이름으로 검색</option>
-										<option>부서로 검색</option>
-										<option>휴대폰번호로 검색</option>
-										<option>이메일로 검색</option>
-										<option>가입일로 검색</option>
-										<option>활성화/비활성화로 검색</option>
-									</select> 
-			        				<input type="text" name="query" placeholder="Search" title="Enter search keyword" style=" border:none; padding-top:15px; outline:none;">
-			        				<button type="submit" title="Search" style="background-color:transparent; border:none; padding-right:18px"><i class="bi bi-search"></i></button>
-			        			</div>
-			    				</form>
-			    				</div><!-- End Search Bar -->
-			    					<div>검색 결과: 300건
-										<select class="form-select" style="float: right;height:34px;width : 140px; margin-bottom:7px">
+								<div style="margin: 20px 0px; height: 40px">
+								
+									<!-- 일정관리 검색창 -->
+									<div class="search-bar">
+										<form class="search-form d-flex align-items-center"
+											method="POST" action="#" style="justify-content: right;">
+											<div style="border: 1px solid #E0E5EE; border-radius: 15px;">
+												<select class="form-select"
+													style="float: left; height: 34px; width: 220px; margin: 10px; border: none">
+													<option>사원번호로 검색</option>
+													<option>아이디로 검색</option>
+													<option>이름으로 검색</option>
+													<option>부서로 검색</option>
+													<option>휴대폰번호로 검색</option>
+													<option>이메일로 검색</option>
+													<option>가입일로 검색</option>
+													<option>활성화/비활성화로 검색</option>
+												</select> <input type="text" name="query" placeholder="Search"
+													title="Enter search keyword"
+													style="border: none; padding-top: 15px; outline: none;">
+												<button type="submit" title="Search"
+													style="background-color: transparent; border: none; padding-right: 18px">
+													<i class="bi bi-search"></i>
+												</button>
+											</div>
+										</form>
+									</div>
+									<!-- End Search Bar -->
+									
+									<div>
+										검색 결과: 300건 <select class="form-select"
+											style="float: right; height: 34px; width: 140px; margin-bottom: 7px">
 											<option>10개씩 보기</option>
 											<option>20개씩 보기</option>
 											<option>50개씩 보기</option>
 										</select>
-									</div>	
+									</div>
 								</div>
 
 
 								<!-- Bordered Table -->
 								<table class="table table-bordered"
 									style="text-align: center; margin-top: 20px">
-									
-									<thead >
-										<tr >
-											<th scope="col" style="line-height:30px;height:30px">사원번호</th>
-											<th scope="col" style="line-height:30px;height:30px">아이디</th>
-											<th scope="col" style="line-height:30px;height:30px">이름</th>
-											<th scope="col" style="line-height:30px;height:30px">부서</th>
-											<th scope="col" style="line-height:30px;height:30px">휴대폰번호</th>
-											<th scope="col" style="line-height:30px;height:30px">이메일</th>
-											<th scope="col" style="line-height:30px;height:30px">가입일</th>
-											<th scope="col" style="line-height:30px;height:30px">마지막 로그인 기록</th>
-											<th scope="col" style="line-height:30px;height:30px">활성화/비활성화</th>
-											<th scope="col" style="line-height:30px;height:30px">비밀번호 초기화 <input class="form-check-input"
-												type="checkbox" id="gridCheck1" name="pwReset" style="margin-top:8px"
-												onclick="selectAllPwReset(this)"></th>
-											<th scope="col" style="line-height:30px;height:30px">회원 삭제 <input class="form-check-input"
-												type="checkbox" id="gridCheck1" name="memberDelete" style="margin-top:8px"
-												onclick="selectAllMemberDelete(this)"></th>
+
+									<thead>
+										<tr>
+											<th scope="col" style="line-height: 30px; height: 30px">사원번호</th>
+											<th scope="col" style="line-height: 30px; height: 30px">아이디</th>
+											<th scope="col" style="line-height: 30px; height: 30px">이름</th>
+											<th scope="col" style="line-height: 30px; height: 30px">부서</th>
+											<th scope="col" style="line-height: 30px; height: 30px">휴대폰번호</th>
+											<th scope="col" style="line-height: 30px; height: 30px">이메일</th>
+											<th scope="col" style="line-height: 30px; height: 30px">가입일</th>
+											<th scope="col" style="line-height: 30px; height: 30px">마지막
+												로그인 기록</th>
+											<th scope="col" style="line-height: 30px; height: 30px">활성화/비활성화</th>
+											<th scope="col" style="line-height: 30px; height: 30px">비밀번호
+												초기화 <input class="form-check-input" type="checkbox"
+												id="gridCheck1" name="pwReset" style="margin-top: 8px"
+												onclick="selectAllPwReset(this)">
+											</th>
+											<th scope="col" style="line-height: 30px; height: 30px">회원
+												삭제 <input class="form-check-input" type="checkbox"
+												id="gridCheck1" name="memberDelete" style="margin-top: 8px"
+												onclick="selectAllMemberDelete(this)">
+											</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -80,7 +95,8 @@
 											<td>z@naver.com</td>
 											<td>2016-05-25</td>
 											<td>2016-05-25</td>
-											<td><select style="border:1px solid #E0E5EE; border-radius: 5px">
+											<td><select
+												style="border: 1px solid #E0E5EE; border-radius: 5px">
 													<option selected>활성화</option>
 													<option>비활성화</option>
 											</select></td>
@@ -98,7 +114,8 @@
 											<td>ch@naver.com</td>
 											<td>2014-12-05</td>
 											<td>2014-12-05</td>
-											<td><select style="border:1px solid #E0E5EE; border-radius: 5px">
+											<td><select
+												style="border: 1px solid #E0E5EE; border-radius: 5px">
 													<option selected>활성화</option>
 													<option>비활성화</option>
 											</select></td>
@@ -116,7 +133,8 @@
 											<td>yu@nate.com</td>
 											<td>2011-08-12</td>
 											<td>2011-08-12</td>
-											<td><select style="border:1px solid #E0E5EE; border-radius: 5px">
+											<td><select
+												style="border: 1px solid #E0E5EE; border-radius: 5px">
 													<option selected>활성화</option>
 													<option>비활성화</option>
 											</select></td>
@@ -134,7 +152,8 @@
 											<td>m@naver.com</td>
 											<td>2012-06-11</td>
 											<td>2012-06-11</td>
-											<td><select style="border:1px solid #E0E5EE; border-radius: 5px">
+											<td><select
+												style="border: 1px solid #E0E5EE; border-radius: 5px">
 													<option selected>활성화</option>
 													<option>비활성화</option>
 											</select></td>
@@ -152,7 +171,8 @@
 											<td>h@naver.com</td>
 											<td>2011-04-19</td>
 											<td>2011-04-19</td>
-											<td><select style="border:1px solid #E0E5EE; border-radius: 5px">
+											<td><select
+												style="border: 1px solid #E0E5EE; border-radius: 5px">
 													<option selected>활성화</option>
 													<option>비활성화</option>
 											</select></td>
@@ -163,6 +183,7 @@
 										</tr>
 									</tbody>
 								</table>
+								
 								<!-- End Bordered Table -->
 								<button type="button" class="btn btn-primary"
 									style="float: right">완료</button>
@@ -210,5 +231,18 @@
 		    	checkbox.checked = selectAll.checked;
 		  	})
 		}
+		
+		//rest 통신
+		$.ajax({
+			url:"http://localhost:8686/getMember",
+			type:"GET",
+			
+			success:function(result){
+				console.log(result);
+			},
+			error:function(err){
+				console.log(err);
+			}
+		})
 	</script>
 </html>
