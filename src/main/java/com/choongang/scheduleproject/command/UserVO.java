@@ -53,6 +53,5 @@ public class UserVO {
 	private int user_loginfail;
 	private LocalDateTime user_regdate;
 	private String user_img;
-	private String department_name;
 }
 
