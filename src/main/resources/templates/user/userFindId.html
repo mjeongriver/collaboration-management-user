@@ -34,7 +34,7 @@
 										<div>
 											<input type="text" name="user_email" class="form-control"
 												id="user_email" style="float: left; width: 80%" required>
-											<button class="btn btn-primary" id="sendMailBtn"
+											<button type="button" class="btn btn-primary" id="sendMailBtn"
 												style="float: right; width: 18%" onclick="sendMail()">메일
 												발송</button>
 										</div>
@@ -49,7 +49,7 @@
 											<input type="text" name="user_email_verify"
 												class="form-control" id="user_email_verify"
 												style="float: left; width: 80%" required>
-											<button id="user_email_verify_btn" class="btn btn-primary"
+											<button type="button" id="user_email_verify_btn" class="btn btn-primary"
 												style="float: right; width: 18%" onclick="verifyMail()">인증하기</button>
 											<span id="email_verify_succeed" style="display: none">0</span>
 										</div>
@@ -81,7 +81,10 @@
 
 	//인증 코드를 이메일로 보내기
 	function sendMail() {
-
+		var nameCheck = document.getElementById("user_name");
+		var name = RegExp(/^[가-힣]{2,4}$/);
+		var nameWarning = document.getElementById("nameWarning");
+		
 		var emailCheck = document.getElementById("user_email");
 		var email = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 		var emailWarning = document.getElementById("emailWarning");
@@ -89,8 +92,31 @@
 		var email_verify_succeed = document
 				.getElementById("email_verify_succeed"); // 인증 메일을 여러번 발송할 수도 있음. 메일 보내기에 성공하면 무조건 0으로 처리해 유효성 단계를 넘어가지 못하게 할 것
 
+		nameWarning.innerHTML = "";
 		emailWarning.innerHTML = "";
+		
+		//이름 공백 검사
+		if (nameCheck.value == "") {
+			nameWarning.innerHTML = "이름을 입력해주세요.";
+			nameCheck.focus();
+			return false;
+		}
 
+		//이름 2자 이상 확인
+		if (nameCheck.value.length < 2) {
+			nameWarning.innerHTML = "이름을 2자 이상 입력해주세요.";
+			nameCheck.focus();
+			return false;
+		}
+
+		//이름 유효성 검사
+		if (!name.test(nameCheck.value)) {
+			nameWarning.innerHTML = "이름형식에 맞게 입력해주세요.";
+			nameCheck.value = "";
+			nameCheck.focus();
+			return false;
+		}
+		
 		//이메일 공백 확인
 		if (emailCheck.value == "") {
 			emailWarning.innerHTML = "이메일을 입력해주세요";
@@ -112,7 +138,35 @@
 			emailCheck.focus();
 			return false;
 		}
+		
+		//아이디와 이메일이 일치 여부 검사
+		var checkCount = 0;
+		$.ajax({
+			url : "../checkNameAndEmail",
+			type : "get",
+			async : false,
+			data : {
+				"user_name" : nameCheck.value,
+				"user_email" : emailCheck.value,
+			},
+			success : function(result) {
+				if(result === ""){
+					emailWarning.innerHTML = "이름과 이메일이 일치하지 않습니다. 다시 시도해주세요.";
+					checkCount = 1;
+				}
+				
+			},
+			error : function(err) {
+				alert("이메일 전송에 실패했습니다. 담당자에게 문의하세요.");
 
+			}
+			
+		});
+		
+		if(checkCount == 1) {
+			return false;
+		}
+		
 		$.ajax({
 			url : "../sendMail",
 			type : "post",
@@ -219,22 +273,21 @@
 	function findId() {
 
 		var nameCheck = document.getElementById("user_name");
-		var emailCheck = document.getElementById("user_email");
 		var email_verify_succeed = document.getElementById("email_verify_succeed"); // 이메일 인증 여부
 		var verifyInput = document.getElementById("user_email_verify");
 		var verifyBtn = document.getElementById("user_email_verify_btn");
 		
 		
 		var name = RegExp(/^[가-힣]{2,4}$/);
-		var email = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 
 		var nameWarning = document.getElementById("nameWarning");
-		var emailWarning = document.getElementById("emailWarning");
 
 		var findIdForm = document.getElementById("findIdForm");
+		
+		var sendMailBtn = document.getElementById("sendMailBtn");
+
 
 		nameWarning.innerHTML = "";
-		emailWarning.innerHTML = "";
 
 		//이름 공백 검사
 		if (nameCheck.value == "") {
@@ -257,34 +310,13 @@
 			nameCheck.focus();
 			return false;
 		}
-
-		//이메일 공백 확인
-		if (emailCheck.value == "") {
-			emailWarning.innerHTML = "이메일을 입력해주세요";
-			emailCheck.focus();
-			return false;
-		}
-
-		// 이메일 2자 이상 확인
-		// if(emailCheck.value.length < 2){
-		//     alert("이메일을 다시 확인해주세요")
-		//     nameCheck.focus();
-		//     return false;
-		// }
-
-		//이메일 유효성 검사
-		if (!email.test(emailCheck.value)) {
-			emailWarning.innerHTML = "이메일형식에 맞게 입력해주세요";
-			emailCheck.value = "";
-			emailCheck.focus();
-			return false;
-		}
 		
 		//이메일 인증 여부 검사
 		if (email_verify_succeed.innerHTML === "0") {
 			emailWarning.innerHTML = "이메일 인증을 진행해주세요.";
 			verifyInput.disabled = true;
 			verifyBtn.disabled = true;
+			sendMailBtn.disabled = false;
 			emailCheck.focus();
 			return false;
 		}

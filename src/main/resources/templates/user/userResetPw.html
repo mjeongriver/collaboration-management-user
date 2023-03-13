@@ -35,7 +35,7 @@
 										<div>
 											<input type="text" name="user_email" class="form-control"
 												id="user_email" style="float: left; width: 80%" required>
-											<button class="btn btn-primary" id="sendMailBtn"
+											<button type="button" class="btn btn-primary" id="sendMailBtn"
 												style="float: right; width: 18%" onclick="sendMail()">메일
 												발송</button>
 										</div>
@@ -50,7 +50,7 @@
 											<input type="text" name="user_email_verify"
 												class="form-control" id="user_email_verify"
 												style="float: left; width: 80%" required>
-											<button id="user_email_verify_btn" class="btn btn-primary"
+											<button type="button" id="user_email_verify_btn" class="btn btn-primary"
 												style="float: right; width: 18%" onclick="verifyMail()">인증하기</button>
 											<span id="email_verify_succeed" style="display: none">0</span>
 										</div>
@@ -164,7 +164,6 @@
 				"user_email" : emailCheck.value,
 			},
 			success : function(result) {
-				console.log(result);
 				if(result === ""){
 					emailWarning.innerHTML = "아이디와 이메일이 일치하지 않습니다. 다시 시도해주세요.";
 					checkCount = 1;
@@ -177,7 +176,7 @@
 			}
 			
 		});
-
+		
 		if(checkCount == 1) {
 			return false;
 		}
@@ -299,6 +298,8 @@
 	
 		var resetPwForm = document.getElementById("resetPwForm");
 		
+		var sendMailBtn = document.getElementById("sendMailBtn");
+		
 		idWarning.innerHTML = "";
 	
 		//아이디 공백 확인
@@ -329,6 +330,7 @@
 			emailWarning.innerHTML = "이메일 인증을 진행해주세요.";
 			verifyInput.disabled = true;
 			verifyBtn.disabled = true;
+			sendMailBtn.disabled = false;
 			emailCheck.focus();
 			return false;
 		}

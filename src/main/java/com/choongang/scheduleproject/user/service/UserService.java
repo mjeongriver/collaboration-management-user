@@ -22,4 +22,5 @@ public interface UserService {
 	public void insertLog(UserVO vo); // 로그인 성공 시 로그에 기록하기
 	public EmailVO verifyMail(EmailVO vo); // 이메일과 인증코드로 인증하기
 	public UserVO checkIdAndEmail(UserVO vo); // 아이디와 이메일 일치여부 확인하기
+	public UserVO checkNameAndEmail(UserVO vo); // 이름과 이메일 일치여부 확인하기
 }
