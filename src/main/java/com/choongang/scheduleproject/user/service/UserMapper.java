@@ -26,4 +26,5 @@ public interface UserMapper {
 	public int sendVerifyCode(EmailVO vo); // 이메일인증요청을 보내면 만료시간과 인증코드를 DB에 저장 / EmailMapper를 따로 만들어야 하나요?
 	public EmailVO verifyMail(EmailVO vo); // 이메일과 인증코드로 인증하기
 	public UserVO checkIdAndEmail(UserVO vo); // 아이디와 이메일 일치여부 확인하기
+	public UserVO checkNameAndEmail(UserVO vo); // 이름과 이메일 일치여부 확인하기
 }

@@ -59,7 +59,7 @@
     <update id="resetPw" parameterType="UserVO">
     	update user_user
 		set user_pw = #{user_pw}
-		where user_name = #{user_name} and user_id = #{user_id}
+		where user_id = #{user_id}
     </update>
     
     <select id="kakaoLogin" parameterType="UserVO" resultType="UserVO">
@@ -122,6 +122,12 @@
     	select user_id, user_email 
     	from user_user
     	where user_id = #{user_id} and user_email = #{user_email}
+    </select>
+    
+    <select id="checkNameAndEmail" parameterType="UserVO" resultType="UserVO">
+    	select user_name, user_email 
+    	from user_user
+    	where user_name = #{user_name} and user_email = #{user_email}
     </select>
     
     </mapper>

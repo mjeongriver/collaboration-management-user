@@ -91,5 +91,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.checkIdAndEmail(vo);
 	}
 
+	@Override
+	public UserVO checkNameAndEmail(UserVO vo) {
+		return userMapper.checkNameAndEmail(vo);
+	}
+
 
 }

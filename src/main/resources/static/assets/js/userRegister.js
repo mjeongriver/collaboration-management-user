@@ -252,7 +252,8 @@ $(document).ready(function() {
 		var email_verify_succeed = document.getElementById("email_verify_succeed"); // 이메일 인증 여부
 		var verifyInput = document.getElementById("user_email_verify");
 		var verifyBtn = document.getElementById("user_email_verify_btn");
-	
+		var sendMailBtn = document.getElementById("sendMailBtn");
+		
 		var name = RegExp(/^[가-힣]{2,4}$/);
 		var email = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 		var birthday = RegExp(/^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/);
@@ -457,6 +458,7 @@ $(document).ready(function() {
 			emailWarning.innerHTML = "이메일 인증을 진행해주세요.";
 			verifyInput.disabled = true;
 			verifyBtn.disabled = true;
+			sendMailBtn.disabled = false;
 			emailCheck.focus();
 			return false;
 		}

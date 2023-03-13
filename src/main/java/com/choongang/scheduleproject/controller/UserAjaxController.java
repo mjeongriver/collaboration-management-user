@@ -75,4 +75,15 @@ public class UserAjaxController {
 		
 	}
 	
+	// 이름 이메일 일치 여부
+	@GetMapping("checkNameAndEmail")
+	public UserVO checkNameAndEmail(@RequestParam("user_name") String user_name, @RequestParam("user_email") String user_email) {
+		UserVO vo = new UserVO();
+		vo.setUser_name(user_name);
+		vo.setUser_email(user_email);
+		
+		return userService.checkNameAndEmail(vo);
+		
+	}
+	
 }
