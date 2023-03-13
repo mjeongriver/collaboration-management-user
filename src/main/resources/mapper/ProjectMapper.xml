@@ -6,17 +6,21 @@
     <mapper namespace="com.choongang.scheduleproject.project.service.ProjectMapper">
     
     <!-- 프로젝트 생성  -->
-    <insert id="regist" parameterType="ProjectVO">
-    	 insert into USER_PROJECT(pj_name,
-    							pj_startdate,
-    							pj_enddate,
-    							pj_description )
-    		values ( #{pj_name},
-    				#{pj_startdate},
-    				#{pj_enddate},
-    				#{pj_description}
-    				) 
-    </insert>
+<insert id="regist" parameterType="ProjectVO">
+    <selectKey keyProperty="pj_num" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+    INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate, pj_description)
+    VALUES (#{pj_name}, #{pj_startdate}, #{pj_enddate}, #{pj_description})
+</insert>
+
+<insert id="registMember" parameterType="ProjectMemberVO">
+    <selectKey keyProperty="mnum" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    INSERT INTO mapping (pj_num, user_id, isObserver, mnum)
+    VALUES (#{pj_num}, #{user_id}, #{isObserver}, #{mnum})
+</insert>
     
     <!-- 부서 목록 -->
     <select id="getDepList" resultType="ProjectVO">

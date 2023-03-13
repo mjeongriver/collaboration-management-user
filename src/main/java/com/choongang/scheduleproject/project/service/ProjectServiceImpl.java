@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 
 @Service("projectService")
@@ -17,6 +18,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public int regist(ProjectVO vo) {
 		return projectMapper.regist(vo);
 	}
+	
+	@Override
+	public int registMember(ProjectMemberVO pvo) {
+		return projectMapper.registMember(pvo);
+	}
+
 
 	@Override
 	public List<ProjectVO> getDepList() {
