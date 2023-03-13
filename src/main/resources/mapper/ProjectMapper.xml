@@ -5,13 +5,37 @@
   
     <mapper namespace="com.choongang.scheduleproject.project.service.ProjectMapper">
     
-    <insert id="regist" parameterType="ProjectVO">
-    	insert into USER_PROJECT(pj_name,
-    							pj_description )
-    		values ( #{pj_name},
-    		 		#{pj_description} )
-    </insert>
+
+    <!-- 프로젝트 생성  -->
+<insert id="regist" parameterType="ProjectVO">
+    <selectKey keyProperty="pj_num" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+    INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate, pj_description)
+    VALUES (#{pj_name}, #{pj_startdate}, #{pj_enddate}, #{pj_description})
+</insert>
+
+<insert id="registMember" parameterType="ProjectMemberVO">
+    <selectKey keyProperty="mnum" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID() AS id
+    </selectKey>
+    INSERT INTO mapping (pj_num, user_id, isObserver, mnum)
+    VALUES (#{pj_num}, #{user_id}, #{isObserver}, #{mnum})
+</insert>
+
     
+    <!-- 부서 목록 -->
+    <select id="getDepList" resultType="ProjectVO">
+     select department_name, department_id from user_department
+    </select>
+    
+    <!-- 부서별 인원 목록 -->
+     <select id="getDepMemberList" resultType="ProjectVO">
+		select user_name, user_department.department_id, user_id
+		from user_user left join user_department
+		on user_user.department_id = user_department.department_id
+		where user_user.department_id = #{department_id}; 
+	</select>
     
     
     <select id="getProjectMember" resultType="UserVO">

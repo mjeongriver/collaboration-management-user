@@ -67,6 +67,7 @@ public class ProjectController {
 		String msg = result == 1 ? "정상 입력 되었습니다." : "등록에 실패하였습니다";
 		ra.addFlashAttribute("msg", msg);
 		System.out.println(result);
+		System.out.println(vo.getPj_name());
 		System.out.println(vo.toString());
 		return "redirect:/project/projectStarted"; 
 	}

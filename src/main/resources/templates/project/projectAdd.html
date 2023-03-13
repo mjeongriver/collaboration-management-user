@@ -1,167 +1,437 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css" href="/assets/css/modal.css" />
 
+</script>
 <th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
 
 
-    <div class="wrap">
-        <main id="main" class="main">
-			<form name="projectForm" action="registForm" method="post">
+   <div class="wrap">
+      <main id="main" class="main">
             <div class="pagetitle">
-                <h1>프로젝트 생성</h1>
-                <nav>
-                    <ol class="breadcrumb">
-
-                    </ol>
-                </nav>
+               <h1>프로젝트 생성</h1>
             </div>
-
-
+            <form action="/project/registForm" method="post" onsubmit="return false">
+            <!--<form action="/project/projectStarted">-->
             <section class="section">
-                <div class="row" style="justify-content: center">
-                    <div class="col-lg-7">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 style="text-align: center; font-size: 18px; font-weight: 500; padding-top: 20px">프로젝트 생성</h5>
-                                <hr />
-                                <!-- <form action="/project/projectStarted"> -->
-                                    <div>
-                                        <input class="form-control" type="text" name="pj_name" placeholder="프로젝트 제목을 입력하세요." required><br> 
-                                        <input class="form-control" type="text" name="pj_description" placeholder="프로젝트에 관한 설명을 입력하세요." style="height: 200px" required><br>
+               <div class="row" style="justify-content: center">
+                  <div class="col-lg-7">
+                     <div class="card">
+                        <div class="card-body">
+                           <h5 style="text-align: center; font-size: 18px; font-weight: 500; padding-top: 20px">프로젝트 생성</h5>
+                           <hr>
+                              <div>
+                                 <span>프로젝트 명</span> <input class="form-control" type="text" name="pj_name" placeholder="프로젝트 제목을 입력하세요." required><br>
+                                 <div style="padding-bottom: 50px">
+                                    <div style="float: left; width: 50%">
+                                       <span>프로젝트 시작일</span> <input type="date" class="form-control" name="pj_startdate" required>
                                     </div>
-                                    <div>
-                                        <!-- 팀원 목록 -->
-                                        <div style="float: left; width: 49%;">
-                                            <div class="form-control" type="text" style="height: 200px; overflow: auto;" readonly>
-                                                <p name="pj_member"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_member"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_member"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_member"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_member"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_member"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                
-                                            </div>
-                                            <div style="padding-top: 10px">
-                                                <button class="modalOn btn btn-primary w-20">팀원 초대</button>
-                                            </div>
-                                        </div>
+                                    <div style="float: right; width: 50%">
+                                       <span>프로젝트 종료일</span> <input type="date" class="form-control" name="pj_enddate" required>
+                                    </div>
+                              </div>
 
-                                        <!-- 옵저버 목록 -->
-                                        <div style="float: right; width: 49%">
-                                            <div class="form-control" type="text" style="height: 200px; overflow: auto;" readonly>
-                                                <p name="pj_observermember"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_observermember"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_observermember"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_observermember"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_observermember"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                                <p name="pj_observermember"> <i style="color: red" class="bi bi-dash-circle red"></i> 강민정</p>
-                                              
-                                            </div>
-                                            <div style="padding-top: 10px"></div>
-                                            <button class="modalOn btn btn-primary w-20" style="float: left;">옵저버 초대</button>
-                                        </div>
+                              <div style="padding-top: 40px">
+                                    <span>프로젝트 상세 설명</span>
+                                    <textarea class="form-control" type="text" name="pj_description" placeholder="프로젝트에 관한 설명을 입력하세요." style="height: 200px;" required></textarea>
+                                    
+                                    <div style="padding-top: 40px">
+                                    <button class="modalOn btn btn-primary w-20">팀원 및 옵저버 초대</button>
                                     </div>
 
-                                    <div align="center">
-                                        <button class="btn btn-primary w-20" type="submit" style="margin-top:30px;">프로젝트 생성</button>
+                                    <div>
+                                       <!-- 팀원 목록 -->
+                                       <div style="float: left; width: 49%; padding-top: 10px">
+                                          <span>팀원 목록</span>
+                                          <div name=finalMember class="form-control" type="text" style="height: 200px; overflow: auto;" readonly>
+                                          </div>
+                                       </div>
+
+                                       <!-- 옵저버 목록 -->
+                                       <div style="float: right; width: 49%; padding-top: 10px">
+                                          <span>옵저버 목록</span>
+                                          <div name=finalObserverMember class="form-control" type="text" style="height: 200px; overflow: auto;" readonly></div>   
+                                        </div>
+
+                                       <div align="center">
+                                       <button class="btn btn-primary w-20" type="button" style="margin-top: 30px;" onclick="createProject()">프로젝트 생성</button>
+                                       </div>
                                     </div>
-                              <!--  </form>  -->
-                            </div>
+
+                              </div>
+                           </div>
                         </div>
-                    </div>
-                </div>
             </section>
+         </form>
 
-            <!-- 모달창 -->
-            <div id="basicModal" class="modal-overlay">
-                <div class="modal-content">
-                    <p class="title" style="padding-top: 20px"></p>
+         <!-- 모달창 -->
+         <div id="basicModal" class="modal-overlay">
+            <div class="modal-content">
+               <p class="title" style="padding-top: 20px"></p>
 
-                    <div class="content">
-                        <div class="sub-form">
+               <div class="content">
+                  <div class="sub-form">
 
-                            <div>
-                                <div style="float: left; width: 49%;">
-                                    <p>전체 목록</p>
-                                    <div class="categoryListWrap">
-                                        <div class="form-control" type="text" style="height: 400px; overflow: auto;">
-                                            <ul class="categoryList" style="position: relative;" onclick="getCategory_List(event);">
-                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "A" }'>기획부</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "B" }'>영업부</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>개발부</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>총무부</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>인사부</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>회계부</a></li>
+                     <div>
+                        <div style="float: left; width: 49%;">
+                           <p>전체 목록</p>
+                           <div class="form-control" type="text" style="height: 400px; overflow: auto;" required>
+                              <div style="display: flex;">
+                                 <div class="depListWrap"></div>
+                                 <div class="depMemberListWrap"></div>
+                              </div>
+                           </div>
 
-                                            </ul>
-                                            <ul class="categoryList" style="position: relative;" onclick="getCategory_List(event);">
-                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>강민정</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>이동민</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>이승완</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>이세민</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>권도은</a></li>
-                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>이서윤</a></li>
-                                            </ul>
-                                        </div>
-                                        <div style="padding-top: 10px">
-                                            <button class="modalOn btn btn-primary w-20">추가</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <div style="float: right; width: 49%">
-                                    <p style="float:left">추가 목록</p>
-                                    <p style="float:right">일괄 삭제 
-                                    <input type=checkbox name="memberDelete" style="padding: 10px" onclick="selectAllMemberDelete(this)"></p>
-                                    <div class="form-control" type="text" style="height: 400px; overflow: auto;" readonly>
-                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
-                                        <p><input type=checkbox style="padding: 10px" name="memberDelete"> 강민정</p>
-                                    </div>
-                                    <div style="padding-top: 10px"></div>
-                                    <button class="modalOn btn btn-primary w-20" style="float: left;">삭제</button>
-                                </div>
-
-                            </div>
-
+                           <div style="padding-top: 10px">
+                              <button type="button" class="btn btn-primary w-20" onclick="teamPlus(event)">추가</button>
+                           </div>
                         </div>
-                    </div>
 
-                            <div align="center">
-                                <button class="modalOff btn btn-primary w-20" style="margin-top: 30px">완료</button>
-                            </div>
-                </div>
+                        <div style="float: right; width: 49%" required>
+                           <p style="float: left">추가 목록</p>
+                           <p style="float: right" class="allMember">
+                              일괄 삭제 <input type=checkbox name="memberDelete" style="padding: 10px" onclick="selectAllMember(this)">
+                           </p>
+                           <div id=teamName class="form-control" type="text" style="height: 400px; overflow: auto;" readonly></div>
+                           <div style="padding-top: 10px"></div>
+                           <button type="button" onclick="memberDelete2()" class="btn btn-primary w-20" style="float: left;">삭제</button>
+                        </div>
+                     </div>
 
+                  </div>
+               </div>
 
+               <div align="center">
+                  <button type="button" onclick="memberSuccess()" class="modalOff btn btn-primary w-20" style="margin-top: 30px">완료</button>
+               </div>
             </div>
-		</form>
-        </main>
+         </div>
 
-    </div>
+      </main>
+
+   </div>
 
 </th:block>
+
 <script src="/assets/js/modal.js"></script>
-<script>
-    $(".modalOn").click(function(e) {
-        $("#basicModal").children().find(".title").html(e.target.innerHTML);
+<script th:inline="javascript">
+//모달에서 일괄 삭제 전체 선택 기능
+$(".modalOn").click(function(e) {
+    $("#basicModal").children().find(".title").html(e.target.innerHTML);
+});
+
+function selectAllMember(selectAll) {
+    const checkboxes = document.getElementsByName('memberDelete');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked;
+    })
+}
+
+//ajax로 부서 출력
+$(document).ready(function() {
+    $.ajax({
+        url: "../getDepList",
+        type: "get",
+        success: function(result) {
+            var str = "";
+            str += '<ul class="depList" style="position: relative; list-style: none;" onclick="getDepList(event);">';
+            result.forEach(function(item, index) {
+                str += '<li class="depList" style="cursor: pointer; padding-bottom: 10px; padding-top: 5px;" value=' + JSON.stringify(item.department_id) + '>' + item.department_name + '</li>';
+            })
+            str += '</ul>';
+
+            $(".depListWrap").append(str); //자식으로 추가
+        },
+        error: function(err) {
+            alert("카테고리 조회에 실패했습니다. 담당자에게 문의하세요.");
+        }
     });
+});
+
+//ajax로 부서 클릭 시 부서에 있는 팀원 목록 출력
+function getDepList(e) {
+    $.ajax({
+        url: "../getDepMemberList",
+        type: "get",
+        data: {
+            department_id: e.target.value
+        },
+        success: function(result) {
+            var str = "";
+            str += '<ul class="depMemberList" style="position: relative; list-style: none;">';
+            result.forEach(function(item, index) {
+                str += `<li class="depMemberList2" onclick="seleted(event)" data-value="${item.user_id}" style="padding-bottom: 10px; padding-top: 5px; cursor: pointer"` + `>` +
+                    item.user_name +
+                    '</li>';
+            })
+            str += '</ul>';
+
+            // 기존 자식 요소들을 모두 제거하고, 새로운 요소들을 추가함
+            $(".depMemberListWrap").empty().append(str);
+
+            // 새로 추가한 요소들에 대해 .category_remove() 함수 호출
+            $('.depMemberList2').category_remove();
+        },
+        error: function(err) {
+            alert("카테고리 조회에 실패했습니다. 담당자에게 문의하세요.");
+        }
+    });
+
+    $('.depMemberList2').category_remove();
+}
+
+//다른 부서 눌렀을 때 이전 팀원 목록 삭제
+$.fn.category_remove = function() {
+    // 현재 요소 내부에서 .depMemberListWrap 요소만 선택하여 내용을 지움
+    this.find('.depMemberListWrap').empty();
+}
+
+
+//이름을 선택 하고 추가를 누를 때 추가 목록에 이름이 들어가고 동일한 사람 추가 방지
+var teamPlus = function(e) {
+    const teamList = document.querySelectorAll('.selected');
+    const allMember = document.querySelector('.allMember').children;
+
+    //전체 목록 div
+    const teamNameDiv = document.getElementById('teamName');
+    Array.from(allMember).forEach(function(element) {
+        element.checked = false;
+    });
+
+    teamList.forEach(function(element, index) {
+        const name = teamList[index].innerHTML;
+        const name2 = teamList[index].dataset.value;
+        const value = teamList[index].getAttribute('value');
+        const existingMembers = teamNameDiv.querySelectorAll('[name="member"]');
+        const isMemberExist = Array.from(existingMembers).some(function(member) {
+            return member.getAttribute('value') === name2;
+        });
+
+        //없는 이름이라면 추가해준다
+        if (!isMemberExist) {
+            const newListItem = document.createElement('div');
+            newListItem.setAttribute('name', 'member');
+            newListItem.setAttribute('data-name', name);
+            newListItem.appendChild(document.createTextNode(name));
+            newListItem.setAttribute('value', name2);
+
+            // select 박스
+            const selectBox = document.createElement('select');
+            selectBox.setAttribute('name', 'memberType');
+            selectBox.style.margin = '0px 20px 10px 10px';
+
+            // 옵션
+            const teamOption = document.createElement('option');
+            teamOption.selected = true;
+            teamOption.text = '팀원';
+            teamOption.value = '0';
+            selectBox.add(teamOption);
+
+            const observerOption = document.createElement('option');
+            observerOption.text = '옵저버';
+            observerOption.value = '1';
+            selectBox.add(observerOption);
+
+            newListItem.appendChild(selectBox);
+
+            // input의 속성 지정
+            const newInput = document.createElement('input');
+            newInput.setAttribute('type', 'checkbox');
+            newInput.setAttribute('name', 'memberDelete');
+            newInput.style.margin = '0px 10px 20px 0px';
+            newListItem.insertBefore(newInput, newListItem.firstChild);
+
+            teamNameDiv.appendChild(newListItem);
+        }
+        //추가가 되면 기존에 선택했던 팀원들 색 지워줌
+        element.classList.remove('selected');
+        element.style.color = '';
+        element.style.backgroundColor = 'white';
+    });
+
+};
+
+
+//선택 했을 때 색상 변경 
+var seleted = function(e) {
+    e.target.classList.toggle('selected');
+    e.target.style.backgroundColor = e.target.classList.contains('selected') ? '#00acac' : 'white';
+    e.target.style.color = e.target.classList.contains('selected') ? 'white' : '';
+    e.target.style.cursor = "pointer";
+}
+
+//삭제 버튼 누를 때 안에 있는 태그 삭제
+function memberDelete2() {
+    // teamName 요소 선택하기
+    const teamNameElement = document.querySelectorAll('[name="member"]');
+    var i = 0;
+    teamNameElement.forEach(function(element) {
+        if (teamNameElement[i].children[0].checked) {
+            teamNameElement[i].remove();
+        }
+        i++;
+    });
+}
+
+//모달창에서 완료 누르면 태그에 있는 이름 값 생성 창으로 넘기기
+function memberSuccess() {
+  finalMember = document.querySelectorAll('[name="member"]');
+  finalMemberName = document.querySelector('[name="finalMember"]');
+  finalObserverMemberName = document.querySelector('[name="finalObserverMember"]');
+
+  const members = [];
+  const observers = [];
+
+  finalMember.forEach(function(member) {
+    const select = member.querySelector('select');
+    const memberType = select.options[select.selectedIndex].value;
+    console.log(memberType);
+
+    if (memberType === '0') {
+      const name = member.getAttribute('data-name');
+      members.push(name);
+    } else if (memberType === '1') {
+      const name = member.getAttribute('data-name');
+      observers.push(name);
+    }
+  });
+
+  if (members.length > 0) {
+    const list = document.createElement('div');
+    members.forEach(function(name, index) {
+      const listItem = document.createElement('p');
+      const dashIcon = document.createElement('i');
+      const value = finalMember[index].getAttribute('value');
+      dashIcon.setAttribute('style', 'color: red; margin-right: 10px;');
+      dashIcon.setAttribute('class', 'bi bi-dash-circle red');
+      listItem.setAttribute('value', value);
+      listItem.appendChild(dashIcon);
+      listItem.appendChild(document.createTextNode(name));
+      list.appendChild(listItem);
+    });
+
+    finalMemberName.innerHTML = ''; // 기존 내용 초기화
+    finalMemberName.appendChild(list); // 새로운 목록 추가
+  } else {
+    finalMemberName.textContent = '선택된 팀원이 없습니다.';
+  }
+
+  if (observers.length > 0) {
+    const list = document.createElement('div');
+    observers.forEach(function(observer) {
+      const listItem = document.createElement('p');
+      const dashIcon = document.createElement('i');
+      dashIcon.setAttribute('style', 'color: red; margin-right: 10px;');
+      dashIcon.setAttribute('class', 'bi bi-dash-circle red');
+      listItem.setAttribute('value', observer); // data-value 속성 설정
+      listItem.appendChild(dashIcon);
+      listItem.appendChild(document.createTextNode(observer));
+      list.appendChild(listItem);
+    });
+
+    finalObserverMemberName.innerHTML = ''; // 기존 내용 초기화
+    finalObserverMemberName.appendChild(list); // 새로운 목록 추가
+  } else {
+    finalObserverMemberName.textContent = '선택된 옵저버가 없습니다.';
+  }
+}
+
+function createProjectMember(){
+   
+   const pj_userid = [];
+   const pj_observerid = [];
+   
+   //팀원 user_id 가져오기
+  $('div[name=finalMember] p').each(function (index, item) {
+      alert("i " + index);
+      alert("ite " + $(this).attr('value'));
+      pj_userid.push($(this).attr('value'));
+   });
+   
+   //옵저버 user_id 가져오기
+     $('div[name=finalObserverMember] p').each(function (index, item) {
+      alert("i " + index);
+      alert("ite " + $(this).attr('value'));
+      pj_observerid.push($(this).attr('value'));
+   });
+   
+   
+    var objParams = { 
+        "pj_userid" : pj_userid,
+  		"pj_observerid" : pj_observerid,
+  		"is_observer" : is_observer
+    };
     
- 
-	//팀원 삭제 전체선택
-		function selectAllMemberDelete(selectAll){
-			const checkboxes = document.getElementsByName('memberDelete');
-			  
-		 	checkboxes.forEach((checkbox) => {
-		    	checkbox.checked = selectAll.checked;
-		  	})
-		}
+    console.log(objParams);
+   
+    $.ajax({
+        url: "../regProjectMember",
+        type: "post",
+        contentType:"application/json",
+        data: JSON.stringify(objParams),
+        success: function(result) {
+           alert("등록에 성공 하였습니다.");
+        },
+        error: function(err) {
+            alert("등록에 실패 하였습니다.");
+            console.log(err);
+        }
+    });   
+   
+    
+}
+
+function createProject(){
+   
+   var pj_name = $("input[name=pj_name]").val();
+   var pj_startdate = $("input[name=pj_startdate]").val();
+   var pj_enddate = $("input[name=pj_enddate]").val();
+   var pj_description = $("textarea[name=pj_description]").val();
+   
+   const pj_userid = [];
+   const pj_observerid = [];
+   
+   //팀원 user_id 가져오기
+   $('div[name=finalMember] p').each(function (index, item) {
+      alert("i " + index);
+      alert("ite " + $(this).attr('value'));
+      pj_userid.push($(this).attr('value'));
+   });$
+   
+   //옵저버 user_id 가져오기
+     $('div[name=finalObserverMember] p').each(function (index, item) {
+      alert("i " + index);
+      alert("ite " + $(this).attr('value'));
+      pj_observerid.push($(this).attr('value'));
+   });$
+   
+   
+    var objParams = {
+        "pj_name"      : pj_name, 
+        "pj_startdate" : pj_startdate,        
+        "pj_enddate" : pj_enddate, 
+        "pj_description" : pj_description, 
+        "pj_userid" : JSON.stringify(pj_userid),
+        "pj_observerid" : JSON.stringify(pj_observerid),
+    };
+   
+    $.ajax({
+        url: "../regProject",
+        type: "post",
+        data: objParams,
+        success: function(result) {
+           alert("등록에 성공 하였습니다.");
+    	   createProjectMember();
+        },
+        error: function(err) {
+            alert("등록에 실패 하였습니다.");
+        }
+    });   
+   
+}
+
+
+
 </script>
-
-
 
 </html>
