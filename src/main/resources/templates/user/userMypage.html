@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+<th:block th:replace="~{./include/basicLayout2 :: 함수( ~{:: .wrap } ) }">
 
 <div class="wrap">
 
@@ -21,10 +21,10 @@
 
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-              <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <h2>나루토</h2>
-              <h3>기획팀 대리</h3>
+			  <img th:if="${vo.user_img} == null " src="/assets/img/defaultImg.jpeg" alt="Profile" class="rounded-circle">
+              <img th:unless="${vo.user_img} == null " src="${vo.user_img}" alt="Profile" class="rounded-circle">
+              <h2>[[${vo.user_name}]]</h2>
+              <h3>[[${vo.department_name}]] [[${vo.user_position}]]</h3>
             </div>
           </div>
 
@@ -59,37 +59,42 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">이름</div>
-                    <div class="col-lg-9 col-md-8">나루토</div>
+                    <div class="col-lg-9 col-md-8">[[${vo.user_name}]]</div>
                   </div>
                   
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">아이디</div>
-                    <div class="col-lg-9 col-md-8">naru9</div>
+                    <div class="col-lg-9 col-md-8">[[${vo.user_id}]]</div>
                   </div>            
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">부서</div>
-                    <div class="col-lg-9 col-md-8">기획팀</div>
+                    <div class="col-lg-9 col-md-8">[[${vo.department_name}]]</div>
                   </div>
                   
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">직급</div>
-                    <div class="col-lg-9 col-md-8">대리</div>
+                    <div class="col-lg-9 col-md-8">[[${vo.user_position}]]</div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">사원번호</div>
+                    <div class="col-lg-9 col-md-8">[[${vo.user_employeenumber}]]</div>
                   </div>
                   
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">생년월일</div>
-                    <div class="col-lg-9 col-md-8">1998-11-11</div>
+                    <div class="col-lg-9 col-md-8">[[${vo.user_birth}]]</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">휴대폰 번호</div>
-                    <div class="col-lg-9 col-md-8">010-1111-1111</div>
+                    <div class="col-lg-9 col-md-8">[[${vo.user_cell}]]</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">이메일</div>
-                    <div class="col-lg-9 col-md-8">naruto@naver.com</div>
+                    <div class="col-lg-9 col-md-8">[[${vo.user_email}]]</div>
                   </div>
 
                 </div>
@@ -97,11 +102,12 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form>
+                  <form action="/user/ChangeInfo" method="post" id="changeInfoForm">
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">프로필 사진</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="/assets/img/profile-img.jpg" alt="Profile">
+                        <img th:if="${vo.user_img} == null " src="/assets/img/defaultImg.jpeg" alt="Profile">
+                        <img th:unless="${vo.user_img} == null " src="${vo.user_img}" alt="Profile">
                         <div class="pt-2">
                           <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
                           <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
@@ -112,55 +118,62 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">이름</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="나루토" readonly="readonly">
+                        <input name="fullName" type="text" class="form-control" id="fullName" th:value="${vo.user_name}" readonly="readonly">
                       </div>
                     </div>
                     
                     <div class="row mb-3">
                       <label for="user_id" class="col-md-4 col-lg-3 col-form-label">아이디</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="user_id" type="text" class="form-control" id="user_id" value="naru9" readonly="readonly">
+                        <input name="user_id" type="text" class="form-control" id="user_id" th:value="${vo.user_id}" readonly="readonly">
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="company" class="col-md-4 col-lg-3 col-form-label">부서</label>
+                      <label for="department" class="col-md-4 col-lg-3 col-form-label">부서</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="company" type="text" class="form-control" id="department" value="기획팀" readonly="readonly">
+                        <input name="department" type="text" class="form-control" id="department" th:value="${vo.department_name}" readonly="readonly">
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">직급</label>
+                      <label for="position" class="col-md-4 col-lg-3 col-form-label">직급</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="position" value="대리" readonly="readonly">
+                        <input name="position" type="text" class="form-control" id="position" th:value="${vo.user_position}" readonly="readonly">
                       </div>
                     </div>
                     
                     <div class="row mb-3">
-                      <label for="birth_date" class="col-md-4 col-lg-3 col-form-label">생년월일</label>
+                      <label for="employeenumber" class="col-md-4 col-lg-3 col-form-label">사원번호</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="birth_date" type="text" class="form-control" id="birth_date" value="1998-11-11">
+                        <input name="employeenumber" type="text" class="form-control" id="employeenumber" th:value="${vo.user_employeenumber}" readonly="readonly">
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                      <label for="user_birth" class="col-md-4 col-lg-3 col-form-label">생년월일</label>                      
+                      <div class="col-md-8 col-lg-9">
+                        <input name="user_birth" type="text" class="form-control" id="user_birth" th:value="${vo.user_birth}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
-                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">휴대폰 번호</label>
+                      <label for="user_cell" class="col-md-4 col-lg-3 col-form-label">휴대폰 번호</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="010-1111-1111">
+                        <input name="user_cell" type="text" class="form-control" onkeyup="autoHyphen()" id="user_cell" th:value="${vo.user_cell}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">이메일</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="naruto@naver.com">
+                        <input name="Email" type="email" class="form-control" id="Email" th:value="${vo.user_email}" readonly="readonly">
                       </div>
                     </div>
 					
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">저장</button>
+                      <button type="button" id="changeInfoBtn" onclick="changeInfo()" class="btn btn-primary">저장</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
 
@@ -173,12 +186,13 @@
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form>
-
+                  <form action="/user/ChangePw" method="post" id="changePwForm">
+                    <input id="user_id" name="user_id" th:value="${vo.user_id}" style="display:none">
+                  
                     <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
+                      <label for="user_pw" class="col-md-4 col-lg-3 col-form-label">새 비밀번호</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                        <input name="user_pw" type="password" class="form-control" id="user_pw">
                       </div>
                     </div>
 
@@ -190,7 +204,7 @@
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">변경</button>
+                      <button type="button" id="changePwBtn" onclick="changePw()" class="btn btn-primary">변경</button>
                     </div>
                   </form><!-- End Change Password Form -->
 
@@ -210,5 +224,121 @@
  </div>
 
 </th:block>
+<script th:inline="javascript">
+	var msg = JSON.parse('[[${msg}]]');
+	if(msg != null) {
+		alert(msg);
+	}
+</script>
+<script>
+	//휴대폰번호에 자동으로 하이픈 붙이기
+	function autoHyphen() {
+		var phoneNumber = document.getElementById("user_cell");
+		phoneNumber.value = phoneNumber.value
+							.replace(/[^0-9]/g, '') //숫자가 아닌 글자는 공백으로 바꿔버림
+							.replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+	};
 
+	function changeInfo() {
+		var birthdayCheck = document.getElementById("user_birth");
+		var phoneNumberCheck = document.getElementById("user_cell");
+
+		var birthday = RegExp(/^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/);
+		var phoneNumber = RegExp(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/);
+
+		var changeInfoForm = document.getElementById("changeInfoForm");
+
+		//휴대폰번호 공백 확인
+		if (phoneNumberCheck.value == "") {
+			alert("핸드폰 번호를 입력해주세요.");
+			phoneNumberCheck.focus();
+			return false;
+		}
+
+		//휴대폰번호 길이 확인
+		if (phoneNumberCheck.value.length < 10) {
+			alert("핸드폰 번호를 다시 확인해주세요.");
+			phoneNumberCheck.focus();
+			return false;
+		}
+
+		//휴대폰번호 유효성검사
+		if (!phoneNumber.test(phoneNumberCheck.value)) {
+			alert("핸드폰 번호는 숫자로만 입력해주세요.");
+			phoneNumberCheck.value = "";
+			phoneNumberCheck.focus();
+			return false;
+		}
+		
+		//생년월일 8자인지 확인
+		if (birthdayCheck.value.length < 8) {
+			alert("생년월일 8자리를 입력하세요.");
+			birthdayCheck.value = "";
+			birthdayCheck.focus();
+			return false;
+		}
+
+		//생년월일 유효성 검사
+		if (!birthday.test(birthdayCheck.value)) {
+			alert("생년월일이 올바르지 않습니다.");
+			birthdayCheck.value = "";
+			birthdayCheck.focus();
+			return false;
+		}
+		
+		// form 전송하기
+		changeInfoForm.submit();
+		
+	}
+	
+	function changePw(){
+		var passCheck = document.getElementById("user_pw");
+		var passCheckch = document.getElementById("renewPassword");
+		
+		var password = RegExp(/^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/);
+
+		var changePwForm = document.getElementById("changePwForm");
+		
+		
+		//비밀번호 공백 확인
+		if (passCheck.value == "") {
+			alert("비밀번호를 입력해주세요.");
+			passCheck.focus();
+			return false;
+		}
+
+		//비밀번호 길이 확인
+		if (passCheck.value.length < 8) {
+			alert("비밀번호가 너무 짧습니다.");
+			passCheck.focus();
+			return false;
+		}
+
+		//비밀번호 유효성검사
+		if (!password.test(passCheck.value)) {
+			alert("비밀번호는 영문 소문자, 숫자, 특수문자를 각각 1개 이상 조합해주세요.");
+			passCheck.value = "";
+			passCheck.focus();
+			return false;
+		}
+
+		//비밀번호 확인란 공백 확인
+		if (passCheckch.value == "") {
+			alert("비밀번호 확인을 입력해주세요.");
+			passCheckch.focus();
+			return false;
+		}
+
+		//비밀번호 서로확인
+		if (passCheck.value != passCheckch.value) {
+			alert("비밀번호와 비밀번호 확인이 다릅니다.");
+			passCheckch.value = "";
+			passCheck.focus();
+			return false;
+		}
+		
+		changePwForm.submit();
+
+	}
+</script>
 </html>

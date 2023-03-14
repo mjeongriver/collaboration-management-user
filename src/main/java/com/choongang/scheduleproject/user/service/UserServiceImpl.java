@@ -96,5 +96,20 @@ public class UserServiceImpl implements UserService {
 		return userMapper.checkNameAndEmail(vo);
 	}
 
+	@Override
+	public UserVO getMyPageInfo(String user_id) {
+		return userMapper.getMyPageInfo(user_id);
+	}
+
+	@Override
+	public int changeInfo(UserVO vo) {
+		return userMapper.changeInfo(vo);
+	}
+
+	@Override
+	public int changePw(UserVO vo) {
+		return userMapper.changePw(vo);
+	}
+
 
 }

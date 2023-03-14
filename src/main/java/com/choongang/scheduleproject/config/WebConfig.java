@@ -43,6 +43,12 @@ public class WebConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/user/userFindId")
 				.excludePathPatterns("/user/userRegister")
 				.excludePathPatterns("/user/userResetPw")
+				.excludePathPatterns("/user/Login")
+				.excludePathPatterns("/user/kakao")
+				.excludePathPatterns("/user/RegisterForm")
+				.excludePathPatterns("/user/FindId")
+				.excludePathPatterns("/user/ResetPw")
+				.excludePathPatterns("/user/ChangeInfo")
 				.excludePathPatterns("/admin/noticeLogin")
 				.excludePathPatterns("/checkAllId") //rest api
 				.excludePathPatterns("/checkAllEmail") //rest api

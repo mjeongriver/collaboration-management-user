@@ -16,7 +16,6 @@
     						  user_birth,
     						  user_active,
     						  user_position,
-    						  user_employeenumber,
     						  user_regdate)
     		values (#{user_id},
     				#{department_id},
@@ -28,7 +27,6 @@
     				#{user_birth},
     				#{user_active},
     				#{user_position},
-    				#{user_employeenumber},
     				#{user_regdate})
     </insert>
     
@@ -129,5 +127,25 @@
     	from user_user
     	where user_name = #{user_name} and user_email = #{user_email}
     </select>
+    
+    <select id="getMyPageInfo" resultType="UserVO">
+    	select user_id, user_role, user_email, user_name, user_cell, user_birth, user_position, department_name, user_employeenumber
+    	from user_user u 
+    	left join user_department d
+		on u.department_id = d.department_id
+    	where u.user_id = #{user_id}
+    </select>
+    
+    <update id="changeInfo" parameterType="UserVO">
+    	update user_user
+    	set user_birth = #{user_birth}, user_cell = #{user_cell}
+    	where user_id = #{user_id}
+    </update>
+    
+    <update id="changePw" parameterType="UserVO">
+    	update user_user
+    	set user_pw = #{user_pw}
+    	where user_id = #{user_id}
+    </update>
     
     </mapper>

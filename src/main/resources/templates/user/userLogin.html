@@ -87,10 +87,7 @@
 										<a href="/user/userResetPw" style="float:right">비밀번호 초기화하기</a>
 										<!-- 링크 만들기 -->
 									</div>
-									<div>
-										<a href="/admin/noticeLogin">관리자로 로그인하기</a>
-										<!-- 링크 만들기 -->
-									</div>
+
 									<div class="col-13">
 										<button class="btn btn-primary" type="button" onclick="loginCheck()"
 											style="width: 49%;">로그인하기</button>
@@ -121,6 +118,19 @@
 	if(msg != null) {
 		alert(msg);
 	}
-</script>
 
+	//엔터 이벤트
+$("#user_pw").keypress(function(e) {
+	  if (e.keyCode === 13) {
+	    e.preventDefault();
+	    loginCheck();
+	  }
+	});
+	
+	//뒤로가기 막기
+	window.history.forward();
+	function noBack(){
+		window.history.forward();
+	}
+</script>
 </html>

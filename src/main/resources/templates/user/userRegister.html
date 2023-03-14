@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" id="html">
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -182,7 +182,6 @@
 									</div>
 									<input style="display:none" name="user_active" value="1"></input>
 									<input style="display:none" name="user_role" id="user_role" value="0"></input>
-									<input style="display:none" name="user_employeenumber" value="99"></input> <!-- 추후 시퀀스 처리 -->
 								</form>
 							</div>
 						</div>
@@ -253,5 +252,12 @@
 	});
 	
 </script>
-
+<script>
+$("#html").keypress(function(e) {
+	  if (e.keyCode === 13) {
+	    e.preventDefault();
+	    joinSubmit();
+	  }
+	});
+</script>
 </html>
