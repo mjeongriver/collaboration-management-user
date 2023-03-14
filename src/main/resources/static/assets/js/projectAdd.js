@@ -22,7 +22,7 @@ $(document).ready(function() {
             var str = "";
             str += '<ul class="depList" style="position: relative; list-style: none;" onclick="getDepList(event);">';
             result.forEach(function(item, index) {
-                str += '<li class="depList" style="cursor: pointer; padding-bottom: 10px; padding-top: 5px;" value=' + JSON.stringify(item.department_id) + '>' + item.department_name + '</li>';
+                str += '<li class="depList" style="cursor: pointer; padding: 5px 0px 5px 5px; margin: 10px 0px 10px;" value=' + JSON.stringify(item.department_id) + '>' + item.department_name + '</li>';
             })
             str += '</ul>';
 
@@ -44,9 +44,9 @@ function getDepList(e) {
         },
         success: function(result) {
             var str = "";
-            str += '<ul class="depMemberList" style="position: relative; list-style: none;">';
+            str += '<ul class="depMemberList" style="position: relative; list-style: none; padding: 0px 0px 0px 18px">';
             result.forEach(function(item, index) {
-                str += `<li class="depMemberList2" onclick="seleted(event)" data-value="${item.user_id}" style="padding-bottom: 10px; padding-top: 5px; cursor: pointer"` + `>` +
+                str += `<li class="depMemberList2" onclick="seleted(event)" data-value="${item.user_id}" style="padding: 5px 0px 5px 5px; margin: 10px 0px 10px; cursor: pointer; border-radius: 10px;"` + `>` +
                     item.user_name +
                     '</li>';
             })
@@ -100,11 +100,14 @@ var teamPlus = function(e) {
             newListItem.setAttribute('data-name', name);
             newListItem.appendChild(document.createTextNode(name));
             newListItem.setAttribute('value', name2);
+            newListItem.style.margin = '5px 5px 5px 5px';
+            //newListItem.style.padding = '5px 0px 5px 5px';
 
             // select 박스
             const selectBox = document.createElement('select');
             selectBox.setAttribute('name', 'memberType');
             selectBox.style.margin = '0px 20px 10px 10px';
+            selectBox.style.borderRadius = '5px';
 
             // 옵션
             const teamOption = document.createElement('option');
@@ -141,7 +144,7 @@ var teamPlus = function(e) {
 //선택 했을 때 색상 변경 
 var seleted = function(e) {
     e.target.classList.toggle('selected');
-    e.target.style.backgroundColor = e.target.classList.contains('selected') ? '#00acac' : 'white';
+    e.target.style.backgroundColor = e.target.classList.contains('selected') ? '#0d6efd' : 'white';
     e.target.style.color = e.target.classList.contains('selected') ? 'white' : '';
     e.target.style.cursor = "pointer";
 }
@@ -195,13 +198,13 @@ function memberSuccess() {
     const list = document.createElement('div');
     members.forEach(function(member, index) {
       const listItem = document.createElement('p');
-      const dashIcon = document.createElement('i');
-      dashIcon.setAttribute('style', 'color: red; margin-right: 10px;');
-      dashIcon.setAttribute('class', 'bi bi-dash-circle red');
+      //const dashIcon = document.createElement('i');
+      //dashIcon.setAttribute('style', 'color: red; margin-right: 10px;');
+      //dashIcon.setAttribute('class', 'bi bi-dash-circle red');
       listItem.setAttribute('data-value', member.userId);
       listItem.setAttribute('value', member.userId);
       //listItem.setAttribute('class',  'pj_useridTrue');
-      listItem.appendChild(dashIcon);
+      //listItem.appendChild(dashIcon);
       listItem.appendChild(document.createTextNode(member.name));
       list.appendChild(listItem);
     });
@@ -216,13 +219,13 @@ function memberSuccess() {
     const list = document.createElement('div');
     observers.forEach(function(observer) {
       const listItem = document.createElement('p');
-      const dashIcon = document.createElement('i');
-      dashIcon.setAttribute('style', 'color: red; margin-right: 10px;');
-      dashIcon.setAttribute('class', 'bi bi-dash-circle red'); // data-value 속성 설정
+      //const dashIcon = document.createElement('i');
+      //dashIcon.setAttribute('style', 'color: red; margin-right: 10px;');
+      //dashIcon.setAttribute('class', 'bi bi-dash-circle red'); // data-value 속성 설정
       listItem.setAttribute('data-value', observer.userId);
       listItem.setAttribute('value', observer.userId);
       //listItem.setAttribute('class',  'pj_useridFalse');
-      listItem.appendChild(dashIcon);
+      //listItem.appendChild(dashIcon);
       listItem.appendChild(document.createTextNode(observer.name));
       list.appendChild(listItem);
     });
