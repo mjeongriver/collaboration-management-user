@@ -8,21 +8,18 @@
 
     <!-- 프로젝트 생성  -->
 <insert id="regist" parameterType="ProjectVO">
+    INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate, pj_description)
+    VALUES (#{pj_name}, #{pj_startdate}, #{pj_enddate}, #{pj_description});
+    
     <selectKey keyProperty="pj_num" resultType="int" order="AFTER">
         SELECT LAST_INSERT_ID()
     </selectKey>
-    INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate, pj_description)
-    VALUES (#{pj_name}, #{pj_startdate}, #{pj_enddate}, #{pj_description})
 </insert>
 
-<insert id="registMember" parameterType="ProjectMemberVO">
-    <selectKey keyProperty="mnum" resultType="int" order="AFTER">
-        SELECT LAST_INSERT_ID() AS id
-    </selectKey>
-    INSERT INTO mapping (pj_num, user_id, isObserver, mnum)
-    VALUES (#{pj_num}, #{user_id}, #{isObserver}, #{mnum})
-</insert>
-
+<insert id="registMember" parameterType="ProjectMemberVO">  
+    INSERT INTO MAPPING (pj_num, user_id, is_observer)
+  	VALUES (#{pj_num}, #{user_id}, #{is_observer});
+</insert>  
     
     <!-- 부서 목록 -->
     <select id="getDepList" resultType="ProjectVO">

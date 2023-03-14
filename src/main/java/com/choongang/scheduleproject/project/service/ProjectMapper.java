@@ -20,7 +20,6 @@ public interface ProjectMapper {
 	//프로젝트 생성
 	public int regist(ProjectVO vo);
 	
-
 	//프로젝트 별 팀원 등록
 	public int registMember(ProjectMemberVO pvo);
 	
@@ -30,6 +29,7 @@ public interface ProjectMapper {
 	//부서별 팀원 목록
 	public List<ProjectVO> getDepMemberList(int department_id);
 
+	//startProjectList
 	public ArrayList<UserVO> getProjectMember(String pj_num);
 	
 	public UserVO getUserVO(String user_id);
@@ -43,7 +43,6 @@ public interface ProjectMapper {
 	public int modifyChat(@Param("chat_num") int chat_num, @Param("modifyContent") String modifyContent);
 	
 	
-	/////////////////startProjectList////////////////////
 	
 
 }

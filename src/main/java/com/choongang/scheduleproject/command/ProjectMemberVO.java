@@ -11,6 +11,5 @@ public class ProjectMemberVO {
 	private int mnum;
 	private int pj_num;
 	private String user_id;
-	private String isObserver; 
-	
+	private String is_observer; 
 }
