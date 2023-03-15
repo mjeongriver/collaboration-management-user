@@ -20,9 +20,10 @@ public interface ProjectService {
 	//프로젝트 등록
 	public int regist(ProjectVO vo);
 	
-
 	//프로젝트 별 팀원 등록
 	public int registMember(ProjectMemberVO pvo);
+	
+	public ArrayList<UserVO> getProjectMember(String pj_num);
 	
 	//부서 목록
 	public List<ProjectVO> getDepList();
@@ -30,12 +31,11 @@ public interface ProjectService {
 	//부서별 팀원 목록
 	public List<ProjectVO> getDepMemberList(int department_id);
 
-
-
-	public ArrayList<UserVO> getProjectMember(String pj_num);
 	
+
+	//startProjectList
 	public ProjectVO getProject(String pj_num);
-	
+
 	public UserVO getUserVO(String user_id);
 	
 	public int setChat(ChatVO vo);
@@ -46,7 +46,6 @@ public interface ProjectService {
 	
 	public int modifyChat(int chat_num, String modifyContent);
 	
-/////////////////startProjectList////////////////////
 	public ArrayList<ProjectVO> getProjectList(String user_id);
 	
 	public int changeBookmark(String user_id,int pj_num, boolean pj_bookmark);

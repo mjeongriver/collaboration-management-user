@@ -16,6 +16,7 @@ import com.choongang.scheduleproject.command.AdminNoticeListVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.project.service.ProjectService;
 import com.choongang.scheduleproject.service.AdminNoticeService;
+import com.choongang.scheduleproject.service.UserBoardService;
 import com.choongang.scheduleproject.util.Criteria;
 import com.choongang.scheduleproject.util.PageVO;
 
@@ -28,18 +29,20 @@ public class UserBoardController {
 	private AdminNoticeService adminNoticeService;
 	
 	@Autowired
+	@Qualifier("userBoardService")
+	private UserBoardService userBoardService;
+
 	@Qualifier("projectService")
 	private ProjectService projectService;
 	
-	
 	@GetMapping("/teamBoardList")
-	public String teamBoardList(Model model) {
+	public String teamBoardList(Criteria cri, Model model) {
 		ProjectVO pjVO = projectService.getProject("1");
-		
+		int total = userBoardService.getCount(cri);
 		model.addAttribute("pjVO",pjVO);
-		
 		return "/userboards/teamBoardList";
 	}
+	
 	@GetMapping("/teamBoardRegist")
 	public String teamBoardRegist() {
 		return "/userboards/teamBoardRegist";
@@ -52,7 +55,6 @@ public class UserBoardController {
 	public String teamBoardContent() {
 		return "/userboards/teamBoardContent";
 	}
-	
 	
 	@GetMapping("/noticeTableList")
 	public String noticeTableList(Criteria cri, Model model) {
