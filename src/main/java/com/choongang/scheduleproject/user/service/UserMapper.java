@@ -3,6 +3,7 @@ package com.choongang.scheduleproject.user.service;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.choongang.scheduleproject.command.DepartmentVO;
 import com.choongang.scheduleproject.command.EmailVO;
@@ -30,4 +31,6 @@ public interface UserMapper {
 	public UserVO getMyPageInfo(String user_id); // 마이페이지 정보 가져오기;
 	public int changeInfo(UserVO vo); // 마이페이지 휴대폰번호, 생년월일 수정하기
 	public int changePw(UserVO vo); // 마이페이지 비밀번호 수정하기
+	public int removeImg(String user_id); // 마이페이지 이미지 삭제하기
+	public int insertImg(UserVO vo); // 마이페이지 이미지 수정하기 (AWSUploadController)
 }

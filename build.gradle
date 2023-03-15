@@ -56,7 +56,8 @@ dependencies {
 	// 이메일 인증을 위함
 	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.0'
 
-
+	// AWS
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {

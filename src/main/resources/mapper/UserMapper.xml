@@ -129,7 +129,7 @@
     </select>
     
     <select id="getMyPageInfo" resultType="UserVO">
-    	select user_id, user_role, user_email, user_name, user_cell, user_birth, user_position, department_name, user_employeenumber
+    	select user_id, user_role, user_email, user_name, user_cell, user_birth, user_position, user_img, department_name, user_employeenumber
     	from user_user u 
     	left join user_department d
 		on u.department_id = d.department_id
@@ -147,5 +147,17 @@
     	set user_pw = #{user_pw}
     	where user_id = #{user_id}
     </update>
+    
+    <update id="removeImg" parameterType="String">
+    	update user_user
+    	set user_img = null
+    	where user_id = #{user_id}
+    </update>
+	
+	<update id="insertImg" parameterType="UserVO">
+		update user_user
+		set user_img = #{user_img}
+		where user_id = #{user_id}
+	</update>
     
     </mapper>

@@ -30,6 +30,7 @@ public class HomeController {
 
 	}
 	
+
 	@GetMapping("/2")
 	public String index2(Model model) {
 
