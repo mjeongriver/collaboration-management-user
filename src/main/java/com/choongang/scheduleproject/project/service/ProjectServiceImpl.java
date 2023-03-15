@@ -19,36 +19,31 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	private ProjectMapper projectMapper;
 
+	//프로젝트 등록
 	@Override
 	public int regist(ProjectVO vo) {
 		return projectMapper.regist(vo);
 	}
 	
+	//프로젝트 별 팀원 등록
 	@Override
 	public int registMember(ProjectMemberVO pvo) {
 		return projectMapper.registMember(pvo);
 	}
 
-
+	//부서 목록
 	@Override
 	public List<ProjectVO> getDepList() {
 		return projectMapper.getDepList();
 	}
 
+	//부서별 팀원 목록
 	@Override
 	public List<ProjectVO> getDepMemberList(int department_id) {
 		return projectMapper.getDepMemberList(department_id);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	//startProjectList
 	@Override
 	public ArrayList<UserVO> getProjectMember(String pj_num) {
 		
