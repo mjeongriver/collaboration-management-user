@@ -1,9 +1,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>중앙 소프트 일정관리 시스템</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/assets/img/logo.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+  <script src="/assets/js/jquery-1.12.1.min.js"></script>
+  <script src="/assets/js/jquery-ui.min.js"></script>
+  
+  
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.5.0
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  
+
+</head>
 	<div class="wrap">
-		<main id="main" class="main">
-			<div class="pagetitle" style="text-align: center">
-				<h1>로그인</h1>
+		<main id="main" class="main" style="margin: 0 auto">
+			<div class="pagetitle" style="text-align: center; padding-top:100px">
+				<h1>폼미소프트 로그인</h1>
 			</div>
 			<!-- End Page Title -->
 			<section class="section">
@@ -48,10 +87,7 @@
 										<a href="/user/userResetPw" style="float:right">비밀번호 초기화하기</a>
 										<!-- 링크 만들기 -->
 									</div>
-									<div>
-										<a href="/admin/noticeLogin">관리자로 로그인하기</a>
-										<!-- 링크 만들기 -->
-									</div>
+
 									<div class="col-13">
 										<button class="btn btn-primary" type="button" onclick="loginCheck()"
 											style="width: 49%;">로그인하기</button>
@@ -66,9 +102,6 @@
 										<button class="btn btn-warning w-100 kakaoBtn" type="button" onclick="location.href='/user/kakao'">카카오
 											로그인</button>
 									</div>
-									<div style="padding-top: 13px">
-										<button class="btn btn-success w-100" type="button">네이버 로그인</button>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -78,7 +111,6 @@
 		</main>
 		<!-- End #main -->
 	</div>
-</th:block>
 <script src="/assets/js/userLogin.js"></script><!-- 유효성 검사 코드 -->
 <script th:inline="javascript">
 	var msg = JSON.parse('[[${msg}]]');
@@ -87,14 +119,12 @@
 		alert(msg);
 	}
 
-	
-	$(".kakaoBtn").click(function(){
-		var apiKey = "f8a80263c7064b6a299e0d1d596e890a";
-		var address = "http://127.0.0.1:8686/user/kakao";
-			alert("이메일 수집에 꼭 동의해주세요!");
-			
-		location.href="https://kauth.kakao.com/oauth/authorize?client_id="+ apiKey +"&redirect_uri="+ address +"&response_type=code"
-	})
+	//엔터 이벤트
+$("#user_pw").keypress(function(e) {
+	  if (e.keyCode === 13) {
+	    e.preventDefault();
+	    loginCheck();
+	  }
+	});	
 </script>
-
 </html>

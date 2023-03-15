@@ -216,7 +216,8 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+			<img th:if="${session.user_img} == null " src="/assets/img/defaultImg.jpeg" alt="Profile" class="rounded-circle">
+            <img th:unless="${session.user_img} == null " src="${session.user_img}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">[[${session.user_name}]]님</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -278,81 +279,22 @@
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-      
-      <!-- <li class="nav-heading">프로젝트 생성 이후 (User)</li> -->
-      
+
+
+<!-- 	<li class="nav-heading">프로젝트 생성 이전 (User)</li>
+ -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/">
-          <i class="bi bi-house"></i>
-          <span>메인 화면</span>
+        <a class="btn btn-primary" style="width : 100%" href="/project/projectAdd">
+          <i class="bi bi-calendar-plus"></i>
+          <span>프로젝트 생성</span>
         </a>
-      </li>
+      </li><!-- End Blank Page Nav -->      
       
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>게시판</span><i class="bi bi-chevron-down ms-auto"></i>
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-calendar-check"></i><span>내 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/userboards/noticeTableList">
-              <i class="bi bi-circle"></i><span>관리자 공지사항</span>
-            </a>
-          </li>
-          <li>
-            <a href="/userboards/teamBoardList">
-              <i class="bi bi-circle"></i><span>팀 게시판</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/project/projectUserTeamChart">
-          <i class="bi bi-reception-4"></i>
-          <span>진척률</span>
-        </a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/project/projectCalendar">
-          <i class="bi bi-calendar-day-fill"></i>
-          <span>캘린더</span>
-        </a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#teammates-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person-fill"></i><span>프로젝트 팀원</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>강민정</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>권도은</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이동민</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이서윤</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#projects-now-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-calendar-check"></i><span>참여중인 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="projects-now-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="projects-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="#">
               <i class="bi bi-circle"></i><span>프로젝트 1</span>
@@ -374,9 +316,10 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li><!-- End Forms Nav -->
       
-
+      
+      
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -414,7 +357,6 @@
 
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
-  
 
 </th:block>
 </html>

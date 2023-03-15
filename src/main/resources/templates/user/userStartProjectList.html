@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+<th:block th:replace="~{./include/basicLayout2 :: 함수( ~{:: .wrap } ) }">
 
 <div class="wrap">
   <main id="main" class="main">
@@ -217,5 +217,13 @@
 	
 	
 </script>
+<script th:inline="javascript">
+//뒤로가기 막기 이벤트
+window.history.forward(); 
+function noBack(){ 
+	window.history.forward();
+}
+</script>
+
 
 </html>

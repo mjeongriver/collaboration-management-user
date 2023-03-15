@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -48,7 +49,11 @@ public class UserController {
 	}
 	
 	@GetMapping("/userMypage")
-	public String userMypage() {
+	public String userMypage(HttpSession session, Model model) {
+		String user_id = (String)session.getAttribute("user_id");
+		UserVO vo = userService.getMyPageInfo(user_id);
+		model.addAttribute("vo", vo);
+		
 		return "/user/userMypage";
 	}
 	
@@ -112,7 +117,7 @@ public class UserController {
 	
 	//로그인 요청
 	@PostMapping("/Login")
-	public String login(@Valid UserVO vo, Errors errors, RedirectAttributes ra, HttpSession session) {
+	public String login(@Valid UserVO vo, Errors errors, RedirectAttributes ra, HttpSession session, Model model) {
 		
 		//서버단에서 유효성 검사 실행
 		if(errors.hasErrors()) {
@@ -167,8 +172,12 @@ public class UserController {
 					LocalDateTime nowTime = LocalDateTime.now();
 					result.setUser_regdate(nowTime);
 					userService.insertLog(result);
-					
+
+					model.addAttribute("vo", result);
+
+					session.setAttribute("user_name", result.getUser_name()); //로그인 성공 시 세션 부여
 					session.setAttribute("user_id", result.getUser_id()); //로그인 성공 시 세션 부여
+					session.setAttribute("user_img", result.getUser_img()); //로그인 성공 시 세션 부여
 					return "user/userStartProjectList";					
 				}
 				
@@ -226,7 +235,7 @@ public class UserController {
 		String encodedPassword = passwordEncoder.encode(newPw + "!");
 		vo.setUser_pw(encodedPassword);
 		
-		//얘도 이메일 검증을 거치는 작업을 추후에 추가하면 좋을 것 같음.
+		//얘도 이메일 검증을 거치는 작업을 추후에 추가하면 좋을 것 같음. => Ajax로 처리함
 		int result = userService.resetPw(vo);
 		
 		//실패횟수 초기화하기
@@ -265,11 +274,51 @@ public class UserController {
 //			ra.addFlashAttribute("msg", msg);
 			return "redirect:/user/userLogin";
 		} else { // 일치하는 아이디가 있음
+			session.setAttribute("user_name", result.getUser_name()); //로그인 성공 시 세션 부여
 			session.setAttribute("user_id", result.getUser_id()); //로그인 성공 시 세션 부여
 			return "user/userStartProjectList";			
 		}
 	}
 	
+	//마이페이지에서 개인정보 변경
+	@PostMapping("/ChangeInfo")
+	public String changeInfo(UserVO vo, RedirectAttributes ra, HttpSession session) {
+		int result = userService.changeInfo(vo);
+		
+		String msg = result == 1 ? "회원정보 수정에 성공하였습니다. 다시 로그인해주세요." : "회원정보 수정에 실패했습니다. 관리자에게 문의하세요.";
+		ra.addFlashAttribute("msg", msg);
+		session.invalidate(); // 세션 만료시키기
+		return "redirect:/user/userLogin"; //로그인화면으로	
+	}
+	
+	//마이페이지에서 비밀번호 변경
+	@PostMapping("/ChangePw")
+	public String changePw(UserVO vo, RedirectAttributes ra, HttpSession session) {
+		System.out.println(vo);
+		
+	    //비밀번호 암호화 작업
+		String encodedPassword = passwordEncoder.encode(vo.getUser_pw());
+		vo.setUser_pw(encodedPassword);
+		
+		int result = userService.changePw(vo);
+		
+		String msg = result == 1 ? "비밀번호 수정에 성공하였습니다. 다시 로그인해주세요." : "회원정보 수정에 실패했습니다. 관리자에게 문의하세요.";
+		ra.addFlashAttribute("msg", msg);
+		
+		session.invalidate(); // 세션 만료시키기
+		
+		return "redirect:/user/userLogin"; //로그인화면으로	
+	}
+	
+	//로그아웃
+	@GetMapping("/Logout")
+	public String logout(HttpSession session, RedirectAttributes ra) {
+		session.invalidate(); // 세션 만료시키기
+		String msg = "로그아웃되었습니다.";
+		ra.addFlashAttribute("msg", msg);
+		return "redirect:/user/userLogin"; //로그인화면으로	
+
+	}
 	
 	
 }
