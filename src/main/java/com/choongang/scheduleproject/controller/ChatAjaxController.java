@@ -39,7 +39,7 @@ public class ChatAjaxController {
 	public ArrayList<ChatVO> getChat(){
 			
 		
-		return projectService.getChat("1");
+		return projectService.getChat(1);
 	}
 	
 	@GetMapping("/deleteChat")

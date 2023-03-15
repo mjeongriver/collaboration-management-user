@@ -36,13 +36,25 @@
   		
   		select count(*) from admin_notice
              <choose>
-                 <when test='searchType =="제목" and search !=null'>
+                 <when test='searchType =="title" and search !=null'>
                  where notice_title like concat('%' , #{search},'%')
                  </when>
-                 <when test='searchType =="작성일" and search !=null'>
+                 <when test='searchType =="regdate" and search !=null'>
                  where notice_regdate like concat('%' , #{search},'%')
                  </when>
            	 </choose>
+  	</select>
+  	
+  	<!-- 상세 조회 -->
+  	<select id="getContent" resultType="AdminNoticeListVO">
+  		select notice_num,
+  		       admin_id,
+  		       notice_title,
+  		       notice_content,
+  		       notice_regdate,
+  		       notice_writer,
+  		       notice_note
+  		  from admin_notice where notice_num = #{notice_num}
   	</select>
   	
   	

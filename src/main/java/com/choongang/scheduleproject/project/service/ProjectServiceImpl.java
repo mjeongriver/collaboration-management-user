@@ -19,38 +19,33 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	private ProjectMapper projectMapper;
 
+	//프로젝트 등록
 	@Override
 	public int regist(ProjectVO vo) {
 		return projectMapper.regist(vo);
 	}
 	
+	//프로젝트 별 팀원 등록
 	@Override
 	public int registMember(ProjectMemberVO pvo) {
 		return projectMapper.registMember(pvo);
 	}
 
-
+	//부서 목록
 	@Override
 	public List<ProjectVO> getDepList() {
 		return projectMapper.getDepList();
 	}
 
+	//부서별 팀원 목록
 	@Override
 	public List<ProjectVO> getDepMemberList(int department_id) {
 		return projectMapper.getDepMemberList(department_id);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	//startProjectList
 	@Override
-	public ArrayList<UserVO> getProjectMember(String pj_num) {
+	public ArrayList<UserVO> getProjectMember(int pj_num) {
 		
 		return projectMapper.getProjectMember(pj_num);
 	}
@@ -68,7 +63,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ArrayList<ChatVO> getChat(String pj_num) {
+	public ArrayList<ChatVO> getChat(int pj_num) {
 		
 		return projectMapper.getChat(pj_num);
 	}
@@ -84,6 +79,26 @@ public class ProjectServiceImpl implements ProjectService {
 
 		return projectMapper.modifyChat(chat_num,modifyContent);
 	}
+
+	@Override
+	public ArrayList<ProjectVO> getProjectList(String user_id) {
+	
+		return projectMapper.getProjectList(user_id);
+	}
+
+	@Override
+	public int changeBookmark(String user_id, int pj_num, boolean pj_bookmark) {
+		
+		return projectMapper.changeBookmark(user_id, pj_num, pj_bookmark);
+	}
+
+	@Override
+	public ProjectVO getProject(int pj_num) {
+		
+		return projectMapper.getProject(pj_num);
+	}
+
+
 
 	
 

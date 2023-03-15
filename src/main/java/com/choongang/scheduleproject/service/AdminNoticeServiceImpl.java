@@ -28,6 +28,12 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	public int getCount(Criteria cri) {
 		return adminNoticeListMapper.getCount(cri);
 	}
+	
+	//상세보기
+	@Override
+	public AdminNoticeListVO getContent(int notice_num) {
+		return adminNoticeListMapper.getContent(notice_num);
+	}
 
 
 }

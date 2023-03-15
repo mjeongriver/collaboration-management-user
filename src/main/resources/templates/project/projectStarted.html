@@ -19,10 +19,10 @@
 
 			<div class="pagetitle">
 				<h1 class="card-title">
-					<i class="bx bxs-star"></i> 공부 프로젝트
+					<i class="bx bxs-star"></i> [[${pjVO.pj_name}]]
 				</h1>
 				<h6 style="padding-bottom: 20px">
-					<i class="ri-bookmark-fill"></i> 열심히 공부해서 정처기 따기
+					<i class="ri-bookmark-fill"></i> [[${pjVO.pj_description}]]
 				</h6>
 
 				<nav>
@@ -186,8 +186,11 @@
 	function restoreScrollPosition() {
 		chatScroll.scrollTop = chatScroll.scrollHeight;
 	}
+	//chatNum 담을 함수
 	var chatNum = 0;
-
+	//chatList길이 담을 함수
+	var chatLength = 0;
+	
 	function getChat() {
 		$.ajax({
 					url : "../getChat",
@@ -196,12 +199,14 @@
 					success : function(response) {
 						// 스크롤 위치 기억
 						rememberScrollPosition();
+	
 						chatList.empty();
-
+						console.log("페이지로드");
+						chatLength=response.length;
 						for (var i = 0; i < response.length; i++) {
 							var str = "";
 							chatNum = response[i].chat_num;
-							str += '<div style="display: flex;"><div><img src="/assets/img/profile-img.jpg" width="40px" alt="Profile" class="rounded-circle"></div>';
+							str += '<div style="display: flex;"><div><img src="/assets/img/profile-img.jpg" width="40px" alt="Profile" class="rounded-circle" /></div>';
 							str += '<div style="margin-left: 15px">';
 							str += '<div><span style="font-weight: 1000">'
 									+ response[i].chat_writer
@@ -238,20 +243,21 @@
 	}
 	$(document).ready(getChat);
 	
+	
+	
 	function addChat() {
 		$.ajax({
 					url : "../getChat",
 					type : "get",
 					dataType : "json",
 					success : function(response) {
-						
-
-
+					
 						for (var i = 0; i < response.length; i++) {
 							if(response[i].chat_num>chatNum){
+							chatLength += 1;
 							var str = "";
 							chatNum = response[i].chat_num;
-							str += '<div style="display: flex;"><div><img src="/assets/img/profile-img.jpg" width="40px" alt="Profile" class="rounded-circle"></div>';
+							str += '<div style="display: flex;"><div><img src="/assets/img/profile-img.jpg" width="40px" alt="Profile" class="rounded-circle" /></div>';
 							str += '<div style="margin-left: 15px">';
 							str += '<div><span style="font-weight: 1000">'
 									+ response[i].chat_writer
@@ -295,10 +301,13 @@
 			type : "get",
 			dataType : "json",
 			success : function(response){
+				
 
-			
+				
 				if(response[response.length-1].chat_num>chatNum){
 					addChat();
+				} else if(response.length != chatLength){
+					getChat();
 				}
 				
 			}
@@ -342,6 +351,7 @@
 			data : {"chat_num" : chat_num},
 			success : function(result){
 				alert("삭제 완료");
+				chatLength -=1;
 				getChat();
 			},
 			error : function(error) {
