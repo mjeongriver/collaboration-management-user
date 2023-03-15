@@ -31,15 +31,15 @@ public interface ProjectMapper {
 
 	//startProjectList
 	//프로젝트멤버 받아옴
-	public ArrayList<UserVO> getProjectMember(String pj_num);
+	public ArrayList<UserVO> getProjectMember(int pj_num);
 	//프로젝트정보 받아옴
-	public ProjectVO getProject(String pj_num);
+	public ProjectVO getProject(int pj_num);
 	//사용안함
 	public UserVO getUserVO(String user_id);
 	//채팅 내용 입력
 	public int setChat(ChatVO vo);
 	//채팅 정보 받아옴
-	public ArrayList<ChatVO> getChat(String pj_num);
+	public ArrayList<ChatVO> getChat(int pj_num);
 	//채팅 삭제
 	public int deleteChat(int chat_num);
 	//채팅수정

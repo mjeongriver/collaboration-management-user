@@ -23,7 +23,7 @@ public interface ProjectService {
 	//프로젝트 별 팀원 등록
 	public int registMember(ProjectMemberVO pvo);
 	
-	public ArrayList<UserVO> getProjectMember(String pj_num);
+	public ArrayList<UserVO> getProjectMember(int pj_num);
 	
 	//부서 목록
 	public List<ProjectVO> getDepList();
@@ -34,13 +34,13 @@ public interface ProjectService {
 	
 
 	//startProjectList
-	public ProjectVO getProject(String pj_num);
+	public ProjectVO getProject(int pj_num);
 
 	public UserVO getUserVO(String user_id);
 	
 	public int setChat(ChatVO vo);
 	
-	public ArrayList<ChatVO> getChat(String pj_num);
+	public ArrayList<ChatVO> getChat(int pj_num);
 	
 	public int deleteChat(int chat_num);
 	

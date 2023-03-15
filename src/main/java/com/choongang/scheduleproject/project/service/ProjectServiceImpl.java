@@ -45,7 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	//startProjectList
 	@Override
-	public ArrayList<UserVO> getProjectMember(String pj_num) {
+	public ArrayList<UserVO> getProjectMember(int pj_num) {
 		
 		return projectMapper.getProjectMember(pj_num);
 	}
@@ -63,7 +63,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ArrayList<ChatVO> getChat(String pj_num) {
+	public ArrayList<ChatVO> getChat(int pj_num) {
 		
 		return projectMapper.getChat(pj_num);
 	}
@@ -93,7 +93,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ProjectVO getProject(String pj_num) {
+	public ProjectVO getProject(int pj_num) {
 		
 		return projectMapper.getProject(pj_num);
 	}
