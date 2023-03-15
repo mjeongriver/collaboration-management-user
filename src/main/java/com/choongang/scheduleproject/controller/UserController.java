@@ -1,5 +1,7 @@
 package com.choongang.scheduleproject.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
@@ -11,16 +13,19 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.command.UserVO;
@@ -42,6 +47,7 @@ public class UserController {
 	
 	@Autowired
 	private KakaoAPI kakao;
+	
 	
 	@GetMapping("/userLogin")
 	public String userLogin() {		
@@ -178,6 +184,7 @@ public class UserController {
 					session.setAttribute("user_name", result.getUser_name()); //로그인 성공 시 세션 부여
 					session.setAttribute("user_id", result.getUser_id()); //로그인 성공 시 세션 부여
 					session.setAttribute("user_img", result.getUser_img()); //로그인 성공 시 세션 부여
+					
 					return "user/userStartProjectList";					
 				}
 				
@@ -294,7 +301,6 @@ public class UserController {
 	//마이페이지에서 비밀번호 변경
 	@PostMapping("/ChangePw")
 	public String changePw(UserVO vo, RedirectAttributes ra, HttpSession session) {
-		System.out.println(vo);
 		
 	    //비밀번호 암호화 작업
 		String encodedPassword = passwordEncoder.encode(vo.getUser_pw());
@@ -302,13 +308,29 @@ public class UserController {
 		
 		int result = userService.changePw(vo);
 		
-		String msg = result == 1 ? "비밀번호 수정에 성공하였습니다. 다시 로그인해주세요." : "회원정보 수정에 실패했습니다. 관리자에게 문의하세요.";
+		String msg = result == 1 ? "비밀번호 수정에 성공하였습니다. 다시 로그인해주세요." : "비밀번호 수정에 실패했습니다. 관리자에게 문의하세요.";
 		ra.addFlashAttribute("msg", msg);
 		
 		session.invalidate(); // 세션 만료시키기
 		
 		return "redirect:/user/userLogin"; //로그인화면으로	
 	}
+	
+	//마이페이지에서 이미지 삭제
+	@GetMapping("/RemoveImg")
+	public String removeImg(HttpSession session, RedirectAttributes ra) {
+		String user_id = (String)session.getAttribute("user_id");
+		
+		int result = userService.removeImg(user_id);
+		
+		String msg = result == 1 ? "이미지 수정에 성공하였습니다. 다시 로그인해주세요." : "이미지 수정에 실패했습니다. 관리자에게 문의하세요.";
+		ra.addFlashAttribute("msg", msg);
+		
+		session.invalidate(); // 세션 만료시키기
+
+		return "redirect:/user/userLogin"; //로그인화면으로	
+	}
+	
 	
 	//로그아웃
 	@GetMapping("/Logout")

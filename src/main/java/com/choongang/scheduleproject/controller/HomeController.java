@@ -13,6 +13,11 @@ public class HomeController {
 
 	}
 	
+	@GetMapping("/awsTest")
+	public String awsTest() {
+		return "awsTest";
+	}
+	
 	
 	
 
