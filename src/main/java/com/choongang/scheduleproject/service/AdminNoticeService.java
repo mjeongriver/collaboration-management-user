@@ -11,5 +11,7 @@ public interface AdminNoticeService {
 	public int getTotal(Criteria cri); //전체 게시글수
 	public int getCount(Criteria cri); //검색 결과건수
 	
+	public AdminNoticeListVO getContent(int notice_num); //상세조회
+	
 
 }
