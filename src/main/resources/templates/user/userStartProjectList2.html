@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/basicLayout2 :: 함수( ~{:: .wrap } ) }">
+<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
 
 <div class="wrap">
   <main id="main" class="main">
@@ -10,8 +10,8 @@
       <h1>참여 중인 프로젝트</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item active" onclick="location.href='/'" style="cursor:pointer">전체 프로젝트</li>
-             <li class="breadcrumb-item" onclick="location.href='/2'" style="cursor:pointer">즐겨찾는 프로젝트</li>
+          <li class="breadcrumb-item " onclick="location.href='/'" style="cursor:pointer">전체 프로젝트</li>
+          <li class="breadcrumb-item active" onclick="location.href='/2'" style="cursor:pointer">즐겨찾는 프로젝트</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -148,39 +148,42 @@
 			type : "get",
 			dataType : "json",
 			success : function(response){
-				
+					console.log(response);
 				
 				projectList.empty();
 				for (var i = 0; i < response.length; i++) {
-				
-				var str = "";
-				str += '<div class="col-xxl-4 col-md-6">';
-				str += '<div class="card info-card sales-card" style="height:220px">';
-				str += '<div class="card-body"><br/>';
 					if(response[i].pj_bookmark==true){
-						str += '<a style="cursor:pointer" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')">⭐</a>';
-					} else {
-						str += '<a class="bi bi-star" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')" style="cursor:pointer"></a>';	
+						var str = "";
+						str += '<div class="col-xxl-4 col-md-6">';
+						str += '<div class="card info-card sales-card" style="height:220px">';
+						str += '<div class="card-body"><br/>';
+							if(response[i].pj_bookmark==true){
+								str += '<a style="cursor:pointer" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')">⭐</a>';
+							} else {
+								str += '<a class="bi bi-star" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')" style="cursor:pointer"></a>';	
+							}
+							if(response[i]._observer==false){
+								str += '<span>&nbsp;&nbsp;팀원</span>';
+							} else {
+								str += '<span>&nbsp;&nbsp;옵저버</span>';
+							}
+						str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_memberCount+'</a></i><span style="float:right;padding-top:2px"> 팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
+						str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_observerCount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
+						str += '<h5 class="card-title">'+response[i].pj_name+' <br>';
+						str += '<span>'+response[i].pj_description+'</span>';
+						str += '</h5>';
+							<!--  초대된 인원만큼 인원 수 표시 -->
+						str += '<a>시작일 : '+response[i].pj_startdate+'</a><br>';
+						str += '<a>종료일 : '+response[i].pj_enddate+'</a><br>';
+			
+						str += '</div>';
+						str += '</div>';
+						str +=  '</div>';
+						
+						projectList.append(str);
 					}
-					if(response[i]._observer==false){
-						str += '<span>&nbsp;&nbsp;팀원</span>';
-					} else {
-						str += '<span>&nbsp;&nbsp;옵저버</span>';
-					}
-				str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_memberCount+'</a></i><span style="float:right;padding-top:2px">팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
-				str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_observerCount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
-				str += '<h5 class="card-title">'+response[i].pj_name+' <br>';
-				str += '<span>'+response[i].pj_description+'</span>';
-				str += '</h5>';
-					<!--  초대된 인원만큼 인원 수 표시 -->
-				str += '<a>시작일 : '+response[i].pj_startdate+'</a><br>';
-				str += '<a>종료일 : '+response[i].pj_enddate+'</a><br>';
-	
-				str += '</div>';
-				str += '</div>';
-				str +=  '</div>';
+					
 				
-				projectList.append(str);
 				}
 			},
 			error : function(e){
@@ -217,13 +220,5 @@
 	
 	
 </script>
-<script th:inline="javascript">
-//뒤로가기 막기 이벤트
-window.history.forward(); 
-function noBack(){ 
-	window.history.forward();
-}
-</script>
-
 
 </html>
