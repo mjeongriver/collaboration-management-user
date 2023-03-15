@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.choongang.scheduleproject.command.AdminNoticeListVO;
-import com.choongang.scheduleproject.userboard.service.AdminNoticeService;
-import com.choongang.scheduleproject.userboard.service.UserBoardService;
+import com.choongang.scheduleproject.service.AdminNoticeService;
+import com.choongang.scheduleproject.service.UserBoardService;
 import com.choongang.scheduleproject.util.Criteria;
 import com.choongang.scheduleproject.util.PageVO;
 

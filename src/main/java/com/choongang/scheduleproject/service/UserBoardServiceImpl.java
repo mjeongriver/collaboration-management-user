@@ -1,4 +1,4 @@
-package com.choongang.scheduleproject.userboard.service;
+package com.choongang.scheduleproject.service;
 
 import java.util.ArrayList;
 
