@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/basicLayout2 :: 함수( ~{:: .wrap } ) }">
+<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
 
 <div class="wrap">
   <main id="main" class="main">
@@ -63,7 +63,7 @@
             
 
             <div class="card-body">
-              <h5 class="card-title">프로젝트 마감일정<span> | 2023-03-02</span></h5>
+            <h5 class="card-title">프로젝트 마감일정<span id="today"></span></h5>
 
               <div class="activity">
 
@@ -135,7 +135,7 @@
 
 <script th:inline="javascript">
 	
-	
+document.getElementById("today").innerHTML=" | "+new Date().toISOString().substring(0,10);
 
 
 	var msg = JSON.parse('[[${msg}]]');

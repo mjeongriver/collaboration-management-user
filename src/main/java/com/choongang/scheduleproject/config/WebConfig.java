@@ -34,30 +34,30 @@ public class WebConfig implements WebMvcConfigurer {
 //				.excludePathPatterns("/css/*")
 //				.excludePathPatterns("/img/*");
 				//Rest API 패스에서 제외..?
-		registry.addInterceptor(userAuthHandler())
-				.addPathPatterns("/*")
-				.addPathPatterns("/project/*")
-				.addPathPatterns("/userboards/*")
-				.addPathPatterns("/user/*")
-				.excludePathPatterns("/user/userLogin")
-				.excludePathPatterns("/user/userFindId")
-				.excludePathPatterns("/user/userRegister")
-				.excludePathPatterns("/user/userResetPw")
-				.excludePathPatterns("/user/Login")
-				.excludePathPatterns("/user/kakao")
-				.excludePathPatterns("/user/RegisterForm")
-				.excludePathPatterns("/user/FindId")
-				.excludePathPatterns("/user/ResetPw")
-				.excludePathPatterns("/user/ChangeInfo")
-				.excludePathPatterns("/admin/noticeLogin")
-				.excludePathPatterns("/checkAllId") //rest api
-				.excludePathPatterns("/checkAllEmail") //rest api
-				.excludePathPatterns("/getAllDepartment") //rest api
-				.excludePathPatterns("/sendMail") //rest api
-				.excludePathPatterns("/verifyMail") //rest api
-				.excludePathPatterns("/checkIdAndEmail") //rest api
-				.excludePathPatterns("/checkNameAndEmail"); //rest api
-		
+//		registry.addInterceptor(userAuthHandler())
+//				.addPathPatterns("/*")
+//				.addPathPatterns("/project/*")
+//				.addPathPatterns("/userboards/*")
+//				.addPathPatterns("/user/*")
+//				.excludePathPatterns("/user/userLogin")
+//				.excludePathPatterns("/user/userFindId")
+//				.excludePathPatterns("/user/userRegister")
+//				.excludePathPatterns("/user/userResetPw")
+//				.excludePathPatterns("/user/Login")
+//				.excludePathPatterns("/user/kakao")
+//				.excludePathPatterns("/user/RegisterForm")
+//				.excludePathPatterns("/user/FindId")
+//				.excludePathPatterns("/user/ResetPw")
+//				.excludePathPatterns("/user/ChangeInfo")
+//				.excludePathPatterns("/admin/noticeLogin")
+//				.excludePathPatterns("/checkAllId") //rest api
+//				.excludePathPatterns("/checkAllEmail") //rest api
+//				.excludePathPatterns("/getAllDepartment") //rest api
+//				.excludePathPatterns("/sendMail") //rest api
+//				.excludePathPatterns("/verifyMail") //rest api
+//				.excludePathPatterns("/checkIdAndEmail") //rest api
+//				.excludePathPatterns("/checkNameAndEmail"); //rest api
+//		
 				
 				
 		
