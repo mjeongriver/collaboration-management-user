@@ -27,4 +27,7 @@ public interface UserMapper {
 	public EmailVO verifyMail(EmailVO vo); // 이메일과 인증코드로 인증하기
 	public UserVO checkIdAndEmail(UserVO vo); // 아이디와 이메일 일치여부 확인하기
 	public UserVO checkNameAndEmail(UserVO vo); // 이름과 이메일 일치여부 확인하기
+	public UserVO getMyPageInfo(String user_id); // 마이페이지 정보 가져오기;
+	public int changeInfo(UserVO vo); // 마이페이지 휴대폰번호, 생년월일 수정하기
+	public int changePw(UserVO vo); // 마이페이지 비밀번호 수정하기
 }

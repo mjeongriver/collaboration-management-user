@@ -34,34 +34,57 @@
 		where user_user.department_id = #{department_id}; 
 	</select>
     
-    
+    <!-- 프로젝트 멤버 -->
     <select id="getProjectMember" resultType="UserVO">
 		select u.user_name, d.department_name, u.user_position from user_user 
 			as u inner join user_department as d on u.department_id = d.department_id
        		right join mapping as m on m.user_id = u.user_id
        		where m.pj_num = #{pj_num};
     </select>
-    
+    <!-- 프로젝트 정보 -->
+    <select id="getProject" resultType="ProjectVO">
+    	select pj_name,pj_active,pj_writer,pj_description,pj_startdate,pj_enddate,pj_regdate
+    		from user_project where pj_num = #{pj_num}
+    </select>
+    <!-- 채팅세팅 -->
     <insert id="setChat" parameterType="ChatVO">
     	insert into user_chat (pj_num, chat_writer, chat_content, chat_regdate) 
     			values (#{pj_num},#{chat_writer},#{chat_content},now());
     	
     </insert>
-    
+    <!-- 채팅 받아오기 -->
     <select id="getChat" resultType="ChatVO">
     	select chat_num,chat_writer, chat_content, chat_regdate from user_chat
 				where pj_num =#{pj_num};
     </select>
-    
+    <!-- 채팅 삭제 -->
     <delete id="deleteChat" parameterType="int">
     	delete from user_chat where chat_num=#{chat_num};
     </delete>
-    
+    <!-- 채팅 수정 -->
     <update id="modifyChat" parameterType="map">
     	update user_chat set chat_content = #{modifyContent} where chat_num=#{chat_num};
     </update>
     
-    
+    <!-- 프로젝트리스트 -->
+    <select id="getProjectList" resultType="ProjectVO">
+    	select m.pj_num as pj_num,user_id,is_observer,pj_name,pj_active,pj_writer,pj_bookmark,pj_description,
+    			pj_startdate,pj_enddate,pj_regdate,(select count(*) from mapping
+													where pj_num = m.pj_num and is_observer=0) as pj_memberCount,
+													(select count(*) from mapping
+													where pj_num = m.pj_num and is_observer=1) as pj_observerCount
+    	    from mapping as m
+			inner join user_project as p on m.pj_num = p.pj_num
+            where user_id=#{user_id};
+    </select>
+    	
+	<update id="changeBookmark" parameterType="map">
+		update mapping set pj_bookmark =<choose>
+												<when test="pj_bookmark==true">0</when>
+												<otherwise>1</otherwise> 
+										</choose>			
+		 where user_id = #{user_id} and pj_num = #{pj_num};
+	</update>
     
     
     </mapper>

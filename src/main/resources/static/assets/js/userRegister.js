@@ -1,38 +1,4 @@
-//화면이 로드되면 부서 가져오는 코드 + 이메일 인증 코드 input과 button 비활성화하기
-$(document).ready(function() {
-	
-	var verifyInput = document.getElementById("user_email_verify");
-	var verifyBtn = document.getElementById("user_email_verify_btn");
-	
-	verifyInput.disabled = true;
-	verifyBtn.disabled = true;
-	
-	$.ajax({
-		url: "../getAllDepartment",
-		type: "get",
-		success: function(result) {
-			
-			var str = "";
-            str += '<select name="department_id" class="form-control" id="department_id" required>';
-            str += '<option>선택</option>'
-            result.forEach(function(item, index) {
-                str += '<option value="'+ item.department_id +'">'+ item.department_name +'</option>';                
-            })
-            str += '</select>';
-			            
-            $("#ajax_getDepartment").append(str); //화면에 자식으로 추가
-            
-            
-            
-		},
-		error: function(err) {
-			alert("부서 조회에 실패했습니다. 담당자에게 문의하세요.");
-			
-		}
-	});
-	
-	
-});
+
 	
 	//인증 코드를 이메일로 보내기
 	function sendMail(){

@@ -1,3 +1,13 @@
+//카카오 api
+$(".kakaoBtn").click(function(){
+	var apiKey = "f8a80263c7064b6a299e0d1d596e890a";
+	var address = "http://127.0.0.1:8686/user/kakao";
+		alert("이메일 수집에 꼭 동의해주세요!");
+		
+	location.href="https://kauth.kakao.com/oauth/authorize?client_id="+ apiKey +"&redirect_uri="+ address +"&response_type=code"
+})
+
+
 //회원가입 유효성 검사
 function loginCheck() {
 

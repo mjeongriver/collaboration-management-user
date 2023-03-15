@@ -101,4 +101,22 @@ public class ProjectAjaxController {
       return resultMap; 
    };  
    
+   
+   @GetMapping("/getProjectList")
+   public ArrayList<ProjectVO> getProjectList(){
+	  
+	   return projectService.getProjectList("test13");
+   }
+   
+   @GetMapping("/changeBookmark")
+   public int changeBookmark(@RequestParam("user_id") String user_id,
+		   					 @RequestParam("pj_num") int pj_num,
+		   					 @RequestParam("pj_bookmark") boolean pj_bookmark) {
+
+	   projectService.changeBookmark(user_id, pj_num, pj_bookmark);
+	   
+	   return 0;
+   }
+
+   
 }

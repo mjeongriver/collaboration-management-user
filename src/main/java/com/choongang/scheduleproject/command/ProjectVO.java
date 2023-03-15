@@ -42,6 +42,9 @@ public class ProjectVO {
 	private boolean pj_bookmark;
 	private String department_name;
 	private int department_id;
-	private String is_observer; 
-
+	private boolean is_observer; 
+	private int pj_totalMember;
+	private int pj_observerCount;
+	private int pj_memberCount;
+	
 }
