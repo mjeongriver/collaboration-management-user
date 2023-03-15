@@ -34,6 +34,8 @@ public interface ProjectService {
 
 	public ArrayList<UserVO> getProjectMember(String pj_num);
 	
+	public ProjectVO getProject(String pj_num);
+	
 	public UserVO getUserVO(String user_id);
 	
 	public int setChat(ChatVO vo);
@@ -43,6 +45,11 @@ public interface ProjectService {
 	public int deleteChat(int chat_num);
 	
 	public int modifyChat(int chat_num, String modifyContent);
+	
+/////////////////startProjectList////////////////////
+	public ArrayList<ProjectVO> getProjectList(String user_id);
+	
+	public int changeBookmark(String user_id,int pj_num, boolean pj_bookmark);
 	
 }
 

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.choongang.scheduleproject.command.AdminNoticeListVO;
+import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.project.service.ProjectService;
 import com.choongang.scheduleproject.service.AdminNoticeService;
 import com.choongang.scheduleproject.util.Criteria;
 import com.choongang.scheduleproject.util.PageVO;
@@ -25,9 +27,17 @@ public class UserBoardController {
 	@Qualifier("adminNoticeService")
 	private AdminNoticeService adminNoticeService;
 	
+	@Autowired
+	@Qualifier("projectService")
+	private ProjectService projectService;
+	
 	
 	@GetMapping("/teamBoardList")
-	public String teamBoardList() {
+	public String teamBoardList(Model model) {
+		ProjectVO pjVO = projectService.getProject("1");
+		
+		model.addAttribute("pjVO",pjVO);
+		
 		return "/userboards/teamBoardList";
 	}
 	@GetMapping("/teamBoardRegist")

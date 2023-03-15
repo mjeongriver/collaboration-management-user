@@ -155,13 +155,13 @@
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function() {                                                                                                                                                                                                                             
     	var markupStr=$('#summernote').summernote({
     		placeholder: '<li>작업을 적어주세요',
     		value:'<li>',
-    		toolbar:[
+    		/* toolbar:[
     			['para',['ul']]
-    		]
+    		] */
     	});
     	console.log(markupStr);
     });

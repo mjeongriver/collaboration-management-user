@@ -85,6 +85,26 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.modifyChat(chat_num,modifyContent);
 	}
 
+	@Override
+	public ArrayList<ProjectVO> getProjectList(String user_id) {
+	
+		return projectMapper.getProjectList(user_id);
+	}
+
+	@Override
+	public int changeBookmark(String user_id, int pj_num, boolean pj_bookmark) {
+		
+		return projectMapper.changeBookmark(user_id, pj_num, pj_bookmark);
+	}
+
+	@Override
+	public ProjectVO getProject(String pj_num) {
+		
+		return projectMapper.getProject(pj_num);
+	}
+
+
+
 	
 
 
