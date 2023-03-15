@@ -35,18 +35,27 @@ public class ProjectController {
 	@GetMapping("/projectStarted")
 	public String projectStarted(Model model) {
 
+		//채팅화면에 멤버 정보를 받아옴
 		ArrayList<UserVO> list = new ArrayList<>();
 		list = projectService.getProjectMember("1");
 		
+		
+		ProjectVO pjVO = projectService.getProject("1");
+		
+		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list);
 		
+	
 		return "/project/projectStarted";
 	}
 	
 	
 	//전체 진척률 보기
 	@GetMapping("/projectUserTeamChart")
-	public String projectUserTeamChart() {
+	public String projectUserTeamChart(Model model) {
+		ProjectVO pjVO = projectService.getProject("1");
+		
+		model.addAttribute("pjVO",pjVO);
 		return "/project/projectUserTeamChart";
 	}
 	
@@ -56,7 +65,12 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/projectCalendar")
-	public String projectCalendar() {
+	public String projectCalendar(Model model) {
+		
+		ProjectVO pjVO = projectService.getProject("1");
+		
+		model.addAttribute("pjVO",pjVO);
+		
 		return "/project/projectCalendar";
 	}
 	

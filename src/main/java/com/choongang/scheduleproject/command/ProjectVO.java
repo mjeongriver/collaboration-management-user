@@ -23,6 +23,10 @@ public class ProjectVO {
 	private String pj_description;
 	private String department_name;
 	private int department_id;
-	private boolean isObserver; 
-
+	private boolean is_observer; 
+	private int pj_totalMember;
+	private int pj_observerCount;
+	private int pj_memberCount;
+	
+	
 }
