@@ -261,24 +261,25 @@ public class UserController {
 	@GetMapping("/kakao")
 	public String kakao(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session) {
 		
-		//System.out.println("인가코드:" + code);
+//		System.out.println("인가코드:" + code);
 		String token = kakao.getAccessToken(code);
 		
-		//System.out.println("어세스토큰:" + token);
+//		System.out.println("어세스토큰:" + token);
 		Map<String, Object> map = kakao.getUserInfo(token);
 		
-		//System.out.println("사용자데이터" + map.toString());
+//		System.out.println("사용자데이터" + map.toString());
 				
 		//DB에서 조회해서 로그인처리
 		UserVO vo = new UserVO();
 		vo.setUser_email((String)map.get("email")); //카카오에서 가져온 이메일값으로 로그인 시도
+				
 		UserVO result = userService.kakaoLogin(vo);
 				
 		if(result == null) { //일치하는 아이디가 없음
 			// 회원가입 페이지로 넘겨줘야 함
 			
-//			String msg = "아이디가 일치하지 않습니다.";
-//			ra.addFlashAttribute("msg", msg);
+			String msg = "이메일과 일치하는 데이터가 존재하지 않습니다. 다시 확인해주세요.";
+			ra.addFlashAttribute("msg", msg);
 			return "redirect:/user/userLogin";
 		} else { // 일치하는 아이디가 있음
 			session.setAttribute("user_name", result.getUser_name()); //로그인 성공 시 세션 부여

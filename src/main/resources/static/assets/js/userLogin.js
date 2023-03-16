@@ -1,6 +1,6 @@
 //카카오 api
 $(".kakaoBtn").click(function(){
-	var apiKey = "f8a80263c7064b6a299e0d1d596e890a";
+	var apiKey = "0ad1808cae578c5f8edfdc6072415416";
 	var address = "http://127.0.0.1:8686/user/kakao";
 		alert("이메일 수집에 꼭 동의해주세요!");
 		
