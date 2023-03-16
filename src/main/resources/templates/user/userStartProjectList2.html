@@ -161,7 +161,7 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 					if(response[i].pj_bookmark==true){
 						var str = "";
 						str += '<div class="col-xxl-4 col-md-6">';
-						str += '<div class="card info-card sales-card" style="height:230px">';
+						str += '<div class="card info-card sales-card" style="height:250px">';
 						str += '<div class="card-body"><br/>';
 							if(response[i].pj_bookmark==true){
 								str += '<a style="cursor:pointer" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')">⭐</a>';
