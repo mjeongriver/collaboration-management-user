@@ -17,6 +17,7 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -35,3 +36,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+### 키 들어있는 파일 ###
+application.properties
+/src/main/resources/static/assets/js/userLogin.js
