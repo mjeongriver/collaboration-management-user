@@ -63,6 +63,7 @@ public class ProjectAjaxController {
       
       ProjectVO vo = new ProjectVO();
       vo.setPj_name((String)map.get("pj_name"));
+      vo.setPj_writer((String)map.get("pj_writer"));
       vo.setPj_startdate((String)map.get("pj_startdate"));
       vo.setPj_enddate((String)map.get("pj_enddate"));
       vo.setPj_description((String)map.get("pj_description"));
@@ -85,7 +86,7 @@ public class ProjectAjaxController {
     	  
     	  pmvo.setPj_num(pj_num);
     	  pmvo.setUser_id(user_list.get(i).get("team_id").toString());
-    	  pmvo.setIs_observer(user_list.get(i).get("isObserver").toString());
+    	  pmvo.setIs_observer(user_list.get(i).get("is_observer").toString());
     	  
     	  result2 = projectService.registMember(pmvo);  
       }

@@ -8,8 +8,8 @@
 
     <!-- 프로젝트 생성  -->
 <insert id="regist" parameterType="ProjectVO">
-    INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate, pj_description)
-    VALUES (#{pj_name}, #{pj_startdate}, #{pj_enddate}, #{pj_description});
+    INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate, pj_description, pj_writer)
+    VALUES (#{pj_name}, #{pj_startdate}, #{pj_enddate}, #{pj_description}, #{pj_writer});
     
     <selectKey keyProperty="pj_num" resultType="int" order="AFTER">
         SELECT LAST_INSERT_ID()
