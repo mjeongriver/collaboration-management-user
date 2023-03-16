@@ -43,14 +43,13 @@
     </select>
     <!-- 프로젝트 정보 -->
     <select id="getProject" resultType="ProjectVO">
-    	select pj_name,pj_active,pj_writer,pj_description,pj_startdate,pj_enddate,pj_regdate
+    	select pj_name,pj_active,pj_writer,pj_description,pj_startdate,pj_enddate,pj_regdate,pj_num
     		from user_project where pj_num = #{pj_num}
     </select>
     <!-- 채팅세팅 -->
     <insert id="setChat" parameterType="ChatVO">
     	insert into user_chat (pj_num, chat_writer, chat_content, chat_regdate) 
     			values (#{pj_num},#{chat_writer},#{chat_content},now());
-    	
     </insert>
     <!-- 채팅 받아오기 -->
     <select id="getChat" resultType="ChatVO">
@@ -75,7 +74,7 @@
 													where pj_num = m.pj_num and is_observer=1) as pj_observerCount
     	    from mapping as m
 			inner join user_project as p on m.pj_num = p.pj_num
-            where user_id=#{user_id};
+            where user_id=#{user_id}  order by pj_enddate
     </select>
     	
 	<update id="changeBookmark" parameterType="map">
@@ -86,5 +85,8 @@
 		 where user_id = #{user_id} and pj_num = #{pj_num};
 	</update>
     
+    <select id="getUserName" resultType="string">
+    	select user_name from user_user where user_id = #{user_id}
+    </select>
     
     </mapper>

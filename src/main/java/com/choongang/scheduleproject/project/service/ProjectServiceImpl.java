@@ -98,6 +98,12 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.getProject(pj_num);
 	}
 
+	@Override
+	public String getUserName(String user_id) {
+		
+		return projectMapper.getUserName(user_id);
+	}
+
 
 
 	

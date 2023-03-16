@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.command.ProjectVO;
@@ -33,14 +34,14 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/projectStarted")
-	public String projectStarted(Model model) {
+	public String projectStarted(Model model,@RequestParam("pj_num") int pj_num) {
 
 		//채팅화면에 멤버 정보를 받아옴
 		ArrayList<UserVO> list = new ArrayList<>();
-		list = projectService.getProjectMember(1);
+		list = projectService.getProjectMember(pj_num);
 		
 		
-		ProjectVO pjVO = projectService.getProject(1);
+		ProjectVO pjVO = projectService.getProject(pj_num);
 		
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list);

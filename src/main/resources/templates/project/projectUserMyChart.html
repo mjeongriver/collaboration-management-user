@@ -25,28 +25,28 @@
 								data-bs-toggle="tab" data-bs-target="#bordered-justified-home"
 								type="button" role="tab" aria-controls="home"
 								aria-selected="true"
-								onclick="location.href='/project/projectStarted'">홈</button>
+								th:onclick="|location.href='@{/project/projectStarted(pj_num=${param.pj_num})}'|">홈</button> <!-- 받아온get값 다른페이지로 넘기기 -->
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="profile-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-profile" type="button"
 								role="tab" aria-controls="profile" aria-selected="false"
-								onclick="location.href='/userboards/teamBoardList'">게시판</button>
+								th:onclick="|location.href='@{/userboards/teamBoardList(pj_num=${param.pj_num})}'|">게시판</button>
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
 								role="tab" aria-controls="contact" aria-selected="false"
-								onclick="location.href='/project/projectCalendar'">캘린더</button>
+								th:onclick="|location.href='@{/project/projectCalendar(pj_num=${param.pj_num})}'|">캘린더</button>
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100 active" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
 								role="tab" aria-controls="contact" aria-selected="false"
-								onclick="location.href='/project/projectUserTeamChart'">진척률</button>
+								th:onclick="|location.href='@{/project/projectUserTeamChart(pj_num=${param.pj_num})}'|">진척률</button>
 						</li>
 					</ul>
 				</nav>
