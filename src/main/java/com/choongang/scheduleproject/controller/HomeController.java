@@ -23,7 +23,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model model,HttpSession session) {
 		String user_id = (String)session.getAttribute("user_id");
-		System.out.println(user_id);
+
 		ArrayList<ProjectVO> list = new ArrayList<>();
 		list = projectService.getProjectList(user_id);
 		

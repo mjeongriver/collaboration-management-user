@@ -28,7 +28,7 @@ public class ChatAjaxController {
 	@GetMapping("/setChat")
 	public int setChat(@RequestParam("chat_content") String chat_content,
 					   @RequestParam("pj_num") int pj_num,HttpSession session) {
-		System.out.println(pj_num);
+
 		ChatVO vo = new ChatVO();
 		String user_id = (String)session.getAttribute("user_id");
 		vo.setChat_content(chat_content);
