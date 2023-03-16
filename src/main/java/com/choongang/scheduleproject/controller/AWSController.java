@@ -1,9 +1,14 @@
 package com.choongang.scheduleproject.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -12,9 +17,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,16 +31,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.user.service.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/AWSUpload")
+@RequestMapping("/AWS")
 @RequiredArgsConstructor
-public class AWSUploadController {
+public class AWSController {
 
 	private final AmazonS3Client amazonS3Client;
 
@@ -117,5 +129,43 @@ public class AWSUploadController {
 		return now; // 년월일 폴더 위치
 
 	}
+	
+	@GetMapping("/profileDownload")
+	public ResponseEntity<byte[]> downloadFile(@RequestParam("myProfileImg") String myProfileImg) throws IOException { // 객체 다운 fileUrl : 폴더명/파일네임.파일확장자
+		
+		String fileUrl = myProfileImg.substring(54); // 객체 URL에서 객체 키를 꺼내야 함
+		String fileName = myProfileImg.substring(98);
 
+		S3Object s3Object = amazonS3Client.getObject(new GetObjectRequest(bucket, fileUrl));
+		S3ObjectInputStream objectInputStream = s3Object.getObjectContent();
+		byte[] bytes = IOUtils.toByteArray(objectInputStream);
+		
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(contentType(fileUrl));
+		httpHeaders.setContentLength(bytes.length);
+		String[] arr = fileName.split("/"); // 요 부분을 처리해야 파일명만 가져올 수 있음
+		String type = arr[arr.length -1];
+		fileUrl = URLEncoder.encode(type, "UTF-8");
+		httpHeaders.setContentDispositionFormData("Content-Disposition", fileUrl );
+		
+		return new ResponseEntity<>(bytes, httpHeaders, HttpStatus.OK);
+	}
+	
+	private MediaType contentType(String keyname) {
+		String[] arr = keyname.split("\\.");
+		String type = arr[arr.length - 1];
+		
+		switch (type) {
+			case "txt":
+				return MediaType.TEXT_PLAIN;
+			case "png":
+				return MediaType.IMAGE_PNG;
+			case "jpg":
+				return MediaType.IMAGE_JPEG;
+			default:
+				return MediaType.APPLICATION_OCTET_STREAM;
+		}
+	}
+	
+	
 }
