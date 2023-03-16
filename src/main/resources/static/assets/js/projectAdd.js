@@ -167,7 +167,7 @@ function memberSuccess() {
   finalMember = document.querySelectorAll('[name="member"]');
   finalMemberName = document.querySelector('[name="finalMember"]');
   finalObserverMemberName = document.querySelector('[name="finalObserverMember"]');
-
+	
   const members = [];
   const observers = [];
 
@@ -282,6 +282,8 @@ function createProject() {
     var pj_startdate = $("input[name=pj_startdate]").val();
     var pj_enddate = $("input[name=pj_enddate]").val();
     var pj_description = $("textarea[name=pj_description]").val();
+    var pj_writer = $('span[name="pj_writer"]').attr('id');
+    var pj_writerValue = $('span[name="pj_writer"]').attr('value');
     
     //프로젝트 제목 필수
 	if (pj_name.trim() === "") {
@@ -320,12 +322,16 @@ function createProject() {
     const user_boolean = [];
     $('div[name=member]').each(function(index, item){
 		var team_id = $('div[name=member]').eq(index).attr('value');
-		var isObserver = $(this).find("select").val();
+		var is_observer = $(this).find("select").val();
 		user_boolean.push({
             "team_id": team_id,
-            "isObserver": isObserver
+            "is_observer": is_observer
         });
 	});
+        user_boolean.push({
+			"team_id": pj_writer,
+			"is_observer": pj_writerValue
+		})
 	
 	if(user_boolean.length == 0){
 		$('#memberWarning').text("팀원 및 옵저버를 선택해주세요.");
@@ -335,14 +341,15 @@ function createProject() {
 		return false;
 	}
 
-    const isObserver = user_boolean.some(member => member.isObserver);
+    const is_observer = user_boolean.some(member => member.is_observer);
     var objParams = {
         "pj_name": pj_name,
         "pj_startdate": pj_startdate,
         "pj_enddate": pj_enddate,
         "pj_description": pj_description,
+        "pj_writer": pj_writer,
         "user_boolean": JSON.stringify(user_boolean),
-        "isObserver": isObserver
+        "is_observer": is_observer
     };
     
     $.ajax({
