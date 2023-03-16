@@ -44,10 +44,13 @@ public interface ProjectMapper {
 	public int deleteChat(int chat_num);
 	//채팅수정
 	public int modifyChat(@Param("chat_num") int chat_num, @Param("modifyContent") String modifyContent);
-	
+	// getProjectList 메서드는 user_id를 매개변수로 받아 해당 사용자가 등록한 프로젝트 목록을 ArrayList<ProjectVO> 형태로 반환합니다.
 	public ArrayList<ProjectVO> getProjectList(@Param("user_id") String user_id);
-	
+	// changeBookmark 메서드는 user_id, pj_num, pj_bookmark를 매개변수로 받아 해당 사용자의 프로젝트 북마크 상태를 변경합니다.
+	// pj_bookmark가 true이면 북마크 추가, false이면 북마크 제거를 의미합니다.
 	public int changeBookmark(@Param("user_id") String user_id,@Param("pj_num") int pj_num,@Param("pj_bookmark") boolean pj_bookmark);
-	
+	//사용안함 아직.
 	public String getUserName(String user_id);
+	//프로젝트 삭제
+	public int deleteProject(int pj_num);
 }

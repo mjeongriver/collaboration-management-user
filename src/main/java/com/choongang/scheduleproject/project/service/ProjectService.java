@@ -51,6 +51,7 @@ public interface ProjectService {
 	public int changeBookmark(String user_id,int pj_num, boolean pj_bookmark);
 	
 	public String getUserName(String user_id);
-	
+	//프로젝트 삭제
+	public int deleteProject(int pj_num);
 }
 

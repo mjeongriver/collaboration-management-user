@@ -124,24 +124,27 @@
 
       </div>
     </section>
-
+<div style="display:none;" class="user_id">[[${session.user_id}]]</div>
   </main><!-- End #main -->
 </div>
 </th:block>
 
 <script th:inline="javascript">
-	
-document.getElementById("today").innerHTML=" | "+new Date().toISOString().substring(0,10);
+	var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든태그에 담아 받아주기
+	//오늘날짜 년월일만 저장.
+	document.getElementById("today").innerHTML=" | "+new Date().toISOString().substring(0,10);
 
 
 	var msg = JSON.parse('[[${msg}]]');
-	console.log(msg);
+
 	if(msg != null) {
 		alert(msg);
 	}
-	
+	//메인프로젝트 리스트
 	var projectList = $(".projectList");
+	//우측 dday 프로젝트 리스트
 	var projectList2 = $("#projectList2");
+	//프로젝트 값 받아오기
 	function getProjectList(){
 		
 		$.ajax({
@@ -154,11 +157,11 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 				projectList2.empty();
 				for (var i = 0; i < response.length; i++) {
 				 if(response[i].pj_active==true){
-				console.log(response[i].user_id);
+			
 					//프로젝트 담기
 				var str = "";
 				str += '<div class="col-xxl-4 col-md-6">';
-				str += '<div class="card info-card sales-card" style="height:220px">';
+				str += '<div class="card info-card sales-card" style="height:230px">';
 				str += '<div class="card-body"><br/>';
 					if(response[i].pj_bookmark==true){
 						str += '<a style="cursor:pointer" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')">⭐</a>';
@@ -170,14 +173,27 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 					} else {
 						str += '<span>&nbsp;&nbsp;옵저버</span>';
 					}
+					
+				str += '<span class="card-title">';
+				if(sessionId===response[i].pj_writer){
+				str += '<div class="filter">';
+				str += '<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>';
+				str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
+				str += '<h6>추가 작업</h6>';
+				str += '<li onclick="toggleHidden(this)"><a class="dropdown-item" style="color: blue;" >수정</a></li>';
+				
+				str += '<li><a class="dropdown-item" onclick="deleteProject('+response[i].pj_num+');" style="color: red">삭제</a></li>';
+				str += '</ul></div>';
+					}
+				str += '</span><br>';
 				str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_memberCount+'</a></i><span style="float:right;padding-top:2px">팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
 				str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_observerCount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
 				str += '<a href="/project/projectStarted?pj_num='+response[i].pj_num+'"><h5 class="card-title">'+response[i].pj_name+' <br>';
 				str += '<span>'+response[i].pj_description+'</span>';
 				str += '</h5></a>';
 					<!--  초대된 인원만큼 인원 수 표시 -->
-				str += '<a>시작일 : '+response[i].pj_startdate+'</a><br>';
-				str += '<a>종료일 : '+response[i].pj_enddate+'</a><br>';
+				str += '<span class="card-title"><span>시작일 : '+response[i].pj_startdate+'</span></span><br>';
+				str += '<span class="card-title"><span>종료일 : '+response[i].pj_enddate+'</span></span><br>';
 	
 				str += '</div>';
 				str += '</div>';
@@ -186,15 +202,15 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 				projectList.append(str);
 				}
 				}
-				
+		
 				for (var i = 0; i < response.length; i++) {
 					 if(response[i].pj_active==true){
 					//프로젝트 담기
 				var str = "";
 				var enddate= new Date(response[i].pj_enddate);
-     			   var now = new Date();
-     			   var distance = enddate.getTime() - now.getTime();
-      			  var dday = Math.ceil(distance/(1000*60*60*24));
+     			var now = new Date();
+     			var distance = enddate.getTime() - now.getTime(); //현재일자와 마감일자 비교
+      			var dday = Math.ceil(distance/(1000*60*60*24)); //차이나는 밀리터리 초를 1일로 환산
 				
 				str += '<div class="activity-item d-flex">';
 				str += '<div class="activite-label" style="width:40px">D - '+dday+'</div>';
@@ -208,7 +224,6 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 				}
 			}
 				
-				
 			},
 			error : function(e){
 				alert("프로젝트 리스트 조회 실패")
@@ -218,6 +233,7 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 		
 		$(document).ready(getProjectList);
 		
+		//북마크 변경하는 함수
 		function changeBookmark(userid, pjnum, bookmark){
 			$.ajax({
 				url : "../changeBookmark",
@@ -230,14 +246,32 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 					getProjectList();
 				},
 				error : function(e){
-					alert("추가 실패");
+					alert("변경 실패");
 				}
 
 			})
 			
 		}
 	
-	
+		//프로젝트 삭제
+		function deleteProject(pj_num){
+			console.log(pj_num);
+			$.ajax({
+				url : "../deleteProject",
+				type : "get",
+				data : {
+					"pj_num" : pj_num
+				},
+				dataType : "json",
+				success : function(result){
+					getProjectList();
+				},
+				error : function(e){
+					alert("삭제실패");
+				}
+			})
+			
+		}
 	
 	
 

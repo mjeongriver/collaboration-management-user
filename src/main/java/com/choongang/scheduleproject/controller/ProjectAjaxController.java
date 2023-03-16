@@ -103,13 +103,13 @@ public class ProjectAjaxController {
       return resultMap; 
    };  
    
-   
+   //프로젝트 리스트 받아오기
    @GetMapping("/getProjectList")
    public ArrayList<ProjectVO> getProjectList(HttpSession session){
 	  String user_id = (String)session.getAttribute("user_id");
 	   return projectService.getProjectList(user_id);
    }
-   
+   //북마크 변경
    @GetMapping("/changeBookmark")
    public int changeBookmark(@RequestParam("user_id") String user_id,
 		   					 @RequestParam("pj_num") int pj_num,
@@ -120,5 +120,13 @@ public class ProjectAjaxController {
 	   return 0;
    }
 
+   //프로젝트 삭제
+   @GetMapping("/deleteProject")
+   public int deleteProject(@RequestParam("pj_num") int pj_num) {
+	   
+	   projectService.deleteProject(pj_num);
+	   
+	   return pj_num;
+   }
    
 }

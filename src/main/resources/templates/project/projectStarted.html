@@ -26,7 +26,7 @@
 				</h6>
 
 				<nav>
-
+					<div style="display:none;" class="user_id">[[${session.user_id}]]</div>
 					<!-- Bordered Tabs Justified -->
 					<ul class="nav nav-tabs nav-tabs-bordered d-flex"
 						id="borderedTabJustified" role="tablist">
@@ -175,7 +175,8 @@
 
 </th:block>
 <script>
-	var chatList = $(".chat-content");
+	var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든태그에 담아 받아주기
+	var chatList = $(".chat-content"); //채팅내용 담은 변수
 	var chatScroll = document.querySelector(".chat-content");
 	// 스크롤 위치 기억
 	function rememberScrollPosition() {
@@ -190,15 +191,18 @@
 	var chatNum = 0;
 	//chatList길이 담을 함수
 	var chatLength = 0;
-	//pjnum 받아오기
+	//url받아서 겟한 값만 남기도록 처리하는 함수
 	function getUrlParameter(name) {
  	 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
 	 var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
 	 var results = regex.exec(location.search);
 	 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 	}
+	
+	//url값. 받아서 겟값만 남기도록 처리할 예정
 	var pj_num = getUrlParameter('pj_num');
 	
+	//채팅 받아오기
 	function getChat() {
 		$.ajax({
 					url : "../getChat",
@@ -208,17 +212,19 @@
 					success : function(response) {
 						// 스크롤 위치 기억
 						rememberScrollPosition();
-	
+						//챗리스트 비우기
 						chatList.empty();
-						console.log("페이지로드");
+						//채팅 길이를 담기
 						chatLength=response.length;
 						for (var i = 0; i < response.length; i++) {
+							
 							var str = "";
+							//챗넘버 갱신
 							chatNum = response[i].chat_num;
-							str += '<div style="display: flex;"><div><img src="/assets/img/profile-img.jpg" width="40px" alt="Profile" class="rounded-circle" /></div>';
+							str += '<div style="display: flex;"><div><img src="'+response[i].user_img+'" width="40px" alt="Profile" class="rounded-circle" /></div>';
 							str += '<div style="margin-left: 15px">';
 							str += '<div><span style="font-weight: 1000">'
-									+ response[i].chat_writer
+									+ response[i].user_name
 									+ '</span> <span style="font-size: 10px">'
 									+ response[i].chat_regdate
 									+ '</span></div>';
@@ -231,11 +237,12 @@
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
 							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
+								if(sessionId===response[i].chat_writer){
 							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
 							str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
 									+response[i].chat_content.replaceAll("<br>","\r\n")
 									+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chat_num+');" style="float:right;margin-top:5px">저장</buton></li>';
-							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chat_num+');" style="color: red">삭제</a></li>';
+							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chat_num+');" style="color: red">삭제</a></li>';}
 							str += '</ul></div></div><hr style="margin:;0 0 1px 0"/>';
 
 							chatList.append(str);
@@ -252,8 +259,7 @@
 	}
 	$(document).ready(getChat);
 	
-	
-	
+	//추가로 들어온 채팅을 바로 통신해서 전달..getchat과 동일
 	function addChat() {
 		$.ajax({
 					url : "../getChat",
@@ -263,14 +269,14 @@
 					success : function(response) {
 					
 						for (var i = 0; i < response.length; i++) {
-							if(response[i].chat_num>chatNum){
+							if(response[i].chat_num>chatNum){ //갱신한 챗넘보다 높은 챗넘만 추가로 전달
 							chatLength += 1;
 							var str = "";
 							chatNum = response[i].chat_num;
-							str += '<div style="display: flex;"><div><img src="/assets/img/profile-img.jpg" width="40px" alt="Profile" class="rounded-circle" /></div>';
+							str += '<div style="display: flex;"><div><img src="'+response[i].user_img+'" width="40px" alt="Profile" class="rounded-circle" /></div>';
 							str += '<div style="margin-left: 15px">';
 							str += '<div><span style="font-weight: 1000">'
-									+ response[i].chat_writer
+									+ response[i].user_name
 									+ '</span> <span style="font-size: 10px">'
 									+ response[i].chat_regdate
 									+ '</span></div>';
@@ -283,11 +289,12 @@
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
 							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
-							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
-							str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
-									+response[i].chat_content.replaceAll("<br>","\r\n")
-									+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chat_num+');" style="float:right;margin-top:5px">저장</buton></li>';
-							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chat_num+')" style="color: red">삭제</a></li>';
+								if(sessionId===response[i].chat_writer){
+								str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
+								str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
+										+response[i].chat_content.replaceAll("<br>","\r\n")
+										+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chat_num+');" style="float:right;margin-top:5px">저장</buton></li>';
+								str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chat_num+');" style="color: red">삭제</a></li>';}
 							str += '</ul></div></div><hr style="margin:;0 0 1px 0"/>';
 
 							chatList.append(str);
@@ -304,6 +311,7 @@
 				})
 	}
 	
+	//지속적으로 채팅리스트 변경값 체크
 	function checkChat(){
 
 		$.ajax({
@@ -312,12 +320,10 @@
 			data : {"pj_num":pj_num},
 			dataType : "json",
 			success : function(response){
-				
-
-				
-				if(response[response.length-1].chat_num>chatNum){
+			
+				if(response[response.length-1].chat_num>chatNum){ //마지막채팅번호보다 챗팅넘버가 크면 챗 추가
 					addChat();
-				} else if(response.length != chatLength){
+				} else if(response.length != chatLength){ //채팅길이가 달라지면.즉 챗팅이 삭제되면 채팅값 다시 받아오기
 					getChat();
 				}
 				
@@ -326,12 +332,12 @@
 		})
 	}
 	
-	setInterval( checkChat , 500);
+	setInterval( checkChat , 500); //0.5초마다 채팅값 확인
 
 	//입력 창
 	var chat_content = document.getElementById('floatingTextarea');
 
-	
+	//엔터입력 시 함수실행
 	function enterKey(e) {
 
 		console.log(chat_content.value);
@@ -356,6 +362,7 @@
 
 	}
 
+	//채팅삭제실행
 	function deleteChat(chat_num){
 		console.log(chat_num);
 		$.ajax({
@@ -375,7 +382,7 @@
 	}
 	
 	
-	//수정 textaria 숨겨져있음. 토글 방식으로 나타남
+	//수정 textarea 숨겨져있음. 토글 방식으로 나타남
 	function toggleHidden(element) {
 		  const hiddenLi = element.nextElementSibling;
 		  hiddenLi.style.display = hiddenLi.style.display === "block" ? "none" : "block";
@@ -415,7 +422,7 @@
 			})
 	 }
 	 
-	
+	//채팅 복사
 	function copy(event){
 		
 		
@@ -427,7 +434,7 @@
 			textArea.value = copyText.innerHTML.replaceAll("<br>","\r\n");
 			document.body.appendChild(textArea);
 			textArea.select();
-			document.execCommand("Copy");
+			document.execCommand("Copy"); //복사하는 함수
 			textArea.remove(); 
 	}
 		 
