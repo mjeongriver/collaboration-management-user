@@ -294,10 +294,9 @@ public class UserController {
 	public String changeInfo(UserVO vo, RedirectAttributes ra, HttpSession session) {
 		int result = userService.changeInfo(vo);
 		
-		String msg = result == 1 ? "회원정보 수정에 성공하였습니다. 다시 로그인해주세요." : "회원정보 수정에 실패했습니다. 관리자에게 문의하세요.";
+		String msg = result == 1 ? "회원정보 수정에 성공하였습니다." : "회원정보 수정에 실패했습니다. 관리자에게 문의하세요.";
 		ra.addFlashAttribute("msg", msg);
-		session.invalidate(); // 세션 만료시키기
-		return "redirect:/user/userLogin"; //로그인화면으로	
+		return "redirect:/user/userMypage"; //마이페이지화면으로	
 	}
 	
 	//마이페이지에서 비밀번호 변경
@@ -325,12 +324,10 @@ public class UserController {
 		
 		int result = userService.removeImg(user_id);
 		
-		String msg = result == 1 ? "이미지 삭제에 성공하였습니다. 다시 로그인해주세요." : "이미지 삭제에 실패했습니다. 관리자에게 문의하세요.";
+		String msg = result == 1 ? "이미지 삭제에 성공하였습니다." : "이미지 삭제에 실패했습니다. 관리자에게 문의하세요.";
 		ra.addFlashAttribute("msg", msg);
 		
-		session.invalidate(); // 세션 만료시키기
-
-		return "redirect:/user/userLogin"; //로그인화면으로	
+		return "redirect:/user/userMypage"; //로그인화면으로	
 	}
 	
 	
