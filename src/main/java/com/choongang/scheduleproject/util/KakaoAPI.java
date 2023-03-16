@@ -31,7 +31,7 @@ public class KakaoAPI {
 
 		//post의 폼데이터 형식 키=값&키=값...
 		String data = "grant_type=authorization_code"
-				+ "&client_id=f8a80263c7064b6a299e0d1d596e890a"
+				+ "&client_id=0ad1808cae578c5f8edfdc6072415416"
 				+ "&redirect_uri=" + redirect_uri
 				+ "&code=" + code;
 
