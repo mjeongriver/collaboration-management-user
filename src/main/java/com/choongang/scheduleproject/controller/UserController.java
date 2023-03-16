@@ -323,7 +323,7 @@ public class UserController {
 		
 		int result = userService.removeImg(user_id);
 		
-		String msg = result == 1 ? "이미지 수정에 성공하였습니다. 다시 로그인해주세요." : "이미지 수정에 실패했습니다. 관리자에게 문의하세요.";
+		String msg = result == 1 ? "이미지 삭제에 성공하였습니다. 다시 로그인해주세요." : "이미지 삭제에 실패했습니다. 관리자에게 문의하세요.";
 		ra.addFlashAttribute("msg", msg);
 		
 		session.invalidate(); // 세션 만료시키기

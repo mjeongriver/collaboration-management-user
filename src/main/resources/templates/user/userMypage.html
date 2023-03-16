@@ -21,8 +21,8 @@
 
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-			  <img th:if="${vo.user_img} == null " src="/assets/img/defaultImg.jpeg" alt="Profile" class="rounded-circle">
-              <img th:unless="${vo.user_img} == null " th:src="${vo.user_img}" alt="Profile" class="rounded-circle">
+			  <img th:if="${vo.user_img} == null " src="https://formmesoftimg.s3.ap-northeast-2.amazonaws.com/defaultImg.jpeg" alt="Profile" class="rounded-circle" style="width:100px; height:100px">
+              <img th:unless="${vo.user_img} == null " th:src="${vo.user_img}" alt="Profile" class="rounded-circle" style="width:100px; height: 100px">
               <h2>[[${vo.user_name}]]</h2>
               <h3>[[${vo.department_name}]] [[${vo.user_position}]]</h3>
             </div>
@@ -102,16 +102,19 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form method="POST" enctype="multipart/form-data" action="/AWSUpload/profileUpload">
+                  <form method="POST" enctype="multipart/form-data" action="/AWS/profileUpload">
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">프로필 사진</label>
                       <div class="col-md-8 col-lg-9">
-                        <img th:if="${vo.user_img} == null " src="/assets/img/defaultImg.jpeg" alt="Profile">
-                        <img th:unless="${vo.user_img} == null " th:src="${vo.user_img}" alt="Profile">
+                        <img id="myProfileImg" th:if="${vo.user_img} == null " src="https://formmesoftimg.s3.ap-northeast-2.amazonaws.com/defaultImg.jpeg" alt="Profile" style="width:100px; height: 100px">
+                        <img id="myProfileImg" th:unless="${vo.user_img} == null " th:src="${vo.user_img}" alt="Profile" style="width:100px; height: 100px">
                         <div class="pt-2">
-                          <input type="file" class="btn btn-primary btn-sm" name="file" title="Upload new profile image">
-                          <button type="submit" class="btn btn-primary btn-sm">업로드하기</button>
-                          <a href="/user/RemoveImg" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                          <input type="file" class="btn btn-primary btn-sm" name="file" style="width:278px">
+                        </div>
+                        <div style="padding-top: 10px">
+                          <button type="submit" class="btn btn-primary btn-sm" title="Upload new profile image" >업로드하기</button>
+                          <a href="/user/RemoveImg" class="btn btn-danger btn-sm" title="Remove my profile image">사진 삭제</a>
+                          <button type="button" onclick="downloadMyProfileImg()" class="btn btn-success btn-sm" title="Download my profile image">사진 다운로드</button>
                         </div>
                       </div>
                     </div>
@@ -234,6 +237,30 @@
 	}
 </script>
 <script>
+	//프로필 사진 다운로드하기
+	function downloadMyProfileImg() {
+		var myProfileImg = document.getElementById("myProfileImg").src;
+		location.href="../AWS/profileDownload?myProfileImg=" + myProfileImg;
+		/* $.ajax({
+			url : "../AWS/profileDownload",
+			type : "get",
+			async : false,
+			data : {
+				"myProfileImg" : myProfileImg
+			},
+			success : function(result) {
+				console.log(result);
+				
+			},
+			error : function(err) {
+				alert("사진 다운로드에 실패했습니다. 담당자에게 문의하세요.");
+
+			}
+			
+		}); */
+		
+	}
+
 	//휴대폰번호에 자동으로 하이픈 붙이기
 	function autoHyphen() {
 		var phoneNumber = document.getElementById("user_cell");
