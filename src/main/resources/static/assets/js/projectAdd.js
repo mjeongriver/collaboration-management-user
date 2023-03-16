@@ -361,7 +361,7 @@ function createProject() {
         contentType: "application/json",
         success: function(result) {
             alert(result.msg);
-            window.location.href = "/project/projectStarted";
+            location.href = "/";
         },
         error: function(err) {
             alert("에러가 발생했습니다.");
