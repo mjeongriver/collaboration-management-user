@@ -35,28 +35,28 @@
 								data-bs-toggle="tab" data-bs-target="#bordered-justified-home"
 								type="button" role="tab" aria-controls="home"
 								aria-selected="true"
-								onclick="location.href='/project/projectStarted'">홈</button>
+								th:onclick="|location.href='@{/project/projectStarted(pj_num=${param.pj_num})}'|">홈</button> <!-- 받아온get값 다른페이지로 넘기기 -->
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="profile-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-profile" type="button"
 								role="tab" aria-controls="profile" aria-selected="false"
-								onclick="location.href='/userboards/teamBoardList'">게시판</button>
+								th:onclick="|location.href='@{/userboards/teamBoardList(pj_num=${param.pj_num})}'|">게시판</button>
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
 								role="tab" aria-controls="contact" aria-selected="false"
-								onclick="location.href='/project/projectCalendar'">캘린더</button>
+								th:onclick="|location.href='@{/project/projectCalendar(pj_num=${param.pj_num})}'|">캘린더</button>
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
 								role="tab" aria-controls="contact" aria-selected="false"
-								onclick="location.href='/project/projectUserTeamChart'">진척률</button>
+								th:onclick="|location.href='@{/project/projectUserTeamChart(pj_num=${param.pj_num})}'|">진척률</button>
 						</li>
 					</ul>
 				</nav>
@@ -190,11 +190,20 @@
 	var chatNum = 0;
 	//chatList길이 담을 함수
 	var chatLength = 0;
+	//pjnum 받아오기
+	function getUrlParameter(name) {
+ 	 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+	 var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+	 var results = regex.exec(location.search);
+	 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+	}
+	var pj_num = getUrlParameter('pj_num');
 	
 	function getChat() {
 		$.ajax({
 					url : "../getChat",
 					type : "get",
+					data : {"pj_num":pj_num},
 					dataType : "json",
 					success : function(response) {
 						// 스크롤 위치 기억
@@ -218,7 +227,7 @@
 									+ '</span></div>';
 							str += '</div>';
 							str += '<div class="filter">';
-							str += '<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>';
+							str += '<a class="icon" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside"><i class="bi bi-three-dots"></i></a>';
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
 							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
@@ -249,6 +258,7 @@
 		$.ajax({
 					url : "../getChat",
 					type : "get",
+					data : {"pj_num":pj_num},
 					dataType : "json",
 					success : function(response) {
 					
@@ -299,6 +309,7 @@
 		$.ajax({
 			url : "../getChat",
 			type : "get",
+			data : {"pj_num":pj_num},
 			dataType : "json",
 			success : function(response){
 				
@@ -320,14 +331,16 @@
 	//입력 창
 	var chat_content = document.getElementById('floatingTextarea');
 
+	
 	function enterKey(e) {
 
 		console.log(chat_content.value);
 		$.ajax({
 			url : "../setChat",
-			type : "POST",
+			type : "get",
 			data : {
-				"chat_content" : chat_content.value.replace(/\n/g, "<br>") //줄바꿈 시 db에 줄바꾼것을 인식하기위해
+				"chat_content" : chat_content.value.replace(/\n/g, "<br>"), //줄바꿈 시 db에 줄바꾼것을 인식하기위해
+				"pj_num" : pj_num
 			},
 			dataType : "JSON",
 			success : function(result) {

@@ -48,4 +48,6 @@ public interface ProjectMapper {
 	public ArrayList<ProjectVO> getProjectList(@Param("user_id") String user_id);
 	
 	public int changeBookmark(@Param("user_id") String user_id,@Param("pj_num") int pj_num,@Param("pj_bookmark") boolean pj_bookmark);
+	
+	public String getUserName(String user_id);
 }

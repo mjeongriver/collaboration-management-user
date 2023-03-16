@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,9 +104,9 @@ public class ProjectAjaxController {
    
    
    @GetMapping("/getProjectList")
-   public ArrayList<ProjectVO> getProjectList(){
-	  
-	   return projectService.getProjectList("test13");
+   public ArrayList<ProjectVO> getProjectList(HttpSession session){
+	  String user_id = (String)session.getAttribute("user_id");
+	   return projectService.getProjectList(user_id);
    }
    
    @GetMapping("/changeBookmark")

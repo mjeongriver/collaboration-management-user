@@ -50,5 +50,7 @@ public interface ProjectService {
 	
 	public int changeBookmark(String user_id,int pj_num, boolean pj_bookmark);
 	
+	public String getUserName(String user_id);
+	
 }
 

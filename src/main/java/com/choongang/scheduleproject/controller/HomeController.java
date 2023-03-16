@@ -2,6 +2,8 @@ package com.choongang.scheduleproject.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,11 @@ public class HomeController {
 	private ProjectService projectService;
 	
 	@GetMapping("/")
-	public String index(Model model) {
-
+	public String index(Model model,HttpSession session) {
+		String user_id = (String)session.getAttribute("user_id");
+		System.out.println(user_id);
 		ArrayList<ProjectVO> list = new ArrayList<>();
-		list = projectService.getProjectList("test13");
+		list = projectService.getProjectList(user_id);
 		
 		model.addAttribute("list",list);
 		
@@ -31,10 +34,10 @@ public class HomeController {
 	}
 	
 	@GetMapping("/2")
-	public String index2(Model model) {
-
+	public String index2(Model model,HttpSession session) {
+		String user_id = (String)session.getAttribute("user_id");
 		ArrayList<ProjectVO> list = new ArrayList<>();
-		list = projectService.getProjectList("test13");
+		list = projectService.getProjectList(user_id);
 		
 		model.addAttribute("list",list);
 		
@@ -42,6 +45,17 @@ public class HomeController {
 
 	}
 	
+	@GetMapping("/3")
+	public String index3(Model model,HttpSession session) {
+		String user_id = (String)session.getAttribute("user_id");
+		ArrayList<ProjectVO> list = new ArrayList<>();
+		list = projectService.getProjectList(user_id);
+		
+		model.addAttribute("list",list);
+		
+		return "user/userStartProjectList3";
+
+	}
 	
 	
 
