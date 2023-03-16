@@ -90,7 +90,7 @@ public class ProjectController {
 		System.out.println(result);
 		System.out.println(vo.getPj_name());
 		System.out.println(vo.toString());
-		return "redirect:/project/projectStarted"; 
+		return "../"; 
 	}
 	
 }
