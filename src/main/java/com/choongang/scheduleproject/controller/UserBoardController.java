@@ -37,8 +37,8 @@ public class UserBoardController {
 	private ProjectService projectService;
 	
 	@GetMapping("/teamBoardList")
-	public String teamBoardList(Criteria cri, Model model) {
-		ProjectVO pjVO = projectService.getProject(1);
+	public String teamBoardList(Criteria cri, Model model,@RequestParam("pj_num") int pj_num) {
+		ProjectVO pjVO = projectService.getProject(pj_num);
 		int total = userBoardService.getCount(cri);
 		model.addAttribute("pjVO",pjVO);
 		return "/userboards/teamBoardList";

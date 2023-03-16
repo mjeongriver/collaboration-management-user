@@ -53,22 +53,25 @@ public class ProjectController {
 	
 	//전체 진척률 보기
 	@GetMapping("/projectUserTeamChart")
-	public String projectUserTeamChart(Model model) {
-		ProjectVO pjVO = projectService.getProject(1);
+	public String projectUserTeamChart(Model model,@RequestParam("pj_num") int pj_num) {
+		ProjectVO pjVO = projectService.getProject(pj_num);
 		
 		model.addAttribute("pjVO",pjVO);
 		return "/project/projectUserTeamChart";
 	}
 	
 	@GetMapping("/projectUserMyChart")
-	public String projectUserMyChart() {
+	public String projectUserMyChart(Model model,@RequestParam("pj_num") int pj_num) {
+		ProjectVO pjVO = projectService.getProject(pj_num);
+		
+		model.addAttribute("pjVO",pjVO);
 		return "/project/projectUserMyChart";
 	}
 	
 	@GetMapping("/projectCalendar")
-	public String projectCalendar(Model model) {
+	public String projectCalendar(Model model,@RequestParam("pj_num") int pj_num) {
 		
-		ProjectVO pjVO = projectService.getProject(1);
+		ProjectVO pjVO = projectService.getProject(pj_num);
 		
 		model.addAttribute("pjVO",pjVO);
 		
