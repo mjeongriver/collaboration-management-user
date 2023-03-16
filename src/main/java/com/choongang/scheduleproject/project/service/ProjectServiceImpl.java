@@ -104,6 +104,12 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.getUserName(user_id);
 	}
 
+	@Override
+	public int deleteProject(int pj_num) {
+	
+		return projectMapper.deleteProject(pj_num);
+	}
+
 
 
 	

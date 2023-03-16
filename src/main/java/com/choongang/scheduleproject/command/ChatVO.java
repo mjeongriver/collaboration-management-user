@@ -17,4 +17,7 @@ public class ChatVO {
 	private String chat_writer;
 	private String chat_content;
 	private String chat_regdate;
+	private String user_name;
+	private String user_img;
+	
 }
