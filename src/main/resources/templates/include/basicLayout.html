@@ -216,8 +216,8 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img th:if="${session.user_img} == null" src="https://formmesoftimg.s3.ap-northeast-2.amazonaws.com/defaultImg.jpeg" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
-            <img id="img" th:unless="${session.user_img} == null" th:src="${session.user_img}" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
+            <img id="img" th:src="${session.user_img}" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
+
             <span class="d-none d-md-block dropdown-toggle ps-2">[[${session.user_name}]]님</span>
           </a><!-- End Profile Iamge Icon -->
 

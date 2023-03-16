@@ -216,14 +216,14 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-			<img th:if="${session.user_img} == null" src="https://formmesoftimg.s3.ap-northeast-2.amazonaws.com/defaultImg.jpeg" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
-            <img id="img" th:unless="${session.user_img} == null" th:src="${session.user_img}" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
+            <img id="img" th:src="${session.user_img}" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
             <span class="d-none d-md-block dropdown-toggle ps-2">[[${session.user_name}]]님</span>
           </a><!-- End Profile Iamge Icon -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>[[${session.user_name}]]</h6>
               <span>[[${session.user_id}]]</span>
+              <span id="canMakeProject">[[${session.user_role}]]</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -283,10 +283,10 @@
 <!-- 	<li class="nav-heading">프로젝트 생성 이전 (User)</li>
  -->
       <li class="nav-item">
-        <a class="btn btn-primary" style="width : 100%" href="/project/projectAdd">
+        <button type="button" id="makeProject" class="btn btn-primary" style="width : 100%" onclick="location.href='/project/projectAdd'">
           <i class="bi bi-calendar-plus"></i>
           <span>프로젝트 생성</span>
-        </a>
+        </button>
       </li><!-- End Blank Page Nav -->      
       
 	  <li class="nav-item">
@@ -353,5 +353,19 @@
 
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
+  <script>
+	//프로젝트 생성 권한 처리 - 부장이 아니면 생성 못함
+	$(document).ready(function() {
+
+		var canMakeProject = document.getElementById("canMakeProject").innerHTML;
+		var makeProject = document.getElementById("makeProject");
+		
+		if(canMakeProject === "0") {
+			makeProject.disabled = true;
+		}
+		
+	});
+  </script>
 </th:block>
+
 </html>

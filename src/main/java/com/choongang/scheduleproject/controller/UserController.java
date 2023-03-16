@@ -98,7 +98,6 @@ public class UserController {
 	//회원가입 요청
 	@PostMapping("/RegisterForm")
 	public String register(@Valid UserVO vo, Errors errors, RedirectAttributes ra) {
-		
 		//서버단에서 유효성 검사 실행
 		if(errors.hasErrors()) {
 			System.out.println(errors.toString());
@@ -184,6 +183,7 @@ public class UserController {
 					session.setAttribute("user_name", result.getUser_name()); //로그인 성공 시 세션 부여
 					session.setAttribute("user_id", result.getUser_id()); //로그인 성공 시 세션 부여
 					session.setAttribute("user_img", result.getUser_img()); //로그인 성공 시 세션 부여
+					session.setAttribute("user_role", result.getUser_role()); //로그인 성공 시 세션 부여
 					
 					return "user/userStartProjectList";					
 				}
@@ -283,6 +283,8 @@ public class UserController {
 		} else { // 일치하는 아이디가 있음
 			session.setAttribute("user_name", result.getUser_name()); //로그인 성공 시 세션 부여
 			session.setAttribute("user_id", result.getUser_id()); //로그인 성공 시 세션 부여
+			session.setAttribute("user_img", result.getUser_img()); //로그인 성공 시 세션 부여
+			session.setAttribute("user_role", result.getUser_role()); //로그인 성공 시 세션 부여
 			return "user/userStartProjectList";			
 		}
 	}
