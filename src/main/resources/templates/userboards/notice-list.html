@@ -24,7 +24,7 @@
               <div style="margin: 20px 0px;height:40px">
 								<!-- 검색창 -->
                					<div class="search-bar" >
-			      					<form class="search-form d-flex align-items-center" method="GET" action="notice-list" style="justify-content:right;" >
+			      				<form class="search-form d-flex align-items-center" method="GET" action="notice-list" style="justify-content:right;" >
 								<input type="hidden" name="page" th:value="1">
 								<input type="hidden" name="amount" th:value="${pageVO.amount}">
 			      				<div style="border:1px solid #E0E5EE; border-radius:15px;">
@@ -35,6 +35,8 @@
 									</select>
        								<input type="text" name="search" th:value="${pageVO.cri.search}" placeholder="Search" title="Enter search keyword" style=" border:none; padding-top:15px; outline:none;">
 			        				<button type="submit" title="Search" style="background-color:transparent; border:none; padding-right:18px"><i class="bi bi-search"></i></button>
+			        				<a class="page-link" th:href="@{notice-list(page=${page}, amount=${pageVO.amount}, search=${pageVO.cri.search}, searchType=${pageVO.cri.searchType})}">[[${page}]]</a>
+
 			        			</div>
 			    				</form>
 			    				</div><!-- End Search Bar -->
@@ -117,12 +119,24 @@
 
 <!-- ~개씩 보기 -->
 <script>
+
 	var handleAmount = document.getElementById("handleAmount");
 	handleAmount.onchange = function(e) {
 
-		location.href="notice-list?page=1&amount=" + e.target.value;
-	}
+  		const form = document.querySelector('form');
+ 		const query = new URLSearchParams(window.location.search);
+  		query.set('amount', e.target.value);
+ 		const search = query.toString();
+  		const page = query.get('page') || 1;
+  		const url = `notice-list?page=${page}&${search}`;
+  		window.location.href = url;
+}
+
+
+
 
 </script>
+
+
 
 </html>
