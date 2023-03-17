@@ -4,8 +4,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@Builder
 public class ProjectVO {
 
 	@NotNull
@@ -33,19 +30,15 @@ public class ProjectVO {
 	@NotNull
 	private String pjDescription;
 
-	private int pjNum;
-
+	private String departmentName;
 	private String userName;
 	private String userId;
-
 	private String pjWriter;
 	private boolean pjActive;
 	private boolean pjBookmark;
-	private String departmentName;
-	private int departmentId;
-
 	private boolean isObserver;
-
+	private int pjNum;
+	private int departmentId;
 	private int pjTotalmember;
 	private int pjObservercount;
 	private int pjMembercount;

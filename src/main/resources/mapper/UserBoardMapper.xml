@@ -4,8 +4,8 @@
 
 	<!-- 조회 + 페이징 처리 -->
 	<select id="getList" resultType="UserBoardVO">
-	  select * from user_board
-	  where pj_num = #{pj_num}
- 	</select>
+		select * from user_board
+		where pj_num = #{pj_num}
+	</select>
 
 </mapper>

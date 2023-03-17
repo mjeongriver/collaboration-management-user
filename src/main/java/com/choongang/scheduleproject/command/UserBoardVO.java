@@ -15,12 +15,12 @@ public class UserBoardVO {
 	private int pjNum;
 	private String boardTitle;
 	private String boardWriter;
-	private Timestamp boardRegdate;
-	private Boolean boardProcess;
 	private String boardStartdate;
 	private String boardEnddate;
 	private String boardTargetdate;
 	private String boardContent;
 	private String boardCategory;
+	private Boolean boardProcess;
+	private Timestamp boardRegdate;
 	
 }
