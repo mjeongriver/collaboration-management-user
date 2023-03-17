@@ -65,9 +65,9 @@
                 <th:block th:each="vo, stat: ${AdminNoticeList}">
                   <tr>
                     <td>[[${(pageVO.page -1) * pageVO.amount + stat.count }]]</td><!-- 1, 11, 21페이지부터 시작하기위해 -->
-                    <td style="width:40%"><a href="/userboards/notice-content?notice_num="th:attrappend="href=${vo.notice_num}">[[${vo.notice_title}]]</a></td>
-                    <td>[[${vo.notice_writer}]]</td>
-                    <td>[[${ #dates.format(vo.notice_regdate, 'yyyy-MM-dd') }]]</td>
+                    <td style="width:40%"><a href="/userboards/notice-content?noticeNum="th:attrappend="href=${vo.noticeNum}">[[${vo.noticeTitle}]]</a></td>
+                    <td>[[${vo.noticeWriter}]]</td>
+                    <td>[[${ #dates.format(vo.noticeRegdate, 'yyyy-MM-dd') }]]</td>
                   </tr>
                 </th:block>
 

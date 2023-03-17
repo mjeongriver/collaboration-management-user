@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class AdminNoticeListVO {
-	
-	private int notice_num;
-	private String admin_id;
-	private String notice_title;
-	private String notice_content;
-	private Timestamp notice_regdate;
-	private String notice_writer;
-	private String notice_note;
-	
+
+	private int noticeNum;
+	private String adminId;
+	private String noticeTitle;
+	private String noticeContent;
+	private Timestamp noticeRegdate;
+	private String noticeWriter;
+	private String noticeNote;
+
 
 }
