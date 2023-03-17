@@ -2,7 +2,6 @@ package com.choongang.scheduleproject.controller;
 
 import java.util.ArrayList;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,6 @@ public class ProjectController {
 		//채팅화면에 멤버 정보를 받아옴
 		ArrayList<UserVO> list = new ArrayList<>();
 		list = projectService.getProjectMember(pj_num);
-
 
 		ProjectVO pjVO = projectService.getProject(pj_num);
 
@@ -76,12 +74,8 @@ public class ProjectController {
 		return "/project/project-calendar";
 	}
 
-	//등록 요청
-	//여기서 세션 값을 받아서 vo에 writer에 담는다.
-
 	@PostMapping("/regist-form")
 	public String registForm(ProjectVO vo, RedirectAttributes ra) {
-		//여기에다가 세션 값 받아오기
 		int result = projectService.regist(vo);
 		String msg = result == 1 ? "정상 입력 되었습니다." : "등록에 실패하였습니다";
 		ra.addFlashAttribute("msg", msg);

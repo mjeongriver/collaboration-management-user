@@ -15,7 +15,7 @@ function selectAllMember(selectAll) {
 //ajax로 부서 출력
 $(document).ready(function() {
     $.ajax({
-        url: "../getDepList",
+        url: "../get-dlist",
         type: "get",
         async: false,
         success: function(result) {
@@ -37,7 +37,7 @@ $(document).ready(function() {
 //ajax로 부서 클릭 시 부서에 있는 팀원 목록 출력
 function getDepList(e) {
     $.ajax({
-        url: "../getDepMemberList",
+        url: "../get-dmlist",
         type: "get",
         data: {
             department_id: e.target.value
@@ -353,7 +353,7 @@ function createProject() {
     };
     
     $.ajax({
-        url: "../regProject",
+        url: "../reg-project",
         type: "post",
         async: false,
         data: JSON.stringify(objParams),

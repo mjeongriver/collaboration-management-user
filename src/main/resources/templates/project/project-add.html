@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/modal.css" />
 
 </script>
-<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+<th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
 
 
 	<div class="wrap">
@@ -10,7 +10,7 @@
 			<div class="pagetitle">
 				<h1>프로젝트 생성</h1>
 			</div>
-			<form action="/project/projectStarted" method="post" onsubmit="return false">
+			<form action="/project/project-started" method="post" onsubmit="return false">
 				<section class="section">
 					<div class="row" style="justify-content: center">
 						<div class="col-lg-7">
@@ -144,7 +144,7 @@
 </th:block>
 
 <script src="/assets/js/modal.js"></script>
-<script src="/assets/js/projectAdd.js"></script><!-- 유효성 검사 및 js 코드 -->
+<script src="/assets/js/project-add.js"></script><!-- 유효성 검사 및 js 코드 -->
 
 
 

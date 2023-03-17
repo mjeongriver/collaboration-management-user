@@ -22,7 +22,6 @@ import com.choongang.scheduleproject.project.service.ProjectService;
 import com.google.gson.Gson;
 
 
-
 @RestController
 public class ProjectAjaxController {
 
@@ -31,19 +30,19 @@ public class ProjectAjaxController {
    private ProjectVO vo;
 
    //부서 요청
-   @GetMapping("/getDepList")
+   @GetMapping("/get-dlist") 
    public List<ProjectVO> getDepList (){
       return projectService.getDepList();
    }
 
    //부서별 팀원 요청
-   @GetMapping("/getDepMemberList")
+   @GetMapping("/get-dmlist")
    public List<ProjectVO> getDepMemberList(@RequestParam("department_id") int department_id) {
       return projectService.getDepMemberList(department_id);
    }
 
    //등록 요청
-   @PostMapping("/regProject")
+   @PostMapping("/reg-project")
    @ResponseBody
    public Map<String, Object> regist(@RequestBody Map<String, Object> map, RedirectAttributes ra) {
 
@@ -101,16 +100,12 @@ public class ProjectAjaxController {
    };
 
    //프로젝트 리스트 받아오기
-   /***
-    *
-    * @param session 세션아이디
-    * @return 페이지리스트
-    */
    @GetMapping("/get-project-list")
    public ArrayList<ProjectVO> getProjectList(HttpSession session){
 	  String user_id = (String)session.getAttribute("user_id");
 	   return projectService.getProjectList(user_id);
    }
+   
    //북마크 변경
    @GetMapping("/change-bookmark")
    public int changeBookmark(@RequestParam("user_id") String user_id,
