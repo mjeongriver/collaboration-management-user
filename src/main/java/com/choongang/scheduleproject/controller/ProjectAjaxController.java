@@ -37,8 +37,8 @@ public class ProjectAjaxController {
 
    //부서별 팀원 요청
    @GetMapping("/get-dmlist")
-   public List<ProjectVO> getDepMemberList(@RequestParam("department_id") int department_id) {
-      return projectService.getDepMemberList(department_id);
+   public List<ProjectVO> getDepMemberList(@RequestParam("department_id") int departmentId) {
+      return projectService.getDepMemberList(departmentId);
    }
 
    //등록 요청
@@ -61,8 +61,8 @@ public class ProjectAjaxController {
       ProjectVO vo = new ProjectVO();
       vo.setPjName((String)map.get("pj_name"));
       vo.setPjWriter((String)map.get("pj_writer"));
-      vo.setPjStartDate((String)map.get("pj_startdate"));
-      vo.setPjEndDate((String)map.get("pj_enddate"));
+      vo.setPjStartdate((String)map.get("pj_startdate"));
+      vo.setPjEnddate((String)map.get("pj_enddate"));
       vo.setPjDescription((String)map.get("pj_description"));
 
       Gson gson = new Gson();

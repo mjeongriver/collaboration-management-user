@@ -25,13 +25,13 @@ public class ProjectVO {
 	@NotEmpty
 
 	@JsonProperty("pj_startdate")
-	private String pjStartDate;
+	private String pjStartdate;
 	
 	@NotNull
 	@NotBlank
 	@NotEmpty
 	@JsonProperty("pj_enddate")
-	private String pjEndDate;
+	private String pjEnddate;
 	
 	@NotNull
 	@JsonProperty("pj_name")
@@ -41,7 +41,9 @@ public class ProjectVO {
 	@JsonProperty("pj_description")
 	private String pjDescription;
 	
+	@JsonProperty("pj_num")
 	private int pjNum;
+	
 	private String userName;
 	private String userId;
 	
@@ -52,7 +54,7 @@ public class ProjectVO {
 	private String departmentName;
 
 	
-	@JsonProperty("department_id")
+	//@JsonProperty("department_id")
 	private int departmentId;
 	
 	@JsonProperty("is_observer")

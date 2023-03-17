@@ -22,7 +22,7 @@ $(document).ready(function() {
             var str = "";
             str += '<ul class="depList" style="position: relative; list-style: none;" onclick="getDepList(event);">';
             result.forEach(function(item, index) {
-                str += '<li class="depList" style="cursor: pointer; padding: 5px 0px 5px 5px; margin: 10px 0px 10px;" value=' + JSON.stringify(item.department_id) + '>' + item.department_name + '</li>';
+                str += '<li class="depList" style="cursor: pointer; padding: 5px 0px 5px 5px; margin: 10px 0px 10px;" value=' + JSON.stringify(item.departmentId) + '>' + item.departmentName + '</li>';
             })
             str += '</ul>';
 
@@ -46,8 +46,8 @@ function getDepList(e) {
             var str = "";
             str += '<ul class="depMemberList" style="position: relative; list-style: none; padding: 0px 0px 0px 18px">';
             result.forEach(function(item, index) {
-                str += `<li class="depMemberList2" onclick="seleted(event)" data-value="${item.user_id}" style="padding: 5px 0px 5px 5px; margin: 10px 0px 10px; cursor: pointer; border-radius: 10px;"` + `>` +
-                    item.user_name +
+                str += `<li class="depMemberList2" onclick="seleted(event)" data-value="${item.userId}" style="padding: 5px 0px 5px 5px; margin: 10px 0px 10px; cursor: pointer; border-radius: 10px;"` + `>` +
+                    item.userName +
                     '</li>';
             })
             str += '</ul>';

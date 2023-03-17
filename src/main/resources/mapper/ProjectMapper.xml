@@ -14,7 +14,7 @@
 		VALUES (#{pjName}, #{pjStartdate}, #{pjEnddate}, #{pjDescription},
 		#{pjWriter});
 
-		<selectKey keyProperty="pj_num" resultType="int"
+		<selectKey keyProperty="pjNum" resultType="int"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
