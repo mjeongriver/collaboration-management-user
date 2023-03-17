@@ -59,7 +59,7 @@
 												id="nameWarning"
 												style="color: red; font-size: 5px; float: right"></span>
 										</div>
-										<input type="text" name="user_name" class="form-control"
+										<input type="text" name="userName" class="form-control"
 											id="user_name" required>
 									</div>
 									<div class="col-12">
@@ -69,7 +69,7 @@
 												style="color: red; font-size: 5px; float: right"></span>
 										</div>
 										<div>
-											<input type="text" name="user_id" class="form-control"
+											<input type="text" name="userId" class="form-control"
 												id="user_id" placeholder="아이디는 4자 이상 12자 이하입니다"
 												onkeyup="checkAllId()" required>
 										</div>
@@ -80,7 +80,7 @@
 												id="pwWarning"
 												style="color: red; font-size: 5px; float: right"></span>
 										</div>
-										<input type="password" name="user_pw" class="form-control"
+										<input type="password" name="userPw" class="form-control"
 											id="user_pw" placeholder="비밀번호는 8자 이상 16자 이하입니다"
 											required>
 									</div>
@@ -100,7 +100,7 @@
 												id="phoneWarning"
 												style="color: red; font-size: 5px; float: right"></span>
 										</div>
-										<input type="text" name="user_cell" class="form-control"
+										<input type="text" name="userCell" class="form-control"
 											id="user_cell" onkeyup="autoHyphen()"
 											placeholder="숫자로만 입력해주세요" required>
 									</div>
@@ -111,7 +111,7 @@
 												style="color: red; font-size: 5px; float: right"></span>
 										</div>
 										<div>
-											<input type="text" name="user_email" class="form-control"
+											<input type="text" name="userEmail" class="form-control"
 												id="user_email" style="float:left; width:80%" required>
 										<button type="button" class="btn btn-primary" id="sendMailBtn" style="float:right; width:18%" onclick="sendMail()">메일 발송</button>
 										</div>
@@ -135,7 +135,7 @@
 												id="birthWarning"
 												style="color: red; font-size: 5px; float: right"></span>
 										</div>
-										<input type="text" name="user_birth" class="form-control"
+										<input type="text" name="userBirth" class="form-control"
 											id="user_birth" placeholder="생년월일 8자리를 입력해주세요" required>
 									</div>
 									<div class="col-12">
@@ -154,7 +154,7 @@
 												id="positionWarning"
 												style="color: red; font-size: 5px; float: right"></span>
 										</div>
-										<select name="user_position" class="form-control" id="user_position"
+										<select name="userPosition" class="form-control" id="user_position"
 											required>
 											<option>선택</option>
 											<option>사원</option>
@@ -180,9 +180,9 @@
 											이미 계정을 보유하고 계신가요?<a href="/user/user-login"> 로그인하기</a>
 										</p>
 									</div>
-									<input style="display:none" name="user_active" value="1"></input>
-									<input style="display:none" name="user_img" value="https://formmesoftimg.s3.ap-northeast-2.amazonaws.com/defaultImg.jpeg"></input>
-									<input style="display:none" name="user_role" id="user_role" value="0"></input>
+									<input style="display:none" name="userActive" value="1"></input>
+									<input style="display:none" name="userImg" value="https://formmesoftimg.s3.ap-northeast-2.amazonaws.com/defaultImg.jpeg"></input>
+									<input style="display:none" name="userRole" id="user_role" value="0"></input>
 								</form>
 							</div>
 						</div>

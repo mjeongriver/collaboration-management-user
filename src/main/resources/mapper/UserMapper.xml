@@ -173,7 +173,7 @@
     <!-- 마이페이지에서 프로필 사진을 없애는 코드 -->
     <update id="removeImg" parameterType="String">
     	update user_user
-    	set user_img = null
+    	set user_img = 'https://formmesoftimg.s3.ap-northeast-2.amazonaws.com/defaultImg.jpeg'
     	where user_id = #{userId}
     </update>
 	
