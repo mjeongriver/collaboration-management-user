@@ -31,15 +31,15 @@
   <link href="/assets/css/style.css" rel="stylesheet">
   <script src="/assets/js/jquery-1.12.1.min.js"></script>
   <script src="/assets/js/jquery-ui.min.js"></script>
-  
-  
+
+
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.5.0
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  
+
 
 </head>
 
@@ -230,7 +230,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/user/userMypage">
+              <a class="dropdown-item d-flex align-items-center" href="/user/user-mypage">
                 <i class="bi bi-person"></i>
                 <span>마이페이지</span>
               </a>
@@ -260,7 +260,7 @@
             </li> -->
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/user/Logout">
+              <a class="dropdown-item d-flex align-items-center" href="/user/logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>로그아웃</span>
               </a>
@@ -283,12 +283,12 @@
 <!-- 	<li class="nav-heading">프로젝트 생성 이전 (User)</li>
  -->
       <li class="nav-item">
-        <button type="button" id="makeProject" class="btn btn-primary" style="width : 100%" onclick="location.href='/project/projectAdd'">
+        <button type="button" id="makeProject" class="btn btn-primary" style="width : 100%" onclick="location.href='/project/project-add'">
           <i class="bi bi-calendar-plus"></i>
           <span>프로젝트 생성</span>
         </button>
-      </li><!-- End Blank Page Nav -->      
-      
+      </li><!-- End Blank Page Nav -->
+
 	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-calendar-check"></i><span>내 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -316,15 +316,15 @@
           </li>
         </ul>
       </li><!-- End Forms Nav -->
-      
-      
-      
+
+
+
     </ul>
 
   </aside><!-- End Sidebar-->
-  
+
   <th:block th:replace="${section}"></th:block>
-  
+
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
@@ -359,11 +359,11 @@
 
 		var canMakeProject = document.getElementById("canMakeProject").innerHTML;
 		var makeProject = document.getElementById("makeProject");
-		
+
 		if(canMakeProject === "0") {
 			makeProject.disabled = true;
 		}
-		
+
 	});
   </script>
 </th:block>
