@@ -1,3 +1,12 @@
+	//엔터 이벤트
+$("#user_pw").keypress(function(e) {
+	  if (e.keyCode === 13) {
+	    e.preventDefault();
+	    loginCheck();
+	  }
+	});	
+
+
 //카카오 api
 $(".kakaoBtn").click(function(){
 	var apiKey = "0ad1808cae578c5f8edfdc6072415416";

@@ -3,10 +3,8 @@ package com.choongang.scheduleproject.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,12 +17,13 @@ import com.google.gson.JsonParser;
 
 @Component("kakao")
 public class KakaoAPI {
-
+	
+	private static final String REQUEST_URL_USER = "https://kauth.kakao.com/oauth/token";
+	private static final String REQUEST_URL_INFO = "https://kapi.kakao.com/v2/user/me";
+	private static final String REDIRECT_URI = "http://127.0.0.1:8686/user/kakao";
+	
 	//토큰발급기능
 	public String getAccessToken(String code) {
-
-		String requestURL = "https://kauth.kakao.com/oauth/token";
-		String redirect_uri = "http://127.0.0.1:8686/user/kakao";
 
 		String refresh_token = "";
 		String access_token = "";
@@ -32,11 +31,11 @@ public class KakaoAPI {
 		//post의 폼데이터 형식 키=값&키=값...
 		String data = "grant_type=authorization_code"
 				+ "&client_id=0ad1808cae578c5f8edfdc6072415416"
-				+ "&redirect_uri=" + redirect_uri
+				+ "&redirect_uri=" + REDIRECT_URI
 				+ "&code=" + code;
 
 		try {
-			URL url = new URL(requestURL);
+			URL url = new URL(REQUEST_URL_USER);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
 			conn.setRequestMethod("POST"); // post형식
@@ -89,10 +88,8 @@ public class KakaoAPI {
 		//데이터 저장할 Map
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		String requestURL = "https://kapi.kakao.com/v2/user/me";
-
 		try {
-			URL url = new URL(requestURL);
+			URL url = new URL(REQUEST_URL_INFO);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
 			conn.setRequestMethod("POST"); // post형식
