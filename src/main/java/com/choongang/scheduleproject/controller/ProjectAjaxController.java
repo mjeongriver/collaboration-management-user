@@ -25,105 +25,98 @@ import com.google.gson.Gson;
 @RestController
 public class ProjectAjaxController {
 
-   @Autowired
-   private ProjectService projectService;
-   private ProjectVO vo;
+	@Autowired
+	private ProjectService projectService;
+	private ProjectVO vo;
 
-   //부서 요청
-   @GetMapping("/get-dlist")
-   public List<ProjectVO> getDepList (){
-      return projectService.getDepList();
-   }
+	//부서 요청
+	@GetMapping("/get-dlist")
+	public List<ProjectVO> getDepList (){
+		return projectService.getDepList();
+	}
 
-   //부서별 팀원 요청
-   @GetMapping("/get-dmlist")
-   public List<ProjectVO> getDepMemberList(@RequestParam("department_id") int departmentId) {
-      return projectService.getDepMemberList(departmentId);
-   }
+	//부서별 팀원 요청
+	@GetMapping("/get-dmlist")
+	public List<ProjectVO> getDepMemberList(@RequestParam("department_id") int departmentId) {
+		return projectService.getDepMemberList(departmentId);
+	}
 
-   //등록 요청
-   @PostMapping("/reg-project")
-   @ResponseBody
-   public Map<String, Object> regist(@RequestBody Map<String, Object> map, RedirectAttributes ra) {
+	//등록 요청
+	@PostMapping("/reg-project")
+	@ResponseBody
+	public Map<String, Object> regist(@RequestBody Map<String, Object> map, RedirectAttributes ra) {
 
-	  String msg = "";
-      int result1 = 0;
-      int result2 = 0;
-	  Map<String, Object> resultMap = new HashMap<String, Object>();
+		String msg = "";
+		int result1 = 0;
+		int result2 = 0;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 
-	  //데이터 확인
-//	  System.out.println("등록 start =======");
-//    System.out.println((String)map.get("pj_name")); //Object여서 형 변환
-//    System.out.println((String)map.get("pj_startdate"));
-//    System.out.println((String)map.get("pj_enddate"));
-//    System.out.println((String)map.get("pj_description"));
+		ProjectVO vo = new ProjectVO();
+		vo.setPjName((String)map.get("pj_name"));
+		vo.setPjWriter((String)map.get("pj_writer"));
+		vo.setPjStartdate((String)map.get("pj_startdate"));
+		vo.setPjEnddate((String)map.get("pj_enddate"));
+		vo.setPjDescription((String)map.get("pj_description"));
 
-      ProjectVO vo = new ProjectVO();
-      vo.setPjName((String)map.get("pj_name"));
-      vo.setPjWriter((String)map.get("pj_writer"));
-      vo.setPjStartdate((String)map.get("pj_startdate"));
-      vo.setPjEnddate((String)map.get("pj_enddate"));
-      vo.setPjDescription((String)map.get("pj_description"));
+		Gson gson = new Gson();
 
-      Gson gson = new Gson();
-
-      List<Map<String, Object>> user_list =  gson.fromJson((String)map.get("user_boolean"), List.class);
-      System.out.println("user_list size : " + user_list.size());
+		List<Map<String, Object>> user_list =  gson.fromJson((String)map.get("user_boolean"), List.class);
+		System.out.println("user_list size : " + user_list.size());
 
 
-      //프로젝트 생성
-      result1 = projectService.regist(vo);
-      System.out.println("result1 : " + result1);
-      int pj_num = vo.getPjNum();
-      System.out.println("pj_num : " + pj_num);
+		//프로젝트 생성
+		result1 = projectService.regist(vo);
+		System.out.println("result1 : " + result1);
+		int pj_num = vo.getPjNum();
+		System.out.println("pj_num : " + pj_num);
 
-      //프로젝트 멤버들 생성
-      for (int i = 0; i < user_list.size(); i++) {
-    	  ProjectMemberVO pmvo = new ProjectMemberVO();
+		//프로젝트 멤버들 생성
+		for (int i = 0; i < user_list.size(); i++) {
 
-    	  pmvo.setPjNum(pj_num);
-    	  pmvo.setUserId(user_list.get(i).get("team_id").toString());
-    	  pmvo.setIsObserver(user_list.get(i).get("is_observer").toString());
+			ProjectMemberVO pmvo = new ProjectMemberVO();
+			pmvo.setPjNum(pj_num);
+			pmvo.setUserId(user_list.get(i).get("team_id").toString());
+			pmvo.setIsObserver(user_list.get(i).get("is_observer").toString());
 
-    	  result2 = projectService.registMember(pmvo);
-      }
+			result2 = projectService.registMember(pmvo);
+		}
 
-      if(!(result1 == 0 && result2 ==0)) {
-    	  msg = "등록에 성공 하였습니다.";
-      }else {
-    	  msg = "등록에 실패 하였습니다.";
-      }
+		if(!(result1 == 0 && result2 ==0)) {
+			msg = "등록에 성공 하였습니다.";
+		}else {
+			msg = "등록에 실패 하였습니다.";
+		}
 
-      resultMap.put("msg", msg);
+		resultMap.put("msg", msg);
 
-      return resultMap;
-   };
+		return resultMap;
+	};
 
-   //프로젝트 리스트 받아오기
-   @GetMapping("/get-project-list")
-   public ArrayList<ProjectVO> getProjectList(HttpSession session){
-	  String user_id = (String)session.getAttribute("user_id");
-	   return projectService.getProjectList(user_id);
-   }
+	//프로젝트 리스트 받아오기
+	@GetMapping("/get-project-list")
+	public ArrayList<ProjectVO> getProjectList(HttpSession session){
+		String user_id = (String)session.getAttribute("user_id");
+		return projectService.getProjectList(user_id);
+	}
 
-   //북마크 변경
-   @GetMapping("/change-bookmark")
-   public int changeBookmark(@RequestParam("user_id") String user_id,
-		   					 @RequestParam("pj_num") int pj_num,
-		   					 @RequestParam("pj_bookmark") boolean pj_bookmark) {
+	//북마크 변경
+	@GetMapping("/change-bookmark")
+	public int changeBookmark(@RequestParam("user_id") String user_id,
+			@RequestParam("pj_num") int pj_num,
+			@RequestParam("pj_bookmark") boolean pj_bookmark) {
 
-	   projectService.changeBookmark(user_id, pj_num, pj_bookmark);
+		projectService.changeBookmark(user_id, pj_num, pj_bookmark);
 
-	   return pj_num;
-   }
+		return pj_num;
+	}
 
-   //프로젝트 삭제
-   @GetMapping("/delete-project")
-   public int deleteProject(@RequestParam("pj_num") int pj_num) {
+	//프로젝트 삭제
+	@GetMapping("/delete-project")
+	public int deleteProject(@RequestParam("pj_num") int pj_num) {
 
-	   projectService.deleteProject(pj_num);
+		projectService.deleteProject(pj_num);
 
-	   return pj_num;
-   }
+		return pj_num;
+	}
 
 }

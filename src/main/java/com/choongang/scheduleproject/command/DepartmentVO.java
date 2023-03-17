@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DepartmentVO {
-	//@JsonProperty("department_id")
+
 	private int departmentId;
 	private String departmentName;
 }
