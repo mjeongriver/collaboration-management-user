@@ -2,9 +2,7 @@ package com.choongang.scheduleproject.controller;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -88,7 +86,7 @@ public class UserBoardController {
 
 	//위의 noticeTableList를 상세 조회하는 컨트롤러
 	@GetMapping("/notice-content")
-	public String noticeContent(@RequestParam("notice_num") int noticeNum, Model model) {
+	public String noticeContent(@RequestParam("noticeNum") int noticeNum, Model model) {
 
 		//클릭한 글 번호에 대한 내용을 조회
 		AdminNoticeListVO adminNoticeListVO = adminNoticeService.getContent(noticeNum);
