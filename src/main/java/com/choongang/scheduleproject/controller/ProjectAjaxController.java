@@ -30,7 +30,7 @@ public class ProjectAjaxController {
    private ProjectVO vo;
 
    //부서 요청
-   @GetMapping("/get-dlist") 
+   @GetMapping("/get-dlist")
    public List<ProjectVO> getDepList (){
       return projectService.getDepList();
    }
@@ -105,7 +105,7 @@ public class ProjectAjaxController {
 	  String user_id = (String)session.getAttribute("user_id");
 	   return projectService.getProjectList(user_id);
    }
-   
+
    //북마크 변경
    @GetMapping("/change-bookmark")
    public int changeBookmark(@RequestParam("user_id") String user_id,

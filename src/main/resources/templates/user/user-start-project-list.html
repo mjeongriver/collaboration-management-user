@@ -152,11 +152,11 @@
 			type : "get",
 			dataType : "json",
 			success : function(response){
-
 				projectList.empty();
 				projectList2.empty();
 				for (var i = 0; i < response.length; i++) {
-				 if(response[i].pj_active==true){
+				console.log(response)
+				 if(response[i].pjActive==true){
 
 					//프로젝트 담기
 				var str = "";
@@ -168,7 +168,7 @@
 					} else {
 						str += '<a class="bi bi-star" onclick="changeBookmark(`'+response[i].userId+'`,'+response[i].pjNum+','+response[i].pjBookmark+')" style="cursor:pointer"></a>';
 					}
-					if(response[i].isObserver==false){
+					if(response[i].observer==false){
 						str += '<span>&nbsp;&nbsp;팀원</span>';
 					} else {
 						str += '<span>&nbsp;&nbsp;옵저버</span>';
@@ -264,6 +264,7 @@
 				},
 				dataType : "json",
 				success : function(result){
+					alert("삭제되었습니다.");
 					getProjectList();
 				},
 				error : function(e){

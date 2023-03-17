@@ -7,9 +7,6 @@ import com.choongang.scheduleproject.util.Criteria;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.choongang.scheduleproject.command.UserBoardVO;
-import com.choongang.scheduleproject.util.Criteria;
-
 @Mapper
 public interface UserBoardMapper {
 	public ArrayList<UserBoardVO> getList(UserBoardVO vo); //페이지
