@@ -17,23 +17,32 @@ import com.choongang.scheduleproject.command.UserVO;
 
 public interface ProjectService {
 	
-	//프로젝트 등록
-	public int regist(ProjectVO vo);
+	/***
+	 * 
+	 * @param vo
+	 * @return int
+	 */
+	public int regist(ProjectVO vo); //프로젝트 등록
 	
-	//프로젝트 별 팀원 등록
-	public int registMember(ProjectMemberVO pvo);
+	/***
+	 * 
+	 * @param pvo
+	 * @return int
+	 */
+	public int registMember(ProjectMemberVO pvo); //프로젝트 별 팀원 등록
 	
-	public ArrayList<UserVO> getProjectMember(int pj_num);
+	public List<ProjectVO> getDepList(); //부서 목록
 	
-	//부서 목록
-	public List<ProjectVO> getDepList();
-	
-	//부서별 팀원 목록
-	public List<ProjectVO> getDepMemberList(int department_id);
-
-	
+	/***
+	 * 
+	 * @param department_id
+	 * @return List
+	 */
+	public List<ProjectVO> getDepMemberList(int department_id); //부서별 팀원 목록
 
 	//startProjectList
+	public ArrayList<UserVO> getProjectMember(int pj_num);
+	
 	public ProjectVO getProject(int pj_num);
 
 	public UserVO getUserVO(String user_id);
@@ -51,6 +60,7 @@ public interface ProjectService {
 	public int changeBookmark(String user_id,int pj_num, boolean pj_bookmark);
 	
 	public String getUserName(String user_id);
+	
 	//프로젝트 삭제
 	public int deleteProject(int pj_num);
 }

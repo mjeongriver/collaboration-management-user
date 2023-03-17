@@ -1,6 +1,11 @@
 package com.choongang.scheduleproject.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -13,6 +18,7 @@ import com.choongang.scheduleproject.board.service.AdminNoticeService;
 import com.choongang.scheduleproject.board.service.UserBoardService;
 import com.choongang.scheduleproject.command.AdminNoticeListVO;
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.project.service.ProjectService;
 import com.choongang.scheduleproject.util.Criteria;
 import com.choongang.scheduleproject.util.PageVO;
@@ -33,25 +39,38 @@ public class UserBoardController {
 	@Qualifier("projectService")
 	private ProjectService projectService;
 
-	@GetMapping("/teamBoardList")
-	public String teamBoardList(Criteria cri, Model model,@RequestParam("pj_num") int pj_num) {
+
+	@GetMapping("/board-list")
+	public String BoardList(Model model, UserBoardVO vo,
+								@RequestParam("pj_num") int pj_num) {
+
+		//getProject
 		ProjectVO pjVO = projectService.getProject(pj_num);
-		int total = userBoardService.getCount(cri);
 		model.addAttribute("pjVO",pjVO);
-		return "/userboards/teamBoardList";
+
+		//페이징 처리
+		//int total = userBoardService.getCount(cri);
+
+		//게시글 화면 출력
+		ArrayList<UserBoardVO> list = userBoardService.getList(vo);
+		model.addAttribute("list", list);
+		System.out.println(vo.toString());
+		return "/userboards/board-list";
 	}
 
-	@GetMapping("/teamBoardRegist")
+	@GetMapping("/board-regist")
 	public String teamBoardRegist() {
-		return "/userboards/teamBoardRegist";
+		return "/userboards/board-regist";
 	}
-	@GetMapping("/teamBoardModify")
+
+	@GetMapping("/board-modify")
 	public String teamBoardModify() {
-		return "/userboards/teamBoardModify";
+		return "/userboards/board-modify";
 	}
-	@GetMapping("/teamBoardContent")
+
+	@GetMapping("/board-content")
 	public String teamBoardContent() {
-		return "/userboards/teamBoardContent";
+		return "/userboards/board-content";
 	}
 
 	@GetMapping("/notice-list")

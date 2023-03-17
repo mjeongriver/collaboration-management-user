@@ -16,11 +16,10 @@ public class UserBoardVO {
 	private String board_title;
 	private String board_writer;
 	private Timestamp board_regdate;
-	private String board_process;
+	private Boolean board_process;
 	private String board_startdate;
 	private String board_enddate;
 	private String board_targetdate;
-	private String board_purpose;
 	private String board_content;
 	private String board_category;
 	
