@@ -11,8 +11,8 @@
 	<insert id="regist" parameterType="ProjectVO">
 		INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate,
 		pj_description, pj_writer)
-		VALUES (#{pj_name}, #{pj_startdate}, #{pj_enddate}, #{pj_description},
-		#{pj_writer});
+		VALUES (#{pjName}, #{pjStartdate}, #{pjEnddate}, #{pjDescription},
+		#{pjWriter});
 
 		<selectKey keyProperty="pj_num" resultType="int"
 			order="AFTER">
@@ -22,7 +22,7 @@
 
 	<insert id="registMember" parameterType="ProjectMemberVO">
 		INSERT INTO MAPPING (pj_num, user_id, is_observer)
-		VALUES (#{pj_num}, #{user_id}, #{is_observer});
+		VALUES (#{pjNum}, #{userId}, #{isObserver});
 	</insert>
 
 	<!-- 부서 목록 -->
@@ -39,7 +39,7 @@
 		on user_user.department_id =
 		user_department.department_id
 		where user_user.department_id =
-		#{department_id};
+		#{departmentId};
 	</select>
 
 	<!-- 프로젝트 멤버 -->
@@ -49,7 +49,7 @@
 		as u inner join user_department as d on u.department_id =
 		d.department_id
 		right join mapping as m on m.user_id = u.user_id
-		where m.pj_num = #{pj_num};
+		where m.pj_num = #{pjNum};
 	</select>
 	<!-- 프로젝트 정보 -->
 	<select id="getProject" resultType="ProjectVO">

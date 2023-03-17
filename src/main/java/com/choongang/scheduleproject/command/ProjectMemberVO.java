@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectMemberVO {
-	private int mnum;
-	private int pj_num;
-	private String user_id;
-	private String is_observer; 
+	private int mNum;
+	private int pjNum;
+	private String userId;
+	private String isObserver; 
 }

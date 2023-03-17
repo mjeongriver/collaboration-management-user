@@ -6,6 +6,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,30 +23,40 @@ public class ProjectVO {
 	@NotNull
 	@NotBlank
 	@NotEmpty
-	private String pj_startdate;
+	@JsonProperty("pj_startdate")
+	private String pjStartDate;
 	
 	@NotNull
 	@NotBlank
 	@NotEmpty
-	private String pj_enddate;
+	@JsonProperty("pj_enddate")
+	private String pjEndDate;
 	
 	@NotNull
-	private String pj_name;
+	@JsonProperty("pj_name")
+	private String pjName;
 	
 	@NotNull
-	private String pj_description;
+	@JsonProperty("pj_description")
+	private String pjDescription;
 	
-	private int pj_num;
-	private String user_name;
-	private String user_id;
-	private String pj_writer;
-	private boolean pj_active;
-	private boolean pj_bookmark;
-	private String department_name;
-	private int department_id;
-	private boolean is_observer; 
-	private int pj_totalMember;
-	private int pj_observerCount;
-	private int pj_memberCount;
+	private int pjNum;
+	private String userName;
+	private String userId;
+	
+	@JsonProperty("pj_writer")
+	private String pjWriter;
+	private boolean pjActive;
+	private boolean pjBookmark;
+	private String departmentName;
+	
+	@JsonProperty("department_id")
+	private int departmentId;
+	
+	@JsonProperty("is_observer")
+	private boolean isObserver; 
+	private int pjTotalMember;
+	private int pjObserverCount;
+	private int pjMemberCount;
 	
 }

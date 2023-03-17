@@ -11,16 +11,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserBoardVO {
 
-	private int board_num;
-	private int pj_num;
-	private String board_title;
-	private String board_writer;
-	private Timestamp board_regdate;
-	private Boolean board_process;
-	private String board_startdate;
-	private String board_enddate;
-	private String board_targetdate;
-	private String board_content;
-	private String board_category;
+	private int boardNum;
+	private int pjNum;
+	private String boardTitle;
+	private String boardWriter;
+	private Timestamp boardRegdate;
+	private Boolean boardProcess;
+	private String boardStartdate;
+	private String boardEnddate;
+	private String boardTargetdate;
+	private String boardContent;
+	private String boardCategory;
 	
 }
