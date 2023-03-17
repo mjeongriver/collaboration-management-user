@@ -149,9 +149,9 @@
 
 										<tr class="listInner" th:each="vo, status: ${list}">
 											<th scope="row" th:text="${status.count}"></th>
-											<td class="name">[[${vo.user_name}]]</td>
-											<td class="department">[[${vo.department_name}]]</td>
-											<td class="position">[[${vo.user_position}]]</td>
+											<td class="name">[[${vo.userName}]]</td>
+											<td class="department">[[${vo.departmentName}]]</td>
+											<td class="position">[[${vo.userPosition}]]</td>
 
 										</tr>
 
@@ -221,15 +221,15 @@
 							var str = "";
 							//챗넘버 갱신
 							chatNum = response[i].chat_num;
-							str += '<div style="display: flex;"><div><img src="'+response[i].user_img+'" width="40px" alt="Profile" class="rounded-circle" /></div>';
+							str += '<div style="display: flex;"><div><img src="'+response[i].userImg+'" width="40px" alt="Profile" class="rounded-circle" /></div>';
 							str += '<div style="margin-left: 15px">';
 							str += '<div><span style="font-weight: 1000">'
-									+ response[i].user_name
+									+ response[i].userName
 									+ '</span> <span style="font-size: 10px">'
-									+ response[i].chat_regdate
+									+ response[i].chatRegdate
 									+ '</span></div>';
 							str += '<div class="chatContentWrap"><span class="chatContent">'
-									+ response[i].chat_content
+									+ response[i].chatContent
 									+ '</span></div>';
 							str += '</div>';
 							str += '<div class="filter">';
@@ -237,12 +237,12 @@
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
 							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
-								if(sessionId===response[i].chat_writer){
+								if(sessionId===response[i].chatWriter){
 							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
 							str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
-									+response[i].chat_content.replaceAll("<br>","\r\n")
-									+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chat_num+');" style="float:right;margin-top:5px">저장</buton></li>';
-							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chat_num+');" style="color: red">삭제</a></li>';}
+									+response[i].chatContent.replaceAll("<br>","\r\n")
+									+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chatNum+');" style="float:right;margin-top:5px">저장</buton></li>';
+							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chatNum+');" style="color: red">삭제</a></li>';}
 							str += '</ul></div></div><hr style="margin:;0 0 1px 0"/>';
 
 							chatList.append(str);
@@ -269,19 +269,19 @@
 					success : function(response) {
 
 						for (var i = 0; i < response.length; i++) {
-							if(response[i].chat_num>chatNum){ //갱신한 챗넘보다 높은 챗넘만 추가로 전달
+							if(response[i].chatNum>chatNum){ //갱신한 챗넘보다 높은 챗넘만 추가로 전달
 							chatLength += 1;
 							var str = "";
-							chatNum = response[i].chat_num;
-							str += '<div style="display: flex;"><div><img src="'+response[i].user_img+'" width="40px" alt="Profile" class="rounded-circle" /></div>';
+							chatNum = response[i].chatNum;
+							str += '<div style="display: flex;"><div><img src="'+response[i].userImg+'" width="40px" alt="Profile" class="rounded-circle" /></div>';
 							str += '<div style="margin-left: 15px">';
 							str += '<div><span style="font-weight: 1000">'
-									+ response[i].user_name
+									+ response[i].userName
 									+ '</span> <span style="font-size: 10px">'
-									+ response[i].chat_regdate
+									+ response[i].chatRegdate
 									+ '</span></div>';
 							str += '<div class="chatContentWrap"><span class="chatContent">'
-									+ response[i].chat_content
+									+ response[i].chatContent
 									+ '</span></div>';
 							str += '</div>';
 							str += '<div class="filter">';
@@ -289,12 +289,12 @@
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
 							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
-								if(sessionId===response[i].chat_writer){
+								if(sessionId===response[i].chatWriter){
 								str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
 								str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
-										+response[i].chat_content.replaceAll("<br>","\r\n")
-										+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chat_num+');" style="float:right;margin-top:5px">저장</buton></li>';
-								str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chat_num+');" style="color: red">삭제</a></li>';}
+										+response[i].chatContent.replaceAll("<br>","\r\n")
+										+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chatNum+');" style="float:right;margin-top:5px">저장</buton></li>';
+								str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chatNum+');" style="color: red">삭제</a></li>';}
 							str += '</ul></div></div><hr style="margin:;0 0 1px 0"/>';
 
 							chatList.append(str);
@@ -321,7 +321,7 @@
 			dataType : "json",
 			success : function(response){
 
-				if(response[response.length-1].chat_num>chatNum){ //마지막채팅번호보다 챗팅넘버가 크면 챗 추가
+				if(response[response.length-1].chatNum>chatNum){ //마지막채팅번호보다 챗팅넘버가 크면 챗 추가
 					addChat();
 				} else if(response.length != chatLength){ //채팅길이가 달라지면.즉 챗팅이 삭제되면 채팅값 다시 받아오기
 					getChat();
@@ -340,7 +340,7 @@
 	//엔터입력 시 함수실행
 	function enterKey(e) {
 
-		console.log(chat_content.value);
+
 		$.ajax({
 			url : "../set-chat",
 			type : "get",
@@ -364,7 +364,7 @@
 
 	//채팅삭제실행
 	function deleteChat(chat_num){
-		console.log(chat_num);
+
 		$.ajax({
 			url : "../delete-chat",
 			type : "get",
