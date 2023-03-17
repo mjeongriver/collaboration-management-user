@@ -7,6 +7,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,31 +31,54 @@ public class UserVO {
 	 */
 	@NotNull // 처음엔 모든 데이터에 NotNull 처리를 해줬는데, 로그인 시 에러가 발생하여 ID와 PW에만 NotNull을 걸어뒀습니다.
 	@Pattern(regexp = "^[a-zA-Z0-9]{4,12}$")
-	private String user_id;
+	@JsonProperty("user_id")
+	private String userId;
 	
-	private int department_id;
+	@JsonProperty("department_id")
+	private int departmentId;
 	
 	@Email
-	private String user_email;
+	@JsonProperty("user_email")
+	private String userEmail;
 	
 	@Pattern(regexp = "[가-힣]{2,4}")
-	private String user_name;
+	@JsonProperty("user_name")
+	private String userName;
 	
 	@NotNull
 	@Pattern(regexp = "^.*(?=^.{8,16}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$")
-	private String user_pw;
+	@JsonProperty("user_pw")
+	private String userPw;
 	
 	@Pattern(regexp = "^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$")
-	private String user_cell;
+	@JsonProperty("user_cell")
+	private String userCell;
 	
-	private String user_birth;
-	private int user_active;
-	private String user_position;
-	private int user_role;
-	private int user_employeenumber;
-	private int user_loginfail;
-	private LocalDateTime user_regdate;
-	private String user_img;
-	private String department_name;
+	@JsonProperty("user_birth")
+	private String userBirth;
+	
+	@JsonProperty("user_active")
+	private int userActive;
+	
+	@JsonProperty("user_position")
+	private String userPosition;
+	
+	@JsonProperty("user_role")
+	private int userRole;
+	
+	@JsonProperty("user_employeenumber")
+	private int userEmployeenumber;
+	
+	@JsonProperty("user_loginfail")
+	private int userLoginfail;
+	
+	@JsonProperty("user_regdate")
+	private LocalDateTime userRegdate;
+	
+	@JsonProperty("user_img")
+	private String userImg;
+	
+	@JsonProperty("department_name")
+	private String departmentName;
 }
 

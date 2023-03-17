@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String checkAllId(String user_id) {
-		return userMapper.checkAllId(user_id);
+	public String checkAllId(String userId) {
+		return userMapper.checkAllId(userId);
 	}
 
 	@Override
@@ -77,8 +77,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String checkAllEmail(String user_email) {
-		return userMapper.checkAllEmail(user_email);
+	public String checkAllEmail(String userEmail) {
+		return userMapper.checkAllEmail(userEmail);
 	}
 
 	@Override
@@ -97,8 +97,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO getMyPageInfo(String user_id) {
-		return userMapper.getMyPageInfo(user_id);
+	public UserVO getMyPageInfo(String userId) {
+		return userMapper.getMyPageInfo(userId);
 	}
 
 	@Override
@@ -112,8 +112,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int removeImg(String user_id) {
-		return userMapper.removeImg(user_id);
+	public int removeImg(String userId) {
+		return userMapper.removeImg(userId);
 	}
 
 

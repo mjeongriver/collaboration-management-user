@@ -97,11 +97,11 @@ public class UserController {
 			return "redirect:/user/user-register";
 		}
 		//비밀번호 암호화 작업
-		String encodedPassword = passwordEncoder.encode(vo.getUser_pw());
-		vo.setUser_pw(encodedPassword);
+		String encodedPassword = passwordEncoder.encode(vo.getUserPw());
+		vo.setUserPw(encodedPassword);
 		//현재 시간을 회원가입일 user_regdate에다가 저장
 		LocalDateTime nowTime = LocalDateTime.now();
-		vo.setUser_regdate(nowTime);
+		vo.setUserRegdate(nowTime);
 		//DB에 저장 시도
 		int result = userService.register(vo);
 		//메시지 담아서 리다이렉트
@@ -130,14 +130,14 @@ public class UserController {
 		} else { // 일치하는 아이디가 있음
 			//암호화된 비밀번호와 일치하는지 확인
 			String msg = "";
-			if(!passwordEncoder.matches(vo.getUser_pw(), result.getUser_pw())) { //비밀번호 다름 - 로그인 실패
+			if(!passwordEncoder.matches(vo.getUserPw(), result.getUserPw())) { //비밀번호 다름 - 로그인 실패
 				//실패횟수 기록
-				result.setUser_loginfail(result.getUser_loginfail()+1);
+				result.setUserLoginfail(result.getUserLoginfail()+1);
 				userService.failCount(result); //실패횟수 기록
 				//유저정보 다시 가져오기
 				UserVO result2 = userService.login(result);
 				//실패횟수 5회 이상일 시 비활성화
-				if(result2.getUser_loginfail() > 4) { 
+				if(result2.getUserLoginfail() > 4) { 
 					//계정 잠그기
 					userService.lockAccount(result2);
 					//메시지 담아서 리다이렉트
@@ -145,13 +145,13 @@ public class UserController {
 					ra.addFlashAttribute("msg", msg);
 					return "redirect:/user/user-reset-pw";
 				} else { //실패횟수를 alert에다가 실어 redirect로 보내기
-					msg = "로그인을 " + result2.getUser_loginfail() + "번 실패했습니다. 5회 틀리면 계정이 비활성화됩니다.";
+					msg = "로그인을 " + result2.getUserLoginfail() + "번 실패했습니다. 5회 틀리면 계정이 비활성화됩니다.";
 					ra.addFlashAttribute("msg", msg);
 					return "redirect:/user/user-login";
 				}
 			} else { // 비밀번호 같음 - 로그인
 				//계정이 비활성화되어있는지 확인
-				if(result.getUser_active() == 0) { // 계정이 비활성화되어있음
+				if(result.getUserActive() == 0) { // 계정이 비활성화되어있음
 					//로그인실패
 					//메시지 담아서 리다이렉트
 					msg = "비활성화된 계정입니다. 비밀번호 초기화를 진행해주세요.";
@@ -163,15 +163,15 @@ public class UserController {
 					//user_log에 log기록 추가하기
 					//현재 시간을 회원가입일 user_regdate에다가 저장
 					LocalDateTime nowTime = LocalDateTime.now();
-					result.setUser_regdate(nowTime);
+					result.setUserRegdate(nowTime);
 					userService.insertLog(result);
 					//모델에 DB정보를 담아서 화면에 뿌려줌
 					model.addAttribute("vo", result);
 					//세션 부여
-					session.setAttribute("user_name", result.getUser_name());
-					session.setAttribute("user_id", result.getUser_id());
-					session.setAttribute("user_img", result.getUser_img());
-					session.setAttribute("user_role", result.getUser_role());
+					session.setAttribute("user_name", result.getUserName());
+					session.setAttribute("user_id", result.getUserId());
+					session.setAttribute("user_img", result.getUserImg());
+					session.setAttribute("user_role", result.getUserRole());
 					return "user/user-start-project-list";					
 				}
 
@@ -191,8 +191,8 @@ public class UserController {
 			return "redirect:/user/user-login";
 		} else { // 일치하는 아이디가 있음
 			//메시지 담아서 리다이렉트
-			String id = result.getUser_id();
-			String msg = vo.getUser_name() + "님의 아이디는 "+ id.substring(0, id.length()-3) + "***입니다.";
+			String id = result.getUserId();
+			String msg = vo.getUserName() + "님의 아이디는 "+ id.substring(0, id.length()-3) + "***입니다.";
 			ra.addFlashAttribute("msg", msg);
 			return "redirect:/user/user-login";
 		}	
@@ -223,7 +223,7 @@ public class UserController {
 		}
 		//비밀번호 암호화 작업
 		String encodedPassword = passwordEncoder.encode(newPw + "!");
-		vo.setUser_pw(encodedPassword);
+		vo.setUserPw(encodedPassword);
 		//얘도 이메일 검증을 거치는 작업을 추후에 추가하면 좋을 것 같음. => Ajax로 처리함
 		int result = userService.resetPw(vo);
 		//실패횟수 초기화하기
@@ -243,7 +243,7 @@ public class UserController {
 		Map<String, Object> map = kakao.getUserInfo(token);//어세스토큰 token을 가지고 사용자데이터를 가져오기
 		//DB에서 조회해서 로그인처리
 		UserVO vo = new UserVO();
-		vo.setUser_email((String)map.get("email")); //카카오에서 가져온 이메일값으로 로그인 시도
+		vo.setUserEmail((String)map.get("email")); //카카오에서 가져온 이메일값으로 로그인 시도
 		UserVO result = userService.kakaoLogin(vo);
 
 		if(result == null) { //일치하는 아이디가 없음
@@ -256,10 +256,10 @@ public class UserController {
 			//모델에 DB정보를 담아서 화면에 뿌려줌
 			model.addAttribute("vo", result);
 			//세션 부여
-			session.setAttribute("user_name", result.getUser_name());
-			session.setAttribute("user_id", result.getUser_id());
-			session.setAttribute("user_img", result.getUser_img());
-			session.setAttribute("user_role", result.getUser_role());
+			session.setAttribute("user_name", result.getUserName());
+			session.setAttribute("user_id", result.getUserId());
+			session.setAttribute("user_img", result.getUserImg());
+			session.setAttribute("user_role", result.getUserRole());
 			return "user/user-start-project-list";			
 		}
 	}
@@ -278,8 +278,8 @@ public class UserController {
 	@PostMapping("/change-pw")
 	public String changePw(UserVO vo, RedirectAttributes ra, HttpSession session) {
 		//비밀번호 암호화 작업
-		String encodedPassword = passwordEncoder.encode(vo.getUser_pw());
-		vo.setUser_pw(encodedPassword);
+		String encodedPassword = passwordEncoder.encode(vo.getUserPw());
+		vo.setUserPw(encodedPassword);
 		//DB에 암호화된 비밀번호 저장
 		int result = userService.changePw(vo);
 		//메시지 담아서 리다이렉트

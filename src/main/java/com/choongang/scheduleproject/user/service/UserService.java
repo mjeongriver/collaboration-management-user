@@ -8,8 +8,8 @@ import com.choongang.scheduleproject.command.UserVO;
 
 public interface UserService {
 	public int register(UserVO vo); // 회원가입 요청
-	public String checkAllId(String user_id); // 아이디 중복 확인
-	public String checkAllEmail(String user_email); // 이메일 중복 확인
+	public String checkAllId(String userId); // 아이디 중복 확인
+	public String checkAllEmail(String userEmail); // 이메일 중복 확인
 	public List<DepartmentVO> getAllDepartment(); // 모든 부서 가져오기
 	public UserVO login(UserVO vo); // 로그인 요청
 	public UserVO findId(UserVO vo); // 아이디 찾기
@@ -26,5 +26,5 @@ public interface UserService {
 	public UserVO getMyPageInfo(String user_id); // 마이페이지 정보 가져오기
 	public int changeInfo(UserVO vo); // 마이페이지 휴대폰번호, 생년월일 수정하기
 	public int changePw(UserVO vo); // 마이페이지 비밀번호 수정하기
-	public int removeImg(String user_id); // 마이페이지 이미지 삭제하기
+	public int removeImg(String userId); // 마이페이지 이미지 삭제하기
 }

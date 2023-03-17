@@ -2,6 +2,8 @@ package com.choongang.scheduleproject.command;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,10 @@ import lombok.NoArgsConstructor;
 public class EmailVO {
 	private String email;
 	private String code;
-	private LocalDateTime expire_time;
-	private String joinReset;
+	
+	@JsonProperty("expire_time")
+	private LocalDateTime expireTime;
+	
+	@JsonProperty("join_reset_find")
+	private String joinResetFind;
 }
