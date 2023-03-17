@@ -37,8 +37,8 @@ public class ProjectAjaxController {
 
    //부서별 팀원 요청
    @GetMapping("/get-dmlist")
-   public List<ProjectVO> getDepMemberList(@RequestParam("department_id") int department_id) {
-      return projectService.getDepMemberList(department_id);
+   public List<ProjectVO> getDepMemberList(@RequestParam("department_id") int departmentId) {
+      return projectService.getDepMemberList(departmentId);
    }
 
    //등록 요청
