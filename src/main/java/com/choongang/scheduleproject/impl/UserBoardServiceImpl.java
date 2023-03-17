@@ -1,7 +1,6 @@
 package com.choongang.scheduleproject.impl;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -20,18 +19,18 @@ public class UserBoardServiceImpl implements UserBoardService{
 	private UserBoardMapper userBoardMapper;
 
 	@Override
-	public ArrayList<UserBoardVO> getList(UserBoardVO vo) {
-		return userBoardMapper.getList(vo);
+	public List<UserBoardVO> getList(Criteria cri, int pj_num) {
+		return userBoardMapper.getList(cri, pj_num);
 	}
 
 	@Override
 	public int getTotal(Criteria cri) {
-		return 0;
+		return userBoardMapper.getTotal(cri);
 	}
 
 	@Override
-	public int getCount(Criteria cri) {
-		return 0;
+	public int getCount(Criteria cri, int pj_num) {
+		return userBoardMapper.getCount(cri, pj_num);
 	}
 
 	

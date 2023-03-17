@@ -1,11 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.choongang.scheduleproject.service.UserBoardMapper">
+<mapper namespace="com.choongang.scheduleproject.board.service.UserBoardMapper">
 
-	<!-- 조회 + 페이징 처리 -->
+	<!-- 프로젝트 리스트 출력 + 검색 -->
 	<select id="getList" resultType="UserBoardVO">
-		select * from user_board
-		where pj_num = #{pj_num}
+		select board_num,
+		board_category,
+		board_title,
+		board_writer,
+		board_regdate,
+		board_startdate,
+		board_enddate,
+		board_process
+		from user_board
+		where pj_num = #{pjNum}
+		
+		<choose>
+			<when test='searchType == "boardCategory" and search != null'> 
+				where board_category like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardTitle" and search != null'> 
+				where board_title like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardWriter" and search != null'> 
+				where board_writer like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardRegdate" and search != null'> 
+				where board_regdate like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardStartdate" and search != null'> 
+				where board_startdate like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardEnddate" and search != null'> 
+				where board_enddate like concat('%', #{search}, '%')
+			</when>
+		</choose>
+		order by pj_num desc
+		limit #{pageStart}, #{amount}
+	</select>
+	
+	<!-- 검색 -->
+	<select id="getTotal" resultType="int">
+		select count(*) as total from user_board
+		where pj_num = #{pjNum}
+		<choose>
+			<when test='searchType == "boardCategory" and search != null'> 
+				where board_category like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardTitle" and search != null'> 
+				where board_title like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardWriter" and search != null'> 
+				where board_writer like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardRegdate" and search != null'> 
+				where board_regdate like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardStartdate" and search != null'> 
+				where board_startdate like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardEnddate" and search != null'> 
+				where board_enddate like concat('%', #{search}, '%')
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 검색 결과의 갯수 -->
+	<select id="getCount" resultType="int">
+		select count(*) as total from user_board
+		<choose>
+			<when test='searchType == "boardCategory" and search != null'> 
+				where board_category like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardTitle" and search != null'> 
+				where board_title like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardWriter" and search != null'> 
+				where board_writer like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardRegdate" and search != null'> 
+				where board_regdate like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardStartdate" and search != null'> 
+				where board_startdate like concat('%', #{search}, '%')
+			</when>
+			<when test='searchType == "boardEnddate" and search != null'> 
+				where board_enddate like concat('%', #{search}, '%')
+			</when>
+		</choose>
 	</select>
 
 </mapper>

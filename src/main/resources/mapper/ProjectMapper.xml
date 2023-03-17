@@ -5,14 +5,13 @@
 
 <mapper namespace="com.choongang.scheduleproject.project.service.ProjectMapper">
 
-
 	<!-- 프로젝트 생성 -->
 	<insert id="regist" parameterType="ProjectVO">
 		INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate,
 		pj_description, pj_writer)
 		VALUES (#{pjName}, #{pjStartdate},
 		#{pjEnddate}, #{pjDescription},
-		#{pjWriter});
+		#{pjWriter})
 
 		<selectKey keyProperty="pjNum" resultType="int"
 			order="AFTER">
@@ -24,7 +23,7 @@
 		INSERT INTO MAPPING
 		(pj_num, user_id, is_observer)
 		VALUES (#{pjNum}, #{userId},
-		#{isObserver});
+		#{isObserver})
 	</insert>
 
 	<!-- 부서 목록 -->
@@ -56,12 +55,14 @@
 		mapping as m on m.user_id = u.user_id
 		where m.pj_num = #{pjNum};
 	</select>
+	
 	<!-- 프로젝트 정보 -->
 	<select id="getProject" resultType="ProjectVO">
 		select
 		pj_name,pj_active,pj_writer,pj_description,pj_startdate,pj_enddate,pj_regdate,pj_num
 		from user_project where pj_num = #{pjNum}
 	</select>
+	
 	<!-- 채팅세팅 -->
 	<insert id="setChat" parameterType="ChatVO">
 		insert into user_chat
@@ -69,6 +70,7 @@
 		values
 		(#{pjNum},#{chatWriter},#{chatContent},now());
 	</insert>
+	
 	<!-- 채팅 받아오기 -->
 	<select id="getChat" resultType="ChatVO">
 		select chat_num,chat_writer,
@@ -79,18 +81,20 @@
 		where pj_num
 		=#{pjNum};
 	</select>
+	
 	<!-- 채팅 삭제 -->
 	<delete id="deleteChat" parameterType="int">
 		delete from user_chat
 		where chat_num=#{chatNum};
 	</delete>
+	
 	<!-- 채팅 수정 -->
 	<update id="modifyChat" parameterType="map">
 		update user_chat set chat_content = #{modify_content} where
 		chat_num=#{chat_num}; <!-- ajax로 화면에서 스네이크표기법으로 값을 넘겨줌. -->
 	</update>
 
-	<!-- 프로젝트리스트 -->
+	<!-- 프로젝트 리스트 -->
 	<select id="getProjectList" resultType="ProjectVO">
 		select
 		m.pj_num,user_id,is_observer,pj_name,pj_active,pj_writer,pj_bookmark,pj_description,
@@ -106,6 +110,7 @@
 		m.pj_num = p.pj_num
 		where user_id=#{user_id} order by pj_enddate
 	</select>
+	
 	<!-- 즐겨찾기 클릭하면 값 수정 -->
 	<update id="changeBookmark" parameterType="map">
 		update mapping set pj_bookmark =
@@ -115,7 +120,8 @@
 		</choose>
 		where user_id = #{user_id} and pj_num = #{pj_num};
 	</update>
-	<!-- 유저이름 가져오기. -->
+	
+	<!-- 유저 이름 가져오기 -->
 	<select id="getUserName" resultType="string">
 		select user_name from
 		user_user where user_id = #{user_id}
@@ -126,4 +132,5 @@
 		delete from
 		user_project where pj_num=#{pj_num}
 	</delete>
+	
 </mapper>

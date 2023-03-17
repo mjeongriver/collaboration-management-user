@@ -2,6 +2,8 @@ package com.choongang.scheduleproject.command;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class UserBoardVO {
 
 	private int boardNum;
+	
+	@JsonProperty("pj_num")
 	private int pjNum;
 	private String boardTitle;
 	private String boardWriter;
