@@ -173,7 +173,7 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 					} else {
 						str += '<a class="bi bi-star" onclick="changeBookmark(`'+response[i].userId+'`,'+response[i].pjNum+','+response[i].pjBookmark+')" style="cursor:pointer"></a>';
 					}
-					if(response[i].isObserver==false){
+					if(response[i].observer==false){
 						str += '<span>&nbsp;&nbsp;팀원</span>';
 					} else {
 						str += '<span>&nbsp;&nbsp;옵저버</span>';
@@ -190,8 +190,8 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 					str += '</ul></div>';
 						}
 					str += '</span><br>';
-					str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_memberCount+'</a></i><span style="float:right;padding-top:2px">팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
-					str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_observerCount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
+					str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pjMembercount+'</a></i><span style="float:right;padding-top:2px">팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
+					str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pjObservercount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
 					str += '<a href="/project/project-started?pj_num='+response[i].pjNum+'"><h5 class="card-title">'+response[i].pjName+' <br>';
 					str += '<span>'+response[i].pjDescription+'</span>';
 					str += '</h5></a>';
@@ -269,6 +269,7 @@ document.getElementById("today").innerHTML=" | "+new Date().toISOString().substr
 				},
 				dataType : "json",
 				success : function(result){
+					alert("삭제되었습니다.");
 					getProjectList();
 				},
 				error : function(e){

@@ -14,7 +14,7 @@
 		VALUES (#{pjName}, #{pjStartdate}, #{pjEnddate}, #{pjDescription},
 		#{pjWriter});
 
-		<selectKey keyProperty="pj_num" resultType="int"
+		<selectKey keyProperty="pjNum" resultType="int"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -81,8 +81,7 @@
 
 	<!-- 프로젝트리스트 -->
 	<select id="getProjectList" resultType="ProjectVO">
-		select m.pj_num as
-		pj_num,user_id,is_observer,pj_name,pj_active,pj_writer,pj_bookmark,pj_description,
+		select m.pj_num,user_id,is_observer,pj_name,pj_active,pj_writer,pj_bookmark,pj_description,
 		pj_startdate,pj_enddate,pj_regdate,(select count(*) from mapping
 		where pj_num = m.pj_num and is_observer=0) as pj_memberCount,
 		(select count(*) from mapping
