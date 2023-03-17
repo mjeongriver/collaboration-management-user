@@ -2,6 +2,9 @@ package com.choongang.scheduleproject.board.service;
 
 import java.util.ArrayList;
 
+import com.choongang.scheduleproject.command.UserBoardVO;
+import com.choongang.scheduleproject.util.Criteria;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.choongang.scheduleproject.command.UserBoardVO;
