@@ -34,19 +34,19 @@ public class ProjectAjaxController {
    private ProjectVO vo;
    
    //부서 요청
-   @GetMapping("/getDepList") 
+   @GetMapping("/get-dlist") 
    public List<ProjectVO> getDepList (){
       return projectService.getDepList();
    }
    
    //부서별 팀원 요청
-   @GetMapping("/getDepMemberList")
+   @GetMapping("/get-dmlist")
    public List<ProjectVO> getDepMemberList(@RequestParam("department_id") int department_id) {
       return projectService.getDepMemberList(department_id);
    }
    
    //등록 요청
-   @PostMapping("/regProject")
+   @PostMapping("/reg-project")
    @ResponseBody
    public Map<String, Object> regist(@RequestBody Map<String, Object> map, RedirectAttributes ra) {
 	  

@@ -28,9 +28,9 @@ public class ProjectController {
 	private ProjectService projectService;
 
 	//프로젝트 생성
-	@GetMapping("/projectAdd")
+	@GetMapping("/project-add")
 	public String projectAdd() {
-		return "/project/projectAdd";
+		return "/project/project-add";
 	}
 	
 	@GetMapping("/projectStarted")
@@ -78,12 +78,8 @@ public class ProjectController {
 		return "/project/projectCalendar";
 	}
 	
-	//등록 요청
-	//여기서 세션 값을 받아서 vo에 writer에 담는다.
-	
-	@PostMapping("/registForm")
+	@PostMapping("/regist-form")
 	public String registForm(ProjectVO vo, RedirectAttributes ra) {
-		//여기에다가 세션 값 받아오기
 		int result = projectService.regist(vo);
 		String msg = result == 1 ? "정상 입력 되었습니다." : "등록에 실패하였습니다";
 		ra.addFlashAttribute("msg", msg);
