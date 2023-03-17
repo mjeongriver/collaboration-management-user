@@ -163,37 +163,37 @@
 				str += '<div class="col-xxl-4 col-md-6">';
 				str += '<div class="card info-card sales-card" style="height:250px">';
 				str += '<div class="card-body"><br/>';
-					if(response[i].pj_bookmark==true){
-						str += '<a style="cursor:pointer" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')">⭐</a>';
+					if(response[i].pjBookmark==true){
+						str += '<a style="cursor:pointer" onclick="changeBookmark(`'+response[i].userId+'`,'+response[i].pjNum+','+response[i].pjBookmark+')">⭐</a>';
 					} else {
-						str += '<a class="bi bi-star" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')" style="cursor:pointer"></a>';
+						str += '<a class="bi bi-star" onclick="changeBookmark(`'+response[i].userId+'`,'+response[i].pjNum+','+response[i].pjBookmark+')" style="cursor:pointer"></a>';
 					}
-					if(response[i]._observer==false){
+					if(response[i].isObserver==false){
 						str += '<span>&nbsp;&nbsp;팀원</span>';
 					} else {
 						str += '<span>&nbsp;&nbsp;옵저버</span>';
 					}
 
 				str += '<span class="card-title">';
-				if(sessionId===response[i].pj_writer){
+				if(sessionId===response[i].pjWriter){
 				str += '<div class="filter">';
 				str += '<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>';
 				str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 				str += '<h6>추가 작업</h6>';
 				str += '<li onclick="toggleHidden(this)"><a class="dropdown-item" style="color: blue;" >수정</a></li>';
 
-				str += '<li><a class="dropdown-item" onclick="deleteProject('+response[i].pj_num+');" style="color: red">삭제</a></li>';
+				str += '<li><a class="dropdown-item" onclick="deleteProject('+response[i].pjNum+');" style="color: red">삭제</a></li>';
 				str += '</ul></div>';
 					}
 				str += '</span><br>';
-				str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_memberCount+'</a></i><span style="float:right;padding-top:2px">팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
-				str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_observerCount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
-				str += '<a href="/project/project-started?pj_num='+response[i].pj_num+'"><h5 class="card-title">'+response[i].pj_name+' <br>';
-				str += '<span>'+response[i].pj_description+'</span>';
+				str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pjMembercount+'</a></i><span style="float:right;padding-top:2px">팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
+				str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pjObservercount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
+				str += '<a href="/project/project-started?pj_num='+response[i].pjNum+'"><h5 class="card-title">'+response[i].pjName+' <br>';
+				str += '<span>'+response[i].pjDescription+'</span>';
 				str += '</h5></a>';
 					<!--  초대된 인원만큼 인원 수 표시 -->
-				str += '<span class="card-title"><span>시작일 : '+response[i].pj_startdate+'</span></span><br>';
-				str += '<span class="card-title"><span>종료일 : '+response[i].pj_enddate+'</span></span><br>';
+				str += '<span class="card-title"><span>시작일 : '+response[i].pjStartdate+'</span></span><br>';
+				str += '<span class="card-title"><span>종료일 : '+response[i].pjEnddate+'</span></span><br>';
 
 				str += '</div>';
 				str += '</div>';
@@ -204,10 +204,10 @@
 				}
 
 				for (var i = 0; i < response.length; i++) {
-					 if(response[i].pj_active==true){
+					 if(response[i].pjActive==true){
 					//프로젝트 담기
 				var str = "";
-				var enddate= new Date(response[i].pj_enddate);
+				var enddate= new Date(response[i].pjEnddate);
      			var now = new Date();
      			var distance = enddate.getTime() - now.getTime(); //현재일자와 마감일자 비교
       			var dday = Math.ceil(distance/(1000*60*60*24)); //차이나는 밀리터리 초를 1일로 환산
@@ -216,7 +216,7 @@
 				str += '<div class="activite-label" style="width:40px">D - '+dday+'</div>';
 				str += '<i class="bi bi-circle-fill activity-badge align-self-start" style="color:hwb('+dday+'deg 0% 0%)"></i>';
 				str += '<div class="activity-content" style="width:80%">';
-				str +=  '<a href="#" class="fw-bold text-dark">'+response[i].pj_name+'</a>';
+				str +=  '<a href="#" class="fw-bold text-dark">'+response[i].pjName+'</a>';
 				str += '</div>';
 				str += '</div>';
 
@@ -234,12 +234,12 @@
 		$(document).ready(getProjectList);
 
 		//북마크 변경하는 함수
-		function changeBookmark(userid, pjnum, bookmark){
+		function changeBookmark(user_id, pj_num, pj_bookmark){
 			$.ajax({
 				url : "../change-bookmark",
 				type : "get",
 				data : {
-					"user_id" : userid, "pj_num" : pjnum, "pj_bookmark" : bookmark
+					"user_id" : user_id, "pj_num" : pj_num, "pj_bookmark" : pj_bookmark
 				},
 				dataType : "json",
 				success : function(result){
@@ -255,7 +255,7 @@
 
 		//프로젝트 삭제
 		function deleteProject(pj_num){
-			console.log(pj_num);
+
 			$.ajax({
 				url : "../delete-project",
 				type : "get",

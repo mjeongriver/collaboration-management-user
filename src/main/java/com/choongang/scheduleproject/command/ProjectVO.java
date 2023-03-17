@@ -19,10 +19,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 //@Builder
 public class ProjectVO {
-	
+
 	@NotNull
 	@NotBlank
 	@NotEmpty
+
 	@JsonProperty("pj_startdate")
 	private String pjStartDate;
 	
@@ -49,6 +50,7 @@ public class ProjectVO {
 	private boolean pjActive;
 	private boolean pjBookmark;
 	private String departmentName;
+
 	
 	@JsonProperty("department_id")
 	private int departmentId;
@@ -59,4 +61,5 @@ public class ProjectVO {
 	private int pjObserverCount;
 	private int pjMemberCount;
 	
+
 }

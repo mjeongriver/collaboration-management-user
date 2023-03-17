@@ -1,6 +1,6 @@
 package com.choongang.scheduleproject.command;
 
-import java.sql.Date;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ChatVO {
-	private int chat_num;
-	private int pj_num;
-	private String chat_writer;
-	private String chat_content;
-	private String chat_regdate;
-	private String user_name;
-	private String user_img;
-	
+
+	private int chatNum;
+	private int pjNum;
+	private String chatWriter;
+	private String chatContent;
+	private String chatRegdate;
+	private String userName;
+	private String userImg;
+
 }
