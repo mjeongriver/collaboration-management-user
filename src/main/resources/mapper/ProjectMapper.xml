@@ -49,34 +49,34 @@
 		as u inner join user_department as d on u.department_id =
 		d.department_id
 		right join mapping as m on m.user_id = u.user_id
-		where m.pj_num = #{pj_num};
+		where m.pj_num = #{pjNum};
 	</select>
 	<!-- 프로젝트 정보 -->
 	<select id="getProject" resultType="ProjectVO">
 		select
 		pj_name,pj_active,pj_writer,pj_description,pj_startdate,pj_enddate,pj_regdate,pj_num
-		from user_project where pj_num = #{pj_num}
+		from user_project where pj_num = #{pjNum}
 	</select>
 	<!-- 채팅세팅 -->
 	<insert id="setChat" parameterType="ChatVO">
 		insert into user_chat (pj_num, chat_writer, chat_content, chat_regdate)
-		values (#{pj_num},#{chat_writer},#{chat_content},now());
+		values (#{pjNum},#{chatWriter},#{chatContent},now());
 	</insert>
 	<!-- 채팅 받아오기 -->
 	<select id="getChat" resultType="ChatVO">
 		select chat_num,chat_writer, chat_content,
 		chat_regdate,u.user_name,u.user_img from user_chat c left outer join
 		user_user u on c.chat_writer = u.user_id
-		where pj_num =#{pj_num};
+		where pj_num =#{pjNum};
 	</select>
 	<!-- 채팅 삭제 -->
 	<delete id="deleteChat" parameterType="int">
-		delete from user_chat where chat_num=#{chat_num};
+		delete from user_chat where chat_num=#{chatNum};
 	</delete>
 	<!-- 채팅 수정 -->
 	<update id="modifyChat" parameterType="map">
-		update user_chat set chat_content = #{modifyContent} where
-		chat_num=#{chat_num};
+		update user_chat set chat_content = #{modify_content} where
+		chat_num=#{chat_num}; <!-- ajax로 화면에서 스네이크표기법으로 값을 넘겨줌. -->
 	</update>
 
 	<!-- 프로젝트리스트 -->

@@ -2,7 +2,7 @@
 
 <th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
 
-<!-- <style>
+<style>
 .hidden {
   display: none;
 }
@@ -11,7 +11,7 @@
     display: block;
 }
 
-</style> -->
+</style>
 
 	<div class="wrap">
 
@@ -19,10 +19,10 @@
 
 			<div class="pagetitle">
 				<h1 class="card-title">
-					<i class="bx bxs-star"></i> [[${pjVO.pj_name}]]
+					<i class="bx bxs-star"></i> [[${pjVO.pjName}]]
 				</h1>
 				<h6 style="padding-bottom: 20px">
-					<i class="ri-bookmark-fill"></i> [[${pjVO.pj_description}]]
+					<i class="ri-bookmark-fill"></i> [[${pjVO.pjDescription}]]
 				</h6>
 
 				<nav>
@@ -403,13 +403,13 @@
 	 function modifyChat(event, chat_num){
 
 			var parent = event.target.parentNode;
-		    var modifyContent = parent.querySelector('.modifyTextarea');
+		    var modify_content = parent.querySelector('.modifyTextarea');
 
 		 $.ajax({
 				url : "../modify-chat",
 				type : "get",
 				data : {"chat_num" : chat_num,
-						"modifyContent": modifyContent.value.replace(/\n/g, "<br>") //줄바꿈 시 db에 줄바꾼것을 인식하기위해
+						"modify_content": modify_content.value.replace(/\n/g, "<br>") //줄바꿈 시 db에 줄바꾼것을 인식하기위해
 						},
 				dataType : "JSON",
 				success : function(result){

@@ -26,9 +26,9 @@ public class ChatAjaxController {
 
 		ChatVO vo = new ChatVO();
 		String user_id = (String)session.getAttribute("user_id");
-		vo.setChat_content(chat_content);
-		vo.setChat_writer(user_id);
-		vo.setPj_num(pj_num);
+		vo.setChatContent(chat_content);
+		vo.setChatWriter(user_id);
+		vo.setPjNum(pj_num);
 
 		return projectService.setChat(vo);
 	}
@@ -49,10 +49,10 @@ public class ChatAjaxController {
 	//채팅수정
 	@GetMapping("/modify-chat")
 	public int modifyChat(@RequestParam("chat_num") int chat_num,
-						  @RequestParam("modifyContent") String modifyContent){
+						  @RequestParam("modify_content") String modify_content){
 
 
-		return projectService.modifyChat(chat_num,modifyContent);
+		return projectService.modifyChat(chat_num,modify_content);
 	}
 
 }

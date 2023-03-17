@@ -17,34 +17,34 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 //@Builder
 public class ProjectVO {
-	
+
 	@NotNull
 	@NotBlank
 	@NotEmpty
-	private String pj_startdate;
-	
+	private String pjStartdate;
+
 	@NotNull
 	@NotBlank
 	@NotEmpty
-	private String pj_enddate;
-	
+	private String pjEnddate;
+
 	@NotNull
-	private String pj_name;
-	
+	private String pjName;
+
 	@NotNull
-	private String pj_description;
-	
-	private int pj_num;
-	private String user_name;
-	private String user_id;
-	private String pj_writer;
-	private boolean pj_active;
-	private boolean pj_bookmark;
-	private String department_name;
-	private int department_id;
-	private boolean is_observer; 
-	private int pj_totalMember;
-	private int pj_observerCount;
-	private int pj_memberCount;
-	
+	private String pjDescription;
+
+	private int pjNum;
+	private String userName;
+	private String userId;
+	private String pjWriter;
+	private boolean pjActive;
+	private boolean pjBookmark;
+	private String departmentName;
+	private int departmentId;
+	private boolean isObserver;
+	private int pjTotalmember;
+	private int pjObservercount;
+	private int pjMembercount;
+
 }
