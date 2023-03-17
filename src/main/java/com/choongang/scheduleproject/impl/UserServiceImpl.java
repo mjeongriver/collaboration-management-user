@@ -1,4 +1,4 @@
-package com.choongang.scheduleproject.user.service;
+package com.choongang.scheduleproject.impl;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.choongang.scheduleproject.command.DepartmentVO;
 import com.choongang.scheduleproject.command.EmailVO;
 import com.choongang.scheduleproject.command.UserVO;
+import com.choongang.scheduleproject.user.service.UserMapper;
+import com.choongang.scheduleproject.user.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -53,7 +55,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void failCount(UserVO vo) {
 		userMapper.failCount(vo);
-		
 	}
 
 	@Override
@@ -115,9 +116,4 @@ public class UserServiceImpl implements UserService {
 	public int removeImg(String userId) {
 		return userMapper.removeImg(userId);
 	}
-
-
-	
-
-
 }

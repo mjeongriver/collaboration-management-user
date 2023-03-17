@@ -1,4 +1,4 @@
-package com.choongang.scheduleproject.project.service;
+package com.choongang.scheduleproject.impl;
 
 
 import java.util.ArrayList;
@@ -12,6 +12,8 @@ import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ChatVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserVO;
+import com.choongang.scheduleproject.project.service.ProjectMapper;
+import com.choongang.scheduleproject.project.service.ProjectService;
 
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {

@@ -21,7 +21,6 @@ public class UserAuthHandler implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-				
 		//현재 세션을 얻음
 		HttpSession session = request.getSession();
 		String user_id = (String)session.getAttribute("user_id");
@@ -32,9 +31,5 @@ public class UserAuthHandler implements HandlerInterceptor {
 		}
 		
 		return true; // 컨트롤러 실행
-	}
-	
-	
-	
-	
+	}	
 }

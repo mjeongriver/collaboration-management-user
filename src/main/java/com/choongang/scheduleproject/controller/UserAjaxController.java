@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.choongang.scheduleproject.command.DepartmentVO;
 import com.choongang.scheduleproject.command.EmailVO;
 import com.choongang.scheduleproject.command.UserVO;
-import com.choongang.scheduleproject.mail.service.MailServiceImpl;
+import com.choongang.scheduleproject.impl.MailServiceImpl;
 import com.choongang.scheduleproject.user.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,10 +58,8 @@ public class UserAjaxController {
 	public EmailVO verifyMail(@RequestParam("userEmail") String userEmail, @RequestParam("joinResetFind") String joinResetFind) {
 		EmailVO vo = new EmailVO();
 		vo.setEmail(userEmail);
-		vo.setJoinResetFind(joinResetFind); // 회원가입 요청인지, 비밀번호 초기화 요청인지 구분하기 위함
-
+		vo.setJoinResetFind(joinResetFind); // 회원가입 요청, 비밀번호 초기화 요청, 아이디 찾기 요청인지 구분하기 위함
 		return userService.verifyMail(vo);
-
 	}
 
 	// 아이디 이메일 일치 여부
@@ -70,9 +68,7 @@ public class UserAjaxController {
 		UserVO vo = new UserVO();
 		vo.setUserId(userId);
 		vo.setUserEmail(userEmail);
-
 		return userService.checkIdAndEmail(vo);
-
 	}
 
 	// 이름 이메일 일치 여부
@@ -81,9 +77,7 @@ public class UserAjaxController {
 		UserVO vo = new UserVO();
 		vo.setUserName(userName);
 		vo.setUserEmail(userEmail);
-
 		return userService.checkNameAndEmail(vo);
-
 	}
 
 

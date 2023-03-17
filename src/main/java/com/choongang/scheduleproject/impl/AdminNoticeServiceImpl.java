@@ -1,10 +1,12 @@
-package com.choongang.scheduleproject.board.service;
+package com.choongang.scheduleproject.impl;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.choongang.scheduleproject.board.service.AdminNoticeListMapper;
+import com.choongang.scheduleproject.board.service.AdminNoticeService;
 import com.choongang.scheduleproject.command.AdminNoticeListVO;
 import com.choongang.scheduleproject.util.Criteria;
 
