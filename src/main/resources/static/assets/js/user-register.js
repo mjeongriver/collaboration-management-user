@@ -20,12 +20,13 @@
 		$.ajax({
 			url: "../get-all-department",
 			type: "get",
-			success: function(result) {				
+			success: function(result) {	
+				console.log(result);			
 				var str = "";
-	            str += '<select name="department_id" class="form-control" id="department_id" required>';
+	            str += '<select name="departmentId" class="form-control" id="department_id" required>';
 	            str += '<option>선택</option>'
 	            result.forEach(function(item, index) {
-	                str += '<option value="'+ item.department_id +'">'+ item.department_name +'</option>';                
+	                str += '<option value="'+ item.department_id +'">'+ item.departmentName +'</option>';                
 	            })
 	            str += '</select>';
 				            
