@@ -2,11 +2,8 @@ package com.choongang.scheduleproject.controller;
 
 import java.util.ArrayList;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +19,7 @@ import com.choongang.scheduleproject.project.service.ProjectService;
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
-	
+
 	@Autowired
 	@Qualifier("projectService")
 	private ProjectService projectService;
@@ -32,52 +29,51 @@ public class ProjectController {
 	public String projectAdd() {
 		return "/project/project-add";
 	}
-	
-	@GetMapping("/projectStarted")
+
+	@GetMapping("/project-started")
 	public String projectStarted(Model model,@RequestParam("pj_num") int pj_num) {
 
 		//채팅화면에 멤버 정보를 받아옴
 		ArrayList<UserVO> list = new ArrayList<>();
 		list = projectService.getProjectMember(pj_num);
-		
-		
+
 		ProjectVO pjVO = projectService.getProject(pj_num);
-		
+
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list);
-		
-	
-		return "/project/projectStarted";
+
+
+		return "/project/project-started";
 	}
-	
-	
+
+
 	//전체 진척률 보기
-	@GetMapping("/projectUserTeamChart")
+	@GetMapping("/project-user-team-chart")
 	public String projectUserTeamChart(Model model,@RequestParam("pj_num") int pj_num) {
 		ProjectVO pjVO = projectService.getProject(pj_num);
-		
+
 		model.addAttribute("pjVO",pjVO);
-		return "/project/projectUserTeamChart";
+		return "/project/project-user-team-chart";
 	}
-	
-	@GetMapping("/projectUserMyChart")
+
+	@GetMapping("/project-user-my-chart")
 	public String projectUserMyChart(Model model,@RequestParam("pj_num") int pj_num) {
 		ProjectVO pjVO = projectService.getProject(pj_num);
-		
+
 		model.addAttribute("pjVO",pjVO);
-		return "/project/projectUserMyChart";
+		return "/project/project-user-my-chart";
 	}
-	
-	@GetMapping("/projectCalendar")
+
+	@GetMapping("/project-calendar")
 	public String projectCalendar(Model model,@RequestParam("pj_num") int pj_num) {
-		
+
 		ProjectVO pjVO = projectService.getProject(pj_num);
-		
+
 		model.addAttribute("pjVO",pjVO);
-		
-		return "/project/projectCalendar";
+
+		return "/project/project-calendar";
 	}
-	
+
 	@PostMapping("/regist-form")
 	public String registForm(ProjectVO vo, RedirectAttributes ra) {
 		int result = projectService.regist(vo);
@@ -86,7 +82,7 @@ public class ProjectController {
 		System.out.println(result);
 		System.out.println(vo.getPj_name());
 		System.out.println(vo.toString());
-		return "../"; 
+		return "../";
 	}
-	
+
 }

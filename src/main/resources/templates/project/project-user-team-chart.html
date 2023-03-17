@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+<th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
 
 <div class="wrap">
   <main id="main" class="main">
 
 	<div class="pagetitle">
-				<h1 class="card-title">
-					<i class="bx bxs-star"></i> 공부 프로젝트
+			<h1 class="card-title">
+					<i class="bx bxs-star"></i> [[${pjVO.pj_name}]]
 				</h1>
 				<h6 style="padding-bottom: 20px">
-					<i class="ri-bookmark-fill"></i> 열심히 공부해서 정처기 따기
+					<i class="ri-bookmark-fill"></i> [[${pjVO.pj_description}]]
 				</h6>
-
 				<nav>
 
 
@@ -25,45 +24,46 @@
 								data-bs-toggle="tab" data-bs-target="#bordered-justified-home"
 								type="button" role="tab" aria-controls="home"
 								aria-selected="true"
-								th:onclick="|location.href='@{/project/projectStarted(pj_num=${param.pj_num})}'|">홈</button> <!-- 받아온get값 다른페이지로 넘기기 -->
+								th:onclick="|location.href='@{/project/project-started(pj_num=${param.pj_num})}'|">홈</button> <!-- 받아온get값 다른페이지로 넘기기 -->
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="profile-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-profile" type="button"
 								role="tab" aria-controls="profile" aria-selected="false"
-								th:onclick="|location.href='@{/userboards/teamBoardList(pj_num=${param.pj_num})}'|">게시판</button>
+								th:onclick="|location.href='@{/userboards/team-board-list(pj_num=${param.pj_num})}'|">게시판</button>
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
 								role="tab" aria-controls="contact" aria-selected="false"
-								th:onclick="|location.href='@{/project/projectCalendar(pj_num=${param.pj_num})}'|">캘린더</button>
+								th:onclick="|location.href='@{/project/project-calendar(pj_num=${param.pj_num})}'|">캘린더</button>
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100 active" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
 								role="tab" aria-controls="contact" aria-selected="false"
-								th:onclick="|location.href='@{/project/projectUserTeamChart(pj_num=${param.pj_num})}'|">진척률</button>
+								th:onclick="|location.href='@{/project/project-user-team-chart(pj_num=${param.pj_num})}'|">진척률</button>
 						</li>
 					</ul>
 				</nav>
 			</div>
 			<!-- End Page Title -->
-	
+
+
     <div class="pagetitle">
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item" onclick="location.href='/project/projectUserTeamChart'" style="cursor:pointer">팀 진척률 보기</li>
-          <li class="breadcrumb-item active">내 진척률 보기</li>
+          <li class="breadcrumb-item active">팀 진척률 보기</li>
+          <li class="breadcrumb-item" th:onclick="|location.href='@{/project/project-user-my-chart(pj_num=${param.pj_num})}'|" style="cursor:pointer">내 진척률 보기</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
-    
-   
-	<section class="section">
+
+
+		 <section class="section">
       <div class="row">
 
         <div class="col-lg-6">
@@ -155,62 +155,91 @@
             </div>
           </div>
         </div>
-        
-        <div class="col-lg-6">
+
+         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">완료 현황</h5>
+              <h5 class="card-title">항목 별 통계</h5>
 
-              <!-- Radial Bar Chart -->
-              <div id="radialBarChart"></div>
-
+              <!-- Doughnut Chart -->
+              <canvas id="doughnutChart" style="max-height: 400px;"></canvas>
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                  new ApexCharts(document.querySelector("#radialBarChart"), {
-                    series: [25, 50, 25, 25, 55],
-                    chart: {
-                      height: 350,
-                      type: 'radialBar',
-                      toolbar: {
-                        show: true
-                      }
-                    },
-                    plotOptions: {
-                      radialBar: {
-                        dataLabels: {
-                          name: {
-                            fontSize: '22px',
-                          },
-                          value: {
-                            fontSize: '16px',
-                          },
-                          total: {
-                            show: true,
-                            label: 'Total',
-                            formatter: function(w) {
-                              // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                              return 100
-                            }
-                          }
-                        }
-                      }
-                    },
-                    labels: ['항목 1', '항목 2', '항목 3', '항목 4', '항목 5'],
-                  }).render();
+                  new Chart(document.querySelector('#doughnutChart'), {
+                    type: 'doughnut',
+                    data: {
+                      labels: [
+                        '개발1',
+                        '개발2',
+                        '개발3'
+                      ],
+                      datasets: [{
+                        label: 'My First Dataset',
+                        data: [300, 50, 100],
+                        backgroundColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                      }]
+                    }
+                  });
                 });
               </script>
-              <!-- End Radial Bar Chart -->
+              <!-- End Doughnut CHart -->
 
             </div>
           </div>
         </div>
 
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">팀원 별 진척률</h5>
 
-        
-      
-        
+              <!-- Polar Area Chart -->
+              <canvas id="polarAreaChart" style="max-height: 400px;"></canvas>
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new Chart(document.querySelector('#polarAreaChart'), {
+                    type: 'polarArea',
+                    data: {
+                      labels: [
+                        '강민정',
+                        '권도은',
+                        '이세민',
+                        '이동민',
+                        '이승완',
+                        '이서윤'
+                      ],
+                      datasets: [{
+                        label: 'My First Dataset',
+                        data: [15, 15, 15, 15, 20, 20],
+                        backgroundColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(75, 192, 192)',
+                          'rgb(255, 205, 86)',
+                          'rgb(201, 203, 207)',
+                          'rgb(54, 162, 235)',
+                          'rgb(33, 34, 35)'
+                        ]
+                      }]
+                    }
+                  });
+                });
+              </script>
+              <!-- End Polar Area Chart -->
 
-   
+            </div>
+          </div>
+        </div>
+
+         </div>
+    </section>
+
+
+
   </main><!-- End #main -->
 </div>
 </th:block>

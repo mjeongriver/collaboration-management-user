@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+<th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
 
 <style>
 .hidden {
@@ -35,28 +35,28 @@
 								data-bs-toggle="tab" data-bs-target="#bordered-justified-home"
 								type="button" role="tab" aria-controls="home"
 								aria-selected="true"
-								th:onclick="|location.href='@{/project/projectStarted(pj_num=${param.pj_num})}'|">홈</button> <!-- 받아온get값 다른페이지로 넘기기 -->
+								th:onclick="|location.href='@{/project/project-started(pj_num=${param.pj_num})}'|">홈</button> <!-- 받아온get값 다른페이지로 넘기기 -->
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="profile-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-profile" type="button"
 								role="tab" aria-controls="profile" aria-selected="false"
-								th:onclick="|location.href='@{/userboards/teamBoardList(pj_num=${param.pj_num})}'|">게시판</button>
+								th:onclick="|location.href='@{/userboards/team-board-list(pj_num=${param.pj_num})}'|">게시판</button>
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
 								role="tab" aria-controls="contact" aria-selected="false"
-								th:onclick="|location.href='@{/project/projectCalendar(pj_num=${param.pj_num})}'|">캘린더</button>
+								th:onclick="|location.href='@{/project/project-calendar(pj_num=${param.pj_num})}'|">캘린더</button>
 						</li>
 						<li class="nav-item" role="presentation" style="width: 10%">
 							<button class="nav-link w-100" id="contact-tab"
 								data-bs-toggle="tab"
 								data-bs-target="#bordered-justified-contact" type="button"
 								role="tab" aria-controls="contact" aria-selected="false"
-								th:onclick="|location.href='@{/project/projectUserTeamChart(pj_num=${param.pj_num})}'|">진척률</button>
+								th:onclick="|location.href='@{/project/project-user-team-chart(pj_num=${param.pj_num})}'|">진척률</button>
 						</li>
 					</ul>
 				</nav>
@@ -198,14 +198,14 @@
 	 var results = regex.exec(location.search);
 	 return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 	}
-	
+
 	//url값. 받아서 겟값만 남기도록 처리할 예정
 	var pj_num = getUrlParameter('pj_num');
-	
+
 	//채팅 받아오기
 	function getChat() {
 		$.ajax({
-					url : "../getChat",
+					url : "../get-chat",
 					type : "get",
 					data : {"pj_num":pj_num},
 					dataType : "json",
@@ -217,7 +217,7 @@
 						//채팅 길이를 담기
 						chatLength=response.length;
 						for (var i = 0; i < response.length; i++) {
-							
+
 							var str = "";
 							//챗넘버 갱신
 							chatNum = response[i].chat_num;
@@ -258,16 +258,16 @@
 				})
 	}
 	$(document).ready(getChat);
-	
+
 	//추가로 들어온 채팅을 바로 통신해서 전달..getchat과 동일
 	function addChat() {
 		$.ajax({
-					url : "../getChat",
+					url : "../get-chat",
 					type : "get",
 					data : {"pj_num":pj_num},
 					dataType : "json",
 					success : function(response) {
-					
+
 						for (var i = 0; i < response.length; i++) {
 							if(response[i].chat_num>chatNum){ //갱신한 챗넘보다 높은 챗넘만 추가로 전달
 							chatLength += 1;
@@ -310,28 +310,28 @@
 
 				})
 	}
-	
+
 	//지속적으로 채팅리스트 변경값 체크
 	function checkChat(){
 
 		$.ajax({
-			url : "../getChat",
+			url : "../get-chat",
 			type : "get",
 			data : {"pj_num":pj_num},
 			dataType : "json",
 			success : function(response){
-			
+
 				if(response[response.length-1].chat_num>chatNum){ //마지막채팅번호보다 챗팅넘버가 크면 챗 추가
 					addChat();
 				} else if(response.length != chatLength){ //채팅길이가 달라지면.즉 챗팅이 삭제되면 채팅값 다시 받아오기
 					getChat();
 				}
-				
+
 			}
-			
+
 		})
 	}
-	
+
 	setInterval( checkChat , 500); //0.5초마다 채팅값 확인
 
 	//입력 창
@@ -342,7 +342,7 @@
 
 		console.log(chat_content.value);
 		$.ajax({
-			url : "../setChat",
+			url : "../set-chat",
 			type : "get",
 			data : {
 				"chat_content" : chat_content.value.replace(/\n/g, "<br>"), //줄바꿈 시 db에 줄바꾼것을 인식하기위해
@@ -366,7 +366,7 @@
 	function deleteChat(chat_num){
 		console.log(chat_num);
 		$.ajax({
-			url : "../deleteChat",
+			url : "../delete-chat",
 			type : "get",
 			data : {"chat_num" : chat_num},
 			success : function(result){
@@ -378,16 +378,16 @@
 				alert("삭제 실패");
 			}
 		})
-		
+
 	}
-	
-	
+
+
 	//수정 textarea 숨겨져있음. 토글 방식으로 나타남
 	function toggleHidden(element) {
 		  const hiddenLi = element.nextElementSibling;
 		  hiddenLi.style.display = hiddenLi.style.display === "block" ? "none" : "block";
 		}
-	
+
 	const toggleButtons = document.querySelectorAll('.dropdown-toggle');
 
 	  toggleButtons.forEach(button => {
@@ -397,16 +397,16 @@
 	      dropdownMenu.classList.toggle('show');
 	    });
 	  });
-	
-	  
+
+
 	// 수정 입력 창
 	 function modifyChat(event, chat_num){
-		
+
 			var parent = event.target.parentNode;
 		    var modifyContent = parent.querySelector('.modifyTextarea');
 
 		 $.ajax({
-				url : "../modifyChat",
+				url : "../modify-chat",
 				type : "get",
 				data : {"chat_num" : chat_num,
 						"modifyContent": modifyContent.value.replace(/\n/g, "<br>") //줄바꿈 시 db에 줄바꾼것을 인식하기위해
@@ -421,11 +421,11 @@
 				}
 			})
 	 }
-	 
+
 	//채팅 복사
 	function copy(event){
-		
-		
+
+
 			 var textArea = document.createElement("textarea");
 			var copyText = event.target.parentNode.parentNode.parentNode.parentNode
 						.querySelector(".chatContentWrap").querySelector(".chatContent");
@@ -435,11 +435,11 @@
 			document.body.appendChild(textArea);
 			textArea.select();
 			document.execCommand("Copy"); //복사하는 함수
-			textArea.remove(); 
+			textArea.remove();
 	}
-		 
-	
-	
+
+
+
 	// 실시간 검색 구현
 	function filter() {
 		var search = document.getElementById("search").value.toLowerCase();
