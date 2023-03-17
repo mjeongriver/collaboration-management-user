@@ -1,10 +1,12 @@
-package com.choongang.scheduleproject.board.service;
+package com.choongang.scheduleproject.impl;
 
 import java.util.ArrayList;
 
 
 import org.springframework.stereotype.Service;
 
+import com.choongang.scheduleproject.board.service.UserBoardMapper;
+import com.choongang.scheduleproject.board.service.UserBoardService;
 import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.util.Criteria;
 

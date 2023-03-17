@@ -1,4 +1,4 @@
-package com.choongang.scheduleproject.mail.service;
+package com.choongang.scheduleproject.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
@@ -15,6 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.choongang.scheduleproject.command.EmailVO;
+import com.choongang.scheduleproject.mail.service.MailService;
 import com.choongang.scheduleproject.user.service.UserMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @PropertySource("classpath:application.properties")
 @Service("mailService")
 @RequiredArgsConstructor
-@Slf4j
+@Slf4j //log.info를 주석처리하여 현재는 사용하지 않음
 public class MailServiceImpl implements MailService {
 	private final JavaMailSender javaMailSender;
 	private final UserMapper userMapper;
@@ -35,8 +36,8 @@ public class MailServiceImpl implements MailService {
     private String id;
 
     public MimeMessage createMessage(String to)throws MessagingException, UnsupportedEncodingException {
-        log.info("보내는 대상 : "+ to);
-        log.info("인증 번호 : " + ePw);
+        //log.info("보내는 대상 : "+ to);
+        //log.info("인증 번호 : " + ePw);
         MimeMessage message = javaMailSender.createMimeMessage();
 
         message.addRecipients(MimeMessage.RecipientType.TO, to); // to 보내는 대상
@@ -52,17 +53,14 @@ public class MailServiceImpl implements MailService {
 
         message.setText(msg, "utf-8", "html"); //내용, charset타입, subtype
         message.setFrom(new InternetAddress(id,"폼미소프트_관리자")); //보내는 사람의 메일 주소, 보내는 사람 이름
-
         return message;
     }
 
     // 인증코드 만들기
     public String createKey() {
-    	
     	//랜덤 인증코드 생성
         Random random = new Random(); 
         int length = 6;
-
         StringBuffer key = new StringBuffer();
         for (int i = 0; i < length; i++) {
             int choice = random.nextInt(3);
@@ -80,20 +78,17 @@ public class MailServiceImpl implements MailService {
                     break;
             }
         }
-    	
         return key.toString();
     }
-
-    /*
+    
+    	/*
         메일 발송
         sendSimpleMessage의 매개변수로 들어온 to는 인증번호를 받을 메일주소
         MimeMessage 객체 안에 내가 전송할 메일의 내용을 담아준다.
         bean으로 등록해둔 javaMailSender 객체를 사용하여 이메일 send
-     */
+        */
     public String sendSimpleMessage(String to, String joinResetFind) throws Exception { // 이메일 보내기
-    	
     	ePw = createKey(); //메일을 보낼 때 랜덤문자열을 생성하여 보낼 때마다 다른 값을 넘기도록 설정
-    	
         MimeMessage message = createMessage(to);
         try {
             EmailVO vo = new EmailVO();
@@ -107,7 +102,6 @@ public class MailServiceImpl implements MailService {
     			//RedirectAttributes를 여기서 사용할 수 없어서 userEmailError로 이동 후 처리
     			return "redirect:/user/user-email-error";
             }
-            
             javaMailSender.send(message); // 메일 발송
         } catch (MailException es) {
             es.printStackTrace();
@@ -115,6 +109,4 @@ public class MailServiceImpl implements MailService {
         }
         return ePw; // 메일로 보냈던 인증 코드를 서버로 리턴
     }
-
-
 }

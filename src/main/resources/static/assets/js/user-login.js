@@ -1,37 +1,29 @@
-	//엔터 이벤트
+//엔터 이벤트
 $("#user_pw").keypress(function(e) {
-	  if (e.keyCode === 13) {
-	    e.preventDefault();
-	    loginCheck();
-	  }
-	});	
-
+	if (e.keyCode === 13) {
+		e.preventDefault();
+		loginCheck();
+	}
+});
 
 //카카오 api
-$(".kakaoBtn").click(function(){
-	var apiKey = "0ad1808cae578c5f8edfdc6072415416";
-	var address = "http://127.0.0.1:8686/user/kakao";
-		alert("이메일 수집에 꼭 동의해주세요!");
-		
-	location.href="https://kauth.kakao.com/oauth/authorize?client_id="+ apiKey +"&redirect_uri="+ address +"&response_type=code"
+$(".kakaoBtn").click(function() {
+	let apiKey = "0ad1808cae578c5f8edfdc6072415416";
+	let address = "http://127.0.0.1:8686/user/kakao";
+	alert("이메일 수집에 꼭 동의해주세요!");
+	location.href = "https://kauth.kakao.com/oauth/authorize?client_id=" + apiKey + "&redirect_uri=" + address + "&response_type=code"
 })
-
 
 //회원가입 유효성 검사
 function loginCheck() {
+	let idCheck = document.getElementById("user_id");
+	let passCheck = document.getElementById("user_pw");
+	let id = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+	let password = RegExp(/^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/);
+	let idWarning = document.getElementById("idWarning");
+	let pwWarning = document.getElementById("pwWarning");
+	let loginForm = document.getElementById("Login");
 
-	var idCheck = document.getElementById("user_id");
-	var passCheck = document.getElementById("user_pw");
-
-	var id = RegExp(/^[a-zA-Z0-9]{4,12}$/);
-	var password = RegExp(/^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/);
-
-	var idWarning = document.getElementById("idWarning");
-	var pwWarning = document.getElementById("pwWarning");
-
-	var loginForm = document.getElementById("Login");
-
-	
 	idWarning.innerHTML = "";
 	pwWarning.innerHTML = "";
 
@@ -49,7 +41,7 @@ function loginCheck() {
 		idCheck.focus();
 		return false;
 	}
-	
+
 	//아이디 최대 길이 확인
 	if (idCheck.value.length > 12) {
 		idWarning.innerHTML = "아이디는 12자 이하입니다.";
@@ -57,7 +49,7 @@ function loginCheck() {
 		idCheck.focus();
 		return false;
 	}
-	
+
 	//아이디 유효성검사
 	if (!id.test(idCheck.value)) {
 		idWarning.innerHTML = "형식에 맞게 입력해주세요";
@@ -65,7 +57,7 @@ function loginCheck() {
 		idCheck.focus();
 		return false;
 	}
-	
+
 	//비밀번호 공백 확인
 	if (passCheck.value == "") {
 		pwWarning.innerHTML = "비밀번호를 입력해주세요";
@@ -80,7 +72,6 @@ function loginCheck() {
 		return false;
 	}
 
-	
 	// form 전송하기
 	loginForm.submit();
 }

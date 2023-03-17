@@ -48,24 +48,17 @@ public class KakaoAPI {
 			//			BufferedWriter br = new BufferedWriter(osw);
 
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-
 			bw.write(data);
 			bw.flush();
 
-			//응답결과를 conn객체에서 받음
-			//System.out.println( conn.getResponseCode());
-
 			if(conn.getResponseCode() == 200) { // 요청성공
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
 				String result = "";
 				String str = null;
 				while((str=br.readLine()) != null) { // 한줄씩 읽음 - 읽을 값이 없다면 null
 					result += str;
 				}
-
-				//System.out.println(result);
-
+				
 				//JSON 데이터 분해
 				JsonParser gson = new JsonParser(); // com.google.~~~
 				JsonElement element = gson.parse(result); // json데이터 전달
@@ -73,43 +66,31 @@ public class KakaoAPI {
 				access_token = obj.get("access_token").getAsString();
 				refresh_token = obj.get("refresh_token").getAsString();
 			}
-
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return access_token;
 	}
 
 	//토큰 기반으로 유저정보 얻기
 	public Map<String, Object> getUserInfo(String access_token){
-
 		//데이터 저장할 Map
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		try {
 			URL url = new URL(REQUEST_URL_INFO);
 			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-
+			
 			conn.setRequestMethod("POST"); // post형식
 			conn.setDoOutput(true); // 카카오서버로부터 데이터 응답을 허용
-
-			//헤더에 토큰정보를 추가
-			conn.setRequestProperty("Authorization", "Bearer " + access_token);
-
-			//System.out.println("토큰요청결과:" + conn.getResponseCode());
-
+			conn.setRequestProperty("Authorization", "Bearer " + access_token); //헤더에 토큰정보를 추가
+			
 			if(conn.getResponseCode() == 200) { // 사용자 데이터 요청 성공
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
 				String result = "";
 				String str = null;
 				while((str=br.readLine()) != null) { // 한줄씩 읽음 - 읽을 값이 없다면 null
 					result += str;
 				}
-
-				//System.out.println(result);
 				
 				JsonParser json = new JsonParser(); //파서객체생성
 				JsonElement element = json.parse(result); //JSON엘리먼트변경
@@ -123,11 +104,6 @@ public class KakaoAPI {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-
-
 		return map;
 	}
-
-
 }

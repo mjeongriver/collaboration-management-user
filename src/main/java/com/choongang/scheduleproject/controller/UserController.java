@@ -89,9 +89,6 @@ public class UserController {
 	//회원가입 요청
 	@PostMapping("/register-form")
 	public String register(@Valid UserVO vo, Errors errors, RedirectAttributes ra) {
-		
-		System.out.println(vo);
-		
 		//서버단에서 유효성 검사 실행
 		if(errors.hasErrors()) {
 			//메시지 담아서 리다이렉트
@@ -147,7 +144,7 @@ public class UserController {
 					msg = "계정이 비활성화되었습니다. 비밀번호 초기화를 진행해주세요.";
 					ra.addFlashAttribute("msg", msg);
 					return "redirect:/user/user-reset-pw";
-				} else { //실패횟수를 alert에다가 실어 redirect로 보내기
+				} else { //실패횟수를 메시지에 담아서 리다이렉트
 					msg = "로그인을 " + result2.getUserLoginfail() + "번 실패했습니다. 5회 틀리면 계정이 비활성화됩니다.";
 					ra.addFlashAttribute("msg", msg);
 					return "redirect:/user/user-login";
@@ -163,7 +160,7 @@ public class UserController {
 				} else { //계정이 활성화되어있음
 					//로그인 성공: 실패횟수 0으로 변경
 					userService.failReset(result);
-					//user_log에 log기록 추가하기
+					//user_log에 log기록 추가하기 - 마지막 로그인 시각을 저장
 					//현재 시간을 회원가입일 user_regdate에다가 저장
 					LocalDateTime nowTime = LocalDateTime.now();
 					result.setUserRegdate(nowTime);
@@ -177,7 +174,6 @@ public class UserController {
 					session.setAttribute("user_role", result.getUserRole());
 					return "user/user-start-project-list";					
 				}
-
 			}
 		}
 	}
@@ -248,7 +244,6 @@ public class UserController {
 		UserVO vo = new UserVO();
 		vo.setUserEmail((String)map.get("email")); //카카오에서 가져온 이메일값으로 로그인 시도
 		UserVO result = userService.kakaoLogin(vo);
-
 		if(result == null) { //일치하는 아이디가 없음
 			// 회원가입 페이지로 넘겨줘야 함
 			//메시지 담아서 리다이렉트
@@ -313,10 +308,7 @@ public class UserController {
 		String msg = "로그아웃되었습니다.";
 		ra.addFlashAttribute("msg", msg);
 		return "redirect:/user/user-login"; //로그인화면으로	
-
 	}
-
-
 }
 
 
