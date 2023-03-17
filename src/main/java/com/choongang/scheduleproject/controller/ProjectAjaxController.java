@@ -59,11 +59,11 @@ public class ProjectAjaxController {
 //    System.out.println((String)map.get("pj_description"));
 
       ProjectVO vo = new ProjectVO();
-      vo.setPj_name((String)map.get("pj_name"));
-      vo.setPj_writer((String)map.get("pj_writer"));
-      vo.setPj_startdate((String)map.get("pj_startdate"));
-      vo.setPj_enddate((String)map.get("pj_enddate"));
-      vo.setPj_description((String)map.get("pj_description"));
+      vo.setPjName((String)map.get("pj_name"));
+      vo.setPjWriter((String)map.get("pj_writer"));
+      vo.setPjStartDate((String)map.get("pj_startdate"));
+      vo.setPjEndDate((String)map.get("pj_enddate"));
+      vo.setPjDescription((String)map.get("pj_description"));
 
       Gson gson = new Gson();
 
@@ -74,16 +74,16 @@ public class ProjectAjaxController {
       //프로젝트 생성
       result1 = projectService.regist(vo);
       System.out.println("result1 : " + result1);
-      int pj_num = vo.getPj_num();
+      int pj_num = vo.getPjNum();
       System.out.println("pj_num : " + pj_num);
 
       //프로젝트 멤버들 생성
       for (int i = 0; i < user_list.size(); i++) {
     	  ProjectMemberVO pmvo = new ProjectMemberVO();
 
-    	  pmvo.setPj_num(pj_num);
-    	  pmvo.setUser_id(user_list.get(i).get("team_id").toString());
-    	  pmvo.setIs_observer(user_list.get(i).get("is_observer").toString());
+    	  pmvo.setPjNum(pj_num);
+    	  pmvo.setUserId(user_list.get(i).get("team_id").toString());
+    	  pmvo.setIsObserver(user_list.get(i).get("is_observer").toString());
 
     	  result2 = projectService.registMember(pmvo);
       }

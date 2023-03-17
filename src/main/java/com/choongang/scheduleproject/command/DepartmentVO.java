@@ -1,5 +1,7 @@
 package com.choongang.scheduleproject.command;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DepartmentVO {
-	private int department_id;
-	private String department_name;
+	@JsonProperty("department_id")
+	private int departmentId;
+	private String departmentName;
 }

@@ -6,6 +6,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,30 +23,43 @@ public class ProjectVO {
 	@NotNull
 	@NotBlank
 	@NotEmpty
-	private String pjStartdate;
 
+	@JsonProperty("pj_startdate")
+	private String pjStartDate;
+	
 	@NotNull
 	@NotBlank
 	@NotEmpty
-	private String pjEnddate;
-
+	@JsonProperty("pj_enddate")
+	private String pjEndDate;
+	
 	@NotNull
+	@JsonProperty("pj_name")
 	private String pjName;
-
+	
 	@NotNull
+	@JsonProperty("pj_description")
 	private String pjDescription;
-
+	
 	private int pjNum;
 	private String userName;
 	private String userId;
+	
+	@JsonProperty("pj_writer")
 	private String pjWriter;
 	private boolean pjActive;
 	private boolean pjBookmark;
 	private String departmentName;
+
+	
+	@JsonProperty("department_id")
 	private int departmentId;
-	private boolean isObserver;
-	private int pjTotalmember;
-	private int pjObservercount;
-	private int pjMembercount;
+	
+	@JsonProperty("is_observer")
+	private boolean isObserver; 
+	private int pjTotalMember;
+	private int pjObserverCount;
+	private int pjMemberCount;
+	
 
 }
