@@ -21,12 +21,11 @@
 			url: "../get-all-department",
 			type: "get",
 			success: function(result) {	
-				console.log(result);			
 				var str = "";
 	            str += '<select name="departmentId" class="form-control" id="department_id" required>';
 	            str += '<option>선택</option>'
 	            result.forEach(function(item, index) {
-	                str += '<option value="'+ item.department_id +'">'+ item.departmentName +'</option>';                
+	                str += '<option value="'+ item.departmentId +'">'+ item.departmentName +'</option>';                
 	            })
 	            str += '</select>';
 				            
@@ -92,6 +91,7 @@
 			},
 			error: function(err) {
 				alert("이메일 조회에 실패했습니다. 담당자에게 문의하세요.");
+				emailCount = 1;
 			}
 		});
 		
@@ -99,7 +99,7 @@
 			return false;
 		}
 		
-		
+		var sendCount = 0;
 		$.ajax({
 		url: "../send-mail",
 		type: "post",
@@ -112,9 +112,15 @@
 		},
 		error: function(err) {
 			alert("이메일 전송에 실패했습니다. 담당자에게 문의하세요.");
+			sendCount = 1;
 			
 		}
 	});
+	
+	if(sendCount === 1) { //중복된 이메일이 있을 경우 전송하지 않고 함수 종료
+		return false;
+	}
+	
 	
 	//이메일 전송에 성공 시 비활성화되어있던 버튼과 인풋을 해제
 	var verifyInput = document.getElementById("user_email_verify");

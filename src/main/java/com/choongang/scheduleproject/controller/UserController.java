@@ -297,7 +297,6 @@ public class UserController {
 	public String removeImg(HttpSession session, RedirectAttributes ra) {
 		//세션으로 id가져옴
 		String user_id = (String)session.getAttribute("user_id");
-		System.out.println(user_id);
 		//DB에서 이미지 URL 삭제
 		int result = userService.removeImg(user_id);
 		//메시지 담아서 리다이렉트

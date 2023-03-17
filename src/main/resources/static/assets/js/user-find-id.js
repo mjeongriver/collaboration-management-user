@@ -72,7 +72,7 @@
 		//아이디와 이메일이 일치 여부 검사
 		var checkCount = 0;
 		$.ajax({
-			url : "../checkNameAndEmail",
+			url : "../check-name-and-email",
 			type : "get",
 			async : false,
 			data : {
@@ -88,7 +88,7 @@
 			},
 			error : function(err) {
 				alert("이메일 전송에 실패했습니다. 담당자에게 문의하세요.");
-
+				checkCount = 1;
 			}
 			
 		});
@@ -97,6 +97,8 @@
 			return false;
 		}
 		
+		//이메일 보내기
+		var sendCount = 0;
 		$.ajax({
 			url : "../send-mail",
 			type : "post",
@@ -111,9 +113,13 @@
 			},
 			error : function(err) {
 				alert("이메일 전송에 실패했습니다. 담당자에게 문의하세요.");
-
+				sendCount = 1;
 			}
 		});
+
+		if(sendCount == 1) {
+			return false;
+		}
 
 		//이메일 전송에 성공 시 비활성화되어있던 버튼과 인풋을 해제
 		var verifyInput = document.getElementById("user_email_verify");
