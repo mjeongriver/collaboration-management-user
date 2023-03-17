@@ -85,8 +85,8 @@
 			type : "get",
 			async : false,
 			data : {
-				"user_id" : idCheck.value,
-				"user_email" : emailCheck.value,
+				"userId" : idCheck.value,
+				"userEmail" : emailCheck.value,
 			},
 			success : function(result) {
 				if(result === ""){
@@ -112,8 +112,8 @@
 			type : "post",
 			async : false,
 			data : {
-				"user_email" : emailCheck.value,
-				"joinReset" : "reset"
+				"userEmail" : emailCheck.value,
+				"joinResetFind" : "reset"
 			},
 			success : function(result) {
 				emailWarning.innerHTML = "이메일이 전송되었습니다. 3분 안에 인증코드를 입력해주세요!";
@@ -155,8 +155,8 @@
 		$.ajax({
 			url: "../verify-mail",
 			type: "get",
-			data: {"user_email" : user_email.value,
-				   "joinReset" : "reset"
+			data: {"userEmail" : user_email.value,
+				   "joinResetFind" : "reset"
 			},
 			success: function(result) {
 				emailWarning.innerHTML = "";

@@ -82,7 +82,7 @@
 			url: "../check-all-email",
 			type: "get",
 			async: false, // 동기적으로 처리 (순서 보장)
-			data: {"user_email" : emailCheck.value},
+			data: {"userEmail" : emailCheck.value},
 			success: function(result) {				
 				if(result !== ""){
 					emailWarning.innerHTML = "사용중인 이메일입니다. 다른 이메일을 입력해주세요.";	
@@ -103,8 +103,8 @@
 		url: "../send-mail",
 		type: "post",
 		async: false,
-		data: {"user_email" : emailCheck.value,
-			   "joinReset" : "join"},
+		data: {"userEmail" : emailCheck.value,
+			   "joinResetFind" : "join"},
 		success: function(result) {
 			emailWarning.innerHTML = "이메일이 전송되었습니다. 3분 안에 인증코드를 입력해주세요!";
 			email_verify_succeed.innerHTML = "0"; // 유효성 단계에서 걸리게 만들기 위함
@@ -145,8 +145,8 @@
 		$.ajax({
 			url: "../verify-mail",
 			type: "get",
-			data: {"user_email" : user_email.value,
-				   "joinReset" : "join"},
+			data: {"userEmail" : user_email.value,
+				   "joinResetFind" : "join"},
 			success: function(result) {
 				emailWarning.innerHTML = "";
 								
@@ -210,7 +210,7 @@
 			$.ajax({
 				url: "../check-all-id",
 				type: "get",
-				data: {"user_id" : user_id.value}, //기존 방식은 모든 아이디를 List로 받아왔지만, 아이디 하나만 검색해서 null인지 아닌지 판단하는게 더 효율적이라 생각했습니다.
+				data: {"userId" : user_id.value}, //기존 방식은 모든 아이디를 List로 받아왔지만, 아이디 하나만 검색해서 null인지 아닌지 판단하는게 더 효율적이라 생각했습니다.
 				success: function(result) {				
 					if(result !== ""){
 						idWarning.innerHTML = "사용중인 아이디입니다. 다른 아이디를 입력해주세요."					
@@ -353,7 +353,7 @@
 				url: "../check-all-id",
 				type: "get",
 				async: false,
-				data: {"user_id" : user_id.value}, //기존 방식은 모든 아이디를 List로 받아왔지만, 아이디 하나만 검색해서 null인지 아닌지 판단하는게 더 효율적이라 생각했습니다.
+				data: {"userId" : user_id.value}, //기존 방식은 모든 아이디를 List로 받아왔지만, 아이디 하나만 검색해서 null인지 아닌지 판단하는게 더 효율적이라 생각했습니다.
 				success: function(result) {				
 					if(result !== ""){
 						idWarning.innerHTML = "중복된 아이디입니다. 다른 아이디를 입력해주세요."	

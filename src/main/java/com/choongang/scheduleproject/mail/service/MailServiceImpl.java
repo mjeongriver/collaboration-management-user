@@ -90,7 +90,7 @@ public class MailServiceImpl implements MailService {
         MimeMessage 객체 안에 내가 전송할 메일의 내용을 담아준다.
         bean으로 등록해둔 javaMailSender 객체를 사용하여 이메일 send
      */
-    public String sendSimpleMessage(String to, String joinReset) throws Exception { // 이메일 보내기
+    public String sendSimpleMessage(String to, String joinResetFind) throws Exception { // 이메일 보내기
     	
     	ePw = createKey(); //메일을 보낼 때 랜덤문자열을 생성하여 보낼 때마다 다른 값을 넘기도록 설정
     	
@@ -100,8 +100,8 @@ public class MailServiceImpl implements MailService {
             LocalDateTime expireTime = LocalDateTime.now().plusMinutes(3); //시간제한 3분 
             vo.setEmail(to);
             vo.setCode(ePw);
-            vo.setExpire_time(expireTime);
-            vo.setJoinReset(joinReset); // 회원가입인지 비밀번호 초기화인지 구별하기 위함
+            vo.setExpireTime(expireTime);
+            vo.setJoinResetFind(joinResetFind); // 회원가입인지 비밀번호 초기화인지 구별하기 위함
             int result = userMapper.sendVerifyCode(vo); //DB에 저장
             if(result == 0) { //db에 저장 실패
     			//RedirectAttributes를 여기서 사용할 수 없어서 userEmailError로 이동 후 처리

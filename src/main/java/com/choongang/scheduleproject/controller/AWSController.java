@@ -81,8 +81,8 @@ public class AWSController {
 			//db에 파일경로 업로드
 			String user_id = (String)session.getAttribute("user_id");
 			UserVO vo = new UserVO();
-			vo.setUser_id(user_id);
-			vo.setUser_img(uploadpath + fileUrl);
+			vo.setUserId(user_id);
+			vo.setUserImg(uploadpath + fileUrl);
 			int result = userMapper.insertImg(vo);
 			//메시지 담아서 리다이렉트
 			String msg = result == 1 ? "이미지 업로드에 성공하였습니다." : "이미지 업로드에 실패했습니다. 관리자에게 문의하세요.";
