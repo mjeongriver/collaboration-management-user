@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/basicLayout :: 함수( ~{:: .wrap } ) }">
+<th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
 
 <div class="wrap">
   <main id="main" class="main">
@@ -24,12 +24,12 @@
         <div class="col-lg-8">
           <div class="row projectList">
 
-        
-           
-          
-            
-            
-            <!-- 
+
+
+
+
+
+            <!--
             프로젝트 2
               <div class="col-xxl-4 col-md-6">
               <div class="card info-card sales-card">
@@ -49,9 +49,9 @@
            -->
             <!-- End Sales Card -->
 
-            
 
-        
+
+
           </div>
         </div>
         <!-- 왼쪽 컬럼 끝 -->
@@ -61,7 +61,7 @@
 
           <!-- Recent Activity -->
           <div class="card">
-            
+
 
             <div class="card-body">
               <h5 class="card-title">프로젝트 마감일정<span id="today"></span></h5>
@@ -119,10 +119,10 @@
               </div>
 
             </div>
-            
+
           </div><!-- End Recent Activity -->
 
-          
+
 
         </div>
         <!-- 오른쪽 컬럼 끝 -->
@@ -143,18 +143,18 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 	if(msg != null) {
 		alert(msg);
 	}
-	
+
 	var projectList = $(".projectList");
 	var projectList2 = $("#projectList2");
 	function getProjectList(){
-		
+
 		$.ajax({
-			url : "../getProjectList",
+			url : "../get-project-list",
 			type : "get",
 			dataType : "json",
 			success : function(response){
 					console.log(response);
-				
+
 				projectList.empty();
 				projectList2.empty();
 				for (var i = 0; i < response.length; i++) {
@@ -166,7 +166,7 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 							if(response[i].pj_bookmark==true){
 								str += '<a style="cursor:pointer" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')">⭐</a>';
 							} else {
-								str += '<a class="bi bi-star" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')" style="cursor:pointer"></a>';	
+								str += '<a class="bi bi-star" onclick="changeBookmark(`'+response[i].user_id+'`,'+response[i].pj_num+','+response[i].pj_bookmark+')" style="cursor:pointer"></a>';
 							}
 							if(response[i]._observer==false){
 								str += '<span>&nbsp;&nbsp;팀원</span>';
@@ -180,28 +180,28 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
 							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item" style="color: blue;" >수정</a></li>';
-							
+
 							str += '<li><a class="dropdown-item" onclick="deleteProject('+response[i].pj_num+');" style="color: red">삭제</a></li>';
 							str += '</ul></div>';
 								}
 							str += '</span><br>';
 							str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_memberCount+'</a></i><span style="float:right;padding-top:2px">팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
 							str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pj_observerCount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
-							str += '<a href="/project/projectStarted?pj_num='+response[i].pj_num+'"><h5 class="card-title">'+response[i].pj_name+' <br>';
+							str += '<a href="/project/project-started?pj_num='+response[i].pj_num+'"><h5 class="card-title">'+response[i].pj_name+' <br>';
 							str += '<span>'+response[i].pj_description+'</span>';
 							str += '</h5></a>';
 								<!--  초대된 인원만큼 인원 수 표시 -->
 							str += '<span class="card-title"><span>시작일 : '+response[i].pj_startdate+'</span></span><br>';
 							str += '<span class="card-title"><span>종료일 : '+response[i].pj_enddate+'</span></span><br>';
-				
+
 							str += '</div>';
 							str += '</div>';
 							str +=  '</div>';
-						
+
 						projectList.append(str);
 					}
-					
-					
+
+
 					}
 				for (var i = 0; i < response.length; i++) {
 					if(response[i].pj_active==true){
@@ -219,7 +219,7 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 				str +=  '<a href="#" class="fw-bold text-dark">'+response[i].pj_name+'</a>';
 				str += '</div>';
 				str += '</div>';
-				
+
 				projectList2.append(str);
 				}
 				}
@@ -229,12 +229,12 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 			}
 		})
 		}
-		
+
 		$(document).ready(getProjectList);
-		
+
 		function changeBookmark(userid, pjnum, bookmark){
 			$.ajax({
-				url : "../changeBookmark",
+				url : "../change-bookmark",
 				type : "get",
 				data : {
 					"user_id" : userid, "pj_num" : pjnum, "pj_bookmark" : bookmark
@@ -248,15 +248,15 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 				}
 
 			})
-			
+
 		}
-	
+
 
 		//프로젝트 삭제
 		function deleteProject(pj_num){
 			console.log(pj_num);
 			$.ajax({
-				url : "../deleteProject",
+				url : "../delete-project",
 				type : "get",
 				data : {
 					"pj_num" : pj_num
@@ -269,13 +269,13 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 					alert("삭제실패");
 				}
 			})
-			
-		}
-	
-	
 
-	
-	
+		}
+
+
+
+
+
 </script>
 
 </html>

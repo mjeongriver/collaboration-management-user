@@ -15,49 +15,49 @@ import com.choongang.scheduleproject.project.service.ProjectService;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	@Qualifier("projectService")
 	private ProjectService projectService;
-	
+
 	@GetMapping("/")
 	public String index(Model model,HttpSession session) {
 		String user_id = (String)session.getAttribute("user_id");
 
 		ArrayList<ProjectVO> list = new ArrayList<>();
 		list = projectService.getProjectList(user_id);
-		
+
 		model.addAttribute("list",list);
-		
-		return "user/userStartProjectList";
+
+		return "user/user-start-project-list";
 
 	}
-	
+
 
 	@GetMapping("/2")
 	public String index2(Model model,HttpSession session) {
 		String user_id = (String)session.getAttribute("user_id");
 		ArrayList<ProjectVO> list = new ArrayList<>();
 		list = projectService.getProjectList(user_id);
-		
+
 		model.addAttribute("list",list);
-		
-		return "user/userStartProjectList2";
+
+		return "user/user-start-project-list2";
 
 	}
-	
+
 	@GetMapping("/3")
 	public String index3(Model model,HttpSession session) {
 		String user_id = (String)session.getAttribute("user_id");
 		ArrayList<ProjectVO> list = new ArrayList<>();
 		list = projectService.getProjectList(user_id);
-		
+
 		model.addAttribute("list",list);
-		
-		return "user/userStartProjectList3";
+
+		return "user/user-start-project-list3";
 
 	}
-	
-	
+
+
 
 }
