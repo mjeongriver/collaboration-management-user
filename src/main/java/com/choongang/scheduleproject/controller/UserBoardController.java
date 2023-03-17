@@ -80,7 +80,6 @@ public class UserBoardController {
 		model.addAttribute("AdminNoticeList", adminNoticeService.getList(cri)); //페이지에 넘길 데이터
 
 		PageVO pageVO = new PageVO(cri, total); //페이징에 사용
-
 		model.addAttribute("pageVO", pageVO);
 
 
@@ -89,10 +88,10 @@ public class UserBoardController {
 
 	//위의 noticeTableList를 상세 조회하는 컨트롤러
 	@GetMapping("/notice-content")
-	public String noticeContent(@RequestParam("notice_num") int notice_num, Model model) {
+	public String noticeContent(@RequestParam("notice_num") int noticeNum, Model model) {
 
 		//클릭한 글 번호에 대한 내용을 조회
-		AdminNoticeListVO adminNoticeListVO = adminNoticeService.getContent(notice_num);
+		AdminNoticeListVO adminNoticeListVO = adminNoticeService.getContent(noticeNum);
 		model.addAttribute("adminNoticeListVO", adminNoticeListVO);
 
 
