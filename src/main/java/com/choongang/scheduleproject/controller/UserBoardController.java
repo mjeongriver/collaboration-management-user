@@ -2,7 +2,7 @@ package com.choongang.scheduleproject.controller;
 
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,35 +39,41 @@ public class UserBoardController {
 
 
 	@GetMapping("/board-list")
-	public String BoardList(Model model, UserBoardVO vo,
+	public String boardList(Criteria cri, Model model,
 								@RequestParam("pj_num") int pj_num) {
 
 		//getProject
 		ProjectVO pjVO = projectService.getProject(pj_num);
-		model.addAttribute("pjVO",pjVO);
+		model.addAttribute("pjVO", pjVO);
+		System.out.println("pjVO" + pjVO);
 
-		//페이징 처리
-		//int total = userBoardService.getCount(cri);
-
-		//게시글 화면 출력
-		ArrayList<UserBoardVO> list = userBoardService.getList(vo);
-		model.addAttribute("list", list);
-		System.out.println(vo.toString());
+		//토탈 검색(search에 따른 검색결과 건수 변화 위해 cri를 매개변수로 사용함)
+		int total = userBoardService.getCount(cri, pj_num);
+		model.addAttribute("total", total); //검색결과 건수
+		System.out.println(total);
+		
+		List<UserBoardVO> list = userBoardService.getList(cri, pj_num); //페이지에 넘길 데이터를 모델에 담는다.
+		System.out.println("list" + list);
+		model.addAttribute("boardList", list);	
+		
+		PageVO pageVO = new PageVO(cri, total); //pageVO 객체에서 사용할 criteria 와 total 값 주입 
+		model.addAttribute("pageVO", pageVO); //넘겨줄 VO 데이터
+		System.out.println(list.toString());
 		return "/userboards/board-list";
 	}
 
 	@GetMapping("/board-regist")
-	public String teamBoardRegist() {
+	public String boardRegist() {
 		return "/userboards/board-regist";
 	}
 
 	@GetMapping("/board-modify")
-	public String teamBoardModify() {
+	public String boardModify() {
 		return "/userboards/board-modify";
 	}
 
 	@GetMapping("/board-content")
-	public String teamBoardContent() {
+	public String boardContent() {
 		return "/userboards/board-content";
 	}
 
