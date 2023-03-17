@@ -30,7 +30,7 @@ public class ProjectAjaxController {
    private ProjectVO vo;
 
    //부서 요청
-   @GetMapping("/get-dlist") 
+   @GetMapping("/get-dlist")
    public List<ProjectVO> getDepList (){
       return projectService.getDepList();
    }
@@ -61,8 +61,8 @@ public class ProjectAjaxController {
       ProjectVO vo = new ProjectVO();
       vo.setPjName((String)map.get("pj_name"));
       vo.setPjWriter((String)map.get("pj_writer"));
-      vo.setPjStartDate((String)map.get("pj_startdate"));
-      vo.setPjEndDate((String)map.get("pj_enddate"));
+      vo.setPjStartdate((String)map.get("pj_startdate"));
+      vo.setPjEnddate((String)map.get("pj_enddate"));
       vo.setPjDescription((String)map.get("pj_description"));
 
       Gson gson = new Gson();
@@ -105,7 +105,7 @@ public class ProjectAjaxController {
 	  String user_id = (String)session.getAttribute("user_id");
 	   return projectService.getProjectList(user_id);
    }
-   
+
    //북마크 변경
    @GetMapping("/change-bookmark")
    public int changeBookmark(@RequestParam("user_id") String user_id,
