@@ -217,14 +217,13 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img id="img" th:src="${session.user_img}" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
-
             <span class="d-none d-md-block dropdown-toggle ps-2">[[${session.user_name}]]님</span>
           </a><!-- End Profile Iamge Icon -->
-
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>[[${session.user_name}]]</h6>
               <span>[[${session.user_id}]]</span>
+              <span style="display:none" id="canMakeProject">[[${session.user_role}]]</span>
             </li>
             <li>
               <hr class="dropdown-divider">

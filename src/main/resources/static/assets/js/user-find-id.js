@@ -97,7 +97,7 @@
 		}
 		
 		$.ajax({
-			url : "../sendMail",
+			url : "../send-mail",
 			type : "post",
 			async : false,
 			data : {
@@ -142,7 +142,7 @@
 
 		
 		$.ajax({
-			url: "../verifyMail",
+			url: "../verify-mail",
 			type: "get",
 			data: {"user_email" : user_email.value,
 				   "joinReset" : "find"

@@ -20,6 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
 	//인터셉터추가
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		// 선생님꺼
 //		registry.addInterceptor(userAuthHandler())
 //				.addPathPatterns("/main")
 //				.addPathPatterns("/product/*")
@@ -34,29 +35,33 @@ public class WebConfig implements WebMvcConfigurer {
 //				.excludePathPatterns("/css/*")
 //				.excludePathPatterns("/img/*");
 				//Rest API 패스에서 제외..?
+		
+		
+		
+		
 //		registry.addInterceptor(userAuthHandler())
 //				.addPathPatterns("/*")
 //				.addPathPatterns("/project/*")
 //				.addPathPatterns("/userboards/*")
 //				.addPathPatterns("/user/*")
-//				.excludePathPatterns("/user/userLogin")
-//				.excludePathPatterns("/user/userFindId")
-//				.excludePathPatterns("/user/userRegister")
-//				.excludePathPatterns("/user/userResetPw")
-//				.excludePathPatterns("/user/Login")
+//				.excludePathPatterns("/user/user-login")
+//				.excludePathPatterns("/user/user-find-id")
+//				.excludePathPatterns("/user/user-register")
+//				.excludePathPatterns("/user/user-reset-pw")
+//				.excludePathPatterns("/user/login")
 //				.excludePathPatterns("/user/kakao")
-//				.excludePathPatterns("/user/RegisterForm")
-//				.excludePathPatterns("/user/FindId")
-//				.excludePathPatterns("/user/ResetPw")
-//				.excludePathPatterns("/user/ChangeInfo")
+//				.excludePathPatterns("/user/register-form")
+//				.excludePathPatterns("/user/find-id")
+//				.excludePathPatterns("/user/reset-pw")
+//				.excludePathPatterns("/user/change-info")
 //				.excludePathPatterns("/admin/noticeLogin")
-//				.excludePathPatterns("/checkAllId") //rest api
-//				.excludePathPatterns("/checkAllEmail") //rest api
-//				.excludePathPatterns("/getAllDepartment") //rest api
-//				.excludePathPatterns("/sendMail") //rest api
-//				.excludePathPatterns("/verifyMail") //rest api
-//				.excludePathPatterns("/checkIdAndEmail") //rest api
-//				.excludePathPatterns("/checkNameAndEmail"); //rest api
+//				.excludePathPatterns("/check-all-id") //rest api
+//				.excludePathPatterns("/check-all-email") //rest api
+//				.excludePathPatterns("/get-all-department") //rest api
+//				.excludePathPatterns("/send-mail") //rest api
+//				.excludePathPatterns("/verify-mail") //rest api
+//				.excludePathPatterns("/check-id-and-email") //rest api
+//				.excludePathPatterns("/check-name-and-email"); //rest api
 //		
 				
 				

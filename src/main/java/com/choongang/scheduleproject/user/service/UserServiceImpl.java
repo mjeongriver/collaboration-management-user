@@ -1,15 +1,9 @@
 package com.choongang.scheduleproject.user.service;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.choongang.scheduleproject.command.DepartmentVO;
 import com.choongang.scheduleproject.command.EmailVO;

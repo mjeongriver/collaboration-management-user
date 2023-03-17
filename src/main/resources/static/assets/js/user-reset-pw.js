@@ -81,7 +81,7 @@
 		//아이디와 이메일이 일치 여부 검사
 		var checkCount = 0;
 		$.ajax({
-			url : "../checkIdAndEmail",
+			url : "../check-id-and-email",
 			type : "get",
 			async : false,
 			data : {
@@ -108,7 +108,7 @@
 		
 		//메일 발송
 		$.ajax({
-			url : "../sendMail",
+			url : "../send-mail",
 			type : "post",
 			async : false,
 			data : {
@@ -153,7 +153,7 @@
 
 		
 		$.ajax({
-			url: "../verifyMail",
+			url: "../verify-mail",
 			type: "get",
 			data: {"user_email" : user_email.value,
 				   "joinReset" : "reset"

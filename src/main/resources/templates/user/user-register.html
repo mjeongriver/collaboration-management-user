@@ -52,7 +52,7 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="pt-4 pb-2"></div>
-								<form class="row g-3" id="RegistForm" action="/user/RegisterForm" method="post">
+								<form class="row g-3" id="RegistForm" action="/user/register-form" method="post">
 									<div class="col-12">
 										<div>
 											<label for="yourName" class="form-label">이름</label> <span
@@ -177,7 +177,7 @@
 									</div>
 									<div class="col-12">
 										<p class="small mb-0">
-											이미 계정을 보유하고 계신가요?<a href="/user/userLogin"> 로그인하기</a>
+											이미 계정을 보유하고 계신가요?<a href="/user/user-login"> 로그인하기</a>
 										</p>
 									</div>
 									<input style="display:none" name="user_active" value="1"></input>
@@ -210,55 +210,15 @@
 		<!-- End #main -->
 	</div>
 <script src="/assets/js/modal.js"></script>
-<script src="/assets/js/userRegister.js"></script><!-- 유효성 검사 코드 -->
+<script src="/assets/js/user-register.js"></script><!-- 유효성 검사 코드 -->
 <script th:inline="javascript">
+
 	var msg = JSON.parse('[[${msg}]]');
+	
 	if(msg != null) {
 		alert(msg);
-	}
-	
-	//화면이 로드되면 부서 가져오는 코드 + 이메일 인증 코드 input과 button 비활성화하기
-	$(document).ready(function() {
-		
-		var verifyInput = document.getElementById("user_email_verify");
-		var verifyBtn = document.getElementById("user_email_verify_btn");
-		
-		verifyInput.disabled = true;
-		verifyBtn.disabled = true;
-		
-		$.ajax({
-			url: "../getAllDepartment",
-			type: "get",
-			success: function(result) {				
-				var str = "";
-	            str += '<select name="department_id" class="form-control" id="department_id" required>';
-	            str += '<option>선택</option>'
-	            result.forEach(function(item, index) {
-	                str += '<option value="'+ item.department_id +'">'+ item.department_name +'</option>';                
-	            })
-	            str += '</select>';
-				            
-	            $("#ajax_getDepartment").append(str); //화면에 자식으로 추가
-	            
-	            
-	            
-			},
-			error: function(err) {
-				alert("부서 조회에 실패했습니다. 담당자에게 문의하세요.");
-				
-			}
-		});
-		
-		
-	});
+	}	
 	
 </script>
-<script>
-$("#html").keypress(function(e) {
-	  if (e.keyCode === 13) {
-	    e.preventDefault();
-	    joinSubmit();
-	  }
-	});
-</script>
+
 </html>

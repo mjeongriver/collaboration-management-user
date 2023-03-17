@@ -2,8 +2,6 @@ package com.choongang.scheduleproject.user.service;
 
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.choongang.scheduleproject.command.DepartmentVO;
 import com.choongang.scheduleproject.command.EmailVO;
 import com.choongang.scheduleproject.command.UserVO;

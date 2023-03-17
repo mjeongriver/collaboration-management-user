@@ -1,4 +1,47 @@
-
+	
+	//엔터누르면 회원가입 시도
+	$("#html").keypress(function(e) {
+	  if (e.keyCode === 13) {
+	    e.preventDefault();
+	    joinSubmit();
+	  }
+	});
+	
+	
+	//화면이 로드되면 부서 가져오는 코드 + 이메일 인증 코드 input과 button 비활성화하기
+	$(document).ready(function() {
+		
+		var verifyInput = document.getElementById("user_email_verify");
+		var verifyBtn = document.getElementById("user_email_verify_btn");
+		
+		verifyInput.disabled = true;
+		verifyBtn.disabled = true;
+		
+		$.ajax({
+			url: "../get-all-department",
+			type: "get",
+			success: function(result) {				
+				var str = "";
+	            str += '<select name="department_id" class="form-control" id="department_id" required>';
+	            str += '<option>선택</option>'
+	            result.forEach(function(item, index) {
+	                str += '<option value="'+ item.department_id +'">'+ item.department_name +'</option>';                
+	            })
+	            str += '</select>';
+				            
+	            $("#ajax_getDepartment").append(str); //화면에 자식으로 추가
+	            
+	            
+	            
+			},
+			error: function(err) {
+				alert("부서 조회에 실패했습니다. 담당자에게 문의하세요.");
+				
+			}
+		});
+		
+		
+	});
 	
 	//인증 코드를 이메일로 보내기
 	function sendMail(){
@@ -36,7 +79,7 @@
 		//인증 코드를 이메일로 발송하기 전에, 중복된 이메일이 있는지 확인
 		var emailCount = 0; 
 		$.ajax({
-			url: "../checkAllEmail",
+			url: "../check-all-email",
 			type: "get",
 			async: false, // 동기적으로 처리 (순서 보장)
 			data: {"user_email" : emailCheck.value},
@@ -57,7 +100,7 @@
 		
 		
 		$.ajax({
-		url: "../sendMail",
+		url: "../send-mail",
 		type: "post",
 		async: false,
 		data: {"user_email" : emailCheck.value,
@@ -100,7 +143,7 @@
 
 		
 		$.ajax({
-			url: "../verifyMail",
+			url: "../verify-mail",
 			type: "get",
 			data: {"user_email" : user_email.value,
 				   "joinReset" : "join"},
@@ -119,7 +162,6 @@
   
   				var btnTime = new Date(btnClickedDay+" "+btnClickedTime); // 버튼을 누른 시점의 시간 객체를 생성
   				// var expireTime; // db에 저장된 값 가져오기
-				console.log(result);
   				
   				if(result === "") { // db에 일치하는 값이 없음, 이메일을 제대로 입력하지 않은 것
 					emailVerifyWarning.innerHTML = "요청한 이메일에 해당하는 값을 찾을 수 없습니다. 이메일 인증하기 버튼을 다시 눌러주세요!";
@@ -166,7 +208,7 @@
 		//아이디 최소 글자수 충족 시 ajax 실행
 		if (user_id.value.length >= 4) {
 			$.ajax({
-				url: "../checkAllId",
+				url: "../check-all-id",
 				type: "get",
 				data: {"user_id" : user_id.value}, //기존 방식은 모든 아이디를 List로 받아왔지만, 아이디 하나만 검색해서 null인지 아닌지 판단하는게 더 효율적이라 생각했습니다.
 				success: function(result) {				
@@ -308,7 +350,7 @@
 		//아이디 중복 검사
 		var count = 0;
 		$.ajax({
-				url: "../checkAllId",
+				url: "../check-all-id",
 				type: "get",
 				async: false,
 				data: {"user_id" : user_id.value}, //기존 방식은 모든 아이디를 List로 받아왔지만, 아이디 하나만 검색해서 null인지 아닌지 판단하는게 더 효율적이라 생각했습니다.
