@@ -1,7 +1,6 @@
 package com.choongang.scheduleproject.board.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.util.Criteria;
@@ -12,7 +11,7 @@ public interface UserBoardService {
 	 * 
 	 * @param cri
 	 * @param pj_num
-	 * @return
+	 * @return ArrayList
 	 */
 	public ArrayList<UserBoardVO> getList(Criteria cri, int pj_num); //페이지
 
