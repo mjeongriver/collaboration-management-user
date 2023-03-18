@@ -2,7 +2,9 @@ package com.choongang.scheduleproject.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -45,20 +47,31 @@ public class UserBoardController {
 		//getProject
 		ProjectVO pjVO = projectService.getProject(pj_num);
 		model.addAttribute("pjVO", pjVO);
-		System.out.println("pjVO" + pjVO);
-
-		//토탈 검색(search에 따른 검색결과 건수 변화 위해 cri를 매개변수로 사용함)
-		int total = userBoardService.getCount(cri, pj_num);
-		model.addAttribute("total", total); //검색결과 건수
-		System.out.println(total);
+		System.out.println("pjVO: " + pjVO);
 		
-		List<UserBoardVO> list = userBoardService.getList(cri, pj_num); //페이지에 넘길 데이터를 모델에 담는다.
-		System.out.println("list" + list);
+		System.out.println("cri : " + cri);
+		
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pjNum", pj_num);
+		map.put("cri", cri);
+	
+		
+		//토탈 검색(search에 따른 검색결과 건수 변화 위해 cri를 매개변수로 사용함)
+		int total = userBoardService.getCount(map);
+		model.addAttribute("count", total); //검색결과 건수
+		
+		System.out.println("total: " + total);
+		
+		List<UserBoardVO> list = userBoardService.getList(map); //페이지에 넘길 데이터를 모델에 담는다.
 		model.addAttribute("boardList", list);	
+		System.out.println("list" + list);
 		
 		PageVO pageVO = new PageVO(cri, total); //pageVO 객체에서 사용할 criteria 와 total 값 주입 
 		model.addAttribute("pageVO", pageVO); //넘겨줄 VO 데이터
-		System.out.println(list.toString());
+		System.out.println("page : " + pageVO.toString());
+		model.addAttribute("pjNum", pj_num);
+		
 		return "/userboards/board-list";
 	}
 

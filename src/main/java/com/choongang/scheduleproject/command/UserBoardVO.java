@@ -24,7 +24,7 @@ public class UserBoardVO {
 	private String boardTargetdate;
 	private String boardContent;
 	private String boardCategory;
-	private Boolean boardProcess;
+	private String boardProcess;
 	private Timestamp boardRegdate;
 	
 }

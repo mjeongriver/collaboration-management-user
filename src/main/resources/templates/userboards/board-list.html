@@ -68,14 +68,14 @@
 											<div style="border: 1px solid #E0E5EE; border-radius: 15px;">
 											<!-- 검색키워드 화면에서 유지시킴 -->
 												<select name="searchType" class="form-select" style="float: left; height: 34px; width: 120px; margin: 10px; border: none">												
-													<option value="boardCategory" th:selected="${pageVO.criteria.searchType == 'boardCategory'}">카테고리</option>
-													<option value="boardTitle" th:selected="${pageVO.criteria.searchType == 'boardTitle'}">글 제목</option>
-													<option value="boardWriter" th:selected="${pageVO.criteria.searchType == 'boardWriter'}">작성자</option>
-													<option value="boardRegdate" th:selected="${pageVO.criteria.searchType == 'boardRegdate'}">작성일</option>
-													<option value="boardStartdate" th:selected="${pageVO.criteria.searchType == 'boardStartdate'}">시작일</option>
-													<option value="boardEnddate" th:selected="${pageVO.criteria.searchType == 'boardEnddate'}">완료일</option>
+													<option value="boardCategory" th:selected="${pageVO.cri.searchType == 'boardCategory'}">카테고리</option>
+													<option value="boardTitle" th:selected="${pageVO.cri.searchType == 'boardTitle'}">글 제목</option>
+													<option value="boardWriter" th:selected="${pageVO.cri.searchType == 'boardWriter'}">작성자</option>
+													<option value="boardRegdate" th:selected="${pageVO.cri.searchType == 'boardRegdate'}">작성일</option>
+													<option value="boardStartdate" th:selected="${pageVO.cri.searchType == 'boardStartdate'}">시작일</option>
+													<option value="boardEnddate" th:selected="${pageVO.cri.searchType == 'boardEnddate'}">완료일</option>
 												</select> 
-												<input type="text" name="search" th:value="${pageVO.criteria.search}"placeholder="Search" title="Enter search keyword" style="border: none; padding-top: 15px; outline: none;">
+												<input type="text" name="search" th:value="${pageVO.cri.search}"placeholder="Search" title="Enter search keyword" style="border: none; padding-top: 15px; outline: none;">
 												<button type="submit" title="Search" style="background-color: transparent; border: none; padding-right: 18px">
 													<i class="bi bi-search"></i>
 												</button>
@@ -94,12 +94,12 @@
 
 								<!-- 결과, 몇개씩 보기 -->
 								<div>
-									<div style="padding-bottom: 10px; float: left">결과: 건</div>
+									<div style="padding-bottom: 10px; float: left">결과: [[${count}]]건</div>
 									<select id="handleAmount" class="form-select"
 										style="float: right; height: 34px; width: 140px; margin-bottom: 7px">
-										<option value="10" th:selected="${pageVO.amount} == 10">10개씩 보기</option>
-										<option value="20" th:selected="${pageVO.amount} == 20">20개씩 보기</option>
-										<option value="50" th:selected="${pageVO.amount} == 50">50개씩 보기</option>
+										<option value="10" th:selected="${pageVO.cri.amount} == 10">10개씩 보기</option>
+										<option value="20" th:selected="${pageVO.cri.amount} == 20">20개씩 보기</option>
+										<option value="50" th:selected="${pageVO.cri.amount} == 50">50개씩 보기</option>
 									</select>
 								</div>
 
@@ -107,7 +107,7 @@
 								<table class="table">
 									<thead>
 										<tr style="border: 1px solid; border-color: inherit;">
-											<th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">글 번호</th>
+											<!-- <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">글 번호</th> -->
 											<th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">카테고리</th>
 											<th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">글 제목</th>
 											<th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">작성자</th>
@@ -118,11 +118,11 @@
 											<!-- 완료, 진행 중 -->
 										</tr>
 									</thead>
-
+									<form id = "form">
 									<tbody>
-									<th:block th:each="boardVO : ${boardList}">
+									<th:block th:each="boardVO, status : ${boardList}">
 										<tr>
-											<th scope="row" style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardNum}]]</th>
+											<!--  <th scope="row" style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardNum}]]</th> -->
 											<td style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardCategory}]]</td>
 											<td style="border: 1px solid; border-color: inherit;"><a href="board-content">[[${boardVO.boardTitle}]]</a></td>
 											<td style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardWriter}]]</td>
@@ -143,6 +143,7 @@
 										</tr>
 										 -->
 									</tbody>
+									</form>
 								</table>
 
 								<!-- 글 작성 버튼  -->
@@ -156,15 +157,15 @@
 								<ul class="pagination">
 								
 								<!-- 이전 버튼 -->
-									<li th:class="${pageVO.prev == true ? 'page-item' : 'page-item disabled'}"><a class="page-link" th:href="@{board-list(page=${pageVO.end+1}, amount=${pageVO.amount}, search=${pageVO.criteria.search}, searchType=${pageVO.criteria.searchType})}">이전</a></li>
+									<li th:class="${pageVO.prev == true ? 'page-item' : 'page-item disabled'}"><a class="page-link" th:href="@{board-list(page=${pageVO.start-1}, amount=${pageVO.cri.amount}, search=${pageVO.cri.search}, searchType=${pageVO.cri.searchType})}">이전</a></li>
 								
 								<!-- 페이징 처리 -->
 								<th:block th:each="page : ${pageVO.pageList}">	
-									<li th:class="${page == pageVO.page ? 'page-item active' : 'page-item'}"><a class="page-link" th:href="@{board-list(page=${page}, amount=${pageVO.amount}, search=${pageVO.criteria.search}, searchType=${pageVO.criteria.searchType}">[[${page}]]</a></li>
+									<li th:class="${page == pageVO.page ? 'page-item active' : 'page-item'}"><a class="page-link" th:href="@{board-list(page=${page}, amount=${pageVO.cri.amount}, pj_num=${pjNum} )}">[[${page}]]</a></li>
 								</th:block>	
 								
 								<!-- 다음 버튼 -->	
-									<li th:class="${pageVO.prev == true ? 'page-item' : 'page-item disabled'}"><a class="page-link" th:href="@{board-list(page=${pageVO.end+1}, amount=${pageVO.amount}, search=${pageVO.criteria.search}, searchType=${pageVO.criteria.searchType})}">다음</a></li>
+									<li th:class="${pageVO.next == true ? 'page-item' : 'page-item disabled'}"><a class="page-link" th:href="@{board-list(page=${pageVO.end+1}, amount=${pageVO.cri.amount}, search=${pageVO.cri.search}, searchType=${pageVO.cri.searchType})}">다음</a></li>
 								</ul>
 							</nav> <!-- 페이지네이션 end -->
 						</div>

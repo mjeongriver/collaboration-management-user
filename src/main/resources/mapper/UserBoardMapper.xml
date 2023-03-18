@@ -14,78 +14,52 @@
 		board_process
 		from user_board
 		where pj_num = #{pjNum}
-		
 		<choose>
-			<when test='searchType == "boardCategory" and search != null'> 
-				where board_category like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardCategory" and cri.search != null'> 
+				where board_category like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardTitle" and search != null'> 
-				where board_title like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardTitle" and cri.search != null'> 
+				where board_title like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardWriter" and search != null'> 
-				where board_writer like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardWriter" and cri.search != null'> 
+				where board_writer like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardRegdate" and search != null'> 
-				where board_regdate like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardRegdate" and cri.search != null'> 
+				where board_regdate like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardStartdate" and search != null'> 
-				where board_startdate like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardStartdate" and cri.search != null'> 
+				where board_startdate like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardEnddate" and search != null'> 
-				where board_enddate like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardEnddate" and cri.search != null'> 
+				where board_enddate like concat('%', #{cri.search}, '%')
 			</when>
 		</choose>
 		order by pj_num desc
-		limit #{pageStart}, #{amount}
-	</select>
-	
-	<!-- 검색 -->
-	<select id="getTotal" resultType="int">
-		select count(*) as total from user_board
-		where pj_num = #{pjNum}
-		<choose>
-			<when test='searchType == "boardCategory" and search != null'> 
-				where board_category like concat('%', #{search}, '%')
-			</when>
-			<when test='searchType == "boardTitle" and search != null'> 
-				where board_title like concat('%', #{search}, '%')
-			</when>
-			<when test='searchType == "boardWriter" and search != null'> 
-				where board_writer like concat('%', #{search}, '%')
-			</when>
-			<when test='searchType == "boardRegdate" and search != null'> 
-				where board_regdate like concat('%', #{search}, '%')
-			</when>
-			<when test='searchType == "boardStartdate" and search != null'> 
-				where board_startdate like concat('%', #{search}, '%')
-			</when>
-			<when test='searchType == "boardEnddate" and search != null'> 
-				where board_enddate like concat('%', #{search}, '%')
-			</when>
-		</choose>
+		limit #{cri.pageStart}, #{cri.amount}
 	</select>
 	
 	<!-- 검색 결과의 갯수 -->
 	<select id="getCount" resultType="int">
 		select count(*) as total from user_board
+		where pj_num = #{pjNum}
 		<choose>
-			<when test='searchType == "boardCategory" and search != null'> 
-				where board_category like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardCategory" and cri.search != null'> 
+				where board_category like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardTitle" and search != null'> 
-				where board_title like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardTitle" and cri.search != null'> 
+				where board_title like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardWriter" and search != null'> 
-				where board_writer like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardWriter" and cri.search != null'> 
+				where board_writer like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardRegdate" and search != null'> 
-				where board_regdate like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardRegdate" and cri.search != null'> 
+				where board_regdate like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardStartdate" and search != null'> 
-				where board_startdate like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardStartdate" and cri.search != null'> 
+				where board_startdate like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='searchType == "boardEnddate" and search != null'> 
-				where board_enddate like concat('%', #{search}, '%')
+			<when test='cri.searchType == "boardEnddate" and cri.search != null'> 
+				where board_enddate like concat('%', #{cri.search}, '%')
 			</when>
 		</choose>
 	</select>
