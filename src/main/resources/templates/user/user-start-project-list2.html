@@ -186,12 +186,12 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 							str += '</span><br>';
 							str += '<span class="card-title"><i class="bi bi-person-fill " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pjMembercount+'</a></i><span style="float:right;padding-top:2px">팀 &nbsp;&nbsp; 원&nbsp;</span></span><br>';
 							str += '<span class="card-title"><i class="bi bi-person " style="float:right"><a style="display:inline-block;width:15px;text-align:center">'+response[i].pjObservercount+'</a></i><span style="float:right;padding-top:2px">옵저버&nbsp;</span></span>';
-							str += '<a href="/project/project-started?pj_num='+response[i].pjNum+'"><h5 class="card-title">'+response[i].pjName+' <br>';
-							str += '<span>'+response[i].pjDescription+'</span>';
+							str += '<a href="/project/project-started?pj_num='+response[i].pjNum+'"><h5 class="card-title" style="height:80px">'+response[i].pjName+' <br>';
+							//str += '<span>'+response[i].pjDescription+'</span>';
 							str += '</h5></a>';
 								<!--  초대된 인원만큼 인원 수 표시 -->
-							str += '<span class="card-title"><span>시작일 : '+response[i].pjStartdate+'</span></span><br>';
-							str += '<span class="card-title"><span>종료일 : '+response[i].pjEnddate+'</span></span><br>';
+							str += '<span class="card-title"><span>시작일 : '+response[i].pjStartdate+'</span><br>';
+							str += '<span>종료일 : '+response[i].pjEnddate+'</span></span><br>';
 
 							str += '</div>';
 							str += '</div>';

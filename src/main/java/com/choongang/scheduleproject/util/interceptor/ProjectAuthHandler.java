@@ -4,10 +4,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-public class UserAuthHandler implements HandlerInterceptor {
+import com.choongang.scheduleproject.impl.ProjectServiceImpl;
+import com.choongang.scheduleproject.project.service.ProjectMapper;
+import com.choongang.scheduleproject.project.service.ProjectService;
 
+public class ProjectAuthHandler implements HandlerInterceptor {
+	@Autowired
+	private ProjectService projectService;
 	/*
 	 * 1. HandlerInterceptor를 상속받습니다.
 	 *
@@ -24,9 +32,10 @@ public class UserAuthHandler implements HandlerInterceptor {
 		//현재 세션을 얻음
 		HttpSession session = request.getSession();
 		String user_id = (String)session.getAttribute("user_id");
+		String pj_num=request.getParameter("pj_num"); //pjnum 받아오기
 
-		if(user_id == null) { //로그인이 안됨
-			response.sendRedirect(request.getContextPath() + "/user/userLogin");
+		if(!projectService.checkMember(pj_num, user_id).equals(user_id)){ //
+
 			return false; // 컨트롤러를 실행하지 않게 만들어줌
 		}
 
