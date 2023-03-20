@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.board.service.UserBoardService;
+import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 
 @RestController
@@ -56,5 +58,15 @@ public class UserBoardAjaxController {
 		resultMap.put("msg", msg);
 		
 		return resultMap;
+	}
+	
+	@GetMapping("/get-obmember")
+	public ArrayList<ProjectVO> getObserverMember(@RequestParam("pj_num") int pj_num){
+		
+		//옵저버 가져오기
+		ArrayList<ProjectVO> observerList = new ArrayList<>();
+		observerList = userBoardService.getObserver(pj_num);
+		
+		return observerList;
 	}
 }

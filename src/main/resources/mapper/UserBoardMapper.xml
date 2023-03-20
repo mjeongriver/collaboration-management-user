@@ -91,12 +91,19 @@
 	<!-- 글 등록 -->
 	<insert id = "getContent" parameterType="map">
 	insert into user_board (
-	pj_num, board_title, board_writer, board_process,
+	pj_num, board_title, board_writer, board_writerId, board_process,
 	board_startdate, board_enddate, board_content,
 	board_category)
-	values( #{vo.pjNum}, #{vo.boardTitle}, #{vo.boardWriter},
+	values( #{vo.pjNum}, #{vo.boardTitle}, #{vo.boardWriter}, #{vo.boardWriterId},
         #{vo.boardProcess}, #{vo.boardStartdate}, #{vo.boardEnddate},
         #{vo.boardContent}, #{vo.boardCategory})
 	</insert>
-
+	
+	<!-- boardList에서 observer 값 받아오기 -->
+	<select id="getObserver" resultType="String">
+	select user_id from mapping
+	where pj_num = #{pjNum}
+	and is_observer = 1;
+	</select>
+	
 </mapper>

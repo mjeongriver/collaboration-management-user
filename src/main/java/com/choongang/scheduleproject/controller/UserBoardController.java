@@ -1,7 +1,6 @@
 package com.choongang.scheduleproject.controller;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.board.service.AdminNoticeService;
 import com.choongang.scheduleproject.board.service.UserBoardService;
@@ -49,7 +46,8 @@ public class UserBoardController {
 		//getProject
 		ProjectVO pjVO = projectService.getProject(pj_num);
 		model.addAttribute("pjVO", pjVO);	
-
+		System.out.println(pjVO.toString());
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pjNum", pj_num);
 		map.put("cri", cri);
@@ -63,7 +61,7 @@ public class UserBoardController {
 		PageVO pageVO = new PageVO(cri, total); //pageVO 객체에서 사용할 criteria 와 total 값 주입 
 		model.addAttribute("pageVO", pageVO); //넘겨줄 VO 데이터
 		model.addAttribute("pjNum", pj_num);
-		
+	
 		return "/userboards/board-list";
 	}
 
@@ -72,19 +70,6 @@ public class UserBoardController {
 		return "/userboards/board-regist";
 	}
 	
-	//registForm 등록 요청
-//	@PostMapping("/board-regist-form")
-//	public String boardRegistForm(UserBoardVO vo, RedirectAttributes ra,
-//								@RequestParam(name = "pj_num", required = true) int pj_num) {
-//		//int result = userBoardService.getContent(map);
-//		String msg = result == 1 ? "정상 입력 되었습니다." : "등록에 실패하였습니다";
-//		ra.addFlashAttribute("msg", msg);
-//		System.out.println(result);
-//		System.out.println(vo.toString());
-//		return "redirect:/userboards/board-list?pj_num=" + pj_num;
-////		return "/userboards/board-list";
-//	}
-
 	@GetMapping("/board-modify")
 	public String boardModify() {
 		return "/userboards/board-modify";
@@ -116,7 +101,6 @@ public class UserBoardController {
 		//클릭한 글 번호에 대한 내용을 조회
 		AdminNoticeListVO adminNoticeListVO = adminNoticeService.getContent(noticeNum);
 		model.addAttribute("adminNoticeListVO", adminNoticeListVO);
-
 
 		return "/userboards/notice-content";
 	}
