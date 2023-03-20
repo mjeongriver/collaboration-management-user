@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.board.service.AdminNoticeService;
 import com.choongang.scheduleproject.board.service.UserBoardService;
@@ -43,33 +45,23 @@ public class UserBoardController {
 	@GetMapping("/board-list")
 	public String boardList(Criteria cri, Model model,
 								@RequestParam("pj_num") int pj_num) {
-
+		
 		//getProject
 		ProjectVO pjVO = projectService.getProject(pj_num);
-		model.addAttribute("pjVO", pjVO);
-		System.out.println("pjVO: " + pjVO);
-		
-		System.out.println("cri : " + cri);
-		
+		model.addAttribute("pjVO", pjVO);	
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pjNum", pj_num);
 		map.put("cri", cri);
 	
-		
-		//토탈 검색(search에 따른 검색결과 건수 변화 위해 cri를 매개변수로 사용함)
-		int total = userBoardService.getCount(map);
+		int total = userBoardService.getCount(map); //토탈 검색(search에 따른 검색결과 건수 변화 위해 cri를 매개변수로 사용함)
 		model.addAttribute("count", total); //검색결과 건수
-		
-		System.out.println("total: " + total);
 		
 		List<UserBoardVO> list = userBoardService.getList(map); //페이지에 넘길 데이터를 모델에 담는다.
 		model.addAttribute("boardList", list);	
-		System.out.println("list" + list);
 		
 		PageVO pageVO = new PageVO(cri, total); //pageVO 객체에서 사용할 criteria 와 total 값 주입 
 		model.addAttribute("pageVO", pageVO); //넘겨줄 VO 데이터
-		System.out.println("page : " + pageVO.toString());
 		model.addAttribute("pjNum", pj_num);
 		
 		return "/userboards/board-list";
@@ -79,6 +71,19 @@ public class UserBoardController {
 	public String boardRegist() {
 		return "/userboards/board-regist";
 	}
+	
+	//registForm 등록 요청
+//	@PostMapping("/board-regist-form")
+//	public String boardRegistForm(UserBoardVO vo, RedirectAttributes ra,
+//								@RequestParam(name = "pj_num", required = true) int pj_num) {
+//		//int result = userBoardService.getContent(map);
+//		String msg = result == 1 ? "정상 입력 되었습니다." : "등록에 실패하였습니다";
+//		ra.addFlashAttribute("msg", msg);
+//		System.out.println(result);
+//		System.out.println(vo.toString());
+//		return "redirect:/userboards/board-list?pj_num=" + pj_num;
+////		return "/userboards/board-list";
+//	}
 
 	@GetMapping("/board-modify")
 	public String boardModify() {
@@ -90,6 +95,7 @@ public class UserBoardController {
 		return "/userboards/board-content";
 	}
 
+	//여기서부터 user notice 
 	@GetMapping("/notice-list")
 	public String noticeTableList(Criteria cri, Model model) {
 

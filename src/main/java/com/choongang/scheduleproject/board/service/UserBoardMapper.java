@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.choongang.scheduleproject.command.UserBoardVO;
-import com.choongang.scheduleproject.util.Criteria;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+
 
 
 
@@ -17,7 +16,7 @@ public interface UserBoardMapper {
 	/***
 	 * 
 	 * @param vo
-	 * @return List
+	 * @return ArrayList
 	 */
 	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
 	
@@ -28,4 +27,12 @@ public interface UserBoardMapper {
 	 * @return int
 	 */
 	public int getCount(Map<String, Object> map); //검색 결과 건 수
+	
+	/***
+	 * 
+	 * @param vo
+	 * @return int
+	 */
+	public int getContent(Map<String, Object> map); //글 등록
+	
 }

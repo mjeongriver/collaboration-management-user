@@ -24,11 +24,17 @@ public class UserBoardServiceImpl implements UserBoardService{
 		return userBoardMapper.getList(map);
 	}
 
-
 	@Override
 	public int getCount(Map<String, Object> map) {
 		return userBoardMapper.getCount(map);
 	}
+
+	@Override
+	public int getContent(Map<String, Object> map) {
+		return userBoardMapper.getContent(map);
+	}
+	
+	
 
 	
 }

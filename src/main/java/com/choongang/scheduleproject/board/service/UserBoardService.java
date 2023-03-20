@@ -23,6 +23,13 @@ public interface UserBoardService {
 	 * @return int
 	 */
 	public int getCount(Map<String, Object> map); //검색 결과 건 수
+	
+	/***
+	 * 
+	 * @param vo
+	 * @return int
+	 */
+	public int getContent(Map<String, Object> map);
 
 
 }

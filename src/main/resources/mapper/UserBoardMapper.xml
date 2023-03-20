@@ -1,67 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.choongang.scheduleproject.board.service.UserBoardMapper">
+<mapper
+	namespace="com.choongang.scheduleproject.board.service.UserBoardMapper">
 
-	<!-- 프로젝트 리스트 출력 + 검색 -->
+	<!-- 해당 프로젝트 게시판 리스트 출력 + 검색 -->
 	<select id="getList" resultType="UserBoardVO">
-		select board_num,
+
+		SELECT
+		T.board_num, T.board_category,
+		T.board_title, T.board_writer,
+		T.board_regdate, T.board_startdate,
+		T.board_enddate, T.board_process
+		FROM (
+		SELECT
+		(@row_num:=@row_num+1) AS board_num,
 		board_category,
 		board_title,
-		board_writer,
-		board_regdate,
+		board_writer, board_regdate,
 		board_startdate,
 		board_enddate,
 		board_process
-		from user_board
-		where pj_num = #{pjNum}
+		FROM
+		user_board,
+		(SELECT @row_num:=0) AS tmp
+		WHERE
+		pj_num = #{pjNum}
 		<choose>
-			<when test='cri.searchType == "boardCategory" and cri.search != null'> 
-				where board_category like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardCategory" and cri.search != null'>
+				and board_category like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardTitle" and cri.search != null'> 
-				where board_title like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardTitle" and cri.search != null'>
+				and board_title like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardWriter" and cri.search != null'> 
-				where board_writer like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardWriter" and cri.search != null'>
+				and board_writer like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardRegdate" and cri.search != null'> 
-				where board_regdate like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardRegdate" and cri.search != null'>
+				and board_regdate like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardStartdate" and cri.search != null'> 
-				where board_startdate like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardStartdate" and cri.search != null'>
+				and board_startdate like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardEnddate" and cri.search != null'> 
-				where board_enddate like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardEnddate" and cri.search != null'>
+				and board_enddate like concat('%', #{cri.search}, '%')
 			</when>
 		</choose>
-		order by pj_num desc
-		limit #{cri.pageStart}, #{cri.amount}
+		ORDER BY board_num DESC
+		LIMIT #{cri.pageStart}, #{cri.amount}
+		) T;
+
 	</select>
-	
+
+
+	<!-- select board_num, board_category, board_title, board_writer, board_regdate, 
+		board_startdate, board_enddate, board_process from user_board where pj_num 
+		= #{pjNum} <choose> <when test='cri.searchType == "boardCategory" and cri.search 
+		!= null'> where board_category like concat('%', #{cri.search}, '%') </when> 
+		<when test='cri.searchType == "boardTitle" and cri.search != null'> where 
+		board_title like concat('%', #{cri.search}, '%') </when> <when test='cri.searchType 
+		== "boardWriter" and cri.search != null'> where board_writer like concat('%', 
+		#{cri.search}, '%') </when> <when test='cri.searchType == "boardRegdate" 
+		and cri.search != null'> where board_regdate like concat('%', #{cri.search}, 
+		'%') </when> <when test='cri.searchType == "boardStartdate" and cri.search 
+		!= null'> where board_startdate like concat('%', #{cri.search}, '%') </when> 
+		<when test='cri.searchType == "boardEnddate" and cri.search != null'> where 
+		board_enddate like concat('%', #{cri.search}, '%') </when> </choose> order 
+		by pj_num desc limit #{cri.pageStart}, #{cri.amount} -->
+
+
 	<!-- 검색 결과의 갯수 -->
 	<select id="getCount" resultType="int">
 		select count(*) as total from user_board
 		where pj_num = #{pjNum}
 		<choose>
-			<when test='cri.searchType == "boardCategory" and cri.search != null'> 
-				where board_category like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardCategory" and cri.search != null'>
+				and board_category like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardTitle" and cri.search != null'> 
-				where board_title like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardTitle" and cri.search != null'>
+				and board_title like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardWriter" and cri.search != null'> 
-				where board_writer like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardWriter" and cri.search != null'>
+				and board_writer like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardRegdate" and cri.search != null'> 
-				where board_regdate like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardRegdate" and cri.search != null'>
+				and board_regdate like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardStartdate" and cri.search != null'> 
-				where board_startdate like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardStartdate" and cri.search != null'>
+				and board_startdate like concat('%', #{cri.search}, '%')
 			</when>
-			<when test='cri.searchType == "boardEnddate" and cri.search != null'> 
-				where board_enddate like concat('%', #{cri.search}, '%')
+			<when
+				test='cri.searchType == "boardEnddate" and cri.search != null'>
+				and board_enddate like concat('%', #{cri.search}, '%')
 			</when>
 		</choose>
 	</select>
+	
+	<!-- 글 등록 -->
+	<insert id = "getContent" parameterType="UserBoardVO">
+	insert into user_board (
+	pj_num, board_title, board_writer, board_regdate, board_process,
+	board_startdate, board_enddate, 
+	board_category)
+	values(#{pjNum} #{boardTitle}, #{boardWriter}, #{boardRegdate},
+		#{boardProcess}, #{boardStartdate}, #{boardEnddate},
+		#{boardCategory})
+	</insert>
 
 </mapper>
