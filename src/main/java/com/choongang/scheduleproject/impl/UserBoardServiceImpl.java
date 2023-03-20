@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.choongang.scheduleproject.board.service.UserBoardMapper;
 import com.choongang.scheduleproject.board.service.UserBoardService;
+import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
-import com.choongang.scheduleproject.util.Criteria;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,6 +33,13 @@ public class UserBoardServiceImpl implements UserBoardService{
 	public int getContent(Map<String, Object> map) {
 		return userBoardMapper.getContent(map);
 	}
+
+	@Override
+	public ArrayList<ProjectVO> getObserver(int pj_num) {
+		return userBoardMapper.getObserver(pj_num);
+	}
+	
+	
 	
 	
 
