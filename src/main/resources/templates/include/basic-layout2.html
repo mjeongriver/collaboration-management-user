@@ -223,7 +223,7 @@
             <li class="dropdown-header">
               <h6>[[${session.user_name}]]</h6>
               <span>[[${session.user_id}]]</span>
-              <span id="canMakeProject">[[${session.user_role}]]</span>
+              <span style="display:none" id="canMakeProject">[[${session.user_role}]]</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -361,7 +361,7 @@
 		var makeProject = document.getElementById("makeProject");
 
 		if(canMakeProject === "0") {
-			makeProject.disabled = true;
+			makeProject.style.display = "none";
 		}
 
 	});

@@ -73,7 +73,7 @@ function sendMail() {
 	let checkCount = 0;
 	$.ajax({
 		url: "../check-id-and-email",
-		type: "get",
+		type: "post",
 		async: false,
 		data: {
 			"userId": idCheck.value,
@@ -144,7 +144,7 @@ function verifyMail() {
 
 	$.ajax({
 		url: "../verify-mail",
-		type: "get",
+		type: "post",
 		data: {
 			"userEmail": user_email.value,
 			"joinResetFind": "reset"

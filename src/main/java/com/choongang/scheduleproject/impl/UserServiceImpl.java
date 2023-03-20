@@ -116,4 +116,14 @@ public class UserServiceImpl implements UserService {
 	public int removeImg(String userId) {
 		return userMapper.removeImg(userId);
 	}
+
+	@Override
+	public String checkPw(String userId) {
+		return userMapper.checkPw(userId);
+	}
+
+	@Override
+	public int insertImg(UserVO vo) {
+		return userMapper.insertImg(vo);
+	}
 }

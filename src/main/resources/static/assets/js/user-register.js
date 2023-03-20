@@ -62,7 +62,7 @@ function sendMail() {
 	let emailCount = 0;
 	$.ajax({
 		url: "../check-all-email",
-		type: "get",
+		type: "post",
 		async: false, // 동기적으로 처리 (순서 보장)
 		data: { "userEmail": emailCheck.value },
 		success: function(result) {
@@ -129,7 +129,7 @@ function verifyMail() {
 
 	$.ajax({
 		url: "../verify-mail",
-		type: "get",
+		type: "post",
 		data: {
 			"userEmail": user_email.value,
 			"joinResetFind": "join"
@@ -187,7 +187,7 @@ function checkAllId() {
 	if (user_id.value.length >= 4) {
 		$.ajax({
 			url: "../check-all-id",
-			type: "get",
+			type: "post",
 			data: { "userId": user_id.value }, //기존 방식은 모든 아이디를 List로 받아왔지만, 아이디 하나만 검색해서 null인지 아닌지 판단하는게 더 효율적이라 생각했습니다.
 			success: function(result) {
 				if (result !== "") {
@@ -329,7 +329,7 @@ function joinSubmit() {
 	let count = 0;
 	$.ajax({
 		url: "../check-all-id",
-		type: "get",
+		type: "post",
 		async: false,
 		data: { "userId": user_id.value }, //기존 방식은 모든 아이디를 List로 받아왔지만, 아이디 하나만 검색해서 null인지 아닌지 판단하는게 더 효율적이라 생각했습니다.
 		success: function(result) {

@@ -19,12 +19,11 @@ import com.choongang.scheduleproject.mail.service.MailService;
 import com.choongang.scheduleproject.user.service.UserMapper;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @PropertySource("classpath:application.properties")
 @Service("mailService")
 @RequiredArgsConstructor
-@Slf4j //log.info를 주석처리하여 현재는 사용하지 않음
+//@Slf4j log.info를 주석처리하여 현재는 사용하지 않음
 public class MailServiceImpl implements MailService {
 	private final JavaMailSender javaMailSender;
 	private final UserMapper userMapper;

@@ -64,7 +64,7 @@ function sendMail() {
 	let checkCount = 0;
 	$.ajax({
 		url: "../check-name-and-email",
-		type: "get",
+		type: "post",
 		async: false,
 		data: {
 			"userName": nameCheck.value,
@@ -135,7 +135,7 @@ function verifyMail() {
 
 	$.ajax({
 		url: "../verify-mail",
-		type: "get",
+		type: "post",
 		data: {
 			"userEmail": user_email.value,
 			"joinResetFind": "find"
