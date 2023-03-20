@@ -119,16 +119,5 @@ public class ProjectAjaxController {
 
 		return pj_num;
 	}
-	
-	//프로젝트의 멤버들 가져오기
-	@GetMapping("/get-all-project-member")
-	public ArrayList<UserVO> getAllProjectMember(@RequestParam("pj_num") int pj_num) {
-		
-		//채팅화면에 멤버 정보를 받아옴
-		ArrayList<UserVO> list = new ArrayList<>();
-		list = projectService.getProjectMember(pj_num);
-		
-		return list;
-	}
 
 }

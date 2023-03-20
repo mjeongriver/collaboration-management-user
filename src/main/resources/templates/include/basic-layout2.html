@@ -281,14 +281,10 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
 
-<!-- 	<li class="nav-heading">프로젝트 생성 이전 (User)</li>
- -->
-      <li class="nav-item">
-        <button type="button" id="makeProject" class="btn btn-primary" style="width : 100%" onclick="location.href='/project/project-add'">
-          <i class="bi bi-calendar-plus"></i>
-          <span>프로젝트 생성</span>
-        </button>
-      </li><!-- End Blank Page Nav -->
+<!-- 	<li class="nav-heading">프로젝트 생성 이전 (User)</li> -->
+	  <li id="makeProject" class="nav-item">
+	
+	  </li>
 	  <li class="nav-item">
         <a class="nav-link collapsed" href="/">
           <i class="bi bi-house"></i>
@@ -344,14 +340,20 @@
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
   <script>
-	//프로젝트 생성 권한 처리 - 부장이 아니면 생성 못함
+	//프로젝트 생성 권한 처리 - 부장일 경우 화면에 뿌려줌 -> 원래 화면에 배치하고 지우는 방식이었는데, 무한 광클을 하다보면 들어가지는 경우 발생해
+	//화면에 배치하지 않고, 부장일 경우에만 생성하여 화면에 뿌려지는 식으로 바꿔서 오류 해결
 	$(document).ready(function() {
 
 		let canMakeProject = document.getElementById("canMakeProject").innerHTML;
-		let makeProject = document.getElementById("makeProject");
-
-		if(canMakeProject === "0") {
-			makeProject.style.display = "none";
+		if(canMakeProject === "1") {
+			let str = "";
+			
+	        str += `<button type="button" id="makeProject" class="btn btn-primary" style="width : 100%" onclick="location.href='/project/project-add'">`;
+	        str += `<i class="bi bi-calendar-plus"></i>`;
+	        str += `<span>프로젝트 생성</span>`;
+	        str += `</button>`;
+	        
+	        $("#makeProject").append(str); //자식으로 추가
 		}
 	});
 	
