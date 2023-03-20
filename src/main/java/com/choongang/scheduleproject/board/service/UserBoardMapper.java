@@ -15,7 +15,7 @@ public interface UserBoardMapper {
 	
 	/***
 	 * 
-	 * @param vo
+	 * @param map
 	 * @return ArrayList
 	 */
 	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
@@ -23,7 +23,7 @@ public interface UserBoardMapper {
 	
 	/***
 	 * 
-	 * @param cri
+	 * @param map
 	 * @return int
 	 */
 	public int getCount(Map<String, Object> map); //검색 결과 건 수

@@ -1,5 +1,6 @@
 package com.choongang.scheduleproject.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,28 +25,27 @@ public class UserBoardAjaxController {
 	//등록 요청
 	@PostMapping("/reg-board")
 	@ResponseBody
-	public Map<String, Object> regist(@RequestBody Map<String, Object> map,
-									  @RequestParam ("pj_num") int pj_num,
+	public Map<String, Object> regist(@RequestBody Map<String, Object> map,								
 									  RedirectAttributes ra) {
 		
 		String msg = "";
 		int result = 0;
 		
 		UserBoardVO vo = new UserBoardVO();
+		vo.setPjNum((String)map.get("pjNum"));	
 		vo.setBoardCategory((String)map.get("selectedCategory"));
 		vo.setBoardProcess((String)map.get("selectedProcess"));
-		vo.setBoardWriter((String)map.get("writerId"));
+		vo.setBoardWriter((String)map.get("writer"));
+		vo.setBoardWriterId((String)map.get("writerId"));
 		vo.setBoardTitle((String)map.get("boardTitle"));
 		vo.setBoardStartdate((String)map.get("startDate"));
-		//vo.setBoardContent((String)map.get("description"));
+		vo.setBoardContent((String)map.get("description"));
 		vo.setBoardEnddate((String)map.get("endDate"));
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("vo", vo);
-		resultMap.put("pjNum", pj_num);
-		
 		result = userBoardService.getContent(resultMap);
-		System.out.println("result" + result);
+		System.out.println("vo" + vo.toString());
 		
 		if(!(result == 0)) {
 			msg = "등록에 성공 하였습니다.";
