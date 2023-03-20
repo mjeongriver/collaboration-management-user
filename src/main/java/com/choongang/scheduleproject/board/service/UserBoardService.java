@@ -10,23 +10,22 @@ public interface UserBoardService {
 
 	/***
 	 * 
-	 * @param cri
-	 * @param pj_num
+	 * @param map
 	 * @return ArrayList
 	 */
 	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
 
 
 	/***
-	 *
-	 * @param cri
+	 * 
+	 * @param map
 	 * @return int
 	 */
 	public int getCount(Map<String, Object> map); //검색 결과 건 수
 	
 	/***
 	 * 
-	 * @param vo
+	 * @param map
 	 * @return int
 	 */
 	public int getContent(Map<String, Object> map);

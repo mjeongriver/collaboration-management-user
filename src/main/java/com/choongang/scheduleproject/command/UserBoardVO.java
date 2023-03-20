@@ -2,6 +2,8 @@ package com.choongang.scheduleproject.command;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -16,15 +18,24 @@ public class UserBoardVO {
 	private int boardNum;
 	
 	@JsonProperty("pj_num")
-	private int pjNum;
+	private String pjNum;
+	
+	@NotNull
 	private String boardTitle;
-	private String boardWriter;
-	private String boardStartdate;
+	
+	@NotNull
 	private String boardEnddate;
-	private String boardTargetdate;
+	
+	@NotNull
+	private Timestamp boardRegdate;
+	
+	@NotNull
 	private String boardContent;
+	
+	private String boardWriter;
+	private String boardWriterId;
+	private String boardStartdate;
 	private String boardCategory;
 	private String boardProcess;
-	private Timestamp boardRegdate;
 	
 }

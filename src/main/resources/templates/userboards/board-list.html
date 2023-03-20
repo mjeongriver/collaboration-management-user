@@ -94,9 +94,9 @@
                                             <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">카테고리</th>
                                             <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">글 제목</th>
                                             <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">작성자</th>
-                                            <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">작성일</th>
                                             <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">시작일</th>
                                             <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">종료일</th>
+                                            <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">작성일</th>
                                             <th scope="col" style="border: 1px solid; border-color: inherit; text-align: center;">진행 과정</th>
                                             <!-- 완료, 진행 중 -->
                                         </tr>
@@ -116,11 +116,11 @@
                                                 <tr>
                                                     <th scope="row" style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardNum}]]</th>
                                                     <td style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardCategory}]]</td>
-                                                    <td style="border: 1px solid; border-color: inherit;"><a href="board-content">[[${boardVO.boardTitle}]]</a></td>
-                                                    <td style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardWriter}]]</td>
-                                                    <td style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardRegdate}]]</td>
-                                                    <td style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardStartdate}]]</td>
-                                                    <td style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardEnddate}]]</td>
+                                                    <td style="border: 1px solid; width: 300px; border-color: inherit;"><a href="board-content">[[${boardVO.boardTitle}]]</a></td>
+                                                    <td style="border: 1px solid; width: 100px; border-color: inherit; text-align: center;">[[${boardVO.boardWriter}]]</td>
+                                                    <td style="border: 1px solid; width: 200px; border-color: inherit; text-align: center;">[[${boardVO.boardStartdate}]]</td>
+                                                    <td style="border: 1px solid; width: 200px; border-color: inherit; text-align: center;">[[${boardVO.boardEnddate}]]</td>
+                                                    <td style="border: 1px solid; width: 300px; border-color: inherit; text-align: center;" th:text="${#dates.format(boardVO.boardRegdate, 'yyyy-MM-dd HH시 mm분 ss초')}"></td>
                                                     <td style="border: 1px solid; border-color: inherit; text-align: center;">[[${boardVO.boardProcess}]]</td>
                                                 </tr>
                                             </th:block>
@@ -130,7 +130,7 @@
 
                                 <!-- 글 작성 버튼  -->
                                 <div style="display: flex; justify-content: right;">
-                                    <button type="button" class="btn btn-primary" onclick="location.href='/userboards/board-regist'">글 작성</button>
+                                    <button type="button" onclick="boardRegsit()" class="btn btn-primary">글 작성</button>
                                 </div>
                             </div> <!-- card-body end -->
 
@@ -165,21 +165,25 @@
     let urlParams = new URLSearchParams(window.location.search);
     let pjNum = urlParams.get('pj_num');
 
-
     handleAmount.onchange = function(e) {
 
         let search_type = document.getElementById("searchType");
         let search_type_value = search_type.options[search_type.selectedIndex].value;
         let search_value = document.getElementById("search").value;
 
-
         if (search_value != '') {
             location.href = "board-list?pj_num=" + pjNum + "&page=1&amount=" + e.target.value + "&searchType=" + search_type_value + "&search=" + search_value;
         } else {
             location.href = "board-list?pj_num=" + pjNum + "&page=1&amount=" + e.target.value;
         }
-
     }
+    
+    //글 작성 누를 때 pj_num 가지고 가기
+    function boardRegsit(){
+    	let pjNum = urlParams.get('pj_num');
+    	location.href =  "board-regist?pj_num=" + pjNum;
+    } 
+    
 </script>
 
 

@@ -18,21 +18,53 @@ $(document).ready(function() {
 			fileNames += "<li>" + files[i].name + "</li>";
 		}
 		$('#fileNames').html("<ul style='margin-top: 10px;'>" + fileNames + "</ul>");
+	
+	let writerName = $('span[name="writer"]').text();
+
 	});
 });   
     
-//작성 완료시 유효성 검사, ajax로 데이터 보내기
-function boardSuccess() {
-	let selectedCategory = $("#categorySelect option:selected").val();
+//file 담아줄 배열 선언
+let filesTempArr = [];
+
+$(document).ready(function() {
+  
+// 파일 추가
+  function addFiles(files) {
+    $.each(files, function(i, file) {
+      let reader = new FileReader();
+      reader.onload = function() {
+		//파일 주소
+        //console.log(reader.result);
+        filesTempArr.push(reader.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  
+// 파일 선택 시 이벤트 처리
+  $('input[name="fileUpload"]').on('change', function() {
+    let files = $(this).prop('files');
+    addFiles(files);
+  });
+});
+
+//작성 완료 버튼 누를 시 ajax로 데이터 넘김
+$("#boardSuccess").click(function(event) {
+	//기본으로 정의된 이벤트를 작동하지 못하게 함, 즉 submit을 막는다.
+	event.preventDefault();
+    
+    let urlParams = new URLSearchParams(window.location.search);
+    let selectedCategory = $("#categorySelect option:selected").val();
     let selectedProcess = $("#processSelect option:selected").val();
+    let writer = $('span[name="writer"]').text();
     let writerId = $('span[name="writer"]').attr('id');
     let boardTitle = $("input[name='boardTitle']").val();
-    //let fileUpload = $("input[name='fileUpload']").val();
     let startDate = $("input[name='startDate']").val();
     let endDate = $("input[name='endDate']").val();
-    //let description = $("textarea[name='description']").val();
+    let description = $("textarea[name='description']").val();
     
-    //제목-유효성 검사
+     //제목-유효성 검사
     if(boardTitle.trim() === ""){
 		$('#titleWarning').text("제목을 입력해주세요").show();
 		//selectedCategory.focus();
@@ -68,34 +100,47 @@ function boardSuccess() {
 		return false;
 	}
 	
-	let objParams = {
-		"selectedCategory": selectedCategory,
-		"selectedProcess": selectedProcess,
-		"writerId": writerId,
-		"boardTitle": boardTitle,
-		//"fileUpload": fileUpload,
-		"startDate": startDate,
-		"endDate": endDate,
-		//"description": description
+	if( description == "") {
+		$('#contentWarning').text("세부 내용을 입력해주세요.")
+		$('#contentWarning').show();
+		return false;
+	} else {
+		$('#contentWarning').hide();
+	}
+    
+	let formData = {
+		selectedCategory: selectedCategory,
+		selectedProcess: selectedProcess,
+		writer: writer,
+		writerId: writerId,
+		boardTitle: boardTitle,
+		startDate: startDate,
+		endDate: endDate,
+		description: description,
+		pjNum: urlParams.get('pj_num'),
+		fileUpload: filesTempArr
 	}
 	
-	$.ajax({
-		url: "../reg-board",
-		type: "post",
-		async: false,
-		data: JSON.stringify(objParams),
-		dataType: "json",
-		contentType: "application/json",
-		success: function(result) {
-			alert(result.msg);
-			location.href = "/";
-		},
-		error: function(xhr, status, error) {
-    	console.error(xhr);
-    	console.error(status);
-    	console.error(error);
-    	alert("에러가 발생했습니다.");
-}
-	});
+	//ajax로 글 등록하기
+	$("#boardSuccess").prop("disabled", true);
 	
-}
+	$.ajax({
+		type: "POST",
+		url:"../reg-board",
+		data: JSON.stringify(formData),
+		processData: false,
+		contentType: "application/json",
+		cache: false,
+		success: function (data) {
+			alert("등록이 완료되었습니다.")
+			location.href = "/userboards/board-list?pj_num=" + urlParams.get('pj_num');
+		},
+		error: function(e){
+			console.log("ERROR: ", e);
+			//버튼 사용 불가
+			$("#boardSuccess").prop("disabled", false);
+			alert("fail");
+		}
+	})
+});
+
