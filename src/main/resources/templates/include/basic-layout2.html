@@ -260,8 +260,9 @@
             </li> -->
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/user/logout">
+              <a id="logout" class="dropdown-item d-flex align-items-center" href="/user/logout">
                 <i class="bi bi-box-arrow-right"></i>
+                <span style="display:none" id="method">[[${session.user_method}]]</span>
                 <span>로그아웃</span>
               </a>
             </li>
@@ -288,37 +289,26 @@
           <span>프로젝트 생성</span>
         </button>
       </li><!-- End Blank Page Nav -->
-
+	  <li class="nav-item">
+        <a class="nav-link collapsed" href="/">
+          <i class="bi bi-house"></i>
+          <span>메인 화면</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/userboards/notice-list">
+          <i class="bi bi-layout-text-window-reverse"></i>
+          <span>관리자 공지사항</span>
+        </a>
+      </li>
 	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-calendar-check"></i><span>내 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-calendar-check"></i><span>참여중인 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="projects-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 1</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 2</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 3</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 4</span>
-            </a>
-          </li>
+          <!-- ajax로 가져옴 -->
         </ul>
       </li><!-- End Forms Nav -->
-
-
-
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -357,14 +347,82 @@
 	//프로젝트 생성 권한 처리 - 부장이 아니면 생성 못함
 	$(document).ready(function() {
 
-		var canMakeProject = document.getElementById("canMakeProject").innerHTML;
-		var makeProject = document.getElementById("makeProject");
+		let canMakeProject = document.getElementById("canMakeProject").innerHTML;
+		let makeProject = document.getElementById("makeProject");
 
 		if(canMakeProject === "0") {
 			makeProject.style.display = "none";
 		}
-
 	});
+	
+	//레이아웃 사이드바 데이터 가져오기
+	$(document).ready(function() {
+		
+		$.ajax({
+			url : "../get-project-list",
+			type : "get",
+			dataType : "json",
+			success : function(response){				
+				for(let i = 0; i < response.length; i++) {
+					if(response[i].pjActive == true) {
+						let str = "";
+						str += '<li>';
+			            str += '<a href="#" onclick="showProjectDetail(this)" class="projectDetail">';
+			            str += '<i class="bi bi-circle"></i><span>' + response[i].pjName + '</span>';
+			            str += '</a>';
+			            str += '<div style="padding-left:20px; display:none" class="details">';
+			            str += '<a href="http://localhost:8686/project/project-started?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">홈</a>';
+			            str += '<a href="http://localhost:8686/userboards/board-list?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">게시판</a>';
+			            str += '<a href="http://localhost:8686/project/project-calendar?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">캘린더</a>';
+			            str += '<a href="http://localhost:8686/project/project-user-team-chart?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">진척률</a>';
+			            str += '</div>';
+			          	str += '</li>';
+			          	
+			          	$("#projects-nav").append(str); //자식으로 추가
+					}
+				}
+			},
+			error : function(e){
+				alert("프로젝트 리스트 조회 실패")
+			}
+		})
+		
+	});
+	
+	//로그아웃 처리 - 카카오로 로그인했을 경우 카카오 계정에서도 로그아웃되게
+	$(document).ready(function() {
+
+		let method = document.getElementById("method").innerHTML;
+		let logout = document.getElementById("logout");
+		
+		let apiKey = "0ad1808cae578c5f8edfdc6072415416";
+		let address = "http://127.0.0.1:8686/user/kakao-logout";
+		
+		if(method === "kakao") {
+			logout.href = "https://kauth.kakao.com/oauth/logout?client_id="+ apiKey +"&logout_redirect_uri=" + address;
+		}
+	});
+	
+	//프로젝트 디테일 보기
+	function showProjectDetail(e){
+		event.preventDefault();
+
+		let details = document.querySelectorAll(".details");
+		
+		for(let i = 0; i < details.length; i++) {
+			if(e.nextElementSibling === details[i]){
+				if(details[i].style.display === ""){
+					details[i].style.display = "none";
+					} else {
+					details[i].style.display = "";				
+					}
+			} else {
+				details[i].style.display = "none";
+			}
+		}
+
+	}
+	
   </script>
 </th:block>
 

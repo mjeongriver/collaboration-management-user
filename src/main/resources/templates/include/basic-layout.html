@@ -261,8 +261,9 @@
             </li> -->
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/user/logout">
+              <a id="logout" class="dropdown-item d-flex align-items-center" href="/user/logout">
                 <i class="bi bi-box-arrow-right"></i>
+                <span style="display:none" id="method">[[${session.user_method}]]</span>
                 <span>로그아웃</span>
               </a>
             </li>
@@ -281,7 +282,6 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <!-- <li class="nav-heading">프로젝트 생성 이후 (User)</li> -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="/">
           <i class="bi bi-house"></i>
@@ -290,42 +290,25 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>게시판</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" href="/userboards/notice-list">
+          <i class="bi bi-layout-text-window-reverse"></i>
+          <span>관리자 공지사항</span>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/userboards/notice-list">
-              <i class="bi bi-circle"></i><span>관리자 공지사항</span>
-            </a>
-          </li>
-          <li>
-            <a href="/userboards/teamBoardList">
-              <i class="bi bi-circle"></i><span>팀 게시판</span>
-            </a>
-          </li>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-calendar-check"></i><span>참여중인 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="projects-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <!-- ajax로 가져옴 -->
         </ul>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/project/project-user-team-chart">
-          <i class="bi bi-reception-4"></i>
-          <span>진척률</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/project/project-calendar">
-          <i class="bi bi-calendar-day-fill"></i>
-          <span>캘린더</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
+      </li><!-- End Forms Nav -->
+	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#teammates-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-fill"></i><span>프로젝트 팀원</span><i class="bi bi-chevron-down ms-auto"></i>
+
         </a>
-        <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">	
           <li>
             <a href="#">
               <i class="bi bi-circle"></i><span>강민정</span>
@@ -348,38 +331,20 @@
           </li>
         </ul>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#projects-now-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-calendar-check"></i><span>참여중인 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#teamobservers-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person-fill"></i><span>프로젝트 옵저버</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="projects-now-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 1</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 2</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 3</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 4</span>
-            </a>
-          </li>
+        <ul id="teamobservers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="listInner" th:each="vo, status: ${list}">
+			<a href="#">
+			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
+			</a>
+		  </li>
         </ul>
       </li>
 
-
     </ul>
-
   </aside><!-- End Sidebar-->
 
   <th:block th:replace="${section}"></th:block>
@@ -415,7 +380,91 @@
 
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
+  <script>
+	//로그아웃 처리 - 카카오로 로그인했을 경우 카카오 계정에서도 로그아웃되게
+	$(document).ready(function() {
 
+		let method = document.getElementById("method").innerHTML;
+		let logout = document.getElementById("logout");
+		
+		let apiKey = "0ad1808cae578c5f8edfdc6072415416";
+		let address = "http://127.0.0.1:8686/user/kakao-logout";
+		
+		if(method === "kakao") {
+			logout.href = "https://kauth.kakao.com/oauth/logout?client_id="+ apiKey +"&logout_redirect_uri=" + address;
+		}
+	});
+	
+	//레이아웃 사이드바 데이터 가져오기
+	$(document).ready(function() {
+		
+		$.ajax({
+			url : "../get-project-list",
+			type : "get",
+			dataType : "json",
+			success : function(response){				
+				for(let i = 0; i < response.length; i++) {
+					if(response[i].pjActive == true) {
+						let str = "";
+						str += '<li>';
+			            str += '<a href="#" onclick="showProjectDetail(this)" class="projectDetail">';
+			            str += '<i class="bi bi-circle"></i><span>' + response[i].pjName + '</span>';
+			            str += '</a>';
+			            str += '<div style="padding-left:20px; display:none" class="details">';
+			            str += '<a href="http://localhost:8686/project/project-started?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">홈</a>';
+			            str += '<a href="http://localhost:8686/userboards/board-list?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">게시판</a>';
+			            str += '<a href="http://localhost:8686/project/project-calendar?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">캘린더</a>';
+			            str += '<a href="http://localhost:8686/project/project-user-team-chart?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">진척률</a>';
+			            str += '</div>';
+			          	str += '</li>';
+			          	
+			          	$("#projects-nav").append(str); //자식으로 추가
+					}
+				}
+			},
+			error : function(e){
+				alert("프로젝트 리스트 조회 실패")
+			}
+		})
+		
+	});
+	
+	//프로젝트의 팀원, 옵저버 끌고오기
+	$(document).ready(function() {
+		
+		$.ajax({
+			url : "../get-all-project-member",
+			type : "get",
+			dataType : "json",
+			success : function(response){				
+				console.log(response);
+			},
+			error : function(e){
+				alert("프로젝트의 멤버 리스트 조회 실패")
+			}
+		})
+		
+	});
+	
+	//프로젝트 디테일 보기
+	function showProjectDetail(e){
+		event.preventDefault();
+
+		let details = document.querySelectorAll(".details");
+		
+		for(let i = 0; i < details.length; i++) {
+			if(e.nextElementSibling === details[i]){
+				if(details[i].style.display === ""){
+					details[i].style.display = "none";
+					} else {
+					details[i].style.display = "";				
+					}
+			} else {
+				details[i].style.display = "none";
+			}
+		}
+	}
+  </script>
 
 </th:block>
 </html>

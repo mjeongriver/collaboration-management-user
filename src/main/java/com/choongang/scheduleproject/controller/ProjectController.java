@@ -38,7 +38,7 @@ public class ProjectController {
 		list = projectService.getProjectMember(pj_num);
 
 		ProjectVO pjVO = projectService.getProject(pj_num);
-
+		
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list);
 
