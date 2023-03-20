@@ -10,7 +10,7 @@ $("#user_pw").keypress(function(e) {
 $(".kakaoBtn").click(function() {
 	let apiKey = "0ad1808cae578c5f8edfdc6072415416";
 	let address = "http://127.0.0.1:8686/user/kakao";
-	alert("이메일 수집에 꼭 동의해주세요!");
+	alert("이메일 수집에 꼭 동의해주세요! 일치하는 이메일이 없을 경우 회원가입으로 넘어갑니다!");
 	location.href = "https://kauth.kakao.com/oauth/authorize?client_id=" + apiKey + "&redirect_uri=" + address + "&response_type=code"
 })
 

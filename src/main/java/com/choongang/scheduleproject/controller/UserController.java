@@ -1,14 +1,21 @@
 package com.choongang.scheduleproject.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +24,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.user.service.UserService;
 import com.choongang.scheduleproject.util.KakaoAPI;
@@ -38,6 +48,15 @@ public class UserController {
 	@Autowired
 	private KakaoAPI kakao;
 
+	@Autowired
+	private AmazonS3Client amazonS3Client;
+
+	@Value("${cloud.aws.s3.bucket}")
+	private String bucket;
+
+	//업로드 패스
+	@Value("${project.uploadpath}")
+	private String uploadpath;
 
 	@GetMapping("/user-login")
 	public String userLogin() {		
@@ -53,9 +72,21 @@ public class UserController {
 		return "/user/user-mypage";
 	}
 
+	//AWS Controller에서 보냄. user-mypage로 바로 보내면 세션값을 순간적으로 잃어버리므로 우회하여 세션값을 넣어주고 user-mypage로 리다이렉트함
+	//	@GetMapping("/get-session")
+	//	public String getSession(@RequestParam("user_id") String user_id, HttpSession session) {
+	//		session.setAttribute("user_id", user_id);
+	//		return "redirect:/user/user-mypage";
+	//	}
+
 	@GetMapping("/user-register")
 	public String userRegister() {
 		return "/user/user-register";
+	}
+
+	@GetMapping("/user-register-kakao")
+	public String userRegisterKakao() {		
+		return "/user/user-register-kakao";
 	}
 
 	@GetMapping("/user-start-project-list")
@@ -128,6 +159,13 @@ public class UserController {
 			ra.addFlashAttribute("msg", msg);
 			return "redirect:/user/user-login";
 		} else { // 일치하는 아이디가 있음
+			if(result.getUserMethod().equals("kakao")) { //카카오로 가입한 유저가 일반 로그인을 시도했을 경우, 심지어 아이디 비번을 맞출 경우
+				//메시지 담아서 리다이렉트
+				String msg = "카카오로 회원가입한 유저입니다. 카카오 로그인을 진행해주세요.";
+				ra.addFlashAttribute("msg", msg);
+				return "redirect:/user/user-login";
+			}
+			
 			//암호화된 비밀번호와 일치하는지 확인
 			String msg = "";
 			if(!passwordEncoder.matches(vo.getUserPw(), result.getUserPw())) { //비밀번호 다름 - 로그인 실패
@@ -188,12 +226,17 @@ public class UserController {
 			String msg = "회원정보와 일치하는 아이디가 없습니다.";
 			ra.addFlashAttribute("msg", msg);
 			return "redirect:/user/user-login";
-		} else { // 일치하는 아이디가 있음
-			//메시지 담아서 리다이렉트
-			String id = result.getUserId();
-			String msg = vo.getUserName() + "님의 아이디는 "+ id.substring(0, id.length()-3) + "***입니다.";
-			ra.addFlashAttribute("msg", msg);
-			return "redirect:/user/user-login";
+		} else { // 일치하는 아이디가 있음 - 카카오 회원가입인지 확인할 것
+			if(result.getUserMethod().equals("kakao")) { //카카오 회원가입 유저
+				ra.addFlashAttribute("msg", "카카오 로그인으로 회원가입하셨습니다. 카카오 로그인을 진행해주세요.");
+				return "redirect:/user/user-login";
+			} else {
+				//메시지 담아서 리다이렉트
+				String id = result.getUserId();
+				String msg = vo.getUserName() + "님의 아이디는 "+ id.substring(0, id.length()-3) + "***입니다.";
+				ra.addFlashAttribute("msg", msg);
+				return "redirect:/user/user-login";				
+			}
 		}	
 	}
 
@@ -239,18 +282,57 @@ public class UserController {
 	@GetMapping("/kakao")
 	public String kakao(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session, Model model) {
 		String token = kakao.getAccessToken(code);//인가코드 code를 가지고 token을 발급받기
-		Map<String, Object> map = kakao.getUserInfo(token);//어세스토큰 token을 가지고 사용자데이터를 가져오기
+		Map<String, Object> map = kakao.getUserInfo(token);//어세스토큰 token을 가지고 사용자데이터를 가져오기		
 		//DB에서 조회해서 로그인처리
 		UserVO vo = new UserVO();
 		vo.setUserEmail((String)map.get("email")); //카카오에서 가져온 이메일값으로 로그인 시도
-		UserVO result = userService.kakaoLogin(vo);
-		if(result == null) { //일치하는 아이디가 없음
-			// 회원가입 페이지로 넘겨줘야 함
-			//메시지 담아서 리다이렉트
-			String msg = "이메일과 일치하는 데이터가 존재하지 않습니다. 다시 확인해주세요.";
-			ra.addFlashAttribute("msg", msg);
-			return "redirect:/user/user-login";
-		} else { // 일치하는 아이디가 있음
+		UserVO result = userService.kakaoLogin(vo);		
+		if(result == null) { //일치하는 이메일이 없음
+			// 카카오전용 회원가입 페이지로 넘겨줘야 함
+			//받아온 이메일값 넘겨주기
+			String email = (String)map.get("email");
+			
+			if(email == null) {
+				ra.addFlashAttribute("msg", "이메일값이 유실되었습니다. 카카오 로그인을 다시 진행해주세요.");
+				return "redirect:/user/user-login";
+			}
+			
+	        // 먼저 @ 의 인덱스를 찾는다
+	        int idx = email.indexOf("@"); 
+			// @앞부분을 아이디로 쓸 것이다.
+			String kakaoId = email.substring(0, idx);
+			
+			//랜덤 비밀번호 생성해서 넘겨주기
+			Random random = new Random(); 
+			int pwLength = 10;
+			StringBuffer randomPw = new StringBuffer();
+			for (int i = 0; i < pwLength; i++) {
+				int choice = random.nextInt(3);
+				switch(choice) {
+				case 0:
+					randomPw.append((char)((int)random.nextInt(25)+97));
+					break;
+				case 1:
+					randomPw.append((char)((int)random.nextInt(25)+65));
+					break;
+				case 2:
+					randomPw.append((char)((int)random.nextInt(10)+48));
+					break;
+				default:
+					break;
+				}
+			}
+			randomPw.append("!");
+			model.addAttribute("email", email);
+			model.addAttribute("id", kakaoId);
+			model.addAttribute("pw", randomPw);
+			return "user/user-register-kakao";
+		} else { // 일치하는 이메일이 있음
+			//user_log에 log기록 추가하기 - 마지막 로그인 시각을 저장
+			//현재 시간을 회원가입일 user_regdate에다가 저장
+			LocalDateTime nowTime = LocalDateTime.now();
+			result.setUserRegdate(nowTime);
+			userService.insertLog(result);
 			//모델에 DB정보를 담아서 화면에 뿌려줌
 			model.addAttribute("vo", result);
 			//세션 부여
@@ -258,19 +340,94 @@ public class UserController {
 			session.setAttribute("user_id", result.getUserId());
 			session.setAttribute("user_img", result.getUserImg());
 			session.setAttribute("user_role", result.getUserRole());
-			return "user/user-start-project-list";			
+			return "user/user-start-project-list";							
 		}
 	}
 
-	//마이페이지에서 개인정보 변경
+	//마이페이지에서 개인정보만 변경
 	@PostMapping("/change-info")
 	public String changeInfo(UserVO vo, RedirectAttributes ra, HttpSession session) {
 		int result = userService.changeInfo(vo);
 		//메시지 담아서 리다이렉트
 		String msg = result == 1 ? "회원정보 수정에 성공하였습니다." : "회원정보 수정에 실패했습니다. 관리자에게 문의하세요.";
 		ra.addFlashAttribute("msg", msg);
+		session.setAttribute("user_img", session.getAttribute("user_img")); // 세션 다시 부여 - 사진 업데이트를 위함
 		return "redirect:/user/user-mypage"; //마이페이지화면으로	
 	}
+	
+	//마이페이지에서 이미지 변경, 이미지 개인정보 변경
+	@PostMapping("/profile-upload")
+	public String uploadAllProfile(@RequestParam("file") MultipartFile file, 
+			@RequestParam("userBirth") String userBirth,
+			@RequestParam("userCell") String userCell,
+			HttpSession session, RedirectAttributes ra) throws URISyntaxException {
+		String user_id = (String)session.getAttribute("user_id");
+		try {
+			if(file.getContentType().contains("image") == false) {
+				ra.addFlashAttribute("msg", "png, jpg, jpeg 형식만 등록 가능합니다.");
+				return "redirect:/user/user-mypage";
+			}
+			//파일명
+			String origin = file.getOriginalFilename(); 
+			//브라우저별로 경로가 포함돼서 올라오는 경우가 있어서 간단한 처리
+			String filename = origin.substring(origin.lastIndexOf("\\") + 1);
+			//폴더 생성
+			String filepath = makeDir();
+			//중복 파일의 처리 (어떤값이 들어가더라도 중복이 안되도록)
+			String uuid = UUID.randomUUID().toString();
+			//최종 저장 경로
+			String fileUrl= filepath + "/" + uuid + "_"+ filename;
+			//aws에 업로드
+			ObjectMetadata metadata= new ObjectMetadata();
+			metadata.setContentType(file.getContentType());
+			metadata.setContentLength(file.getSize());
+			amazonS3Client.putObject(bucket,fileUrl,file.getInputStream(),metadata);
+			//db에 파일경로 업로드
+			UserVO vo = new UserVO();
+			vo.setUserId(user_id);
+			vo.setUserImg(uploadpath + fileUrl);
+			int result = userService.insertImg(vo);
+			if(result == 0) { //이미지 업로드 실패
+				ra.addFlashAttribute("msg", "회원정보 수정에 실패했습니다. 관리자에게 문의하세요.");
+				return "redirect:/user/user-mypage";
+			} else {
+				//이미지 업로드 성공 - 회원정보 수정까지 처리
+				UserVO infoVO = new UserVO();
+				infoVO.setUserId(user_id);
+				infoVO.setUserCell(userCell);
+				infoVO.setUserBirth(userBirth);
+
+				int result2 = userService.changeInfo(infoVO);
+				String msg = result2 == 1 ? "회원정보 수정에 성공하였습니다." : "이메일 업로드에는 성공했으나 개인정보 수정에 실패했습니다. 다시 시도해주세요.";
+				ra.addFlashAttribute("msg", msg);
+				return "redirect:/user/user-mypage";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			session.invalidate();
+			return "redirect:/user/user-login";
+		}
+	}
+
+	//날짜별로 폴더 생성
+	private String makeDir() {
+		//오늘날짜
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+		String now = sdf.format(date);
+
+		String path = bucket + "\\" + now; //경로
+		File file = new File(path);
+
+		//존재하면 true 존재하지 않으면 false
+		if(file.exists() == false) {
+			file.mkdir(); //폴더 생성!
+		}
+
+		return now; // 년월일 폴더 위치
+
+	}
+
 
 	//마이페이지에서 비밀번호 변경
 	@PostMapping("/change-pw")

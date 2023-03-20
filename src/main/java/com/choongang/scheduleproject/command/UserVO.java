@@ -63,5 +63,7 @@ public class UserVO {
 	private String userImg;
 	
 	private String departmentName;
+	
+	private String userMethod;
 }
 

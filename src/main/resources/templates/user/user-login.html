@@ -102,7 +102,6 @@
 <!-- 유효성 검사 코드 -->
 <script th:inline="javascript">
 	var msg = JSON.parse('[[${msg}]]');
-	console.log(msg);
 	if(msg != null) {
 		alert(msg);
 	}

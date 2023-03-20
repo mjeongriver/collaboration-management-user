@@ -27,4 +27,6 @@ public interface UserService {
 	public int changeInfo(UserVO vo); // 마이페이지 휴대폰번호, 생년월일 수정하기
 	public int changePw(UserVO vo); // 마이페이지 비밀번호 수정하기
 	public int removeImg(String userId); // 마이페이지 이미지 삭제하기
+	public int insertImg(UserVO vo); // 마이페이지 이미지 수정하기 (AWSUploadController)
+	public String checkPw(String userId); // 마이페이지 기존 비밀번호 확인하기
 }
