@@ -260,8 +260,9 @@
             </li> -->
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/user/logout">
+              <a id="logout" class="dropdown-item d-flex align-items-center" href="/user/logout">
                 <i class="bi bi-box-arrow-right"></i>
+                <span style="display:none" id="method">[[${session.user_method}]]</span>
                 <span>로그아웃</span>
               </a>
             </li>
@@ -288,10 +289,21 @@
           <span>프로젝트 생성</span>
         </button>
       </li><!-- End Blank Page Nav -->
-
+	  <li class="nav-item">
+        <a class="nav-link collapsed" href="/">
+          <i class="bi bi-house"></i>
+          <span>메인 화면</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/userboards/notice-list">
+          <i class="bi bi-layout-text-window-reverse"></i>
+          <span>관리자 공지사항</span>
+        </a>
+      </li>
 	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-calendar-check"></i><span>내 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-calendar-check"></i><span>참여중인 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="projects-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -316,8 +328,7 @@
           </li>
         </ul>
       </li><!-- End Forms Nav -->
-
-
+	  
 
     </ul>
 
@@ -363,7 +374,16 @@
 		if(canMakeProject === "0") {
 			makeProject.style.display = "none";
 		}
+	});
+	
+	//로그아웃 처리 - 카카오로 로그인했을 경우 카카오 계정에서도 로그아웃되게
+	$(document).ready(function() {
 
+		var method = document.getElementById("method").innerHTML;
+		var logout = document.getElementById("logout").href;
+
+		console.log(method);
+		console.log(logout);
 	});
   </script>
 </th:block>
