@@ -306,29 +306,13 @@
 	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#teammates-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-fill"></i><span>프로젝트 팀원</span><i class="bi bi-chevron-down ms-auto"></i>
-
         </a>
         <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">	
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>강민정</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>권도은</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이동민</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이서윤</span>
-            </a>
-          </li>
+          <li class="listInner" th:each="vo, status: ${list}" th:if="${vo.isObserver == false}">
+			<a href="#">
+			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
+			</a>
+		  </li>
         </ul>
       </li>
 	  <li class="nav-item">
@@ -336,7 +320,7 @@
           <i class="bi bi-person-fill"></i><span>프로젝트 옵저버</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="teamobservers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li class="listInner" th:each="vo, status: ${list}">
+          <li class="listInner" th:each="vo, status: ${list}" th:if="${vo.isObserver == true}">
 			<a href="#">
 			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
 			</a>
@@ -387,7 +371,7 @@
 		let method = document.getElementById("method").innerHTML;
 		let logout = document.getElementById("logout");
 		
-		let apiKey = "0ad1808cae578c5f8edfdc6072415416";
+		let apiKey = "";
 		let address = "http://127.0.0.1:8686/user/kakao-logout";
 		
 		if(method === "kakao") {
@@ -424,23 +408,6 @@
 			},
 			error : function(e){
 				alert("프로젝트 리스트 조회 실패")
-			}
-		})
-		
-	});
-	
-	//프로젝트의 팀원, 옵저버 끌고오기
-	$(document).ready(function() {
-		
-		$.ajax({
-			url : "../get-all-project-member",
-			type : "get",
-			dataType : "json",
-			success : function(response){				
-				console.log(response);
-			},
-			error : function(e){
-				alert("프로젝트의 멤버 리스트 조회 실패")
 			}
 		})
 		
