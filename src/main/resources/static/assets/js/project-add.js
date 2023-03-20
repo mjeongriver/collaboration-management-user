@@ -305,7 +305,7 @@ function createProject() {
 	}
 
 	if (pj_startdate > pj_enddate) {
-		$('#dateWarning').text("종료일은 시작일보다 클 수 없습니다.");
+		$('#dateWarning').text("종료일은 시작일보다 작을 수 없습니다.");
 		$('#dateWarning').show();
 		$("input[name=pj_startdate]").focus();
 		$("input[name=pj_enddate]").focus();
