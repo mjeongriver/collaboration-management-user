@@ -106,4 +106,38 @@ public class KakaoAPI {
 		}
 		return map;
 	}
+	
+	//토큰 기반으로 유저의 연결 끊기
+	public Map<String, Object> unLinkUser(String access_token) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			URL url = new URL(REQUEST_URL_INFO);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			
+			conn.setRequestMethod("POST"); // post형식
+			conn.setDoOutput(true); // 카카오서버로부터 데이터 응답을 허용
+			conn.setRequestProperty("Authorization", "Bearer " + access_token); //헤더에 토큰정보를 추가
+			
+			if(conn.getResponseCode() == 200) { // 사용자 데이터 요청 성공
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String result = "";
+				String str = null;
+				while((str=br.readLine()) != null) { // 한줄씩 읽음 - 읽을 값이 없다면 null
+					result += str;
+				}
+				
+				JsonParser json = new JsonParser(); //파서객체생성
+				JsonElement element = json.parse(result); //JSON엘리먼트변경
+				JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject(); //JSON오브젝트추출, kakao_account추출, 오브젝트추출
+				String id = kakao_account.getAsJsonObject().get("email").getAsString(); //JSON오브젝트추출, email추출, 문자열추출
+				
+				//맵에 저장
+				map.put("id", id);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 }
