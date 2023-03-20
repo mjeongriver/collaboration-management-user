@@ -63,5 +63,7 @@ public interface ProjectService {
 
 	//프로젝트 삭제
 	public int deleteProject(int pj_num);
+	//프로젝트 멤버인지 확인
+	public String checkMember(String pj_num, String user_id);
 }
 

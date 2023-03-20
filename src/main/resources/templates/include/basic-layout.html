@@ -300,7 +300,7 @@
             </a>
           </li>
           <li>
-            <a href="/userboards/teamBoardList">
+            <a href="/userboards/board-list">
               <i class="bi bi-circle"></i><span>팀 게시판</span>
             </a>
           </li>
@@ -321,35 +321,22 @@
         </a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#teammates-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person-fill"></i><span>프로젝트 팀원</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>강민정</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>권도은</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이동민</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이서윤</span>
-            </a>
-          </li>
-        </ul>
-      </li>
+				<li class="nav-item"><a class="nav-link collapsed"
+					data-bs-target="#teammates-nav" data-bs-toggle="collapse" href="#">
+						<i class="bi bi-person-fill"></i><span>프로젝트 팀원</span><i
+						class="bi bi-chevron-down ms-auto"></i>
+				</a>
+					<ul id="teammates-nav" class="nav-content collapse "
+						data-bs-parent="#sidebar-nav">
+						<li class="listInner" th:each="vo, status: ${list}">
+						<a href="#"> <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
+						</a></li>
 
-      <li class="nav-item">
+
+
+					</ul></li>
+
+				<li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#projects-now-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-calendar-check"></i><span>참여중인 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
