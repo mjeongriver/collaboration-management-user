@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.project.service.ProjectService;
+import com.choongang.scheduleproject.user.service.UserService;
 import com.google.gson.Gson;
 
 
@@ -30,6 +32,10 @@ public class ProjectAjaxController {
 	private ProjectService projectService;
 	private ProjectVO vo;
 
+	@Autowired
+	@Qualifier("userService")
+	private UserService userService;
+	
 	//부서 요청
 	@GetMapping("/get-dlist")
 	public List<ProjectVO> getDepList (){
@@ -119,5 +125,13 @@ public class ProjectAjaxController {
 
 		return pj_num;
 	}
-
+	
+	//레이아웃에서 유저 이름 클릭 시 정보 가져오기
+	@GetMapping("/show-user-info")
+	public UserVO showUserInfo(@RequestParam("userId") String userId) {
+		
+		return userService.showUserInfo(userId);
+		
+	}
+	
 }

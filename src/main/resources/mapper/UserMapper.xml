@@ -198,5 +198,13 @@
 		where user_id = #{userId}
 	
 	</select>
-    
+	
+	<!-- 레이아웃에서 팀원의 개인정보를 가져오는 코드 -->
+    <select id="showUserInfo" resultType="UserVO">
+    	select user_email, user_cell, user_birth, user_position, user_img, department_name
+    	from user_user u 
+    	left join user_department d
+		on u.department_id = d.department_id
+    	where u.user_id = #{userId}
+    </select>
     </mapper>
