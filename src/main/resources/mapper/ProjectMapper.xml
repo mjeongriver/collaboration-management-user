@@ -47,22 +47,32 @@
 	<!-- 프로젝트 멤버 -->
 	<select id="getProjectMember" resultType="UserVO">
 		select u.user_name,
-		d.department_name, u.user_position from user_user
+		d.department_name, u.user_position,m.is_observer from user_user
 		as u inner join
 		user_department as d on u.department_id =
 		d.department_id
 		right join
 		mapping as m on m.user_id = u.user_id
-		where m.pj_num = #{pjNum};
+		where m.pj_num = #{pjNum}
+		order by  m.is_observer,
+			case u.user_position
+        	  when '부장' then 1
+          	  when '차장' then 2
+          	  when '과장' then 3
+           	  when '대리' then 4
+           	  when '사원' then 5
+            	else 6
+        end
+       ;
 	</select>
-	
+
 	<!-- 프로젝트 정보 -->
 	<select id="getProject" resultType="ProjectVO">
 		select
 		pj_name,pj_active,pj_writer,pj_description,pj_startdate,pj_enddate,pj_regdate,pj_num
 		from user_project where pj_num = #{pjNum}
 	</select>
-	
+
 	<!-- 채팅세팅 -->
 	<insert id="setChat" parameterType="ChatVO">
 		insert into user_chat
@@ -70,7 +80,7 @@
 		values
 		(#{pjNum},#{chatWriter},#{chatContent},now());
 	</insert>
-	
+
 	<!-- 채팅 받아오기 -->
 	<select id="getChat" resultType="ChatVO">
 		select chat_num,chat_writer,
@@ -81,13 +91,13 @@
 		where pj_num
 		=#{pjNum};
 	</select>
-	
+
 	<!-- 채팅 삭제 -->
 	<delete id="deleteChat" parameterType="int">
 		delete from user_chat
 		where chat_num=#{chatNum};
 	</delete>
-	
+
 	<!-- 채팅 수정 -->
 	<update id="modifyChat" parameterType="map">
 		update user_chat set chat_content = #{modify_content} where
@@ -110,7 +120,7 @@
 		m.pj_num = p.pj_num
 		where user_id=#{user_id} order by pj_enddate
 	</select>
-	
+
 	<!-- 즐겨찾기 클릭하면 값 수정 -->
 	<update id="changeBookmark" parameterType="map">
 		update mapping set pj_bookmark =
@@ -120,7 +130,7 @@
 		</choose>
 		where user_id = #{user_id} and pj_num = #{pj_num};
 	</update>
-	
+
 	<!-- 유저 이름 가져오기 -->
 	<select id="getUserName" resultType="string">
 		select user_name from
@@ -132,5 +142,9 @@
 		delete from
 		user_project where pj_num=#{pj_num}
 	</delete>
-	
+
+	<select id="checkMember" resultType="string">
+		select user_id from mapping where user_id=#{user_id} and pj_num=#{pj_num};
+	</select>
+
 </mapper>

@@ -18,14 +18,14 @@ import com.choongang.scheduleproject.command.UserVO;
 public interface ProjectMapper {
 
 	/***
-	 * 
+	 *
 	 * @param vo
 	 * @return int
 	 */
 	public int regist(ProjectVO vo); //프로젝트 생성
 
 	/***
-	 * 
+	 *
 	 * @param pvo
 	 * @return int
 	 */
@@ -34,7 +34,7 @@ public interface ProjectMapper {
 	public List<ProjectVO> getDepList(); //부서 목록
 
 	/***
-	 * 
+	 *
 	 * @param department_id
 	 * @return List
 	 */
@@ -53,7 +53,7 @@ public interface ProjectMapper {
 
 	public int deleteChat(int chat_num); //채팅 삭제
 
-	public int modifyChat(@Param("chat_num") int chat_num, @Param("modifyContent") String modifyContent); //채팅수정
+	public int modifyChat(@Param("chat_num") int chat_num, @Param("modify_content") String modify_content); //채팅수정
 
 	//getProjectList 메서드는 user_id를 매개변수로 받아 해당 사용자가 등록한 프로젝트 목록을 ArrayList<ProjectVO> 형태로 반환합니다.
 	public ArrayList<ProjectVO> getProjectList(@Param("user_id") String user_id);
@@ -65,4 +65,6 @@ public interface ProjectMapper {
 	public String getUserName(String user_id); //아직 사용 안함
 
 	public int deleteProject(int pj_num); //프로젝트 삭제
+
+	public String checkMember(@Param("pj_num")String pj_num, @Param("user_id")String user_id);
 }

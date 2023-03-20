@@ -112,6 +112,12 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.deleteProject(pj_num);
 	}
 
+	@Override
+	public String checkMember(String pj_num, String user_id) {
+
+		return projectMapper.checkMember(pj_num, user_id);
+	}
+
 
 
 

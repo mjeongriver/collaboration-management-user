@@ -142,6 +142,7 @@
 											<th scope="col">이름</th>
 											<th scope="col">부서</th>
 											<th scope="col">직급</th>
+											<th scope="col">구분</th>
 
 										</tr>
 									</thead>
@@ -152,6 +153,7 @@
 											<td class="name">[[${vo.userName}]]</td>
 											<td class="department">[[${vo.departmentName}]]</td>
 											<td class="position">[[${vo.userPosition}]]</td>
+											<td class="observer">[[${vo.isObserver==true?"옵저버":"팀원"}]]</td>
 
 										</tr>
 
@@ -285,7 +287,7 @@
 									+ '</span></div>';
 							str += '</div>';
 							str += '<div class="filter">';
-							str += '<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>';
+							str += '<a class="icon" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside"><i class="bi bi-three-dots"></i></a>';
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
 							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
