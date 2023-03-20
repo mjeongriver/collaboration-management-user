@@ -46,7 +46,7 @@
 
 	<!-- 프로젝트 멤버 -->
 	<select id="getProjectMember" resultType="UserVO">
-		select u.user_name,
+		select u.user_name, u.user_id,
 		d.department_name, u.user_position,m.is_observer from user_user
 		as u inner join
 		user_department as d on u.department_id =

@@ -217,7 +217,6 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img id="img" th:src="${session.user_img}" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
-
             <span class="d-none d-md-block dropdown-toggle ps-2">[[${session.user_name}]]님</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -229,7 +228,6 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
             <li>
               <a class="dropdown-item d-flex align-items-center" href="/user/user-mypage">
                 <i class="bi bi-person"></i>
@@ -279,8 +277,7 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
-
+    <ul class="sidebar-nav " id="sidebar-nav">
       <!-- <li class="nav-heading">프로젝트 생성 이후 (User)</li> -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="/">
@@ -306,29 +303,17 @@
 	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#teammates-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-fill"></i><span>프로젝트 팀원</span><i class="bi bi-chevron-down ms-auto"></i>
-
         </a>
         <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">	
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>강민정</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>권도은</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이동민</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이서윤</span>
-            </a>
-          </li>
+          <li class="listInner" th:each="vo, status: ${list}" th:if="${vo.isObserver == false}">
+			<a href="#" onclick="showUserInfo(this)" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+			  <span style="display:none">[[${vo.userId}]]</span>
+			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow showUserInfo">
+			
+			</ul>
+		  </li>
         </ul>
       </li>
 	  <li class="nav-item">
@@ -336,17 +321,25 @@
           <i class="bi bi-person-fill"></i><span>프로젝트 옵저버</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="teamobservers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li class="listInner" th:each="vo, status: ${list}">
-			<a href="#">
+          <li class="listInner dropdown" th:each="vo, status: ${list}" th:if="${vo.isObserver == true}">
+			<a href="#" onclick="showUserInfo(this)" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+			  <span style="display:none">[[${vo.userId}]]</span>
 			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
 			</a>
+			<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow showUserInfo">
+				<li class="dropdown-header text-start"></li>
+				<li class="dropdown-header text-start">이메일</li>
+				<li class="dropdown-header text-start">휴대폰번호</li>
+				<li class="dropdown-header text-start">생년월일</li>
+			</ul>
 		  </li>
         </ul>
       </li>
 
     </ul>
   </aside><!-- End Sidebar-->
-
+  
+  
   <th:block th:replace="${section}"></th:block>
 
 
@@ -354,6 +347,7 @@
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
+  
     <div class="copyright">
       &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
     </div>
@@ -387,7 +381,7 @@
 		let method = document.getElementById("method").innerHTML;
 		let logout = document.getElementById("logout");
 		
-		let apiKey = "0ad1808cae578c5f8edfdc6072415416";
+		let apiKey = "";
 		let address = "http://127.0.0.1:8686/user/kakao-logout";
 		
 		if(method === "kakao") {
@@ -423,24 +417,6 @@
 				}
 			},
 			error : function(e){
-				alert("프로젝트 리스트 조회 실패")
-			}
-		})
-		
-	});
-	
-	//프로젝트의 팀원, 옵저버 끌고오기
-	$(document).ready(function() {
-		
-		$.ajax({
-			url : "../get-all-project-member",
-			type : "get",
-			dataType : "json",
-			success : function(response){				
-				console.log(response);
-			},
-			error : function(e){
-				//alert("프로젝트의 멤버 리스트 조회 실패")
 			}
 		})
 		
@@ -464,6 +440,31 @@
 			}
 		}
 	}
+	
+	//프로젝트 팀원, 옵저버의 정보 보기
+	function showUserInfo(e) {
+		event.preventDefault();
+		
+		$.ajax({
+			url : "../show-user-info",
+			type : "get",
+			data: { "userId": e.children[0].innerHTML },
+			success : function(response){								
+				let str = "";
+				
+				str += '<li class="dropdown-header text-start"><img src='+ response.userImg +' alt="Profile" class="rounded-circle" style="width:35px; height: 35px">'+ ' ' + response.departmentName + ' ' + response.userPosition +'</li>';
+				str += '<li class="dropdown-header text-start">이메일: '+ response.userEmail +'</li>';
+				str += '<li class="dropdown-header text-start">휴대폰번호: '+ response.userCell +'</li>';
+				str += '<li class="dropdown-header text-start">생년월일: '+ response.userBirth +'</li>';
+				
+				$(".showUserInfo").html(str); //자식 노드로 추가
+			},
+			error : function(e){
+				alert("유저 정보 조회 실패");
+			}
+		})
+	}
+	
   </script>
 
 </th:block>

@@ -31,7 +31,7 @@ public class ProjectController {
 	@GetMapping("/project-started")
 	public String projectStarted(Model model,@RequestParam("pj_num") int pj_num) {
 
-		//채팅화면에 멤버 정보를 받아옴
+		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
 		ArrayList<UserVO> list = new ArrayList<>();
 		list = projectService.getProjectMember(pj_num);
 
@@ -46,27 +46,40 @@ public class ProjectController {
 	//전체 진척률 보기
 	@GetMapping("/project-user-team-chart")
 	public String projectUserTeamChart(Model model,@RequestParam("pj_num") int pj_num) {
-		ProjectVO pjVO = projectService.getProject(pj_num);
+		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
+		ArrayList<UserVO> list = new ArrayList<>();
+		list = projectService.getProjectMember(pj_num);
 
+		ProjectVO pjVO = projectService.getProject(pj_num);
+				
 		model.addAttribute("pjVO",pjVO);
+		model.addAttribute("list",list);
 		return "/project/project-user-team-chart";
 	}
 
 	@GetMapping("/project-user-my-chart")
 	public String projectUserMyChart(Model model,@RequestParam("pj_num") int pj_num) {
-		ProjectVO pjVO = projectService.getProject(pj_num);
+		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
+		ArrayList<UserVO> list = new ArrayList<>();
+		list = projectService.getProjectMember(pj_num);
 
+		ProjectVO pjVO = projectService.getProject(pj_num);
+				
 		model.addAttribute("pjVO",pjVO);
+		model.addAttribute("list",list);
 		return "/project/project-user-my-chart";
 	}
 
 	@GetMapping("/project-calendar")
 	public String projectCalendar(Model model,@RequestParam("pj_num") int pj_num) {
+		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
+		ArrayList<UserVO> list = new ArrayList<>();
+		list = projectService.getProjectMember(pj_num);
 
 		ProjectVO pjVO = projectService.getProject(pj_num);
-
+						
 		model.addAttribute("pjVO",pjVO);
-
+		model.addAttribute("list",list);
 		return "/project/project-calendar";
 	}
 

@@ -18,6 +18,7 @@ import com.choongang.scheduleproject.board.service.UserBoardService;
 import com.choongang.scheduleproject.command.AdminNoticeListVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
+import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.project.service.ProjectService;
 import com.choongang.scheduleproject.util.Criteria;
 import com.choongang.scheduleproject.util.PageVO;
@@ -43,11 +44,15 @@ public class UserBoardController {
 	public String boardList(Criteria cri, Model model,
 								@RequestParam("pj_num") int pj_num) {
 		
-		//getProject
-		ProjectVO pjVO = projectService.getProject(pj_num);
-		model.addAttribute("pjVO", pjVO);	
-		System.out.println(pjVO.toString());
-		
+		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
+		ArrayList<UserVO> list_user = new ArrayList<>();
+		list_user = projectService.getProjectMember(pj_num);
+
+		ProjectVO pjVO = projectService.getProject(pj_num);				
+		model.addAttribute("pjVO",pjVO);
+		model.addAttribute("list",list_user);
+
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pjNum", pj_num);
 		map.put("cri", cri);
