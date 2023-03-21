@@ -126,4 +126,9 @@ public class UserServiceImpl implements UserService {
 	public int insertImg(UserVO vo) {
 		return userMapper.insertImg(vo);
 	}
+
+	@Override
+	public UserVO showUserInfo(String userId) {
+		return userMapper.showUserInfo(userId);
+	}
 }

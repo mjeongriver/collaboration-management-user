@@ -72,13 +72,6 @@ public class UserController {
 		return "/user/user-mypage";
 	}
 
-	//AWS Controller에서 보냄. user-mypage로 바로 보내면 세션값을 순간적으로 잃어버리므로 우회하여 세션값을 넣어주고 user-mypage로 리다이렉트함
-	//	@GetMapping("/get-session")
-	//	public String getSession(@RequestParam("user_id") String user_id, HttpSession session) {
-	//		session.setAttribute("user_id", user_id);
-	//		return "redirect:/user/user-mypage";
-	//	}
-
 	@GetMapping("/user-register")
 	public String userRegister() {
 		return "/user/user-register";
@@ -165,7 +158,6 @@ public class UserController {
 				ra.addFlashAttribute("msg", msg);
 				return "redirect:/user/user-login";
 			}
-			
 			//암호화된 비밀번호와 일치하는지 확인
 			String msg = "";
 			if(!passwordEncoder.matches(vo.getUserPw(), result.getUserPw())) { //비밀번호 다름 - 로그인 실패
@@ -210,6 +202,7 @@ public class UserController {
 					session.setAttribute("user_id", result.getUserId());
 					session.setAttribute("user_img", result.getUserImg());
 					session.setAttribute("user_role", result.getUserRole());
+					session.setAttribute("user_method", result.getUserMethod());
 					return "user/user-start-project-list";					
 				}
 			}
@@ -292,15 +285,25 @@ public class UserController {
 			//받아온 이메일값 넘겨주기
 			String email = (String)map.get("email");
 			
-			if(email == null) {
-				ra.addFlashAttribute("msg", "이메일값이 유실되었습니다. 카카오 로그인을 다시 진행해주세요.");
-				return "redirect:/user/user-login";
-			}
-			
-	        // 먼저 @ 의 인덱스를 찾는다
-	        int idx = email.indexOf("@"); 
-			// @앞부분을 아이디로 쓸 것이다.
-			String kakaoId = email.substring(0, idx);
+//			if(email == null) {
+//				// 카카오계정 로그아웃
+//				String logoutToken = kakao.getAccessToken(code);//인가코드 code를 가지고 token을 발급받기
+//				Map<String, Object> logoutMap = kakao.unLinkUser(logoutToken);
+//
+//				System.out.println("code: " + code);
+//				System.out.println("logoutToken: " + logoutToken);
+//				System.out.println("logoutMap: " + logoutMap.toString());
+//				
+//				return null;
+//				
+//				//ra.addFlashAttribute("msg", "이메일값이 유실되었습니다. 카카오 로그인을 다시 진행해주세요.");
+//				//return "redirect:/user/user-login";
+//			}
+//			
+//	        // 먼저 @ 의 인덱스를 찾는다
+//	        int idx = email.indexOf("@"); 
+//			// @앞부분을 아이디로 쓸 것이다.
+//			String kakaoId = email.substring(0, idx);
 			
 			//랜덤 비밀번호 생성해서 넘겨주기
 			Random random = new Random(); 
@@ -324,10 +327,16 @@ public class UserController {
 			}
 			randomPw.append("!");
 			model.addAttribute("email", email);
-			model.addAttribute("id", kakaoId);
+			//model.addAttribute("id", kakaoId); // 이메일이 없을 경우 프론트단에서 처리하여 카카오 로그아웃으로 이동.
 			model.addAttribute("pw", randomPw);
 			return "user/user-register-kakao";
 		} else { // 일치하는 이메일이 있음
+			if(result.getUserMethod().equals("web")) { //일반 회원가입 유저가 카카오 로그인을 시도했을 경우
+				//메시지 담아서 리다이렉트
+				String msg = "홈페이지에서 회원가입하셨습니다. 일반 로그인을 진행해주세요.";
+				ra.addFlashAttribute("msg", msg);
+				return "redirect:/user/user-login";
+			}
 			//user_log에 log기록 추가하기 - 마지막 로그인 시각을 저장
 			//현재 시간을 회원가입일 user_regdate에다가 저장
 			LocalDateTime nowTime = LocalDateTime.now();
@@ -340,6 +349,7 @@ public class UserController {
 			session.setAttribute("user_id", result.getUserId());
 			session.setAttribute("user_img", result.getUserImg());
 			session.setAttribute("user_role", result.getUserRole());
+			session.setAttribute("user_method", result.getUserMethod());
 			return "user/user-start-project-list";							
 		}
 	}
@@ -462,6 +472,15 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes ra) {
 		session.invalidate(); // 세션 만료시키기
+		String msg = "로그아웃되었습니다.";
+		ra.addFlashAttribute("msg", msg);
+		return "redirect:/user/user-login"; //로그인화면으로	
+	}
+	
+	//카카오 로그인시 로그아웃
+	@GetMapping("kakao-logout")
+	public String kakaoLogout(HttpSession session, RedirectAttributes ra) {
+		session.invalidate();
 		String msg = "로그아웃되었습니다.";
 		ra.addFlashAttribute("msg", msg);
 		return "redirect:/user/user-login"; //로그인화면으로	

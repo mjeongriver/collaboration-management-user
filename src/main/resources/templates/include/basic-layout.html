@@ -217,7 +217,6 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img id="img" th:src="${session.user_img}" alt="Profile" class="rounded-circle" style="width:35px; height: 35px">
-
             <span class="d-none d-md-block dropdown-toggle ps-2">[[${session.user_name}]]님</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -229,7 +228,6 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
             <li>
               <a class="dropdown-item d-flex align-items-center" href="/user/user-mypage">
                 <i class="bi bi-person"></i>
@@ -261,8 +259,9 @@
             </li> -->
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/user/logout">
+              <a id="logout" class="dropdown-item d-flex align-items-center" href="/user/logout">
                 <i class="bi bi-box-arrow-right"></i>
+                <span style="display:none" id="method">[[${session.user_method}]]</span>
                 <span>로그아웃</span>
               </a>
             </li>
@@ -278,10 +277,8 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
-
+    <ul class="sidebar-nav " id="sidebar-nav">
       <!-- <li class="nav-heading">프로젝트 생성 이후 (User)</li> -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="/">
           <i class="bi bi-house"></i>
@@ -290,98 +287,56 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>게시판</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" href="/userboards/notice-list">
+          <i class="bi bi-layout-text-window-reverse"></i>
+          <span>관리자 공지사항</span>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/userboards/notice-list">
-              <i class="bi bi-circle"></i><span>관리자 공지사항</span>
-            </a>
-          </li>
-          <li>
-            <a href="/userboards/teamBoardList">
-              <i class="bi bi-circle"></i><span>팀 게시판</span>
-            </a>
-          </li>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#projects-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-calendar-check"></i><span>참여중인 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="projects-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <!-- ajax로 가져옴 -->
         </ul>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/project/project-user-team-chart">
-          <i class="bi bi-reception-4"></i>
-          <span>진척률</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="/project/project-calendar">
-          <i class="bi bi-calendar-day-fill"></i>
-          <span>캘린더</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
+      </li><!-- End Forms Nav -->
+	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#teammates-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-fill"></i><span>프로젝트 팀원</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>강민정</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>권도은</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이동민</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>이서윤</span>
-            </a>
-          </li>
+        <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">	
+          <li class="listInner" th:each="vo, status: ${list}" th:if="${vo.isObserver == false}">
+			<a href="#" onclick="showUserInfo(this)" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+			  <span style="display:none">[[${vo.userId}]]</span>
+			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow showUserInfo">
+			
+			</ul>
+		  </li>
         </ul>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#projects-now-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-calendar-check"></i><span>참여중인 프로젝트</span><i class="bi bi-chevron-down ms-auto"></i>
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#teamobservers-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person-fill"></i><span>프로젝트 옵저버</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="projects-now-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 1</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 2</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 3</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>프로젝트 4</span>
-            </a>
-          </li>
+        <ul id="teamobservers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li class="listInner dropdown" th:each="vo, status: ${list}" th:if="${vo.isObserver == true}">
+			<a href="#" onclick="showUserInfo(this)" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+			  <span style="display:none">[[${vo.userId}]]</span>
+			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow showUserInfo">
+				
+			</ul>
+		  </li>
         </ul>
       </li>
-
 
     </ul>
-
   </aside><!-- End Sidebar-->
-
+  
+  
   <th:block th:replace="${section}"></th:block>
 
 
@@ -389,6 +344,7 @@
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
+  
     <div class="copyright">
       &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
     </div>
@@ -415,7 +371,98 @@
 
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
+  <script>
+	//로그아웃 처리 - 카카오로 로그인했을 경우 카카오 계정에서도 로그아웃되게
+	$(document).ready(function() {
 
+		let method = document.getElementById("method").innerHTML;
+		let logout = document.getElementById("logout");
+		
+		let apiKey = "";
+		let address = "http://127.0.0.1:8686/user/kakao-logout";
+		
+		if(method === "kakao") {
+			logout.href = "https://kauth.kakao.com/oauth/logout?client_id="+ apiKey +"&logout_redirect_uri=" + address;
+		}
+	});
+	
+	//레이아웃 사이드바 데이터 가져오기
+	$(document).ready(function() {
+		
+		$.ajax({
+			url : "../get-project-list",
+			type : "get",
+			dataType : "json",
+			success : function(response){				
+				for(let i = 0; i < response.length; i++) {
+					if(response[i].pjActive == true) {
+						let str = "";
+						str += '<li>';
+			            str += '<a href="#" onclick="showProjectDetail(this)" class="projectDetail">';
+			            str += '<i class="bi bi-circle"></i><span>' + response[i].pjName + '</span>';
+			            str += '</a>';
+			            str += '<div style="padding-left:20px; display:none" class="details">';
+			            str += '<a href="http://localhost:8686/project/project-started?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">홈</a>';
+			            str += '<a href="http://localhost:8686/userboards/board-list?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">게시판</a>';
+			            str += '<a href="http://localhost:8686/project/project-calendar?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">캘린더</a>';
+			            str += '<a href="http://localhost:8686/project/project-user-team-chart?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">진척률</a>';
+			            str += '</div>';
+			          	str += '</li>';
+			          	
+			          	$("#projects-nav").append(str); //자식으로 추가
+					}
+				}
+			},
+			error : function(e){
+			}
+		})
+		
+	});
+	
+	//프로젝트 디테일 보기
+	function showProjectDetail(e){
+		event.preventDefault();
+
+		let details = document.querySelectorAll(".details");
+		
+		for(let i = 0; i < details.length; i++) {
+			if(e.nextElementSibling === details[i]){
+				if(details[i].style.display === ""){
+					details[i].style.display = "none";
+					} else {
+					details[i].style.display = "";				
+					}
+			} else {
+				details[i].style.display = "none";
+			}
+		}
+	}
+	
+	//프로젝트 팀원, 옵저버의 정보 보기
+	function showUserInfo(e) {
+		event.preventDefault();
+		
+		$.ajax({
+			url : "../show-user-info",
+			type : "get",
+			data: { "userId": e.children[0].innerHTML },
+			success : function(response){								
+				let str = "";
+				
+				str += '<li style="padding-top:5px" class="dropdown-header text-start"><img src='+ response.userImg +' alt="Profile" class="rounded-circle" style="width:35px; height: 35px;"><strong style="padding-left:5px">'+ e.children[2].innerHTML + '</strong> | <span style="font-size:13px">' + response.departmentName + ' ' + response.userPosition +'</span></li>';
+				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">생년월일: '+ response.userBirth +'</li>';
+				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">휴대폰번호: '+ response.userCell +'</li>';
+				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">이메일: '+ response.userEmail +'</li>';
+				
+				$(".showUserInfo").html(str); //자식 노드로 추가
+			},
+			error : function(e){
+				alert("유저 정보 조회 실패");
+			}
+		})
+	}
+	
+  </script>
 
 </th:block>
 </html>

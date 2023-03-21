@@ -17,8 +17,8 @@
 
                                 <h5 class="card-title">글 작성</h5>
 
-                                <form action="/userboards/board-list" method="post" onsubmit="return false">
-                                    <input type="hidden" name="pj_num" value="${pj_num}">
+                                <form id="boardRegistForm" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" id="pjNum" name="${pj_num}">
 
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">카테고리</label>
@@ -47,7 +47,7 @@
                                     <div class="row mb-3">
                                         <label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
                                         <div class="col-sm-10">
-                                            <span name="writer" th:id="${session.user_id}" type="text" class="form-control">[[${session.user_name}]]</span>
+                                            <span name="writer" th:id="${session.user_id}" th:value="${session.user_name}" type="text" class="form-control">[[${session.user_name}]]</span>
                                         </div>
                                     </div>
 
@@ -84,19 +84,29 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                   <div class="row mb-3">
                                         <label for="inputDescription" class="col-sm-2 col-form-label">세부 내용</label>
                                         <div class="col-sm-10">
                                             <div>
                                                 <textarea id="summernote" name="description"></textarea>
+                                            	<span id="contentWarning" style="color: red; font-size: 14px; float: right;"></span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> 
+                                    
+                                    <!-- <div class="row mb-3">
+                                        <label for="inputDescription" class="col-sm-2 col-form-label">세부 내용</label>
+                                        <div class="col-sm-10">
+                                            <div>
+                                                <textarea name="description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>  -->
 
                                     <div class="row mb-3">
 
                                         <div style="width:100%;">
-                                            <button type="button" onclick="boardSuccess()" class="btn btn-primary" style="float:right;">작성 완료</button>
+                                            <button type="submit" id="boardSuccess" class="btn btn-primary" style="float:right;">작성 완료</button>
                                         </div>
                                     </div>
 

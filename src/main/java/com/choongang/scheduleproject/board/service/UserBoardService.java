@@ -3,33 +3,39 @@ package com.choongang.scheduleproject.board.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
-import com.choongang.scheduleproject.util.Criteria;
 
 public interface UserBoardService {
 
 	/***
 	 * 
-	 * @param cri
-	 * @param pj_num
+	 * @param map
 	 * @return ArrayList
 	 */
 	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
 
 
 	/***
-	 *
-	 * @param cri
+	 * 
+	 * @param map
 	 * @return int
 	 */
 	public int getCount(Map<String, Object> map); //검색 결과 건 수
 	
 	/***
 	 * 
-	 * @param vo
+	 * @param map
 	 * @return int
 	 */
-	public int getContent(Map<String, Object> map);
+	public int getContent(Map<String, Object> map); //글 등록 내용
+	
+	/***
+	 * 
+	 * @param pj_num
+	 * @return ArrayList
+	 */
+	public ArrayList<ProjectVO> getObserver(int pj_num); //옵저버 멤버 
 
 
 }

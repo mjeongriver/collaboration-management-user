@@ -29,4 +29,5 @@ public interface UserService {
 	public int removeImg(String userId); // 마이페이지 이미지 삭제하기
 	public int insertImg(UserVO vo); // 마이페이지 이미지 수정하기 (AWSUploadController)
 	public String checkPw(String userId); // 마이페이지 기존 비밀번호 확인하기
+	public UserVO showUserInfo(String userId); // 레이아웃에서 유저 이름 클릭 시 유저 정보 가져오기
 }

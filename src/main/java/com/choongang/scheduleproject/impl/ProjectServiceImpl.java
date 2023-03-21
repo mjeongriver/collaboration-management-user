@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ChatVO;
 import com.choongang.scheduleproject.command.ProjectVO;
@@ -110,6 +109,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public int deleteProject(int pj_num) {
 
 		return projectMapper.deleteProject(pj_num);
+	}
+
+	@Override
+	public String checkMember(String pj_num, String user_id) {
+
+		return projectMapper.checkMember(pj_num, user_id);
 	}
 
 
