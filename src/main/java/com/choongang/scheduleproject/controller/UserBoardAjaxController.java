@@ -38,7 +38,7 @@ public class UserBoardAjaxController {
 		vo.setBoardCategory((String)map.get("selectedCategory"));
 		vo.setBoardProcess((String)map.get("selectedProcess"));
 		vo.setBoardWriter((String)map.get("writer"));
-		vo.setBoardWriterId((String)map.get("writerId"));
+		vo.setUserName((String)map.get("userName"));
 		vo.setBoardTitle((String)map.get("boardTitle"));
 		vo.setBoardStartdate((String)map.get("startDate"));
 		vo.setBoardContent((String)map.get("description"));

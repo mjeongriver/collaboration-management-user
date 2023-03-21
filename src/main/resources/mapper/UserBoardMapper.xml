@@ -9,21 +9,24 @@
 		T.board_num, T.board_category,
 		T.board_title, T.board_writer,
 		T.board_regdate, T.board_startdate,
-		T.board_enddate, T.board_process
+		T.board_enddate, T.board_process, T.user_name
 		FROM (
 		SELECT
 		(@row_num:=@row_num+1) AS board_num,
-		board_category,
-		board_title,
-		board_writer, board_regdate,
-		board_startdate,
-		board_enddate,
-		board_process
+		b.board_category,
+		b.board_title,
+		b.board_writer, b.board_regdate,
+		b.board_startdate,
+		b.board_enddate,
+		b.board_process,
+		u.user_name
 		FROM
-		user_board,
+		user_board b
+		left join user_user u
+		on b.board_writer = u.user_id,
 		(SELECT @row_num:=0) AS tmp
 		WHERE
-		pj_num = #{pjNum}
+		b.pj_num = #{pjNum}
 		<choose>
 			<when
 				test='cri.searchType == "boardCategory" and cri.search != null'>
@@ -91,10 +94,10 @@
 	<!-- 글 등록 -->
 	<insert id = "getContent" parameterType="map">
 	insert into user_board (
-	pj_num, board_title, board_writer, board_writerId, board_process,
+	pj_num, board_title, board_writer, board_process,
 	board_startdate, board_enddate, board_content,
 	board_category)
-	values( #{vo.pjNum}, #{vo.boardTitle}, #{vo.boardWriter}, #{vo.boardWriterId},
+	values( #{vo.pjNum}, #{vo.boardTitle}, #{vo.boardWriter}, 
         #{vo.boardProcess}, #{vo.boardStartdate}, #{vo.boardEnddate},
         #{vo.boardContent}, #{vo.boardCategory})
 	</insert>

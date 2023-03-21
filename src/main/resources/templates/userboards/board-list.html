@@ -124,19 +124,19 @@
 							<td style="border: 1px solid; border-color: inherit; text-align: center;">
 								[[${boardVO.boardCategory}]]
 							</td>
-							<td style="border: 1px solid; width: 300px; border-color: inherit;">
+							<td style="border: 1px solid; width: 20%; border-color: inherit;">
 								<a href="board-content">[[${boardVO.boardTitle}]]</a>
 							</td>
-							<td style="border: 1px solid; width: 100px; border-color: inherit; text-align: center;">
-								[[${boardVO.boardWriter}]]
+							<td style="border: 1px solid; width: 10%; border-color: inherit; text-align: center;">
+								[[${boardVO.userName}]]
 							</td>
-							<td style="border: 1px solid; width: 200px; border-color: inherit; text-align: center;">
+							<td style="border: 1px solid; width: 10%; border-color: inherit; text-align: center;">
 								[[${boardVO.boardStartdate}]]
 							</td>
-							<td style="border: 1px solid; width: 200px; border-color: inherit; text-align: center;">
+							<td style="border: 1px solid; width: 10%; border-color: inherit; text-align: center;">
 								[[${boardVO.boardEnddate}]]
 							</td>
-							<td style="border: 1px solid; width: 300px; border-color: inherit; text-align: center;" th:text="${#dates.format(boardVO.boardRegdate, 'yyyy-MM-dd HH시 mm분 ss초')}">
+							<td style="border: 1px solid; width: 20%; border-color: inherit; text-align: center;" th:text="${#dates.format(boardVO.boardRegdate, 'yyyy-MM-dd HH시 mm분 ss초')}">
 							</td>
 							<td style="border: 1px solid; border-color: inherit; text-align: center;">
 								[[${boardVO.boardProcess}]]
@@ -208,7 +208,7 @@ $.ajax({
         for (let i = 0; i < response.length; i++) {
             if (response[i].toString() === sessionId.toString()) {
                 // session.id와 같은 경우 버튼을 안보이게 처리
-                $("button[name='boardRegist']").hide();
+                $("button[name='boardRegist']").prop("disabled", true)
             }
         }
     },

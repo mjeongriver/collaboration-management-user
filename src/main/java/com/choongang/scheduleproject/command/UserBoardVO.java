@@ -32,8 +32,8 @@ public class UserBoardVO {
 	@NotNull
 	private String boardContent;
 	
+	private String userName;
 	private String boardWriter;
-	private String boardWriterId;
 	private String boardStartdate;
 	private String boardCategory;
 	private String boardProcess;
