@@ -327,10 +327,7 @@
 			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow showUserInfo">
-				<li class="dropdown-header text-start"></li>
-				<li class="dropdown-header text-start">이메일</li>
-				<li class="dropdown-header text-start">휴대폰번호</li>
-				<li class="dropdown-header text-start">생년월일</li>
+				
 			</ul>
 		  </li>
         </ul>
@@ -452,10 +449,10 @@
 			success : function(response){								
 				let str = "";
 				
-				str += '<li class="dropdown-header text-start"><img src='+ response.userImg +' alt="Profile" class="rounded-circle" style="width:35px; height: 35px">'+ ' ' + response.departmentName + ' ' + response.userPosition +'</li>';
-				str += '<li class="dropdown-header text-start">이메일: '+ response.userEmail +'</li>';
-				str += '<li class="dropdown-header text-start">휴대폰번호: '+ response.userCell +'</li>';
-				str += '<li class="dropdown-header text-start">생년월일: '+ response.userBirth +'</li>';
+				str += '<li style="padding-top:5px" class="dropdown-header text-start"><img src='+ response.userImg +' alt="Profile" class="rounded-circle" style="width:35px; height: 35px;"><strong style="padding-left:5px">'+ e.children[2].innerHTML + '</strong> | <span style="font-size:13px">' + response.departmentName + ' ' + response.userPosition +'</span></li>';
+				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">생년월일: '+ response.userBirth +'</li>';
+				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">휴대폰번호: '+ response.userCell +'</li>';
+				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">이메일: '+ response.userEmail +'</li>';
 				
 				$(".showUserInfo").html(str); //자식 노드로 추가
 			},
