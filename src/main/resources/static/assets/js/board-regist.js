@@ -57,8 +57,8 @@ $("#boardSuccess").click(function(event) {
     let urlParams = new URLSearchParams(window.location.search);
     let selectedCategory = $("#categorySelect option:selected").val();
     let selectedProcess = $("#processSelect option:selected").val();
-    let writer = $('span[name="writer"]').text();
-    let writerId = $('span[name="writer"]').attr('id');
+    let userName = $('span[name="writer"]').text();
+    let boardWriter = $('span[name="writer"]').attr('id');
     let boardTitle = $("input[name='boardTitle']").val();
     let startDate = $("input[name='startDate']").val();
     let endDate = $("input[name='endDate']").val();
@@ -111,8 +111,8 @@ $("#boardSuccess").click(function(event) {
 	let formData = {
 		selectedCategory: selectedCategory,
 		selectedProcess: selectedProcess,
-		writer: writer,
-		writerId: writerId,
+		userName: userName,
+		writer: boardWriter,
 		boardTitle: boardTitle,
 		startDate: startDate,
 		endDate: endDate,
