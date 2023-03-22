@@ -73,8 +73,7 @@
 						<div id="radialBarChart"></div>
 
 						<script>
-		                document.addEventListener("DOMContentLoaded", () => {
-		                	console.log('[[${pjVO.pjNum}]]','[[${session.user_id}]]');
+		                document.addEventListener("DOMContentLoaded", () => {//로드될 때 ajax 불러옴
 		                	$.ajax({
 		                		url:'../get-member-category-chart?pj_num=[[${pjVO.pjNum}]]&user_id=[[${session.user_id}]]', //해당팀 자기 진행률 json 요청
 		                		type:'get',
@@ -100,10 +99,13 @@
 					                          },
 					                          total: {
 					                            show: true,
-					                            label: 'Total',
+					                            label: '전체진척률 평균',
 					                            formatter: function(w) {
 					                              // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-					                              return 100
+					                              var sumCal= 0;
+					                              data.progress.forEach(item=> sumCal = sumCal + parseInt(item)); //진척률 합
+
+					                              return (sumCal/data.progress.length)+'%'; //진척률 평균
 					                            }
 					                          }
 					                        }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.project.service.ProjectService;
 import com.choongang.scheduleproject.user.service.UserService;
@@ -35,7 +37,7 @@ public class ProjectAjaxController {
 	@Autowired
 	@Qualifier("userService")
 	private UserService userService;
-	
+
 	//부서 요청
 	@GetMapping("/get-dlist")
 	public List<ProjectVO> getDepList (){
@@ -125,13 +127,28 @@ public class ProjectAjaxController {
 
 		return pj_num;
 	}
-	
+
 	//레이아웃에서 유저 이름 클릭 시 정보 가져오기
 	@GetMapping("/show-user-info")
 	public UserVO showUserInfo(@RequestParam("userId") String userId) {
-		
+
 		return userService.showUserInfo(userId);
-		
+
 	}
-	
+
+	@GetMapping("/get-project-info")
+	public ProjectVO getProjectInfo(@RequestParam("pj_num") int pj_num) {
+
+		return projectService.getProject(pj_num);
+	}
+	//캘린더에 대한 정보 받아오기
+	@GetMapping("/get-calendar-info")
+	public ArrayList<UserBoardVO> getCalendarInfo(@RequestParam("pj_num") String pj_num,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		String user_id = (String)session.getAttribute("user_id");
+
+		return projectService.getBoardList(pj_num, user_id);
+	}
+
+
 }

@@ -12,6 +12,7 @@ import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ChatVO;
 
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.command.UserVO;
 
 @Mapper
@@ -67,4 +68,6 @@ public interface ProjectMapper {
 	public int deleteProject(int pj_num); //프로젝트 삭제
 
 	public String checkMember(@Param("pj_num")String pj_num, @Param("user_id")String user_id);
+	//프로젝트 보드 받아오기
+	public ArrayList<UserBoardVO> getBoardList(@Param("pj_num")String pj_num, @Param("user_id")String user_id);
 }
