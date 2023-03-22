@@ -3,11 +3,11 @@
 <th:block th:replace="~{./include/basic-layout2 :: 함수( ~{:: .wrap } ) }">
 <div class="wrap">
 	<main id="main" class="main">
-	
+
 	<div class="pagetitle">
 		<h1>프로젝트 생성</h1>
 	</div>
-	
+
 	<form action="/project/project-started" method="post" onsubmit="return false">
 		<section class="section">
 		<div class="row" style="justify-content: center">
@@ -20,7 +20,7 @@
 							<span>프로젝트 명</span>
 							<span id="nameWarning" style="color: red; font-size: 14px; float: right;"></span>
 							<input class="form-control" type="text" name="pj_name" placeholder="프로젝트 제목을 입력하세요." required><br>
-							
+
 							<div style="padding-bottom: 50px">
 								<div style="float: left; width: 50%">
 									<span>프로젝트 시작일</span>
@@ -32,24 +32,24 @@
 									<input type="date" class="form-control" name="pj_enddate">
 								</div>
 							</div>
-							
+
 							<div style="padding-top: 40px">
 								<span>프로젝트 상세 설명</span>
 								<span id="contentWarning" style="color: red; font-size: 14px; float: right;"></span>
 								<textarea class="form-control" type="text" name="pj_description" placeholder="프로젝트에 관한 설명을 입력하세요." style="height: 200px;"></textarea>
-								
+
 								<div style="padding-top: 30px;">
 									<span>팀장</span>
 									<div style="border: 1px solid #ced4da;" class="form-control">
 										<span name="pj_writer" value="0" th:id="${session.user_id}" style="font-weight: 800;">[[${session.user_name}]]</span>
 									</div>
 								</div>
-								
+
 								<div style="padding-top: 30px">
 									<button class="modalOn btn btn-primary w-20">팀원 및 옵저버 초대</button>
 									<span id="memberWarning" style="color: red; font-size: 14px; float: right; margin-top: 10px;"></span>
 								</div>
-								
+
 								<div>
 									<!-- 팀원 목록 -->
 									<div style="float: left; width: 49%; padding-top: 10px">
@@ -67,7 +67,7 @@
 										<button class="btn btn-primary w-20" type="button" style="margin-top: 30px;" onclick="createProject()">프로젝트 생성</button>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
@@ -93,16 +93,16 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<div style="padding-top: 10px">
 								<button type="button" class="btn btn-primary w-20" onclick="teamPlus(event)">추가</button>
 							</div>
-							
+
 						</div>
-						
+
 						<div style="float: right; width: 49%" required>
 							<p style="float: left">추가 목록</p>
-							<p style="float: right" class="allMember">일괄 삭제 
+							<p style="float: right" class="allMember">일괄 삭제
 							<input type=checkbox name="memberDelete" style="padding: 10px" onclick="selectAllMember(this)">
 							</p>
 							<div id=teamName class="form-control" type="text" style="height: 400px; overflow: auto;" readonly>
@@ -111,11 +111,11 @@
 							</div>
 							<button type="button" onclick="memberDelete2()" class="btn btn-primary w-20" style="float: left;">삭제</button>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
-			
+
 			<div align="center">
 				<button type="button" onclick="memberSuccess()" class="modalOff btn btn-primary w-20" style="margin-top: 30px">완료</button>
 			</div>

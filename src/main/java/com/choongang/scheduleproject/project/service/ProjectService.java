@@ -11,6 +11,7 @@ import java.util.List;
 import com.choongang.scheduleproject.command.ChatVO;
 
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.command.UserVO;
 
 
@@ -65,5 +66,7 @@ public interface ProjectService {
 	public int deleteProject(int pj_num);
 	//프로젝트 멤버인지 확인
 	public String checkMember(String pj_num, String user_id);
+	//프로젝트 보드 받아오기
+	public ArrayList<UserBoardVO> getBoardList(String pj_num, String user_id);
 }
 
