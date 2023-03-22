@@ -72,7 +72,9 @@ public class UserBoardController {
 	}
 
 	@GetMapping("/board-regist")
-	public String boardRegist() {
+	public String boardRegist(Model model,	
+							  @RequestParam("pj_num") int pjNum) {
+		model.addAttribute("pjNum", pjNum);
 		return "/userboards/board-regist";
 	}
 	

@@ -1,12 +1,14 @@
 package com.choongang.scheduleproject.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.choongang.scheduleproject.board.service.UserBoardMapper;
 import com.choongang.scheduleproject.board.service.UserBoardService;
+import com.choongang.scheduleproject.command.FileVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 
@@ -33,10 +35,21 @@ public class UserBoardServiceImpl implements UserBoardService{
 	public int getContent(Map<String, Object> map) {
 		return userBoardMapper.getContent(map);
 	}
-
+	
 	@Override
 	public ArrayList<ProjectVO> getObserver(int pj_num) {
 		return userBoardMapper.getObserver(pj_num);
+	}
+
+	@Override
+	public int fileUploadList(List<FileVO> fvoList) {
+		int result = 0;
+		for(FileVO vo: fvoList) {
+			System.out.println(vo.toString());
+			result = userBoardMapper.fileUploadList(vo);
+		}
+		return result;
+
 	}
 	
 	

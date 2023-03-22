@@ -18,7 +18,7 @@ public class UserBoardVO {
 	private int boardNum;
 	
 	@JsonProperty("pj_num")
-	private String pjNum;
+	private int pjNum;
 	
 	@NotNull
 	private String boardTitle;
@@ -37,5 +37,7 @@ public class UserBoardVO {
 	private String boardStartdate;
 	private String boardCategory;
 	private String boardProcess;
-	
+	private String boardfilePath;
+	private String boardfileName;
+
 }

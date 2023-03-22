@@ -1,8 +1,10 @@
 package com.choongang.scheduleproject.board.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import com.choongang.scheduleproject.command.FileVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 
@@ -29,6 +31,13 @@ public interface UserBoardService {
 	 * @return int
 	 */
 	public int getContent(Map<String, Object> map); //글 등록 내용
+	
+	/***
+	 * 
+	 * @param fvoList
+	 * @return int
+	 */
+	public int fileUploadList(List<FileVO> fvoList);
 	
 	/***
 	 * 

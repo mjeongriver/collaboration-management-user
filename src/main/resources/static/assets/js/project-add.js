@@ -311,6 +311,16 @@ function createProject() {
 		$("input[name=pj_enddate]").focus();
 		return false;
 	}
+	
+	let currentDate = new Date();
+	currentDate.setHours(0, 0, 0, 0); 
+	let endDate = new Date(pj_enddate);
+	if (currentDate > endDate){
+		$('#dateWarning').text("종료일은 오늘 날짜보다 작을 수 없습니다.");
+		$('#dateWarning').show();
+		$("input[name=pj_startdate]").focus();
+		$("input[name=pj_enddate]").focus();
+	}
 
 	let user_boolean = [];
 	$('div[name=member]').each(function(index, item) {
