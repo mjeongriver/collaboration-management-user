@@ -105,7 +105,7 @@
 					                              var sumCal= 0;
 					                              data.progress.forEach(item=> sumCal = sumCal + parseInt(item)); //진척률 합
 
-					                              return (sumCal/data.progress.length)+'%'; //진척률 평균
+					                              return parseInt(sumCal/data.progress.length)+'%'; //진척률 평균
 					                            }
 					                          }
 					                        }
