@@ -40,7 +40,7 @@ public class ProjectChartRestController {
 		JsonArray UserName = new JsonArray(); //json 객체에 담아줄 배열
 		JsonArray Progress = new JsonArray(); // 동일
 		for(ChartVO vo: list) { // vo객체에서 json 배열로 담아주는 반복문
-			UserName.add(vo.getBoardCategory());
+			UserName.add(vo.getUserName());
 			Progress.add(vo.getProgress());
 		}
 		Chart.add("userName", UserName); // json 객체에 담음

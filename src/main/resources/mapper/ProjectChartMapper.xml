@@ -7,9 +7,9 @@
 	<!-- 프로젝트 팀 당 카테고리 진행률 가져옴 -->
 	<select id="getTeamCategoryChart" resultType="ChartVO">
 		select board_category,
-			   (round((select count(board_process) from user_board where board_process = '완료' and pj_num = #{pjNum})/
-			   (select count(board_process) from user_board  where pj_num = #{pjNum}) * 100) ) progress
-		from user_board
+			   (round((select count(board_process) from user_board where board_process = '완료' and pj_num = #{pjNum} and board_category = T.board_category )/
+			   (select count(board_process) from user_board  where pj_num = #{pjNum} and board_category = T.board_category) * 100) ) progress
+		from user_board T
         where pj_num = #{pjNum}
         group by board_category
 	</select>
@@ -26,9 +26,9 @@
 	<!-- 프로젝트 팀에 해당하는 자기자신 카테고리별 진행률 -->
 	<select id="getMemberCategoryChart" resultType="ChartVO">
 		select board_category,
-			   (round((select count(board_process) from user_board where board_process = '완료' and pj_num = #{pjNum} and board_writer = #{userId} )/
-			   (select count(board_process) from user_board  where pj_num = #{pjNum} and board_writer = #{userId}) * 100) ) progress
-		from user_board
+			   (round((select count(board_process) from user_board where board_process = '완료' and pj_num = #{pjNum} and board_writer = #{userId} and board_category = T.board_category)/
+			   (select count(board_process) from user_board  where pj_num = #{pjNum} and board_writer = #{userId} and board_category = T.board_category) * 100) ) progress
+		from user_board T
         where pj_num = #{pjNum} and board_writer = #{userId}
         group by board_category
 	</select>

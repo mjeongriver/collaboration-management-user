@@ -83,10 +83,11 @@
 			                    data: {
 			                      labels: data.category, //카테고리 데이터
 			                      datasets: [{
-			                        label: 'My First Dataset',
+			                        label: '진행률',
 			                        data: data.progress, //진행률 데이터
 			                        backgroundColor: [
 			                          'rgb(255, 99, 132)',
+			                          'rgb(75, 192, 192)',
 			                          'rgb(54, 162, 235)',
 			                          'rgb(255, 205, 86)'
 			                        ],
@@ -115,7 +116,7 @@
 	              <h5 class="card-title">팀원 별 진척률</h5>
 
 	              <!-- Polar Area Chart -->
-	              <canvas id="polarAreaChart" style="max-height: 400px;"></canvas>
+	              <canvas id="barChart" style="max-height: 400px;"></canvas>
 	              <script>
 	                document.addEventListener("DOMContentLoaded", () => {
 	                	$.ajax({
@@ -123,25 +124,43 @@
 	                		type:'get',
 	                		success:function(result){ // 해당 팀 인원과 진행률 데이터 가져옴
 	                		  var data = JSON.parse(result); // 데이터 json으로 변환
-			                  new Chart(document.querySelector('#polarAreaChart'), {
-			                    type: 'polarArea',
-			                    data: {
-			                      labels: data.userName, //인원 데이터
-			                      datasets: [{
-			                        label: 'My First Dataset',
-			                        data: data.progress, //진행률 데이터
-			                        backgroundColor: [
-			                          'rgb(255, 99, 132)',
-			                          'rgb(75, 192, 192)',
-			                          'rgb(255, 205, 86)',
-			                          'rgb(201, 203, 207)',
-			                          'rgb(54, 162, 235)',
-			                          'rgb(33, 34, 35)'
-			                        ]
-			                      }]
-			                    }
-			                  });
-
+	                		  new Chart(document.querySelector('#barChart'), {
+	      	                    type: 'bar',
+	      	                    data: {
+	      	                      labels: data.userName, //팀원 표현
+	      	                      datasets: [{
+	      	                        label: '진행률',
+	      	                        data: data.progress, //진척률표현
+	      	                        backgroundColor: [
+	      	                          'rgba(255, 99, 132, 0.2)',
+	      	                          'rgba(255, 159, 64, 0.2)',
+	      	                          'rgba(255, 205, 86, 0.2)',
+	      	                          'rgba(75, 192, 192, 0.2)',
+	      	                          'rgba(54, 162, 235, 0.2)',
+	      	                          'rgba(153, 102, 255, 0.2)',
+	      	                          'rgba(201, 203, 207, 0.2)'
+	      	                        ],
+	      	                        borderColor: [
+	      	                          'rgb(255, 99, 132)',
+	      	                          'rgb(255, 159, 64)',
+	      	                          'rgb(255, 205, 86)',
+	      	                          'rgb(75, 192, 192)',
+	      	                          'rgb(54, 162, 235)',
+	      	                          'rgb(153, 102, 255)',
+	      	                          'rgb(201, 203, 207)'
+	      	                        ],
+	      	                        borderWidth: 1
+	      	                      }]
+	      	                    },
+	      	                    options: {
+	      	                      scales: {
+	      	                        y: {
+	      	                          beginAtZero: true,
+	      	                          max:100
+	      	                        }
+	      	                      }
+	      	                    }
+	      	                  });
 	                		},
 	                		error:function(){
 
