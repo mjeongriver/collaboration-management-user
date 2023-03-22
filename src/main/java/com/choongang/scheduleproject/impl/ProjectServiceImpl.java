@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ChatVO;
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.project.service.ProjectMapper;
 import com.choongang.scheduleproject.project.service.ProjectService;
@@ -115,6 +116,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public String checkMember(String pj_num, String user_id) {
 
 		return projectMapper.checkMember(pj_num, user_id);
+	}
+
+	@Override
+	public ArrayList<UserBoardVO> getBoardList(String pj_num, String user_id) {
+
+		return projectMapper.getBoardList(pj_num, user_id);
 	}
 
 
