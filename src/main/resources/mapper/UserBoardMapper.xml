@@ -4,7 +4,6 @@
 
 	<!-- 해당 프로젝트 게시판 리스트 출력 + 검색 -->
 	<select id="getList" resultType="UserBoardVO">
-
 		SELECT
 		T.board_num, T.board_category,
 		T.board_title, T.board_writer,
@@ -100,6 +99,16 @@
 	values( #{vo.pjNum}, #{vo.boardTitle}, #{vo.boardWriter}, 
         #{vo.boardProcess}, #{vo.boardStartdate}, #{vo.boardEnddate},
         #{vo.boardContent}, #{vo.boardCategory})
+	</insert>
+	
+	<!-- 파일 등록 -->
+	<insert id="fileUploadList" parameterType="fileVO">
+		<selectKey keyProperty="boardNum" resultType="int" order="BEFORE">
+				SELECT MAX(board_num) from user_board
+		</selectKey>
+		insert into user_boardfile (
+		board_num, boardfile_path, boardfile_name)
+		values (#{boardNum}, #{boardfilePath}, #{boardfileName})
 	</insert>
 	
 	<!-- boardList에서 observer 값 받아오기 -->
