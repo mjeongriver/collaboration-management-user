@@ -213,7 +213,11 @@
 	</insert>
 
 	<select id="getTodoList" resultType="UserScheduleVO">
-		select user_todo,user_tododate,user_todotime,todo_writer from user_schedule where todo_writer=#{todo_writer}
+		select todo_num,user_todo,user_tododate,user_todotime,todo_writer from user_schedule where todo_writer=#{todo_writer}
 	</select>
+
+	<delete id="deleteTodo" parameterType="int">
+		delete from user_schedule where todo_num = #{todoNum}
+	</delete>
 
 </mapper>

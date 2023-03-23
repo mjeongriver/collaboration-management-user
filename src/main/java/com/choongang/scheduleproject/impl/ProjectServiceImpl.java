@@ -166,5 +166,11 @@ public class ProjectServiceImpl implements ProjectService {
 
 	}
 
+	@Override
+	public int deleteTodo(int todoNum) {
+
+		return projectMapper.deleteTodo(todoNum);
+	}
+
 
 }
