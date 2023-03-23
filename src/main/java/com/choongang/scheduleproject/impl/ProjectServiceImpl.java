@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ChatVO;
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.UserBoardVO;
+import com.choongang.scheduleproject.command.UserScheduleVO;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.project.service.ProjectMapper;
 import com.choongang.scheduleproject.project.service.ProjectService;
@@ -145,6 +147,22 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public int deleteProjectMember(ProjectVO vo) {
 		return projectMapper.deleteProjectMember(vo);
+
+  @Override
+	public ArrayList<UserBoardVO> getBoardList(String pj_num, String user_id) {
+		return projectMapper.getBoardList(pj_num, user_id);
+	}
+
+	@Override
+	public int addSchedule(UserScheduleVO vo) {
+		return projectMapper.addSchedule(vo);
+	}
+
+	@Override
+	public ArrayList<UserScheduleVO> getTodoList(String todo_writer) {
+
+		return projectMapper.getTodoList(todo_writer);
+
 	}
 
 

@@ -8,13 +8,12 @@
 
 	<div class="pagetitle">
 			<h1 class="card-title">
-					<i class="bx bxs-star"></i> [[${pjVO.pjName}]]
+					 [[${pjVO.pjName}]]
 				</h1>
 				<h6 style="padding-bottom: 20px">
-					<i class="ri-bookmark-fill"></i> [[${pjVO.pjDescription}]]
+					 [[${pjVO.pjDescription}]]
 				</h6>
 				<nav>
-
 
 					<!-- Bordered Tabs Justified -->
 					<ul class="nav nav-tabs nav-tabs-bordered d-flex"
@@ -53,191 +52,127 @@
 			<!-- End Page Title -->
 
 
-    <div class="pagetitle">
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active">팀 진척률 보기</li>
-          <li class="breadcrumb-item" th:onclick="|location.href='@{/project/project-user-my-chart(pj_num=${param.pj_num})}'|" style="cursor:pointer">내 진척률 보기</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+		    <div class="pagetitle">
+		      <nav>
+		        <ol class="breadcrumb">
+		          <li class="breadcrumb-item active">팀 진척률 보기</li>
+		          <li class="breadcrumb-item" th:onclick="|location.href='@{/project/project-user-my-chart(pj_num=${param.pj_num})}'|" style="cursor:pointer">내 진척률 보기</li>
+		        </ol>
+		      </nav>
+		    </div><!-- End Page Title -->
+
+	         <div class="col-lg-12">
+	          <div class="card">
+	            <div class="card-body">
+	              <h5 class="card-title">항목 별 통계</h5>
+					<div id="chart-null"></div>
+	              <!-- Doughnut Chart -->
+	              <canvas id="doughnutChart" style="max-height: 400px;"></canvas>
+	              <script>
+	                document.addEventListener("DOMContentLoaded", () => {
+	                	//ajax로 통계 수치 요청
+	                  $.ajax({
+	                	  url:'../get-team-category-chart?pj_num=[[${pjVO.pjNum}]]',
+	                	  type:'get',
+	                	  success:function(result){
+	                		  var data = JSON.parse(result);//JSON 변환
+								//가져온 json 데이터로 대입해줌
+
+			                  new Chart(document.querySelector('#doughnutChart'), {
+			                    type: 'doughnut',
+			                    data: {
+			                      labels: data.category, //카테고리 데이터
+			                      datasets: [{
+			                        label: '진행률',
+			                        data: data.progress, //진행률 데이터
+			                        backgroundColor: [
+			                          'rgb(255, 99, 132)',
+			                          'rgb(75, 192, 192)',
+			                          'rgb(54, 162, 235)',
+			                          'rgb(255, 205, 86)'
+			                        ],
+			                        hoverOffset: 4
+			                      }]
+			                    }
+			                  });
 
 
-		 <section class="section">
-      <div class="row">
+	                	  },
+	                	  error:function() {
 
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">주 단위 진척률</h5>
+	                	  }
+	                  });
+			        });
+	              </script>
+	              <!-- End Doughnut CHart -->
 
-              <!-- Line Chart -->
-              <canvas id="lineChart" style="max-height: 400px;"></canvas>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#lineChart'), {
-                    type: 'line',
-                    data: {
-                      labels: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
-                      datasets: [{
-                        label: '요일별',
-                        data: [65, 59, 80, 81, 56, 55, 40],
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                      }]
-                    },
-                    options: {
-                      scales: {
-                        y: {
-                          beginAtZero: true
-                        }
-                      }
-                    }
-                  });
-                });
-              </script>
-              <!-- End Line CHart -->
+	            </div>
+	          </div>
+	        </div>
 
-            </div>
-          </div>
-        </div>
+	        <div class="col-lg-12">
+	          <div class="card">
+	            <div class="card-body">
+	              <h5 class="card-title">팀원 별 진척률</h5>
 
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">월 단위 진척률</h5>
+	              <!-- Polar Area Chart -->
+	              <canvas id="barChart" style="max-height: 400px;"></canvas>
+	              <script>
+	                document.addEventListener("DOMContentLoaded", () => {
+	                	$.ajax({
+	                		url:'../get-team-member-chart?pj_num=[[${pjVO.pjNum}]]',
+	                		type:'get',
+	                		success:function(result){ // 해당 팀 인원과 진행률 데이터 가져옴
+	                		  var data = JSON.parse(result); // 데이터 json으로 변환
+	                		  new Chart(document.querySelector('#barChart'), {
+	      	                    type: 'bar',
+	      	                    data: {
+	      	                      labels: data.userName, //팀원 표현
+	      	                      datasets: [{
+	      	                        label: '진행률',
+	      	                        data: data.progress, //진척률표현
+	      	                        backgroundColor: [
+	      	                          'rgba(255, 99, 132, 0.2)',
+	      	                          'rgba(255, 159, 64, 0.2)',
+	      	                          'rgba(255, 205, 86, 0.2)',
+	      	                          'rgba(75, 192, 192, 0.2)',
+	      	                          'rgba(54, 162, 235, 0.2)',
+	      	                          'rgba(153, 102, 255, 0.2)',
+	      	                          'rgba(201, 203, 207, 0.2)'
+	      	                        ],
+	      	                        borderColor: [
+	      	                          'rgb(255, 99, 132)',
+	      	                          'rgb(255, 159, 64)',
+	      	                          'rgb(255, 205, 86)',
+	      	                          'rgb(75, 192, 192)',
+	      	                          'rgb(54, 162, 235)',
+	      	                          'rgb(153, 102, 255)',
+	      	                          'rgb(201, 203, 207)'
+	      	                        ],
+	      	                        borderWidth: 1
+	      	                      }]
+	      	                    },
+	      	                    options: {
+	      	                      scales: {
+	      	                        y: {
+	      	                          beginAtZero: true,
+	      	                          max:100
+	      	                        }
+	      	                      }
+	      	                    }
+	      	                  });
+	                		},
+	                		error:function(){
 
-              <!-- Bar Chart -->
-              <canvas id="barChart" style="max-height: 400px;"></canvas>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#barChart'), {
-                    type: 'bar',
-                    data: {
-                      labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                      datasets: [{
-                        label: '월 별',
-                        data: [65, 59, 80, 81, 56, 55, 40, 35, 25, 15, 15, 24],
-                        backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(255, 159, 64, 0.2)',
-                          'rgba(255, 205, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(201, 203, 207, 0.2)'
-                        ],
-                        borderColor: [
-                          'rgb(255, 99, 132)',
-                          'rgb(255, 159, 64)',
-                          'rgb(255, 205, 86)',
-                          'rgb(75, 192, 192)',
-                          'rgb(54, 162, 235)',
-                          'rgb(153, 102, 255)',
-                          'rgb(201, 203, 207)'
-                        ],
-                        borderWidth: 1
-                      }]
-                    },
-                    options: {
-                      scales: {
-                        y: {
-                          beginAtZero: true
-                        }
-                      }
-                    }
-                  });
-                });
-              </script>
-              <!-- End Bar CHart -->
+	                		}
+	                	})
+	                });
+	              </script>
+	              <!-- End Polar Area Chart -->
 
-            </div>
-          </div>
-        </div>
-
-         <div class="col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">항목 별 통계</h5>
-
-              <!-- Doughnut Chart -->
-              <canvas id="doughnutChart" style="max-height: 400px;"></canvas>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#doughnutChart'), {
-                    type: 'doughnut',
-                    data: {
-                      labels: [
-                        '개발1',
-                        '개발2',
-                        '개발3'
-                      ],
-                      datasets: [{
-                        label: 'My First Dataset',
-                        data: [300, 50, 100],
-                        backgroundColor: [
-                          'rgb(255, 99, 132)',
-                          'rgb(54, 162, 235)',
-                          'rgb(255, 205, 86)'
-                        ],
-                        hoverOffset: 4
-                      }]
-                    }
-                  });
-                });
-              </script>
-              <!-- End Doughnut CHart -->
-
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">팀원 별 진척률</h5>
-
-              <!-- Polar Area Chart -->
-              <canvas id="polarAreaChart" style="max-height: 400px;"></canvas>
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#polarAreaChart'), {
-                    type: 'polarArea',
-                    data: {
-                      labels: [
-                        '강민정',
-                        '권도은',
-                        '이세민',
-                        '이동민',
-                        '이승완',
-                        '이서윤'
-                      ],
-                      datasets: [{
-                        label: 'My First Dataset',
-                        data: [15, 15, 15, 15, 20, 20],
-                        backgroundColor: [
-                          'rgb(255, 99, 132)',
-                          'rgb(75, 192, 192)',
-                          'rgb(255, 205, 86)',
-                          'rgb(201, 203, 207)',
-                          'rgb(54, 162, 235)',
-                          'rgb(33, 34, 35)'
-                        ]
-                      }]
-                    }
-                  });
-                });
-              </script>
-              <!-- End Polar Area Chart -->
-
-            </div>
-          </div>
-        </div>
-
-         </div>
-    </section>
-
+	            </div>
+	          </div>
+	        </div>
 
 
   </main><!-- End #main -->

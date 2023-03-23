@@ -153,6 +153,7 @@ $(document).ready(function() {
 //프로필 사진 다운로드하기
 function downloadMyProfileImg() {
 	let myProfileImg = document.getElementById("myProfileImg").src;
+	console.log(myProfileImg);
 	location.href = "../aws/profile-download?myProfileImg=" + myProfileImg;
 }
 

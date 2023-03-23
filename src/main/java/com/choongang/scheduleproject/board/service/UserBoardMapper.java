@@ -3,10 +3,12 @@ package com.choongang.scheduleproject.board.service;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.choongang.scheduleproject.command.FileVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserBoardMapper {
@@ -28,10 +30,11 @@ public interface UserBoardMapper {
 	
 	/***
 	 * 
-	 * @param vo
+	 * @param map
 	 * @return int
 	 */
 	public int getContent(Map<String, Object> map); //글 등록
+	
 	
 	/***
 	 * 
@@ -39,5 +42,28 @@ public interface UserBoardMapper {
 	 * @return ArrayList
 	 */
 	public ArrayList<ProjectVO> getObserver(int pj_num); //옵저버
+	
+	/***
+	 * 
+	 * @param vo
+	 * @return int
+	 */
+	public int fileUploadList(FileVO vo); //파일 업로드
+	
+	/***
+	 * 
+	 * @param pj_num
+	 * @param board_num
+	 * @return vo
+	 */
+	public UserBoardVO detailContent(@Param("pjNum") int pj_num, @Param("boardNum") int board_num);
+	
+	/***
+	 * 
+	 * @param board_num
+	 * @return ArrayList
+	 */
+	public ArrayList<FileVO> fileList(int board_num);
+	
 	
 }

@@ -18,13 +18,13 @@
                                 <h5 class="card-title">글 작성</h5>
 
                                 <form id="boardRegistForm" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" id="pjNum" name="${pj_num}">
+                                    <input type="hidden" id="pjNum" th:name="pjNum" th:value="${pjNum}">
 
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">카테고리</label>
                                         <div class="col-sm-10">
 
-                                            <select id="categorySelect" class="form-select me-2" style="height: 34px; font-size: 100%; padding: 6px 12px;">
+                                            <select id="categorySelect" name="categorySelect" class="form-select me-2" style="height: 34px; font-size: 100%; padding: 6px 12px;">
                                                 <option value="개발">개발</option>
                                                 <option value="기획">기획</option>
                                                 <option value="논의">논의</option>
@@ -37,7 +37,7 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">진행 과정</label>
                                         <div class="col-sm-10">
-                                            <select id="processSelect" class="form-select" style="height: 34px; font-size: 100%; padding: 6px 12px;">
+                                            <select id="processSelect" name="processSelect" class="form-select" style="height: 34px; font-size: 100%; padding: 6px 12px;">
                                                 <option value="진행">진행</option>
                                                 <option value="완료">완료</option>
                                             </select>
@@ -47,7 +47,7 @@
                                     <div class="row mb-3">
                                         <label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
                                         <div class="col-sm-10">
-                                            <span name="writer" th:id="${session.user_id}" th:value="${session.user_name}" type="text" class="form-control">[[${session.user_name}]]</span>
+                                            <span id="writer" th:name="${session.user_id}" th:value="${session.user_name}" type="text" class="form-control">[[${session.user_name}]]</span>
                                         </div>
                                     </div>
 
@@ -84,41 +84,24 @@
                                         </div>
                                     </div>
 
-                                   <div class="row mb-3">
+                                    <div class="row mb-3">
                                         <label for="inputDescription" class="col-sm-2 col-form-label">세부 내용</label>
                                         <div class="col-sm-10">
                                             <div>
                                                 <textarea id="summernote" name="description"></textarea>
-                                            	<span id="contentWarning" style="color: red; font-size: 14px; float: right;"></span>
+                                                <span id="contentWarning" style="color: red; font-size: 14px; float: right;"></span>
                                             </div>
                                         </div>
                                     </div> 
-                                    
-                                    <!-- <div class="row mb-3">
-                                        <label for="inputDescription" class="col-sm-2 col-form-label">세부 내용</label>
-                                        <div class="col-sm-10">
-                                            <div>
-                                                <textarea name="description"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>  -->
-
                                     <div class="row mb-3">
-
                                         <div style="width:100%;">
                                             <button type="submit" id="boardSuccess" class="btn btn-primary" style="float:right;">작성 완료</button>
                                         </div>
                                     </div>
-
                                 </form>
-
                             </div>
                         </div> <!-- card end -->
-
                     </div>
-
-
-
                 </div>
 
             </section>

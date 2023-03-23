@@ -13,8 +13,7 @@
 		#{pjEnddate}, #{pjDescription},
 		#{pjWriter})
 
-		<selectKey keyProperty="pjNum" resultType="int"
-			order="AFTER">
+		<selectKey keyProperty="pjNum" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
@@ -22,8 +21,7 @@
 	<insert id="registMember" parameterType="ProjectMemberVO">
 		INSERT INTO MAPPING
 		(pj_num, user_id, is_observer)
-		VALUES (#{pjNum}, #{userId},
-		#{isObserver})
+		VALUES (#{pjNum}, #{userId}, #{isObserver})
 	</insert>
 
 	<!-- 부서 목록 -->
@@ -142,7 +140,7 @@
 		delete from
 		user_project where pj_num=#{pj_num}
 	</delete>
-
+	<!-- 해당 pj에 본인이 멤버인지 체크 -->
 	<select id="checkMember" resultType="string">
 		select user_id from mapping where user_id=#{user_id} and pj_num=#{pj_num};
 	</select>
@@ -201,5 +199,21 @@
 		from mapping
 		where user_id = #{userId} and pj_num = #{pjNum}
 	</delete>
-	
+
+	<!-- 캘린더 구현시  -->
+	<select id="getBoardList" resultType="UserBoardVO">
+		select board_title,board_writer,board_regdate,board_process,board_startdate,CONCAT(DATE_ADD(STR_TO_DATE(board_enddate, '%Y-%m-%d'), INTERVAL 1 DAY), '') AS board_enddate,board_content,board_category
+			from user_board where pj_num=#{pj_num} and board_writer=#{user_id} order by board_startdate;
+	</select>
+
+	<insert id="addSchedule" parameterType="UserScheduleVO">
+		insert into user_schedule
+		(todo_writer,user_todo,user_tododate,user_todotime) values
+		(#{todoWriter},#{userTodo},#{userTododate},#{userTodotime})
+	</insert>
+
+	<select id="getTodoList" resultType="UserScheduleVO">
+		select user_todo,user_tododate,user_todotime,todo_writer from user_schedule where todo_writer=#{todo_writer}
+	</select>
+
 </mapper>

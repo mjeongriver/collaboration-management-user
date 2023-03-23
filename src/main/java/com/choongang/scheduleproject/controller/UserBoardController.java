@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.choongang.scheduleproject.board.service.AdminNoticeService;
 import com.choongang.scheduleproject.board.service.UserBoardService;
 import com.choongang.scheduleproject.command.AdminNoticeListVO;
+import com.choongang.scheduleproject.command.FileVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.command.UserVO;
@@ -72,7 +74,9 @@ public class UserBoardController {
 	}
 
 	@GetMapping("/board-regist")
-	public String boardRegist() {
+	public String boardRegist(Model model,	
+							  @RequestParam("pj_num") int pjNum) {
+		model.addAttribute("pjNum", pjNum);
 		return "/userboards/board-regist";
 	}
 	
@@ -82,7 +86,18 @@ public class UserBoardController {
 	}
 
 	@GetMapping("/board-content")
-	public String boardContent() {
+	public String boardContent(Model model,
+								@RequestParam("pj_num") int pjNum,
+								@RequestParam("board_num") int boardNum) {
+		
+		UserBoardVO userBoardVO = userBoardService.detailContent(pjNum, boardNum);
+		model.addAttribute("pjNum", pjNum);
+		model.addAttribute("boardNum", boardNum);
+		model.addAttribute(userBoardVO);
+		ArrayList<FileVO> fileList = userBoardService.fileList(boardNum);
+		model.addAttribute("fileList", fileList);                 
+		System.out.println(fileList.toString());
+		System.out.println(userBoardVO.toString());
 		return "/userboards/board-content";
 	}
 

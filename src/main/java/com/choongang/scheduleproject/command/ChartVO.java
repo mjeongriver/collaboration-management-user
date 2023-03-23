@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class FileVO {
-	private int boardNum;
-	private String boardfilePath;
-	private String boardfileName;
-	private boolean boardDcheck;
+public class ChartVO {
+
+	private String userName;
+	private String progress;
+	private String boardCategory;
 }
