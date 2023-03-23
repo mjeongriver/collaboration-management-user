@@ -166,12 +166,12 @@ public class ProjectAjaxController {
 
 		return projectService.addSchedule(vo);
 	}
-	
+
 	//프로젝트 수정 - 멤버 추가
 	@PostMapping("/add-project-member")
-	public int addProjectMember(@RequestParam(value="dbArray[]")List<String> dbList, @RequestParam("pjNum") int pjNum) {		
+	public int addProjectMember(@RequestParam(value="dbArray[]")List<String> dbList, @RequestParam("pjNum") int pjNum) {
 		ProjectVO vo = new ProjectVO();
-		
+
 		//ArrayList<ProjectVO> list = new ArrayList<ProjectVO>();
 		for(int i = 0; i < dbList.size(); i++) {
 			vo.setUserId(dbList.get(i));
@@ -180,15 +180,15 @@ public class ProjectAjaxController {
 			if(result != 1) {
 				return i;
 			}
-		}				
+		}
 		return -1;
 	}
-	
+
 	//프로젝트 수정 - 멤버 삭제
 	@PostMapping("/delete-project-member")
 	public int deleteProjectMember(@RequestParam(value="dbArray[]")List<String> dbList, @RequestParam("pjNum") int pjNum) {
 		ProjectVO vo = new ProjectVO();
-		
+
 		for(int i = 0; i < dbList.size(); i++) {
 			vo.setUserId(dbList.get(i));
 			vo.setPjNum(pjNum);
@@ -199,25 +199,25 @@ public class ProjectAjaxController {
 		}
 		return -1;
 	}
-	
-	
+
+
 	//프로젝트 수정 - 멤버 권한 변경
 	@PostMapping("/change-member-authority")
 	public int changeMemberAuthority(@RequestParam("userId") String userId,
 									 @RequestParam("isObserver") int isObserver,
 									 @RequestParam("pjNum") int pjNum) {
-		
+
 		ProjectVO vo = new ProjectVO();
-		
+
 		vo.setUserId(userId);
 		vo.setPjNum(pjNum);
-		
+
 		if(isObserver == 0) {
 			vo.setObserver(false);
 		} else {
 			vo.setObserver(true);
 		}
-				
+
 		return projectService.changeMemberAuthority(vo);
 	}
 
@@ -227,6 +227,12 @@ public class ProjectAjaxController {
 		HttpSession session = request.getSession();
 		String todo_writer = (String)session.getAttribute("user_id");
 		return projectService.getTodoList(todo_writer);
+	}
+
+	@PostMapping("/delete-todo")
+	public int deleteTodo(@RequestParam("todo_num") int todoNum) {
+
+		return projectService.deleteTodo(todoNum);
 	}
 
 }
