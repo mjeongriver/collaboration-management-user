@@ -65,8 +65,7 @@
 
                                 <div style="float: right; width: 100%; margin-top:20px">
                                     <span>시간</span>
-
-                                    <input id="user-todotime" type="time" class="form-control" name="user_todotime" required>
+                                    <input id="user-todotime" type="time" step="600" class="form-control" name="user_todotime" required>
                                 </div>
 
                             </div>
@@ -109,7 +108,9 @@
     var list = [];
 
     function insertTodo() {
-
+		if(userTodo.value == '' || userTododate.value =='' || userTodotime.value =='') {
+			alert("모든 내용을 입력해주세요.");
+		} else {
         $.ajax({
             url: "../add-schedule",
             type: "post",
@@ -123,12 +124,14 @@
             dataType: "json",
             success: function(e) {
                 document.getElementById('user-todo').value = '';
+                document.getElementById('user-todotime').value = '';
                 alert("등록이 완료되었습니다.")
                 list = [];
                 addTodo();
                 load();
             }
         })
+		}
     }
 
 
@@ -144,6 +147,7 @@
 
 
     function addTodo() {
+
         $.ajax({
             url: "../get-todo-list",
             async: false,
