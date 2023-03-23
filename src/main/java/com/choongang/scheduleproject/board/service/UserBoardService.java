@@ -13,7 +13,7 @@ public interface UserBoardService {
 	/***
 	 * 
 	 * @param map
-	 * @return ArrayList
+	 * @return UserBoardVO
 	 */
 	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
 
@@ -42,7 +42,7 @@ public interface UserBoardService {
 	/***
 	 * 
 	 * @param pj_num
-	 * @return ArrayList
+	 * @return ProjectVO
 	 */
 	public ArrayList<ProjectVO> getObserver(int pj_num); //옵저버 멤버 
 	
@@ -50,14 +50,14 @@ public interface UserBoardService {
 	 * 
 	 * @param pj_num
 	 * @param board_num
-	 * @return vo
+	 * @return UserBoardVO
 	 */
 	public UserBoardVO detailContent(int pj_num, int board_num); //글 상세 내용 가져오기
 	
 	/***
 	 * 
 	 * @param board_num
-	 * @return vo
+	 * @return FileVO
 	 */
 	public ArrayList<FileVO> fileList(int board_num);
 

@@ -147,6 +147,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public int deleteProjectMember(ProjectVO vo) {
 		return projectMapper.deleteProjectMember(vo);
+	}
 
   @Override
 	public ArrayList<UserBoardVO> getBoardList(String pj_num, String user_id) {

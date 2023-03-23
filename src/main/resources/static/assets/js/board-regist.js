@@ -14,7 +14,7 @@ $(document).ready(function() {
             ['height', ['height']]
         ]
     });
-
+	
 });
 
 //파일 이름 목록에 추가 
