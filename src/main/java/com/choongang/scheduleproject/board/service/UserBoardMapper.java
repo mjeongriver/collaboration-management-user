@@ -16,7 +16,7 @@ public interface UserBoardMapper {
 	/***
 	 * 
 	 * @param map
-	 * @return ArrayList
+	 * @return UserBoardVO
 	 */
 	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
 	
@@ -39,13 +39,13 @@ public interface UserBoardMapper {
 	/***
 	 * 
 	 * @param pj_num
-	 * @return ArrayList
+	 * @return ProjectVO
 	 */
 	public ArrayList<ProjectVO> getObserver(int pj_num); //옵저버
 	
 	/***
 	 * 
-	 * @param vo
+	 * @param FileVO
 	 * @return int
 	 */
 	public int fileUploadList(FileVO vo); //파일 업로드
@@ -54,14 +54,14 @@ public interface UserBoardMapper {
 	 * 
 	 * @param pj_num
 	 * @param board_num
-	 * @return vo
+	 * @return UserBoardVO
 	 */
 	public UserBoardVO detailContent(@Param("pjNum") int pj_num, @Param("boardNum") int board_num);
 	
 	/***
 	 * 
 	 * @param board_num
-	 * @return ArrayList
+	 * @return FileVO
 	 */
 	public ArrayList<FileVO> fileList(int board_num);
 	

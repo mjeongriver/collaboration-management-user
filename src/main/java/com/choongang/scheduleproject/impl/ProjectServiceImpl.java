@@ -148,6 +148,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public int deleteProjectMember(ProjectVO vo) {
 		return projectMapper.deleteProjectMember(vo);
 	}
+
   @Override
 	public ArrayList<UserBoardVO> getBoardList(String pj_num, String user_id) {
 		return projectMapper.getBoardList(pj_num, user_id);
@@ -164,10 +165,6 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.getTodoList(todo_writer);
 
 	}
-
-
-
-
 
 
 }
