@@ -190,7 +190,7 @@
                         'start': response[i].boardStartdate,
                         'end': response[i].boardEnddate,
                         'backgroundColor': colorList[colorCount],
-                        'url': '../../userboards/board-content?pj_num=' + pj_num,
+                        'url': '../../userboards/board-content?pj_num=' + pj_num + '&board_num='+ response[i].boardNum,
                         'borderColor': '#fff'
                     })
                     colorCount++;
