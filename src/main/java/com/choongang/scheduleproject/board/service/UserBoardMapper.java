@@ -8,6 +8,7 @@ import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserBoardMapper {
@@ -47,6 +48,22 @@ public interface UserBoardMapper {
 	 * @param vo
 	 * @return int
 	 */
-	public int fileUploadList(FileVO vo);
+	public int fileUploadList(FileVO vo); //파일 업로드
+	
+	/***
+	 * 
+	 * @param pj_num
+	 * @param board_num
+	 * @return vo
+	 */
+	public UserBoardVO detailContent(@Param("pjNum") int pj_num, @Param("boardNum") int board_num);
+	
+	/***
+	 * 
+	 * @param board_num
+	 * @return ArrayList
+	 */
+	public ArrayList<FileVO> fileList(int board_num);
+	
 	
 }

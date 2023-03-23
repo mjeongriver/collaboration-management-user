@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class UserBoardVO {
 
 	private int boardNum;
+	private int rowNum;
 	
 	@JsonProperty("pj_num")
 	private int pjNum;

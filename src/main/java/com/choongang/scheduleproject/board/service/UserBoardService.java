@@ -37,7 +37,7 @@ public interface UserBoardService {
 	 * @param fvoList
 	 * @return int
 	 */
-	public int fileUploadList(List<FileVO> fvoList);
+	public int fileUploadList(List<FileVO> fvoList); //파일 업로드
 	
 	/***
 	 * 
@@ -45,6 +45,21 @@ public interface UserBoardService {
 	 * @return ArrayList
 	 */
 	public ArrayList<ProjectVO> getObserver(int pj_num); //옵저버 멤버 
+	
+	/***
+	 * 
+	 * @param pj_num
+	 * @param board_num
+	 * @return vo
+	 */
+	public UserBoardVO detailContent(int pj_num, int board_num); //글 상세 내용 가져오기
+	
+	/***
+	 * 
+	 * @param board_num
+	 * @return vo
+	 */
+	public ArrayList<FileVO> fileList(int board_num);
 
 
 }
