@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.choongang.scheduleproject.command.ProjectMemberVO;
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
+import com.choongang.scheduleproject.command.UserScheduleVO;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.project.service.ProjectService;
 import com.choongang.scheduleproject.user.service.UserService;
@@ -150,5 +151,28 @@ public class ProjectAjaxController {
 		return projectService.getBoardList(pj_num, user_id);
 	}
 
+	@PostMapping("/add-schedule")
+	public int addSchedule(	@RequestParam("user_todo") String userTodo,
+							@RequestParam("user_tododate") String userTododate,
+							@RequestParam("user_todotime") String userTodotime,
+							HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String user_id = (String)session.getAttribute("user_id");
+		UserScheduleVO vo = new UserScheduleVO();
+		vo.setUserTodo(userTodo);
+		vo.setTodoWriter(user_id);
+		vo.setUserTododate(userTododate);
+		vo.setUserTodotime(userTodotime);
+
+		return projectService.addSchedule(vo);
+	}
+
+	@GetMapping("/get-todo-list")
+	public ArrayList<UserScheduleVO> getTodoList(HttpServletRequest request){
+
+		HttpSession session = request.getSession();
+		String todo_writer = (String)session.getAttribute("user_id");
+		return projectService.getTodoList(todo_writer);
+	}
 
 }

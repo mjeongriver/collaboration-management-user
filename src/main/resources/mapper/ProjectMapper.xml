@@ -151,6 +151,15 @@
 			from user_board where pj_num=#{pj_num} and board_writer=#{user_id} order by board_startdate;
 	</select>
 
+	<insert id="addSchedule" parameterType="UserScheduleVO">
+		insert into user_schedule
+		(todo_writer,user_todo,user_tododate,user_todotime) values
+		(#{todoWriter},#{userTodo},#{userTododate},#{userTodotime})
+	</insert>
+
+	<select id="getTodoList" resultType="UserScheduleVO">
+		select user_todo,user_tododate,user_todotime,todo_writer from user_schedule where todo_writer=#{todo_writer}
+	</select>
 
 
 </mapper>
