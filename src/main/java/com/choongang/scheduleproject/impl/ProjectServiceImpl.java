@@ -120,14 +120,41 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ArrayList<UserBoardVO> getBoardList(String pj_num, String user_id) {
+	public ProjectVO getProjectDetail(int pj_num) {
+		return projectMapper.getProjectDetail(pj_num);
+	}
+	
+	@Override
+	public ArrayList<ProjectVO> getProjectDetailMember(int pj_num) {
+		return projectMapper.getProjectDetailMember(pj_num);
+	}
 
+	@Override
+	public int changeProjectDetail(ProjectVO vo) {
+		return projectMapper.changeProjectDetail(vo);
+	}
+
+	@Override
+	public int changeMemberAuthority(ProjectVO vo) {
+		return projectMapper.changeMemberAuthority(vo);
+	}
+
+	@Override
+	public int addProjectMember(ProjectVO vo) {
+		return projectMapper.addProjectMember(vo);
+	}
+
+	@Override
+	public int deleteProjectMember(ProjectVO vo) {
+		return projectMapper.deleteProjectMember(vo);
+
+  @Override
+	public ArrayList<UserBoardVO> getBoardList(String pj_num, String user_id) {
 		return projectMapper.getBoardList(pj_num, user_id);
 	}
 
 	@Override
 	public int addSchedule(UserScheduleVO vo) {
-
 		return projectMapper.addSchedule(vo);
 	}
 
@@ -135,6 +162,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public ArrayList<UserScheduleVO> getTodoList(String todo_writer) {
 
 		return projectMapper.getTodoList(todo_writer);
+
 	}
 
 

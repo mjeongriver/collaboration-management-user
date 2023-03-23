@@ -144,6 +144,61 @@
 	<select id="checkMember" resultType="string">
 		select user_id from mapping where user_id=#{user_id} and pj_num=#{pj_num};
 	</select>
+	
+	<!-- 프로젝트 상세내용 가져오기 -->
+	<select id="getProjectDetail" resultType="ProjectVO">
+		select pj_num,
+		pj_name,
+		pj_description,
+		pj_startdate,
+		pj_enddate
+		from user_project
+		where pj_num = #{pjNum}
+	</select>
+	
+	<!-- 프로젝트의 멤버 가져오기 -->
+	<select id="getProjectDetailMember" resultType="ProjectVO">
+		select m.user_id,
+		m.is_observer,
+		u.user_name
+		from mapping m
+		left join user_user u
+		on m.user_id = u.user_id
+		where pj_num = #{pjNum}
+	</select>
+	
+	<!-- 프로젝트 상세내용 수정하기 -->
+	<update id="changeProjectDetail" parameterType="ProjectVO">
+		update user_project
+		set pj_startdate = #{pjStartdate}, pj_enddate = #{pjEnddate}, pj_name = #{pjName}, pj_description = #{pjDescription}
+		where pj_num = #{pjNum}
+	</update>
+	
+	<!-- 프로젝트 수정 - 멤버 권한 변경 (팀원, 옵저버) -->
+	<update id="changeMemberAuthority" parameterType="ProjectVO">
+		update mapping
+		set is_observer = 
+		<choose>
+			<when test="isObserver==false">0</when>
+			<otherwise>1</otherwise>
+		</choose>
+		where pj_num = #{pjNum} and user_id = #{userId}
+	</update>
+
+	<!-- 프로젝트 수정 - 멤버 추가하기 -->
+	<insert id="addProjectMember" parameterType="ProjectVO">
+		insert into mapping
+			(pj_num, user_id, is_observer)
+			values
+			(#{pjNum}, #{userId}, 0)
+	</insert>
+	
+	<!-- 프로젝트 수정 - 멤버 삭제하기 -->
+	<delete id ="deleteProjectMember" parameterType="ProjectVO">
+		delete 
+		from mapping
+		where user_id = #{userId} and pj_num = #{pjNum}
+	</delete>
 
 	<!-- 캘린더 구현시  -->
 	<select id="getBoardList" resultType="UserBoardVO">
@@ -160,6 +215,5 @@
 	<select id="getTodoList" resultType="UserScheduleVO">
 		select user_todo,user_tododate,user_todotime,todo_writer from user_schedule where todo_writer=#{todo_writer}
 	</select>
-
 
 </mapper>
