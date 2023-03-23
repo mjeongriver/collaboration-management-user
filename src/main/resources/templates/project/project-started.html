@@ -2,16 +2,6 @@
 
 <th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
 
-<style>
-.hidden {
-  display: none;
-}
-
-.dropdown-menu.show {
-    display: block;
-}
-
-</style>
 
 	<div class="wrap">
 
@@ -270,7 +260,7 @@
 					dataType : "json",
 					success : function(response) {
 
-						for (var i = 0; i < response.length; i++) {
+						for (let i = 0; i < response.length; i++) {
 							if(response[i].chatNum>chatNum){ //갱신한 챗넘보다 높은 챗넘만 추가로 전달
 							chatLength += 1;
 							var str = "";
@@ -444,14 +434,14 @@
 
 	// 실시간 검색 구현
 	function filter() {
-		var search = document.getElementById("search").value.toLowerCase();
-		var listInner = document.getElementById("listInner");
-		var searchUser = document.getElementsByClassName("searchUser");
-		var name = listInner.getElementsByClassName("name");
-		var department = listInner.getElementsByClassName("department");
-		var position = listInner.getElementsByClassName("position");
+		let search = document.getElementById("search").value.toLowerCase();
+		let listInner = document.getElementById("listInner");
+		let searchUser = document.getElementsByClassName("searchUser");
+		let name = listInner.getElementsByClassName("name");
+		let department = listInner.getElementsByClassName("department");
+		let position = listInner.getElementsByClassName("position");
 				
-		for (var i = 0; i < name.length; i++) {
+		for (let i = 0; i < name.length; i++) {
 			if (name[i].innerHTML.toLowerCase().includes(search)
 					|| department[i].innerHTML.toLowerCase().includes(search)
 					|| position[i].innerHTML.toLowerCase().includes(search)) {
