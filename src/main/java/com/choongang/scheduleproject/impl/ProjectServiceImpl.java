@@ -123,7 +123,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectVO getProjectDetail(int pj_num) {
 		return projectMapper.getProjectDetail(pj_num);
 	}
-	
+
 	@Override
 	public ArrayList<ProjectVO> getProjectDetailMember(int pj_num) {
 		return projectMapper.getProjectDetailMember(pj_num);
@@ -165,10 +165,6 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.getTodoList(todo_writer);
 
 	}
-
-
-
-
 
 
 }

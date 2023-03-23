@@ -144,7 +144,7 @@
 	<select id="checkMember" resultType="string">
 		select user_id from mapping where user_id=#{user_id} and pj_num=#{pj_num};
 	</select>
-	
+
 	<!-- 프로젝트 상세내용 가져오기 -->
 	<select id="getProjectDetail" resultType="ProjectVO">
 		select pj_num,
@@ -155,7 +155,7 @@
 		from user_project
 		where pj_num = #{pjNum}
 	</select>
-	
+
 	<!-- 프로젝트의 멤버 가져오기 -->
 	<select id="getProjectDetailMember" resultType="ProjectVO">
 		select m.user_id,
@@ -166,18 +166,18 @@
 		on m.user_id = u.user_id
 		where pj_num = #{pjNum}
 	</select>
-	
+
 	<!-- 프로젝트 상세내용 수정하기 -->
 	<update id="changeProjectDetail" parameterType="ProjectVO">
 		update user_project
 		set pj_startdate = #{pjStartdate}, pj_enddate = #{pjEnddate}, pj_name = #{pjName}, pj_description = #{pjDescription}
 		where pj_num = #{pjNum}
 	</update>
-	
+
 	<!-- 프로젝트 수정 - 멤버 권한 변경 (팀원, 옵저버) -->
 	<update id="changeMemberAuthority" parameterType="ProjectVO">
 		update mapping
-		set is_observer = 
+		set is_observer =
 		<choose>
 			<when test="isObserver==false">0</when>
 			<otherwise>1</otherwise>
@@ -192,17 +192,17 @@
 			values
 			(#{pjNum}, #{userId}, 0)
 	</insert>
-	
+
 	<!-- 프로젝트 수정 - 멤버 삭제하기 -->
 	<delete id ="deleteProjectMember" parameterType="ProjectVO">
-		delete 
+		delete
 		from mapping
 		where user_id = #{userId} and pj_num = #{pjNum}
 	</delete>
 
 	<!-- 캘린더 구현시  -->
 	<select id="getBoardList" resultType="UserBoardVO">
-		select board_title,board_writer,board_regdate,board_process,board_startdate,CONCAT(DATE_ADD(STR_TO_DATE(board_enddate, '%Y-%m-%d'), INTERVAL 1 DAY), '') AS board_enddate,board_content,board_category
+		select board_num,board_title,board_writer,board_regdate,board_process,board_startdate,CONCAT(DATE_ADD(STR_TO_DATE(board_enddate, '%Y-%m-%d'), INTERVAL 1 DAY), '') AS board_enddate,board_content,board_category
 			from user_board where pj_num=#{pj_num} and board_writer=#{user_id} order by board_startdate;
 	</select>
 
