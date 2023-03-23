@@ -198,6 +198,7 @@ public class UserController {
 					//모델에 DB정보를 담아서 화면에 뿌려줌
 					model.addAttribute("vo", result);
 					//세션 부여
+					session.setMaxInactiveInterval(7200); //2시간
 					session.setAttribute("user_name", result.getUserName());
 					session.setAttribute("user_id", result.getUserId());
 					session.setAttribute("user_img", result.getUserImg());
@@ -450,7 +451,12 @@ public class UserController {
 		//메시지 담아서 리다이렉트
 		String msg = result == 1 ? "비밀번호 수정에 성공하였습니다. 다시 로그인해주세요." : "비밀번호 수정에 실패했습니다. 관리자에게 문의하세요.";
 		ra.addFlashAttribute("msg", msg);
-		session.invalidate(); // 세션 만료
+		//session.invalidate(); // 세션 만료
+		session.removeAttribute("user_id");
+		session.removeAttribute("user_name");
+		session.removeAttribute("user_img");
+		session.removeAttribute("user_role");
+		session.removeAttribute("user_method");
 		return "redirect:/user/user-login"; //로그인화면으로	
 	}
 
@@ -471,7 +477,13 @@ public class UserController {
 	//로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes ra) {
-		session.invalidate(); // 세션 만료시키기
+		// session.invalidate(); // 세션 만료시키기
+		session.removeAttribute("user_id");
+		session.removeAttribute("user_name");
+		session.removeAttribute("user_img");
+		session.removeAttribute("user_role");
+		session.removeAttribute("user_method");
+		
 		String msg = "로그아웃되었습니다.";
 		ra.addFlashAttribute("msg", msg);
 		return "redirect:/user/user-login"; //로그인화면으로	
@@ -480,7 +492,12 @@ public class UserController {
 	//카카오 로그인시 로그아웃
 	@GetMapping("kakao-logout")
 	public String kakaoLogout(HttpSession session, RedirectAttributes ra) {
-		session.invalidate();
+		// session.invalidate();
+		session.removeAttribute("user_id");
+		session.removeAttribute("user_name");
+		session.removeAttribute("user_img");
+		session.removeAttribute("user_role");
+		session.removeAttribute("user_method");
 		String msg = "로그아웃되었습니다.";
 		ra.addFlashAttribute("msg", msg);
 		return "redirect:/user/user-login"; //로그인화면으로	
