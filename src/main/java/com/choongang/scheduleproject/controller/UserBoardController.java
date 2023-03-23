@@ -89,6 +89,14 @@ public class UserBoardController {
 								@RequestParam("pj_num") int pjNum,
 								@RequestParam("board_num") int boardNum) {
 		
+		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
+		ArrayList<UserVO> list_user = new ArrayList<>();
+		list_user = projectService.getProjectMember(pjNum);
+
+		ProjectVO pjVO = projectService.getProject(pjNum);				
+		model.addAttribute("pjVO",pjVO);
+		model.addAttribute("list",list_user);
+		
 		UserBoardVO userBoardVO = userBoardService.detailContent(pjNum, boardNum);
 		model.addAttribute("pjNum", pjNum);
 		model.addAttribute("boardNum", boardNum);
