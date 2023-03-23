@@ -49,8 +49,23 @@ public class UserBoardServiceImpl implements UserBoardService{
 			result = userBoardMapper.fileUploadList(vo);
 		}
 		return result;
-
 	}
+
+	@Override
+	public UserBoardVO detailContent(int pj_num, int board_num) {
+		return userBoardMapper.detailContent(pj_num, board_num);
+	}
+
+	@Override
+	public ArrayList<FileVO> fileList(int board_num) {
+		return userBoardMapper.fileList(board_num);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

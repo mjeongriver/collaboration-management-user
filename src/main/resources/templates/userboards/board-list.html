@@ -7,6 +7,7 @@
                     [[${pjVO.pjName}]] </h1>
                 <h6 style="padding-bottom: 20px">
                     [[${pjVO.pjDescription}]] </h6>
+                    
                 <!-- 프로젝트 이름과 상세 내용 아래 메뉴 -->
                 <nav>
                     <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
@@ -39,6 +40,7 @@
                                             <div style="border: 1px solid #E0E5EE; border-radius: 15px;">
                                                 <!-- 검색키워드 화면에서 유지시킴 -->
                                                 <input type="hidden" name="pj_num" th:value="${pjNum}">
+                                                
                                                 <select name="searchType" id="searchType" class="form-select" style="float: left; height: 34px; width: 120px; margin: 10px; border: none">
                                                     <option value="" th:selected="${pageVO.cri.searchType==''}">전체</option>
                                                     <option value="boardCategory" th:selected="${pageVO.cri.searchType=='boardCategory'}">카테고리</option>
@@ -103,13 +105,13 @@
                                             <th:block th:each="boardVO, status : ${boardList}">
                                                 <tr>
                                                     <th scope="row" style="border: 1px solid; border-color: inherit; text-align: center;">
-                                                        [[${boardVO.boardNum}]]
+                                                        [[${boardVO.rowNum}]]
                                                     </th>
                                                     <td style="border: 1px solid; border-color: inherit; text-align: center;">
                                                         [[${boardVO.boardCategory}]]
                                                     </td>
                                                     <td style="border: 1px solid; width: 20%; border-color: inherit;">
-                                                        <a href="board-content">[[${boardVO.boardTitle}]]</a>
+                                                        <a th:href="@{board-content(pj_num=${pjNum}, board_num=${boardVO.boardNum})}">[[${boardVO.boardTitle}]]</a> 
                                                     </td>
                                                     <td style="border: 1px solid; width: 10%; border-color: inherit; text-align: center;">
                                                         [[${boardVO.userName}]]

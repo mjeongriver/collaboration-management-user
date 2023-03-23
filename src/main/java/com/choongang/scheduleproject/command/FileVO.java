@@ -13,4 +13,5 @@ public class FileVO {
 	private int boardNum;
 	private String boardfilePath;
 	private String boardfileName;
+	private boolean boardDcheck;
 }
