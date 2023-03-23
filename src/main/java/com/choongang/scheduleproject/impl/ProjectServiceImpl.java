@@ -117,6 +117,36 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.checkMember(pj_num, user_id);
 	}
 
+	@Override
+	public ProjectVO getProjectDetail(int pj_num) {
+		return projectMapper.getProjectDetail(pj_num);
+	}
+	
+	@Override
+	public ArrayList<ProjectVO> getProjectDetailMember(int pj_num) {
+		return projectMapper.getProjectDetailMember(pj_num);
+	}
+
+	@Override
+	public int changeProjectDetail(ProjectVO vo) {
+		return projectMapper.changeProjectDetail(vo);
+	}
+
+	@Override
+	public int changeMemberAuthority(ProjectVO vo) {
+		return projectMapper.changeMemberAuthority(vo);
+	}
+
+	@Override
+	public int addProjectMember(ProjectVO vo) {
+		return projectMapper.addProjectMember(vo);
+	}
+
+	@Override
+	public int deleteProjectMember(ProjectVO vo) {
+		return projectMapper.deleteProjectMember(vo);
+	}
+
 
 
 

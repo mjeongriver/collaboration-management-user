@@ -146,9 +146,9 @@
 
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="listInner">
 
-										<tr class="listInner" th:each="vo, status: ${list}">
+										<tr class="searchUser" th:each="vo, status: ${list}">
 											<th scope="row" th:text="${status.count}"></th>
 											<td class="name">[[${vo.userName}]]</td>
 											<td class="department">[[${vo.departmentName}]]</td>
@@ -428,7 +428,7 @@
 	function copy(event){
 
 
-			 var textArea = document.createElement("textarea");
+			var textArea = document.createElement("textarea");
 			var copyText = event.target.parentNode.parentNode.parentNode.parentNode
 						.querySelector(".chatContentWrap").querySelector(".chatContent");
 
@@ -445,22 +445,22 @@
 	// 실시간 검색 구현
 	function filter() {
 		var search = document.getElementById("search").value.toLowerCase();
-		var listInner = document.getElementsByClassName("listInner");
-
-		for (var i = 0; i < listInner.length; i++) {
-			var name = listInner[i].getElementsByClassName("name");
-			var department = listInner[i].getElementsByClassName("department");
-			var position = listInner[i].getElementsByClassName("position");
-
-			if (name[0].innerHTML.toLowerCase().includes(search)
-					|| department[0].innerHTML.toLowerCase().includes(search)
-					|| position[0].innerHTML.toLowerCase().includes(search)) {
-				listInner[i].style.display = "";
+		var listInner = document.getElementById("listInner");
+		var searchUser = document.getElementsByClassName("searchUser");
+		var name = listInner.getElementsByClassName("name");
+		var department = listInner.getElementsByClassName("department");
+		var position = listInner.getElementsByClassName("position");
+				
+		for (var i = 0; i < name.length; i++) {
+			if (name[i].innerHTML.toLowerCase().includes(search)
+					|| department[i].innerHTML.toLowerCase().includes(search)
+					|| position[i].innerHTML.toLowerCase().includes(search)) {
+				searchUser[i].style.display = "";
 			} else {
-				listInner[i].style.display = "none";
+				searchUser[i].style.display = "none";
 			}
 		}
-
 	}
+
 </script>
 </html>

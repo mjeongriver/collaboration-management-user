@@ -134,4 +134,58 @@ public class ProjectAjaxController {
 		
 	}
 	
+	//프로젝트 수정 - 멤버 추가
+	@PostMapping("/add-project-member")
+	public int addProjectMember(@RequestParam(value="dbArray[]")List<String> dbList, @RequestParam("pjNum") int pjNum) {		
+		ProjectVO vo = new ProjectVO();
+		
+		//ArrayList<ProjectVO> list = new ArrayList<ProjectVO>();
+		for(int i = 0; i < dbList.size(); i++) {
+			vo.setUserId(dbList.get(i));
+			vo.setPjNum(pjNum);
+			int result = projectService.addProjectMember(vo);
+			if(result != 1) {
+				return i;
+			}
+		}				
+		return -1;
+	}
+	
+	//프로젝트 수정 - 멤버 삭제
+	@PostMapping("/delete-project-member")
+	public int deleteProjectMember(@RequestParam(value="dbArray[]")List<String> dbList, @RequestParam("pjNum") int pjNum) {
+		ProjectVO vo = new ProjectVO();
+		
+		for(int i = 0; i < dbList.size(); i++) {
+			vo.setUserId(dbList.get(i));
+			vo.setPjNum(pjNum);
+			int result = projectService.deleteProjectMember(vo);
+			if(result != 1) { //실패
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	
+	//프로젝트 수정 - 멤버 권한 변경
+	@PostMapping("/change-member-authority")
+	public int changeMemberAuthority(@RequestParam("userId") String userId,
+									 @RequestParam("isObserver") int isObserver,
+									 @RequestParam("pjNum") int pjNum) {
+		
+		ProjectVO vo = new ProjectVO();
+		
+		vo.setUserId(userId);
+		vo.setPjNum(pjNum);
+		
+		if(isObserver == 0) {
+			vo.setObserver(false);
+		} else {
+			vo.setObserver(true);
+		}
+				
+		return projectService.changeMemberAuthority(vo);
+	}
+	
 }

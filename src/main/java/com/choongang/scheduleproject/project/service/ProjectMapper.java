@@ -67,4 +67,21 @@ public interface ProjectMapper {
 	public int deleteProject(int pj_num); //프로젝트 삭제
 
 	public String checkMember(@Param("pj_num")String pj_num, @Param("user_id")String user_id);
+	
+	//프로젝트 수정
+	//프로젝트 정보 가져오기
+	public ProjectVO getProjectDetail(int pj_num);
+	//프로젝트 정보 - 프로젝트에 포함된 인원 가져오기
+	public ArrayList<ProjectVO> getProjectDetailMember(int pj_num);
+	//프로젝트 정보 바꾸기
+	public int changeProjectDetail(ProjectVO vo);
+	//프로젝트 상세정보 멤버 권한(팀원, 옵저버) 수정하기
+	public int changeMemberAuthority(ProjectVO vo);
+	//프로젝트 수정 - 멤버 추가하기
+	public int addProjectMember(ProjectVO vo);
+	//프로젝트 수정 - 멤버 삭제하기
+	public int deleteProjectMember(ProjectVO vo);
+
+
+
 }

@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserVO;
@@ -27,6 +29,31 @@ public class ProjectController {
 	public String projectAdd() {
 		return "/project/project-add";
 	}
+	
+	//프로젝트 수정
+	@GetMapping("/project-change")
+	public String projectChange(@RequestParam("pj_num") int pj_num, Model model) {		
+		ProjectVO project = projectService.getProjectDetail(pj_num);
+		ArrayList<ProjectVO> member = projectService.getProjectDetailMember(pj_num);
+		
+		model.addAttribute("project", project);
+		model.addAttribute("member", member);
+
+		
+		return "/project/project-change";
+	}
+	
+	//프로젝트 수정 완료
+	@PostMapping("/project-change-confirm")
+	public String projectChangeConfirm(ProjectVO vo, RedirectAttributes ra) {
+		
+		int result = projectService.changeProjectDetail(vo);
+		//메시지 담아서 리다이렉트
+		String msg = result == 1 ? "프로젝트 정보 수정되었습니다. 수정된 팀원, 옵저버를 확인해주세요." : "프로젝트 정보 수정에 실패하였습니다. 관리자에게 문의하세요.";
+		ra.addFlashAttribute("msg", msg);
+		return "redirect:/"; //메인화면으로	
+	}
+	
 
 	@GetMapping("/project-started")
 	public String projectStarted(Model model,@RequestParam("pj_num") int pj_num) {

@@ -419,6 +419,21 @@
 		
 	});
 	
+	//프로젝트 팀원, 옵저버에 아무도 없을 경우 사이드바에서 사라지게 처리
+	$(document).ready(function() {
+		var teammates_nav = document.getElementById("teammates-nav");
+		var teamobservers_nav = document.getElementById("teamobservers-nav");
+		
+		if(teamobservers_nav.children.length === 0) {
+			teamobservers_nav.parentNode.style.display = "none";
+		}
+		
+		if(teammates_nav.children.length === 0) {
+			teammates_nav.parentNode.style.display = "none";
+		}
+
+	});
+	
 	//프로젝트 디테일 보기
 	function showProjectDetail(e){
 		event.preventDefault();
@@ -461,6 +476,9 @@
 			}
 		})
 	}
+	
+		
+		
 	
   </script>
 
