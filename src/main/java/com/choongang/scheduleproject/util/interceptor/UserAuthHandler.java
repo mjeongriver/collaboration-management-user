@@ -26,11 +26,9 @@ public class UserAuthHandler implements HandlerInterceptor {
 		String user_id = (String)session.getAttribute("user_id");
 
 		if(user_id == null) { //로그인이 안됨
-			response.sendRedirect(request.getContextPath() + "/user/userLogin");
+			response.sendRedirect(request.getContextPath() + "/user/user-login");
 			return false; // 컨트롤러를 실행하지 않게 만들어줌
 		}
-
-
 
 		return true; // 컨트롤러 실행
 	}

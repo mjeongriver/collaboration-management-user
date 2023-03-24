@@ -36,6 +36,8 @@ $(document).ready(function() {
 //ajax로 부서 클릭 시 부서에 있는 팀원 목록 출력 
 //여기서 세션 아이디 값 비교해서 본인이면 팀원 목록에 안 나오도록 처리
 function getDepList(e) {
+	
+	if(e.target.tagName === "LI"){
 	$.ajax({
 		url: "../get-dmlist",
 		type: "get",
@@ -63,7 +65,10 @@ function getDepList(e) {
 			alert("카테고리 조회에 실패했습니다. 담당자에게 문의하세요.");
 		}
 	});
-	$('.depMemberList2').category_remove();
+	
+	$('.depMemberList2').category_remove();	
+	}
+	
 }
 
 //다른 부서 눌렀을 때 이전 팀원 목록 삭제
@@ -313,7 +318,7 @@ function changeProjectName() {
 function changeProjectStartdate() {
 	let pjNum = document.getElementById("pjNum").value;
 	let pjStartdate = document.getElementById("pjStartdate").value;
-
+		
 	if (pjStartdate === "") {
 		$('#dateWarning').text("프로젝트 시작일을 설정해주세요.");
 		$("input[name=pjStartdate]").focus();
@@ -321,7 +326,7 @@ function changeProjectStartdate() {
 	} else {
 		$('#dateWarning').hide();
 	}
-	
+		
 	$.ajax({
 		url: "../change-project-startdate",
 		type: "post",
@@ -336,7 +341,6 @@ function changeProjectStartdate() {
 			alert("프로젝트 시작일 수정에 실패했습니다. 담당자에게 문의하세요.");
 		}
 	});
-	
 }
 
 //프로젝트 종료일 수정
@@ -344,7 +348,7 @@ function changeProjectEnddate() {
 	let pjNum = document.getElementById("pjNum").value;
 	let pjStartdate = document.getElementById("pjStartdate").value;
 	let pjEnddate = document.getElementById("pjEnddate").value;
-	
+		
 	if (pjEnddate === "") {
 		$('#dateWarning').text("프로젝트 종료일을 설정해주세요.");
 		$('#dateWarning').show();
@@ -367,9 +371,9 @@ function changeProjectEnddate() {
 	let endDate = new Date(pjEnddate);
 	
 	if (currentDate > endDate){
+		console.log("gd");
 		$('#dateWarning').text("종료일은 오늘 날짜보다 작을 수 없습니다.");
 		$('#dateWarning').show();
-		$("input[name=pjStartdate]").focus();
 		$("input[name=pjEnddate]").focus();
 		return false;
 	}
@@ -388,17 +392,19 @@ function changeProjectEnddate() {
 			alert("프로젝트 종료일 수정에 실패했습니다. 담당자에게 문의하세요.");
 		}
 	});
-	
 }
 
 //프로젝트 설명 수정
 function changeProjectDescription() {
 	let pjDescription = document.getElementById("pjDescription").value;
 	let pjNum = document.getElementById("pjNum").value;
-	
 	let result = fnChkByte(pjDescription, 100);
 	
-	console.log(result);
+	if(result === false) {
+		pjDescription.value = "";
+		pjDescription.focus();
+		return false;
+	}
 	
 	$.ajax({
 		url: "../change-project-description",
@@ -407,9 +413,8 @@ function changeProjectDescription() {
 			"pjNum": pjNum,
 			"pjDescription" : pjDescription 
 		},
-		success: function(result) {
-
-		},
+		success: function(response) {
+				},
 		error: function(err) {
 			alert("프로젝트 설명 수정에 실패했습니다. 담당자에게 문의하세요.");
 		}
@@ -422,7 +427,9 @@ function changeProject() {
 	let pjName = document.getElementById("pjName").value;
 	let pjStartdate = document.getElementById("pjStartdate").value;
 	let pjEnddate = document.getElementById("pjEnddate").value;
-
+	let pjDescription = document.getElementById("pjDescription").value;
+	let result = fnChkByte(pjDescription, 100);
+	
 	//프로젝트 제목 필수
 	if (pjName === "") {
 		$('#nameWarning').text("프로젝트 제목은 필수입니다.").show();
@@ -470,6 +477,12 @@ function changeProject() {
 		return false;
 	}
 
+	if(result === false) {
+		pjDescription.value = "";
+		pjDescription.focus();
+		return false;
+	}
+	
 	location.href = "/project/project-change-confirm";
 
 	//projectChangeForm.submit();
