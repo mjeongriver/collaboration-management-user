@@ -12,7 +12,6 @@ import com.choongang.scheduleproject.util.Criteria;
 
 @Service("adminNoticeService")
 public class AdminNoticeServiceImpl implements AdminNoticeService {
-
 	@Autowired
 	private AdminNoticeListMapper adminNoticeListMapper;
 
@@ -36,6 +35,4 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	public AdminNoticeListVO getContent(int noticeNum) {
 		return adminNoticeListMapper.getContent(noticeNum);
 	}
-
-
 }

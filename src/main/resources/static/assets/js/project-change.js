@@ -46,7 +46,7 @@ function getDepList(e) {
 			let str = "";
 			str += '<ul class="depMemberList" style="position: relative; list-style: none; padding: 0px 0px 0px 18px">';
 			result.forEach(function(item, index) {
-				let pj_writer = $('span[name="pj_writer"]').attr('id');
+				let pj_writer = $('span[name="pjWriter"]').attr('id');
 				if (pj_writer !== `${item.userId}`) {
 					str += `<li class="depMemberList2" onclick="seleted(event)" data-value="${item.userId}" style="padding: 5px 0px 5px 5px; margin: 10px 0px 10px; cursor: pointer; border-radius: 10px;">${item.userName}</li>`;
 				}
@@ -170,7 +170,6 @@ let teamPlus = function(e) {
 	}
 };
 
-
 //선택 했을 때 색상 변경 
 let seleted = function(e) {
 	e.target.classList.toggle('selected');
@@ -245,13 +244,14 @@ $("textarea[name=pjDescription]").on("keyup", function() {
 });
 
 function fnChkByte(projectDescription, maxByte) {
-	let str = $(projectDescription).val(); // textarea의 value를 가져옴
+	let str = projectDescription; // textarea의 value를 가져옴
 	let strLength = str.length;
 	let chkByte = 0;
 	let chkLen = 0;
 	let oneChar = '';
 	let str2 = '';
 	let contentWarning = $('#contentWarning'); // contentWarning를 가져옴
+
 
 	for (let i = 0; i < strLength; i++) {
 		oneChar = str.charAt(i);
@@ -275,34 +275,77 @@ function fnChkByte(projectDescription, maxByte) {
 		contentWarning.text(""); // warning 메시지 초기화
 		return true;
 	}
+	
+	
+	
 }
 
-//프로젝트 수정
-function changeProject() {
-
-	let pjName = document.getElementById("pjName");
-	let pjStartdate = document.getElementById("pjStartdate");
-	let pjEnddate = document.getElementById("pjEnddate");
-	let projectChangeForm = document.getElementById("projectChangeForm");
-
+//프로젝트명 수정
+function changeProjectName() {
+	let pjNum = document.getElementById("pjNum").value;
+	let pjName = document.getElementById("pjName").value;
+	
 	//프로젝트 제목 필수
-	if (pjName.value.trim() === "") {
+	if (pjName === "") {
 		$('#nameWarning').text("프로젝트 제목은 필수입니다.").show();
 		$("input[name=pjName]").focus();
 		return false;
 	} else {
 		$('#nameWarning').hide();
 	}
+	
+	$.ajax({
+		url: "../change-project-name",
+		type: "post",
+		data: {
+			"pjNum": pjNum,
+			"pjName" : pjName 
+		},
+		success: function(result) {
+		},
+		error: function(err) {
+			alert("프로젝트명 수정에 실패했습니다. 담당자에게 문의하세요.");
+		}
+	});
+}
 
-	if (pjStartdate.value == "") {
+//프로젝트 시작일 수정
+function changeProjectStartdate() {
+	let pjNum = document.getElementById("pjNum").value;
+	let pjStartdate = document.getElementById("pjStartdate").value;
+
+	if (pjStartdate === "") {
 		$('#dateWarning').text("프로젝트 시작일을 설정해주세요.");
 		$("input[name=pjStartdate]").focus();
 		return false;
 	} else {
 		$('#dateWarning').hide();
 	}
+	
+	$.ajax({
+		url: "../change-project-startdate",
+		type: "post",
+		data: {
+			"pjNum": pjNum,
+			"pjStartdate" : pjStartdate 
+		},
+		success: function(result) {
 
-	if (pjEnddate.value == "") {
+		},
+		error: function(err) {
+			alert("프로젝트 시작일 수정에 실패했습니다. 담당자에게 문의하세요.");
+		}
+	});
+	
+}
+
+//프로젝트 종료일 수정
+function changeProjectEnddate() {
+	let pjNum = document.getElementById("pjNum").value;
+	let pjStartdate = document.getElementById("pjStartdate").value;
+	let pjEnddate = document.getElementById("pjEnddate").value;
+	
+	if (pjEnddate === "") {
 		$('#dateWarning').text("프로젝트 종료일을 설정해주세요.");
 		$('#dateWarning').show();
 		$("input[name=pjEnddate]").focus();
@@ -311,7 +354,102 @@ function changeProject() {
 		$('#dateWarning').hide();
 	}
 
-	if (pjStartdate.value > pjEnddate.value) {
+	if (pjStartdate > pjEnddate) {
+		$('#dateWarning').text("종료일은 시작일보다 작을 수 없습니다.");
+		$('#dateWarning').show();
+		$("input[name=pjEnddate]").focus();
+		return false;
+	}
+	
+	//프로젝트 종료일은 오늘 날짜보다 작을 수 없게 하는 코드
+	let currentDate = new Date();
+	currentDate.setHours(0, 0, 0, 0); 
+	let endDate = new Date(pjEnddate);
+	
+	if (currentDate > endDate){
+		$('#dateWarning').text("종료일은 오늘 날짜보다 작을 수 없습니다.");
+		$('#dateWarning').show();
+		$("input[name=pjStartdate]").focus();
+		$("input[name=pjEnddate]").focus();
+		return false;
+	}
+	
+	$.ajax({
+		url: "../change-project-enddate",
+		type: "post",
+		data: {
+			"pjNum": pjNum,
+			"pjEnddate" : pjEnddate 
+		},
+		success: function(result) {
+
+		},
+		error: function(err) {
+			alert("프로젝트 종료일 수정에 실패했습니다. 담당자에게 문의하세요.");
+		}
+	});
+	
+}
+
+//프로젝트 설명 수정
+function changeProjectDescription() {
+	let pjDescription = document.getElementById("pjDescription").value;
+	let pjNum = document.getElementById("pjNum").value;
+	
+	let result = fnChkByte(pjDescription, 100);
+	
+	console.log(result);
+	
+	$.ajax({
+		url: "../change-project-description",
+		type: "post",
+		data: {
+			"pjNum": pjNum,
+			"pjDescription" : pjDescription 
+		},
+		success: function(result) {
+
+		},
+		error: function(err) {
+			alert("프로젝트 설명 수정에 실패했습니다. 담당자에게 문의하세요.");
+		}
+	});
+}
+
+
+//프로젝트 수정
+function changeProject() {
+	let pjName = document.getElementById("pjName").value;
+	let pjStartdate = document.getElementById("pjStartdate").value;
+	let pjEnddate = document.getElementById("pjEnddate").value;
+
+	//프로젝트 제목 필수
+	if (pjName === "") {
+		$('#nameWarning').text("프로젝트 제목은 필수입니다.").show();
+		$("input[name=pjName]").focus();
+		return false;
+	} else {
+		$('#nameWarning').hide();
+	}
+
+	if (pjStartdate === "") {
+		$('#dateWarning').text("프로젝트 시작일을 설정해주세요.");
+		$("input[name=pjStartdate]").focus();
+		return false;
+	} else {
+		$('#dateWarning').hide();
+	}
+
+	if (pjEnddate === "") {
+		$('#dateWarning').text("프로젝트 종료일을 설정해주세요.");
+		$('#dateWarning').show();
+		$("input[name=pjEnddate]").focus();
+		return false;
+	} else {
+		$('#dateWarning').hide();
+	}
+
+	if (pjStartdate > pjEnddate) {
 		$('#dateWarning').text("종료일은 시작일보다 작을 수 없습니다.");
 		$('#dateWarning').show();
 		$("input[name=pjStartdate]").focus();
@@ -323,14 +461,18 @@ function changeProject() {
 	let currentDate = new Date();
 	currentDate.setHours(0, 0, 0, 0); 
 	let endDate = new Date(pjEnddate);
+	
 	if (currentDate > endDate){
 		$('#dateWarning').text("종료일은 오늘 날짜보다 작을 수 없습니다.");
 		$('#dateWarning').show();
 		$("input[name=pjStartdate]").focus();
 		$("input[name=pjEnddate]").focus();
+		return false;
 	}
 
-	projectChangeForm.submit();
+	location.href = "/project/project-change-confirm";
+
+	//projectChangeForm.submit();
 
 }
 

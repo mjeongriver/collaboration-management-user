@@ -33,7 +33,6 @@ public class ProjectAjaxController {
 
 	@Autowired
 	private ProjectService projectService;
-	private ProjectVO vo;
 
 	@Autowired
 	@Qualifier("userService")
@@ -55,7 +54,6 @@ public class ProjectAjaxController {
 	@PostMapping("/reg-project")
 	@ResponseBody
 	public Map<String, Object> regist(@RequestBody Map<String, Object> map, RedirectAttributes ra) {
-
 		String msg = "";
 		int result1 = 0;
 		int result2 = 0;
@@ -73,21 +71,16 @@ public class ProjectAjaxController {
 		List<Map<String, Object>> user_list =  gson.fromJson((String)map.get("user_boolean"), List.class);
 		System.out.println("user_list size : " + user_list.size());
 
-
 		//프로젝트 생성
 		result1 = projectService.regist(vo);
-		System.out.println("result1 : " + result1);
 		int pj_num = vo.getPjNum();
-		System.out.println("pj_num : " + pj_num);
 
 		//프로젝트 멤버들 생성
 		for (int i = 0; i < user_list.size(); i++) {
-
 			ProjectMemberVO pmvo = new ProjectMemberVO();
 			pmvo.setPjNum(pj_num);
 			pmvo.setUserId(user_list.get(i).get("team_id").toString());
 			pmvo.setIsObserver(user_list.get(i).get("is_observer").toString());
-
 			result2 = projectService.registMember(pmvo);
 		}
 
@@ -96,9 +89,7 @@ public class ProjectAjaxController {
 		}else {
 			msg = "등록에 실패 하였습니다.";
 		}
-
 		resultMap.put("msg", msg);
-
 		return resultMap;
 	};
 
@@ -114,40 +105,33 @@ public class ProjectAjaxController {
 	public int changeBookmark(@RequestParam("user_id") String user_id,
 			@RequestParam("pj_num") int pj_num,
 			@RequestParam("pj_bookmark") boolean pj_bookmark) {
-
 		projectService.changeBookmark(user_id, pj_num, pj_bookmark);
-
 		return pj_num;
 	}
 
 	//프로젝트 삭제
 	@GetMapping("/delete-project")
 	public int deleteProject(@RequestParam("pj_num") int pj_num) {
-
 		projectService.deleteProject(pj_num);
-
 		return pj_num;
 	}
 
 	//레이아웃에서 유저 이름 클릭 시 정보 가져오기
 	@GetMapping("/show-user-info")
 	public UserVO showUserInfo(@RequestParam("userId") String userId) {
-
 		return userService.showUserInfo(userId);
-
 	}
 
 	@GetMapping("/get-project-info")
 	public ProjectVO getProjectInfo(@RequestParam("pj_num") int pj_num) {
-
 		return projectService.getProject(pj_num);
 	}
+	
 	//캘린더에 대한 정보 받아오기
 	@GetMapping("/get-calendar-info")
 	public ArrayList<UserBoardVO> getCalendarInfo(@RequestParam("pj_num") String pj_num,HttpServletRequest request){
 		HttpSession session = request.getSession();
 		String user_id = (String)session.getAttribute("user_id");
-
 		return projectService.getBoardList(pj_num, user_id);
 	}
 
@@ -163,16 +147,49 @@ public class ProjectAjaxController {
 		vo.setTodoWriter(user_id);
 		vo.setUserTododate(userTododate);
 		vo.setUserTodotime(userTodotime);
-
 		return projectService.addSchedule(vo);
 	}
+	
+	//프로젝트 수정 - 프로젝트명 수정
+	@PostMapping("/change-project-name")
+	public int changeProjectName(@RequestParam("pjNum") int pjNum, @RequestParam("pjName") String pjName) {
+		ProjectVO vo = new ProjectVO();
+		vo.setPjName(pjName);
+		vo.setPjNum(pjNum);
+		return projectService.changeProjectName(vo);
+	}
+	
+	//프로젝트 수정 - 프로젝트 시작일 수정
+	@PostMapping("/change-project-startdate")
+	public int changeProjectStartdate(@RequestParam("pjNum") int pjNum, @RequestParam("pjStartdate") String pjStartdate) {
+		ProjectVO vo = new ProjectVO();
+		vo.setPjNum(pjNum);
+		vo.setPjStartdate(pjStartdate);
+		return projectService.changeProjectStartdate(vo);
+	}
 
+	//프로젝트 수정 - 프로젝트 종료일 수정
+	@PostMapping("/change-project-enddate")
+	public int changeProjectEnddate(@RequestParam("pjNum") int pjNum, @RequestParam("pjEnddate") String pjEnddate) {
+		ProjectVO vo = new ProjectVO();
+		vo.setPjNum(pjNum);
+		vo.setPjEnddate(pjEnddate);
+		return projectService.changeProjectEnddate(vo);
+	}
+
+	//프로젝트 수정 - 프로젝트 설명 수정
+	@PostMapping("/change-project-description")
+	public int changeProjectDescription(@RequestParam("pjNum") int pjNum, @RequestParam("pjDescription") String pjDescription) {
+		ProjectVO vo = new ProjectVO();
+		vo.setPjNum(pjNum);
+		vo.setPjDescription(pjDescription);
+		return projectService.changeProjectDescription(vo);
+	}
+	
 	//프로젝트 수정 - 멤버 추가
 	@PostMapping("/add-project-member")
 	public int addProjectMember(@RequestParam(value="dbArray[]")List<String> dbList, @RequestParam("pjNum") int pjNum) {
 		ProjectVO vo = new ProjectVO();
-
-		//ArrayList<ProjectVO> list = new ArrayList<ProjectVO>();
 		for(int i = 0; i < dbList.size(); i++) {
 			vo.setUserId(dbList.get(i));
 			vo.setPjNum(pjNum);
@@ -188,7 +205,6 @@ public class ProjectAjaxController {
 	@PostMapping("/delete-project-member")
 	public int deleteProjectMember(@RequestParam(value="dbArray[]")List<String> dbList, @RequestParam("pjNum") int pjNum) {
 		ProjectVO vo = new ProjectVO();
-
 		for(int i = 0; i < dbList.size(); i++) {
 			vo.setUserId(dbList.get(i));
 			vo.setPjNum(pjNum);
@@ -200,30 +216,24 @@ public class ProjectAjaxController {
 		return -1;
 	}
 
-
 	//프로젝트 수정 - 멤버 권한 변경
 	@PostMapping("/change-member-authority")
 	public int changeMemberAuthority(@RequestParam("userId") String userId,
 									 @RequestParam("isObserver") int isObserver,
 									 @RequestParam("pjNum") int pjNum) {
-
 		ProjectVO vo = new ProjectVO();
-
 		vo.setUserId(userId);
 		vo.setPjNum(pjNum);
-
 		if(isObserver == 0) {
 			vo.setObserver(false);
 		} else {
 			vo.setObserver(true);
 		}
-
 		return projectService.changeMemberAuthority(vo);
 	}
 
 	@GetMapping("/get-todo-list")
 	public ArrayList<UserScheduleVO> getTodoList(HttpServletRequest request){
-
 		HttpSession session = request.getSession();
 		String todo_writer = (String)session.getAttribute("user_id");
 		return projectService.getTodoList(todo_writer);
@@ -231,7 +241,6 @@ public class ProjectAjaxController {
 
 	@PostMapping("/delete-todo")
 	public int deleteTodo(@RequestParam("todo_num") int todoNum) {
-
 		return projectService.deleteTodo(todoNum);
 	}
 

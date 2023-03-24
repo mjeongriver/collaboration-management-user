@@ -147,33 +147,48 @@
 
 	<!-- 프로젝트 상세내용 가져오기 -->
 	<select id="getProjectDetail" resultType="ProjectVO">
-		select pj_num,
-		pj_name,
-		pj_description,
-		pj_startdate,
-		pj_enddate
+		select pj_num, pj_name, pj_description, pj_startdate, pj_enddate
 		from user_project
 		where pj_num = #{pjNum}
 	</select>
 
 	<!-- 프로젝트의 멤버 가져오기 -->
 	<select id="getProjectDetailMember" resultType="ProjectVO">
-		select m.user_id,
-		m.is_observer,
-		u.user_name
+		select m.user_id, m.is_observer, u.user_name
 		from mapping m
-		left join user_user u
-		on m.user_id = u.user_id
+		left join user_user u on m.user_id = u.user_id
 		where pj_num = #{pjNum}
 	</select>
 
-	<!-- 프로젝트 상세내용 수정하기 -->
-	<update id="changeProjectDetail" parameterType="ProjectVO">
+	<!-- 멘토님의 조언대로 모든 작업을 실시간으로 처리할 수 있게 쪼갰습니다. -->
+	<!-- 프로젝트 수정 - 프로젝트 명 수정 -->
+	<update id="changeProjectName" parameterType="ProjectVO">
 		update user_project
-		set pj_startdate = #{pjStartdate}, pj_enddate = #{pjEnddate}, pj_name = #{pjName}, pj_description = #{pjDescription}
+		set pj_name = #{pjName}
 		where pj_num = #{pjNum}
 	</update>
-
+	
+	<!-- 프로젝트 수정 - 프로젝트 시작일 수정 -->
+	<update id="changeProjectStartdate" parameterType="ProjectVO">
+		update user_project
+		set pj_startdate = #{pjStartdate}
+		where pj_num = #{pjNum}
+	</update>
+	
+	<!-- 프로젝트 수정 - 프로젝트 종료일 수정 -->
+	<update id="changeProjectEnddate" parameterType="ProjectVO">
+		update user_project
+		set pj_enddate = #{pjEnddate}
+		where pj_num = #{pjNum}
+	</update>
+	
+	<!-- 프로젝트 수정 - 프로젝트 설명 수정 -->
+	<update id="changeProjectDescription" parameterType="ProjectVO">
+		update user_project
+		set pj_description = #{pjDescription}
+		where pj_num = #{pjNum}
+	</update>
+	
 	<!-- 프로젝트 수정 - 멤버 권한 변경 (팀원, 옵저버) -->
 	<update id="changeMemberAuthority" parameterType="ProjectVO">
 		update mapping
@@ -187,10 +202,12 @@
 
 	<!-- 프로젝트 수정 - 멤버 추가하기 -->
 	<insert id="addProjectMember" parameterType="ProjectVO">
-		insert into mapping
-			(pj_num, user_id, is_observer)
-			values
-			(#{pjNum}, #{userId}, 0)
+		insert into mapping(pj_num, 
+							user_id, 
+							is_observer)
+					values(#{pjNum}, 
+						   #{userId}, 
+						   0)
 	</insert>
 
 	<!-- 프로젝트 수정 - 멤버 삭제하기 -->
