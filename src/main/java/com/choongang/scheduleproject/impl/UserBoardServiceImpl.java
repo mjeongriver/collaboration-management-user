@@ -39,11 +39,11 @@ public class UserBoardServiceImpl implements UserBoardService{
 		return userBoardMapper.getObserver(pj_num);
 	}
 
+	//여기서 파일 업로드 반복 처리
 	@Override
 	public int fileUploadList(List<FileVO> fvoList) {
 		int result = 0;
 		for(FileVO vo: fvoList) {
-			System.out.println(vo.toString());
 			result = userBoardMapper.fileUploadList(vo);
 		}
 		return result;
@@ -58,4 +58,20 @@ public class UserBoardServiceImpl implements UserBoardService{
 	public ArrayList<FileVO> fileList(int board_num) {
 		return userBoardMapper.fileList(board_num);
 	}
+
+	@Override
+	public int deleteContent(int board_num) {
+		return userBoardMapper.deleteContent(board_num);
+	}
+
+	@Override
+	public int updateContent(Map<String, Object> map) {
+		return userBoardMapper.updateContent(map);
+	}
+
+	@Override
+	public int updateFileList(FileVO fileVO) {
+		return userBoardMapper.updateFileList(fileVO);
+	}
+
 }

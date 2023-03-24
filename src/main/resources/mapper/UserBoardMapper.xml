@@ -4,28 +4,25 @@
 
     <!-- 해당 프로젝트 게시판 리스트 출력 + 검색 -->
     <select id="getList" resultType="UserBoardVO">
-        SELECT
+        select
         T.board_num, T.board_category,
         T.board_title, T.board_writer,
         T.board_regdate, T.board_startdate,
-        T.board_enddate, T.board_process, T.user_name, T.row_num
-        FROM (
-        SELECT
+        T.board_enddate, T.board_process, 
+        T.user_name, T.row_num
+        from (
+        select
         (@row_num:=@row_num+1) AS row_num,
-        b.board_category,
-        b.board_title,
+        b.board_category, b.board_title,
         b.board_writer, b.board_regdate,
-        b.board_startdate,
-        b.board_enddate,
-        b.board_process,
-        b.board_num,
-        u.user_name
-        FROM
+        b.board_startdate, b.board_enddate,
+        b.board_process, b.board_num, u.user_name
+        from
         user_board b
         left join user_user u
         on b.board_writer = u.user_id,
-        (SELECT @row_num:=0) AS tmp
-        WHERE
+        (select @row_num:=0) AS tmp
+        where
         b.pj_num = #{pjNum}
         <choose>
             <when test='cri.searchType == "boardCategory" and cri.search != null'>
@@ -47,11 +44,10 @@
                 and board_enddate like concat('%', #{cri.search}, '%')
             </when>
         </choose>
-        ORDER BY row_num DESC
-        LIMIT #{cri.pageStart}, #{cri.amount}
+        order by row_num desc
+        limit #{cri.pageStart}, #{cri.amount}
         ) T;
     </select>
-
 
     <!-- 검색 결과의 갯수 -->
     <select id="getCount" resultType="int">
@@ -93,7 +89,7 @@
     <!-- 파일 등록 -->
     <insert id="fileUploadList" parameterType="fileVO">
         <selectKey keyProperty="boardNum" resultType="int" order="BEFORE">
-            SELECT MAX(board_num) from user_board
+            select max(board_num) from user_board
         </selectKey>
         insert into user_boardfile (
         board_num, boardfile_path, boardfile_name)
@@ -109,18 +105,43 @@
 
     <!-- 글 상세 조회 -->
     <select id="detailContent" resultType="UserBoardVO">
-        SELECT b.board_num, b.board_title, b.board_process,
+        select b.board_num, b.board_title, b.board_process,
+        b.board_writer,
         b.board_startdate, b.board_enddate, b.board_content,
         b.board_category, u.user_name
-        FROM user_board b
-        LEFT JOIN user_user u ON b.board_writer = u.user_id
-        WHERE pj_num = ${pjNum} and board_num = ${boardNum};
+        from user_board b
+        left join user_user u on b.board_writer = u.user_id
+        where pj_num = ${pjNum} and board_num = ${boardNum};
     </select>
 
     <select id="fileList" resultType="FileVO">
-        SELECT boardfile_num, board_num, boardfile_path, boardfile_name, board_dcheck
-        FROM user_boardfile
-        WHERE board_num = ${boardNum};
+        select boardfile_num, board_num, boardfile_path, boardfile_name, board_dcheck
+        from user_boardfile
+        where board_num = ${boardNum} and board_dcheck = 0
     </select>
-
+    
+    <!-- 삭제 기능 -->
+    <delete id="deleteContent" parameterType="int">
+  		delete from user_board where board_num = #{boardNum}
+  	</delete>
+  	
+  	<!-- 게시글 업데이트 -->
+  	<update id="updateContent" parameterType="map">
+  		update user_board
+  		set board_title = #{vo.boardTitle},
+  			board_category = #{vo.boardCategory},
+  			board_process = #{vo.boardProcess},
+  			board_startdate = #{vo.boardStartdate},
+  			board_enddate = #{vo.boardEnddate},
+  			board_content = #{vo.boardContent}
+  		where board_num = #{vo.boardNum}
+  	</update>
+  	
+  	<!-- 파일 업데이트 -->
+  	<update id="updateFileList" parameterType="FileVO">
+  		update user_boardfile
+  		set board_dcheck = 1
+  		where board_num = #{boardNum}
+  	</update>
+  	
 </mapper>

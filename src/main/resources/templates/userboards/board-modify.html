@@ -1,7 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-
-
 <th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
 	
 	<div class="wrap">
@@ -11,21 +9,20 @@
 					<div class="col-lg-7" style="margin:0 auto;">
 						<div class="card">
 							<div class="card-body" style = "padding: 20 100px 30px 100px;">
-
 								<h5 class="card-title">글 수정</h5>
-								
-								<form>
-									
+								<form action="board-modify-form" id="boadModifyForm" method="post" enctype="multipart/form-data">
 									<div class="row mb-3">
-										<label class="col-sm-2 col-form-label">카테고리</label>
+										<label class="col-sm-2 col-form-label">카테고리</label> 
+										<input style="display:none" th:value="${vo.boardCategory}" id="boardCategory">
+										<input style="display:none" th:value="${vo.boardProcess}" id="boardProcess">
+										 <input type="hidden" id="pjNum" th:name="pjNum" th:value="${vo.pjNum}">
+										 <input type="hidden" id="boardNum" th:name="boardNum" th:value="${vo.boardNum}">
 										<div class="col-sm-10">
-											<select id = "categorySelect" class="form-select" style="height: 34px; font-size: 100%; padding: 6px 12px;">
-												<aria-label="Default select example" style="padding:10px; font-size:14px;"></aria-label>
-												<option value="1">개발</option>
-												<option value="2">기획</option>
-												<option value="3">논의</option>
-												<option value="4">제안</option>
-												<option value="5">직접 입력</option>
+											<select id = "categorySelect" name="categorySelect" class="form-select" style="height: 34px; font-size: 100%; padding: 6px 12px;">				
+												<option value="개발">개발</option>
+												<option value="기획">기획</option>
+												<option value="논의">논의</option>
+												<option value="제안">제안</option>
 											</select>
 										</div>
 									</div>
@@ -33,10 +30,9 @@
 									<div class="row mb-3">
 										<label class="col-sm-2 col-form-label">진행 과정</label>
 										<div class="col-sm-10">
-											<select id="processSelect" class="form-select" style="height: 34px; font-size: 100%; padding: 6px 12px;">
-												<aria-label="Default select example" style="padding:10px; font-size:14px;">
-												<option value="1">진행</option>
-												<option value="2">완료</option>
+											<select id="processSelect" name="processSelect" class="form-select" style="height: 34px; font-size: 100%; padding: 6px 12px;">									
+												<option value="진행">진행</option>
+												<option value="완료">완료</option>
 											</select>
 										</div>
 									</div>
@@ -44,7 +40,7 @@
 									<div class="row mb-3">
 										<label for="inputWriter" class="col-sm-2 col-form-label">작성자</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control" value="이동민" readonly>
+											 <span id="writer" th:name="${session.user_id}" th:value="${session.user_name}" type="text" class="form-control">[[${session.user_name}]]</span>
 										</div>
 									</div>
 									
@@ -52,29 +48,34 @@
 									<div class="row mb-3">
 										<label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
 										<div class="col-sm-10">
-											<input type="text" class="form-control">
+											<input name="boardTitle" type="text" class="form-control" th:value="${vo.boardTitle}">
 										</div>
 									</div>
 									
 									<div class="row mb-3">
-										<label for="FileUpload" class="col-sm-2 col-form-label">File
-											Upload</label>
+										<label for="FileUpload" class="col-sm-2 col-form-label">File Upload</label>
 										<div class="col-sm-10">
-											<input class="form-control" type="file" multiple id="formFile">
+											<input name="fileUpload" class="form-control" type="file" multiple id="formFile">
+											<div id="fileNames">
+												<ul style="margin-top: 10px">
+													<!-- 파일을 어떻게 가져오지? -->
+													<li th:each="fvo, status: ${fvo}">[[${fvo.boardfileName}]]</li> 
+												</ul>
+											</div>
 										</div>
 									</div>
 									
 									<div class="row mb-3">
 										<label for="inputStartDate" class="col-sm-2 col-form-label">시작일</label>
 										<div class="col-sm-10">
-											<input type="date" class="form-control" >
+											<input name="startDate" type="date" class="form-control" th:value="${vo.boardStartdate}">
 										</div>
 									</div>
 									
 									<div class="row mb-3">
 										<label for="inputEndDate" class="col-sm-2 col-form-label">완료일</label>
 										<div class="col-sm-10">
-											<input type="date" class="form-control">
+											<input name="endDate" type="date" class="form-control" th:value="${vo.boardEnddate}">
 										</div>
 									</div>
 
@@ -82,30 +83,21 @@
 										<label for="inputDescription" class="col-sm-2 col-form-label">세부 내용</label>
 										<div class="col-sm-10">
 											<div>
-													<textarea id="summernote" name="editordata"></textarea>
+												<textarea id="summernote" name="description">[[${vo.boardContent}]]</textarea>
 											</div>
 										</div>
 									</div>
 
 									<div class="row mb-3">
-										
 										<div style="width:100%;">
-											<button type="submit" class="btn btn-primary" style="float:right;">작성 완료</button>
+											<button id="modiSuccess" type="button" class="btn btn-primary" style="float:right;">작성 완료</button>
 										</div>
 									</div>
-
 								</form>
-								
-
 							</div>
 						</div>
-
 					</div>
-
-
-
 				</div>
-
 			</section>
 		</main>
 		<!-- End #main -->
@@ -120,6 +112,9 @@
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
+//빈 파일 배열을 생성한다 - 가공 처리(빈 배열 생성 안했을 때 없는 파일 추가 됨)
+var inputFileList = new Array();
+
     $(document).ready(function() {
     	$('#summernote').summernote({
    	 	height: 270,                 
@@ -127,25 +122,96 @@
   		maxHeight: null,
   		focus: true
 		});
+    	
+    	//select 해서 가져올때 카테고리랑, 진행 과정 내용 가져오기
+    	let boardCategory = document.getElementById("boardCategory").value;
+    	let boardProcess = document.getElementById("boardProcess").value;
+    	let categorySelect = document.getElementById("categorySelect");
+    	let processSelect = document.getElementById("processSelect");
+    	
+    	if(boardCategory === "개발"){
+    		categorySelect.value = "개발";
+    	} else if(boardCategory === "기획"){
+    		categorySelect.value = "기획";
+    	} else if(boardCategory === "논의"){
+    		categorySelect.value = "기획";
+    	} else if(boardCategory === "제안"){
+    		categorySelect.value = "기획";
+    	}
+    	
+    	if(boardProcess === "진행") {
+    		processSelect.value = "진행";
+    	} else { // 완료
+    		processSelect.value = "완료";
+    	}
+    	
     })
-  </script>
-  
-  <script>
-$(document).ready(function() {
-  $('#categorySelect').on('change', function() {
-    var selectedValue = $(this).val();
-    if (selectedValue === '5') {
-      $('#selboxDirect').show();
-    } else {
-      $('#selboxDirect').hide();
-    }
-  });
+    
+    //파일 이름 목록에 추가 
+     $('#formFile').on('change', function(e) {
+    let files = $(this).prop('files');
 
-  $('#selboxDirect').on('input', function() {
-    var inputValue = $(this).val();
-    console.log('입력된 값: ', inputValue);
-  });
-});
+    let fileNames = "";
+    if (files && files.length > 0) { // 파일이 첨부되어 있는 경우
+      for (var i = 0; i < files.length; i++) {
+        fileNames += "<li>" + files[i].name + "</li>";
+      }
+      
+      //change 됐을 때, 파일이 첨부되어 있을 때만 e.target.files를 받아와서 빈 배열에 넣어준다
+      //inputFileList = []; // 기존 정보 제거
+      var fileList = e.target.files;				
+	  var filesArr = Array.prototype.slice.call(fileList);
+	  for(f of filesArr){
+	  	inputFileList.push(f);	   
+	  }
+
+      $('#fileNames').html("<ul style='margin-top: 10px;'>" + fileNames + "</ul>");
+    } else { // 파일이 첨부되어 있지 않은 경우
+      $('#fileNames').empty();
+      $('#fileNames').html("");
+      $('#fileUpload').val(""); // value 값을 ""으로 설정
+      // FormData 객체에서 파일 삭제
+      let formData = new FormData($('#form')[0]);
+      if (files.length === 0) {
+        formData.delete('fileUpload');
+        alert("첨부된 파일이 없습니다.");
+      }
+    }
+  });   
+    
+    $("#modiSuccess").click(function(event) {
+    	event.preventDefault();
+        formData = new FormData($('#boadModifyForm')[0]); 
+        let urlParams = new URLSearchParams(window.location.search);
+        //push해준 값을 배열로 돌려서 넣는다. - 컨트롤러에서 처리
+    	//배열에서 파일 꺼내 폼 객체에 담는다.
+    　　 for (let i = 0; i < inputFileList.length; i++) {
+    　　　　formData.append("fileUploadImg", inputFileList[i]);  
+    　　 }
+        
+        //ajax로 글 등록하기
+        $("#modiSuccess").prop("disabled", true);
+        $.ajax({
+            type: "POST",
+            url: "../board-modify-form",
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(data) {
+                alert("수정이 완료되었습니다.")
+                location.href = "/userboards/board-content?pj_num=" + urlParams.get('pj_num') + "&board_num=" + urlParams.get('board_num');
+            },
+            error: function(e) {
+                console.log("ERROR: ", e);
+                //버튼 사용 불가
+                $("#modiSuccess").prop("disabled", false);
+                alert("fail");
+            }
+        })
+    });
+    
+    
   </script>
 
 </html>

@@ -17,7 +17,7 @@ $(document).ready(function() {
 		url: "../get-dlist",
 		type: "get",
 		async: false,
-		success: function(result) {
+		success: function(result) {	
 			let str = "";
 			str += '<ul class="depList" style="position: relative; list-style: none;" onclick="getDepList(event);">';
 			result.forEach(function(item, index) {
@@ -36,6 +36,7 @@ $(document).ready(function() {
 //ajax로 부서 클릭 시 부서에 있는 팀원 목록 출력 
 //여기서 세션 아이디 값 비교해서 본인이면 팀원 목록에 안 나오도록 처리
 function getDepList(e) {
+
 	
 	if(e.target.tagName === "LI") {
 	$.ajax({
@@ -67,7 +68,6 @@ function getDepList(e) {
 	});
 	
 	$('.depMemberList2').category_remove();
-		
 	}
 }
 
@@ -339,7 +339,6 @@ function createProject() {
 		"is_observer": pj_writerValue
 	});
 
-	console.log(user_boolean.length);
 	if (user_boolean.length == 1) {
 		$('#memberWarning').text("팀원 및 옵저버를 선택해주세요.");
 		if (user_boolean.length > 1) {

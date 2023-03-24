@@ -40,14 +40,14 @@ public interface UserBoardMapper {
 	 * @param pj_num
 	 * @return ProjectVO
 	 */
-	public ArrayList<ProjectVO> getObserver(int pj_num); //옵저버
+	public ArrayList<ProjectVO> getObserver(int pj_num); //옵저버 얻어와서 옵저버일 경우 글 작성 못하게 막음
 	
 	/***
 	 * 
 	 * @param FileVO
 	 * @return int
 	 */
-	public int fileUploadList(FileVO vo); //파일 업로드
+	public int fileUploadList(FileVO vo); //글 등록 시 파일 업로드
 	
 	/***
 	 * 
@@ -55,12 +55,34 @@ public interface UserBoardMapper {
 	 * @param board_num
 	 * @return UserBoardVO
 	 */
-	public UserBoardVO detailContent(@Param("pjNum") int pj_num, @Param("boardNum") int board_num);
+	public UserBoardVO detailContent(@Param("pjNum") int pj_num, @Param("boardNum") int board_num); //게시글 상세 보기
 	
 	/***
 	 * 
 	 * @param board_num
 	 * @return FileVO
 	 */
-	public ArrayList<FileVO> fileList(int board_num);
+	public ArrayList<FileVO> fileList(int board_num); //상세 화면에서 파일 정보 불러 오기
+	
+	/***
+	 * 
+	 * @param board_num
+	 * @return int
+	 */
+	public int deleteContent(int board_num); //게시글 삭제 
+	
+	/***
+	 * 
+	 * @param map
+	 * @return int
+	 */
+	public int updateContent(Map<String, Object> map); //게시글 수정
+	
+	/***
+	 * 
+	 * @param fileVO
+	 * @return int
+	 */
+	public int updateFileList(FileVO fileVO); //파일 업로드 수정(기존 데이터 dcheck 1로 변경)
+	
 }

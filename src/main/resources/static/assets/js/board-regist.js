@@ -1,4 +1,7 @@
 //summernote editor
+//빈 파일 배열을 생성한다 - 가공 처리(빈 배열 생성 안했을 때 없는 파일 추가 됨)
+var inputFileList = new Array();
+
 $(document).ready(function() {
     $('#summernote').summernote({
         height: 270,
@@ -14,24 +17,40 @@ $(document).ready(function() {
             ['height', ['height']]
         ]
     });
-	
+    
+    //파일 이름 목록에 추가 
+     $('#formFile').on('change', function(e) {
+    let files = $(this).prop('files');
+
+    let fileNames = "";
+    if (files && files.length > 0) { // 파일이 첨부되어 있는 경우
+      for (var i = 0; i < files.length; i++) {
+        fileNames += "<li>" + files[i].name + "</li>";
+      }
+      
+      //change 됐을 때, 파일이 첨부되어 있을 때만 e.target.files를 받아와서 빈 배열에 넣어준다
+      inputFileList = []; // 기존 정보 제거
+      var fileList = e.target.files;				
+	  var filesArr = Array.prototype.slice.call(fileList);
+	  for(f of filesArr){
+	  	inputFileList.push(f);	   
+	  }
+
+      $('#fileNames').html("<ul style='margin-top: 10px;'>" + fileNames + "</ul>");
+    } else { // 파일이 첨부되어 있지 않은 경우
+      $('#fileNames').empty();
+      $('#fileNames').html("");
+      $('#fileUpload').val(""); // value 값을 ""으로 설정
+      // FormData 객체에서 파일 삭제
+      let formData = new FormData($('#form')[0]);
+      if (files.length === 0) {
+        formData.delete('fileUpload');
+        alert("첨부된 파일이 없습니다.");
+      }
+    }
+  });   
 });
-
-//파일 이름 목록에 추가 
-$(document).ready(function() {
-    $('#formFile').on('change', function() {
-        let files = $(this).prop('files');
-        let fileNames = "";
-        for (var i = 0; i < files.length; i++) {
-            fileNames += "<li>" + files[i].name + "</li>";
-        }
-        $('#fileNames').html("<ul style='margin-top: 10px;'>" + fileNames + "</ul>");
-
-        let writerName = $('span[name="writer"]').text();
-
-    });
-});
-
+    
 //작성 완료 버튼 누를 시 ajax로 데이터 넘김
 $("#boardSuccess").click(function(event) {
     //기본으로 정의된 이벤트를 작동하지 못하게 함, 즉 submit을 막는다.
@@ -92,10 +111,16 @@ $("#boardSuccess").click(function(event) {
     }
     
     formData = new FormData($('#boardRegistForm')[0]); 
+ 
+	//push해준 값을 배열로 돌려서 넣음 - 컨트롤러에서 처리
+	//배열에서 파일 꺼내 폼 객체에 담는다
+　　 for(let i = 0; i < inputFileList.length; i++) {
+　　　　formData.append("fileUploadImg", inputFileList[i]);
+　　 };
 
     //ajax로 글 등록하기
     $("#boardSuccess").prop("disabled", true);
-
+    
     $.ajax({
         type: "POST",
         url: "../reg-board",
@@ -113,5 +138,5 @@ $("#boardSuccess").click(function(event) {
             $("#boardSuccess").prop("disabled", false);
             alert("fail");
         }
-    })
+    });
 });

@@ -1,6 +1,5 @@
 package com.choongang.scheduleproject.controller;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +10,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choongang.scheduleproject.board.service.AdminNoticeService;
 import com.choongang.scheduleproject.board.service.UserBoardService;
@@ -41,7 +42,7 @@ public class UserBoardController {
 	@Qualifier("projectService")
 	private ProjectService projectService;
 
-
+	//글 목록 보기 화면
 	@GetMapping("/board-list")
 	public String boardList(Criteria cri, Model model,
 								@RequestParam("pj_num") int pj_num) {
@@ -53,7 +54,6 @@ public class UserBoardController {
 		ProjectVO pjVO = projectService.getProject(pj_num);				
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list_user);
-
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pjNum", pj_num);
@@ -72,6 +72,7 @@ public class UserBoardController {
 		return "/userboards/board-list";
 	}
 
+	//글 등록
 	@GetMapping("/board-regist")
 	public String boardRegist(Model model,	
 							  @RequestParam("pj_num") int pjNum) {
@@ -79,16 +80,48 @@ public class UserBoardController {
 		return "/userboards/board-regist";
 	}
 	
+	//글 수정
 	@GetMapping("/board-modify")
-	public String boardModify() {
+	public String boardModify(@RequestParam("pj_num") int pjNum,	
+							  @RequestParam("board_num") int boardNum,
+							  RedirectAttributes ra,
+							  Model model) {
+		
+		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
+		ArrayList<UserVO> list = new ArrayList<>();
+		list = projectService.getProjectMember(pjNum);
+
+		ProjectVO pjVO = projectService.getProject(pjNum);
+		model.addAttribute("pjVO",pjVO);
+		model.addAttribute("list",list);
+		
+		ArrayList<FileVO> fvo = userBoardService.fileList(boardNum);
+		UserBoardVO vo = userBoardService.detailContent(pjNum, boardNum);
+		model.addAttribute("vo", vo);
+		model.addAttribute("pjNum", pjNum);
+		model.addAttribute("boardNum", boardNum);
+		model.addAttribute("fvo", fvo);
+		
+		//글 상세 화면으로
 		return "/userboards/board-modify";
 	}
+	
+	//글 삭제
+	@PostMapping("/delete-content")
+	public String deleteContent(@RequestParam("boardNum") int boardNum,
+								@RequestParam("pjNum") int pjNum,
+								RedirectAttributes ra) {
+		int result = userBoardService.deleteContent(boardNum);
+		String msg = result == 1 ? "삭제되었습니다" : "삭제에 실패했습니다";
+		ra.addFlashAttribute("msg", msg);
+		return "redirect:/userboards/board-list?pj_num=" + pjNum;
+	}
 
+	//글 상세 화면
 	@GetMapping("/board-content")
 	public String boardContent(Model model,
 								@RequestParam("pj_num") int pjNum,
 								@RequestParam("board_num") int boardNum) {
-		
 		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
 		ArrayList<UserVO> list_user = new ArrayList<>();
 		list_user = projectService.getProjectMember(pjNum);
@@ -101,10 +134,11 @@ public class UserBoardController {
 		model.addAttribute("pjNum", pjNum);
 		model.addAttribute("boardNum", boardNum);
 		model.addAttribute(userBoardVO);
+		System.out.println("userBoardVO" + userBoardVO.toString());
+		
 		ArrayList<FileVO> fileList = userBoardService.fileList(boardNum);
-		model.addAttribute("fileList", fileList);                 
-		System.out.println(fileList.toString());
-		System.out.println(userBoardVO.toString());
+		model.addAttribute("fileList", fileList);  
+		
 		return "/userboards/board-content";
 	}
 

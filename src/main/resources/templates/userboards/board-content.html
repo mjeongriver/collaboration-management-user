@@ -1,19 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
+<th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <div class="wrap">
         <main id="main" class="main" style="background-color: #f6f9ff;">
             <section class="section">
                 <div class="row">
                     <div class="col-lg-8" style="margin: 0 auto;">
-                        <input type="hidden" id="pjNum" th:name="pjNum" th:value="${pjNum}"> <input type="hidden" id="boardNum" th:name="boardNum" th:value="${boardNum}">
                         <!-- 내용 박스 -->
                         <div class="card">
                             <div class="card-body" style="padding: 20px 50px 50px 50px;">
                                 <h5 class="card-title">글 상세 보기</h5>
-                                <form>
+                                <form action="/userboards/delete-content" method="post">
+                                    <input type="hidden" id="pjNum" th:name="pjNum" th:value="${pjNum}">
+                                    <input type="hidden" id="boardNum" th:name="boardNum" th:value="${boardNum}">
+                                    <input type="hidden" name="sessionId" th:id="${session.user_id}"></input>
+
                                     <div style="border: 1px solid #ccc; padding: 30px; border-radius: 10px;">
                                         <div class="row mb-3">
                                             <label for="category" class="col-sm-2 col-form-label">카테고리</label>
@@ -34,7 +37,7 @@
 
                                         <div class="row mb-3">
                                             <label for="writer" class="col-sm-2 col-form-label">작성자</label>
-                                            <div class="col-sm-10" style="padding: 4.75px 15px;">
+                                            <div id="boardWriter" th:name="boardWriter" th:value="${userBoardVO.boardWriter}" class="col-sm-10" style="padding: 4.75px 15px;">
                                                 [[${userBoardVO.userName}]]</div>
                                         </div>
 
@@ -50,12 +53,14 @@
                                                 [[${userBoardVO.boardEnddate}]]</div>
                                         </div>
 
-                                        <div class="row mb-3">
+                                        <div class="row mb-3" style="padding-bottom:10px">
                                             <label for="upload" class="col-sm-2 col-form-label">업로드 된 파일</label>
+
                                             <div class="col-sm-10" style="padding: 4.75px 15px">
                                                 <li th:each="file : ${fileList}" class="downloadBtn">
                                                     <button th:src="${file.boardfilePath}" style="border: none; background-color:white;" id="downloadBtn" type="button" onclick="downloadBoardImg(event)" title="Download Board image">[[${file.boardfileName}]]</button>
                                                 </li>
+                                                <li id="noFiles" style="display:none;">첨부된 파일이 없습니다.</li>
                                             </div>
                                         </div>
 
@@ -63,7 +68,7 @@
                                             <label for="description" class="col-sm-2 col-form-label">세부 내용</label>
                                             <div class="col-sm-10">
                                                 <div>
-                                                    <div id="summernote" name="editordata" style="overflow: auto; height: 300px; border: 1px solid #ccc; padding: 5px; border-radius: 10px;">
+                                                    <div id="summernote" style="overflow: auto; height: 300px; border: 1px solid #ccc; padding: 5px; border-radius: 10px;">
                                                         <div style="padding: 10px" th:utext="${userBoardVO.boardContent}"></div>
                                                     </div>
                                                 </div>
@@ -119,41 +124,37 @@
                                                         안냐세요 굉장히 어렵네용
                                                     </div>
                                                 </div>
-												<div align="right" style="width: 100%; height: 40px; display:block;">
+                                                <div align="right" style="width: 100%; height: 40px; display:block;">
                                                     <button type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;">삭제</button>
                                                 </div>
 
-												<div style="display:none; " class="reply">
-		                                            <form action="#">
-														<div class="list-group-item-secondary">
-			                                                <div style="padding-top: 10px; margin-left:11%;">
-			                                                    <h5 style="font-weight: 700;">작성자 : minjeongzzang</h5>
-			                                                </div>
+                                                <div style="display:none; " class="reply">
+                                                    <div class="list-group-item-secondary">
+                                                        <div style="padding-top: 10px; margin-left:11%;">
+                                                            <h5 style="font-weight: 700;">작성자 : minjeongzzang</h5>
+                                                        </div>
 
-		                                                    <div style="padding: 20px 10px">
-		                                                        <div class="form-floating" style="margin-left:10%;">
-		                                                            <textarea class="form-control" placeholder="입력" id="floatingTextarea" style="height: 100px; " ></textarea>
-		                                                            <label for="floatingTextarea">댓글을 입력해주세요.</label>
-		                                                        </div>
-		                                                    </div>
-		                                                    <div style="padding-bottom: 30px; position: relative;">
-		                                                        <button type="submit" class="btn btn-success btn-sm" style="float: right; position: absolute; top: -10px; right: 10px;">등록</button>
-		                                                    </div>
-
-		                                                </div>
-		                                            </form>
-												</div>
+                                                        <div style="padding: 20px 10px">
+                                                            <div class="form-floating" style="margin-left:10%;">
+                                                                <textarea class="form-control" placeholder="입력" id="floatingTextarea" style="height: 100px; "></textarea>
+                                                                <label for="floatingTextarea">댓글을 입력해주세요.</label>
+                                                            </div>
+                                                        </div>
+                                                        <div style="padding-bottom: 30px; position: relative;">
+                                                            <button type="submit" class="btn btn-success btn-sm" style="float: right; position: absolute; top: -10px; right: 10px;">등록</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <!-- 댓글 등록 -->
-                                            <form action="#">
                                                 <div style="padding-top: 10px;">
                                                     <h5 style="font-weight: 700;">작성자 : minjeongzzang</h5>
                                                 </div>
                                                 <div class="list-group-item-secondary">
                                                     <div style="padding: 20px 10px">
                                                         <div class="form-floating">
-                                                            <textarea class="form-control" placeholder="입력" id="floatingTextarea" style="height: 100px;" ></textarea>
+                                                            <textarea class="form-control" placeholder="입력" id="floatingTextarea" style="height: 100px;"></textarea>
                                                             <label for="floatingTextarea">댓글을 입력해주세요.</label>
                                                         </div>
                                                     </div>
@@ -161,21 +162,20 @@
                                                         <button type="submit" class="btn btn-success btn-sm" style="float: right; position: absolute; top: -10px; right: 10px;">등록</button>
                                                     </div>
                                                 </div>
-                                            </form>
                                         </div>
                                         <!-- 여기까지가 댓글 -->
-                                        <div class="board-navigation" style="padding-top: 15px;">
+                                       <!--  <div class="board-navigation" style="padding-top: 15px;">
                                             <div class="prev-post">
                                                 <span style="font-weight: 700;">이전 글</span> <a href="/previous-post.html">너무너무너무너무 조립당</a>
                                             </div>
                                             <div class="next-post" style="padding-top: 7px;">
                                                 <span style="font-weight: 700;">다음 글</span> <a href="/next-post.html">너ㅜㅁ너ㅜ너무 조립당</a>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div style="text-align: center; padding-top: 30px;">
-                                            <button id="modiBtn" type="button" class="btn btn-primary btn-sm">수정</button>
-                                            <button id="delBtn" type="button" class="btn btn-primary btn-sm">삭제</button>
+                                            <button id="modiBtn" name="modiBtn" type="button" class="btn btn-primary btn-sm">수정</button>
+                                            <button id="delBtn" name="delBtn" type="submit" class="btn btn-primary btn-sm">삭제</button>
                                             <button id="listBtn" type="button" class="btn btn-primary btn-sm">목록</button>
                                         </div>
                                     </div>
@@ -194,40 +194,59 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
-	
-	//업로드 파일 목록에서 마우스 가져다 대면 hover 속성 추가
+    //업로드 파일 목록에서 마우스 가져다 대면 hover 속성 추가
     $(".downloadBtn").css("color", "black").hover(function() {
         $(this).css("color", "#337AB7");
     }, function() {
         $(this).css("color", "black");
     });
 
-	//이미지 다운로드
+    //이미지 다운로드
     function downloadBoardImg(event) {
         let myImg = event.target.getAttribute("src");
         location.href = "../aws/profile-download?myProfileImg=" + myImg;
     }
-	
-	//수정, 삭제, 목록으로 가기
-    let urlParams = new URLSearchParams(window.location.search);
-    	$('#modiBtn').click(function() {
-    	  window.location.href = "/userboards/board-regist?pj_num=" + urlParams.get('pj_num') + "&board_num=" + urlParams.get('board_num');
-    	});
 
-    	$('#delBtn').click(function() {
-    	  window.location.href = "/userboards/board-list?pj_num=" + urlParams.get('pj_num');
-    	});
-
-    	$('#listBtn').click(function() {
-    	  window.location.href = "/userboards/board-list?pj_num=" + urlParams.get('pj_num');
-    	});
-
-    $(".btn-primary").on('click',function(e){
-    	if($(e.target).html() == '답글') {
-			$(".reply").css('display','block');
-    	}
+    $(document).ready(function() {
+    //fileList가 없을 때 #noFiles를 표시
+        if ($('li.downloadBtn').length === 0) {
+            console.log($('li.downloadBtn').length);
+            $('#noFiles').show();
+        }
+        
+    //삭제와 수정 버튼 막기
+        let boardWriter = $('#boardWriter').attr('value');
+        console.log(boardWriter);
+        let sessionId = $("input[name='sessionId']").attr("id");
+        if (boardWriter !== sessionId) {
+            // session.id와 같을 경우 삭제, 수정 버튼을 보이게 처리
+            $("button[name='modiBtn']").prop("disabled", true)
+            $("button[name='delBtn']").prop("disabled", true)
+        }
     });
 
+    //수정, 삭제-목록으로 감, 목록으로 가기
+    let urlParams = new URLSearchParams(window.location.search);
+    $('#modiBtn').click(function() {
+        window.location.href = "/userboards/board-modify?pj_num=" + urlParams.get('pj_num') + "&board_num=" + urlParams.get('board_num');
+    });
+
+    $('#delBtn').click(function() {
+        if (confirm("정말 지우겠습니까?")) {
+            document.actionForm.submit();
+        }
+    });
+
+    $('#listBtn').click(function() {
+        window.location.href = "/userboards/board-list?pj_num=" + urlParams.get('pj_num');
+    });
+
+    //댓글
+    $(".btn-primary").on('click', function(e) {
+        if ($(e.target).html() == '답글') {
+            $(".reply").css('display', 'block');
+        }
+    });
 </script>
 
 </html>

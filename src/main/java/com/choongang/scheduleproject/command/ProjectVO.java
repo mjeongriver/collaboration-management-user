@@ -41,5 +41,4 @@ public class ProjectVO {
 	private int pjObservercount;
 	private int pjMembercount;
 
-
 }

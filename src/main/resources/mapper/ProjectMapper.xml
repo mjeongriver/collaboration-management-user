@@ -7,21 +7,21 @@
 
 	<!-- 프로젝트 생성 -->
 	<insert id="regist" parameterType="ProjectVO">
-		INSERT INTO USER_PROJECT (pj_name, pj_startdate, pj_enddate,
+		insert into user_project (pj_name, pj_startdate, pj_enddate,
 		pj_description, pj_writer)
-		VALUES (#{pjName}, #{pjStartdate},
+		values (#{pjName}, #{pjStartdate},
 		#{pjEnddate}, #{pjDescription},
 		#{pjWriter})
 
 		<selectKey keyProperty="pjNum" resultType="int" order="AFTER">
-			SELECT LAST_INSERT_ID()
+			select last_insert_id()
 		</selectKey>
 	</insert>
 
 	<insert id="registMember" parameterType="ProjectMemberVO">
-		INSERT INTO MAPPING
+		insert into mapping
 		(pj_num, user_id, is_observer)
-		VALUES (#{pjNum}, #{userId}, #{isObserver})
+		values (#{pjNum}, #{userId}, #{isObserver})
 	</insert>
 
 	<!-- 부서 목록 -->
@@ -141,6 +141,7 @@
 		delete from
 		user_project where pj_num=#{pj_num}
 	</delete>
+	
 	<!-- 해당 pj에 본인이 멤버인지 체크 -->
 	<select id="checkMember" resultType="string">
 		select user_id from mapping where user_id=#{user_id} and pj_num=#{pj_num};

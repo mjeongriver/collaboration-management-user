@@ -5,7 +5,6 @@
 
     <div class="wrap">
         <main id="main" class="main" style="background-color: #f6f9ff;">
-
             <section class="section">
                 <div class="row">
                     <div class="col-lg-7" style="margin:0 auto;">
@@ -13,23 +12,19 @@
                         <!-- 내용 박스 -->
                         <div class="card">
                             <div class="card-body" style="padding: 20 100px 30px 100px;">
-
                                 <h5 class="card-title">글 작성</h5>
-
                                 <form id="boardRegistForm" method="post" enctype="multipart/form-data">
                                     <input type="hidden" id="pjNum" th:name="pjNum" th:value="${pjNum}">
 
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">카테고리</label>
                                         <div class="col-sm-10">
-
                                             <select id="categorySelect" name="categorySelect" class="form-select me-2" style="height: 34px; font-size: 100%; padding: 6px 12px;">
                                                 <option value="개발">개발</option>
                                                 <option value="기획">기획</option>
                                                 <option value="논의">논의</option>
                                                 <option value="제안">제안</option>
                                             </select>
-
                                         </div>
                                     </div>
 
@@ -60,7 +55,7 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="FileUpload" class="col-sm-2 col-form-label">File Upload</label>
+                                        <label for="FileUpload" class="col-sm-2 col-form-label">파일 업로드</label>
                                         <div class="col-sm-10">
                                             <input name="fileUpload" class="form-control" type="file" multiple id="formFile">
                                             <div id="fileNames"></div>
@@ -102,7 +97,6 @@
                         </div> <!-- card end -->
                     </div>
                 </div>
-
             </section>
         </main>
         <!-- End #main -->
