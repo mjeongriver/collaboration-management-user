@@ -83,8 +83,9 @@
 	<select id="getChat" resultType="ChatVO">
 		select chat_num,chat_writer,
 		chat_content,
-		chat_regdate,u.user_name,u.user_img from user_chat c left
-		outer join
+		chat_regdate,u.user_name,u.user_img
+		from user_chat c
+		left outer join
 		user_user u on c.chat_writer = u.user_id
 		where pj_num
 		=#{pjNum};

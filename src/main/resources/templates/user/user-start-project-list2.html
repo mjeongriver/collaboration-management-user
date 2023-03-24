@@ -178,9 +178,9 @@ var sessionId = document.querySelector(".user_id").innerHTML; //세션값 히든
 							str += '<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>';
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
-							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item" style="color: blue;" >수정</a></li>';
+							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item" style="color: blue;" href="/project/project-change?pj_num='+ response[i].pjNum +'" >수정</a></li>';
 
-							str += '<li><a class="dropdown-item" onclick="deleteProject('+response[i].pjNum+');" style="color: red">삭제</a></li>';
+							str += '<li><a class="dropdown-item" onclick="deleteProject('+response[i].pjNum+');" style="color: red; cursor:pointer" >삭제</a></li>';
 							str += '</ul></div>';
 								}
 							str += '</span><br>';

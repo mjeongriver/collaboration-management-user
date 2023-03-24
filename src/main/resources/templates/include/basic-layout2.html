@@ -9,7 +9,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/assets/img/trianglelogo.png" rel="icon">
+  <link href="/assets/img/logo3.png" rel="icon">
   <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -43,7 +43,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
-        <img src="/assets/img/trianglelogo.png" alt="">
+        <img src="/assets/img/logo3.png" alt="">
         <span class="d-none d-lg-block" style="padding: 5px 5px 5px 5px;font-size:22px"> Project Management</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -149,23 +149,23 @@
 		let canMakeProject = document.getElementById("canMakeProject").innerHTML;
 		if(canMakeProject === "1") {
 			let str = "";
-			
+
 	        str += `<button type="button" id="makeProject" class="btn btn-primary" style="width : 100%" onclick="location.href='/project/project-add'">`;
 	        str += `<i class="bi bi-calendar-plus"></i>`;
 	        str += `<span>프로젝트 생성</span>`;
 	        str += `</button>`;
-	        
+
 	        $("#makeProject").append(str); //자식으로 추가
 		}
 	});
-	
+
 	//레이아웃 사이드바 데이터 가져오기
 	$(document).ready(function() {
 		$.ajax({
 			url : "../get-project-list",
 			type : "get",
 			dataType : "json",
-			success : function(response){				
+			success : function(response){
 				for(let i = 0; i < response.length; i++) {
 					if(response[i].pjActive == true) {
 						let str = "";
@@ -180,7 +180,7 @@
 			            str += '<a href="http://localhost:8686/project/project-user-team-chart?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 진척률</a>';
 			            str += '</div>';
 			          	str += '</li>';
-			          	
+
 			          	$("#projects-nav").append(str); //자식으로 추가
 					}
 				}
@@ -189,9 +189,9 @@
 				alert("프로젝트 리스트 조회 실패")
 			}
 		})
-		
+
 	});
-	
+
 	//로그아웃 처리 - 카카오로 로그인했을 경우 카카오 계정에서도 로그아웃되게
 	$(document).ready(function() {
 		let method = document.getElementById("method").innerHTML;
@@ -202,7 +202,7 @@
 			logout.href = "https://kauth.kakao.com/oauth/logout?client_id="+ apiKey +"&logout_redirect_uri=" + address;
 		}
 	});
-	
+
 	//프로젝트 디테일 보기
 	function showProjectDetail(e){
 		event.preventDefault();
@@ -212,7 +212,7 @@
 				if(details[i].style.display === ""){
 					details[i].style.display = "none";
 				} else {
-					details[i].style.display = "";				
+					details[i].style.display = "";
 				}
 			} else {
 				details[i].style.display = "none";
