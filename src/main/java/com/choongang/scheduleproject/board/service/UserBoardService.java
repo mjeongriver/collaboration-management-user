@@ -9,14 +9,12 @@ import com.choongang.scheduleproject.command.ProjectVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 
 public interface UserBoardService {
-
 	/***
 	 * 
 	 * @param map
 	 * @return UserBoardVO
 	 */
 	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
-
 
 	/***
 	 * 

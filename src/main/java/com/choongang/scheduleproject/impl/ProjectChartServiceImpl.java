@@ -11,7 +11,6 @@ import com.choongang.scheduleproject.project.service.ProjectChartService;
 
 @Service
 public class ProjectChartServiceImpl implements ProjectChartService{
-
 	@Autowired
 	ProjectChartMapper projectChartMapper;
 
@@ -29,6 +28,4 @@ public class ProjectChartServiceImpl implements ProjectChartService{
 	public ArrayList<ChartVO> getMemberCategoryChart(String pjNum, String userId) {
 		return projectChartMapper.getMemberCategoryChart(pjNum, userId);
 	}
-
-
 }

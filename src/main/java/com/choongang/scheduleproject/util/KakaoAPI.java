@@ -17,7 +17,6 @@ import com.google.gson.JsonParser;
 
 @Component("kakao")
 public class KakaoAPI {
-	
 	private static final String REQUEST_URL_USER = "https://kauth.kakao.com/oauth/token";
 	private static final String REQUEST_URL_INFO = "https://kapi.kakao.com/v2/user/me";
 	private static final String REDIRECT_URI = "http://127.0.0.1:8686/user/kakao";

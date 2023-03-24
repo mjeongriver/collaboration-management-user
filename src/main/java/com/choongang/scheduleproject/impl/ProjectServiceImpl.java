@@ -17,7 +17,6 @@ import com.choongang.scheduleproject.project.service.ProjectService;
 
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
-
 	@Autowired
 	private ProjectMapper projectMapper;
 
@@ -149,6 +148,31 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public ArrayList<UserScheduleVO> getTodoList(String todo_writer) {
 		return projectMapper.getTodoList(todo_writer);
+	}
+
+	@Override
+	public int deleteTodo(int todoNum) {
+		return projectMapper.deleteTodo(todoNum);
+	}
+
+	@Override
+	public int changeProjectName(ProjectVO vo) {
+		return projectMapper.changeProjectName(vo);
+	}
+
+	@Override
+	public int changeProjectStartdate(ProjectVO vo) {
+		return projectMapper.changeProjectStartdate(vo);
+	}
+
+	@Override
+	public int changeProjectEnddate(ProjectVO vo) {
+		return projectMapper.changeProjectEnddate(vo);
+	}
+
+	@Override
+	public int changeProjectDescription(ProjectVO vo) {
+		return projectMapper.changeProjectDescription(vo);
 	}
 
 

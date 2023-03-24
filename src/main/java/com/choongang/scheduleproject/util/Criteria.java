@@ -5,10 +5,8 @@ import lombok.Data;
 //sql문에 페이지 번호, 데이터 개수 전달을 해줄 클래스
 @Data
 public class Criteria {
-
 	private final static int DEFAULT_PAGE = 1;
 	private final static int DEFAULT_AMOUNT = 10;
-
 	private int page; //페이지 번호
 	private int amount; //데이터 개수
 
@@ -32,5 +30,4 @@ public class Criteria {
 	public int getPageStart() {
 		return (page - 1) * amount;
 	}
-
 }

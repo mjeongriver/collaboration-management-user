@@ -1,6 +1,5 @@
 package com.choongang.scheduleproject.command;
 
-
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.Email;
@@ -10,8 +9,6 @@ import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 
 @Data
 @NoArgsConstructor
@@ -47,25 +44,15 @@ public class UserVO {
 	private String userCell;
 
 	private String userBirth;
-
 	private int userActive;
-
 	private String userPosition;
-
 	private int userRole;
-
 	private int userEmployeenumber;
-
 	private int userLoginfail;
-
 	private LocalDateTime userRegdate;
-
 	private String userImg;
-
 	private String departmentName;
-
 	private String userMethod;
-
 	private boolean isObserver;
 }
 

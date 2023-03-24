@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Service("userBoardService")
 public class UserBoardServiceImpl implements UserBoardService{
-	
 	@Autowired
 	private UserBoardMapper userBoardMapper;
 
@@ -75,5 +74,4 @@ public class UserBoardServiceImpl implements UserBoardService{
 		return userBoardMapper.updateFileList(fileVO);
 	}
 
-	
 }

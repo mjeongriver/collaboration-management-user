@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DepartmentVO {
-
 	private int departmentId;
 	private String departmentName;
 }

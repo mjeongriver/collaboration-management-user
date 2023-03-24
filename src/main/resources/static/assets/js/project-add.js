@@ -5,7 +5,6 @@ $(".modalOn").click(function(e) {
 
 //모달에서 일괄 삭제 전체 선택 기능
 function selectAllMember(selectAll) {
-
 	let checkboxes = document.getElementsByName('memberDelete');
 	checkboxes.forEach((checkbox) => {
 		checkbox.checked = selectAll.checked;
@@ -38,7 +37,8 @@ $(document).ready(function() {
 //여기서 세션 아이디 값 비교해서 본인이면 팀원 목록에 안 나오도록 처리
 function getDepList(e) {
 
-	if(e.target.tagName === "LI"){
+	
+	if(e.target.tagName === "LI") {
 	$.ajax({
 		url: "../get-dmlist",
 		type: "get",
@@ -321,6 +321,7 @@ function createProject() {
 		$('#dateWarning').show();
 		$("input[name=pj_startdate]").focus();
 		$("input[name=pj_enddate]").focus();
+		return false;
 	}
 
 	let user_boolean = [];

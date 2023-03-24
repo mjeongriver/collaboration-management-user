@@ -12,7 +12,6 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserBoardMapper {
-	
 	/***
 	 * 
 	 * @param map
@@ -85,6 +84,5 @@ public interface UserBoardMapper {
 	 * @return int
 	 */
 	public int updateFileList(FileVO fileVO); //파일 업로드 수정(기존 데이터 dcheck 1로 변경)
-	
 	
 }
