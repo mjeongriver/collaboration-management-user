@@ -39,7 +39,6 @@ public class ProjectController {
 		model.addAttribute("project", project);
 		model.addAttribute("member", member);
 
-		
 		return "/project/project-change";
 	}
 	

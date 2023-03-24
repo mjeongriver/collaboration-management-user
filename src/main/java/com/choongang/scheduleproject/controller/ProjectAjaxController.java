@@ -27,7 +27,6 @@ import com.choongang.scheduleproject.project.service.ProjectService;
 import com.choongang.scheduleproject.user.service.UserService;
 import com.google.gson.Gson;
 
-
 @RestController
 public class ProjectAjaxController {
 

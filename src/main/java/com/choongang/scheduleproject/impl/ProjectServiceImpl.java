@@ -1,6 +1,5 @@
 package com.choongang.scheduleproject.impl;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,73 +48,61 @@ public class ProjectServiceImpl implements ProjectService {
 	//startProjectList
 	@Override
 	public ArrayList<UserVO> getProjectMember(int pj_num) {
-
 		return projectMapper.getProjectMember(pj_num);
 	}
 
 	@Override
 	public UserVO getUserVO(String user_id) {
-
 		return projectMapper.getUserVO(user_id);
 	}
 
 	@Override
 	public int setChat(ChatVO vo) {
-
 		return projectMapper.setChat(vo);
 	}
 
 	@Override
 	public ArrayList<ChatVO> getChat(int pj_num) {
-
 		return projectMapper.getChat(pj_num);
 	}
 
 	@Override
 	public int deleteChat(int chat_num) {
-
 		return projectMapper.deleteChat(chat_num);
 	}
 
 	@Override
 	public int modifyChat(int chat_num,String modify_content) {
-
 		return projectMapper.modifyChat(chat_num,modify_content);
 	}
 
 	@Override
 	public ArrayList<ProjectVO> getProjectList(String user_id) {
-
 		return projectMapper.getProjectList(user_id);
 	}
 
 	@Override
 	public int changeBookmark(String user_id, int pj_num, boolean pj_bookmark) {
-
 		return projectMapper.changeBookmark(user_id, pj_num, pj_bookmark);
 	}
 
 	@Override
 	public ProjectVO getProject(int pj_num) {
-
 		return projectMapper.getProject(pj_num);
 	}
 
 	@Override
 	public String getUserName(String user_id) {
-
 		return projectMapper.getUserName(user_id);
 	}
 
 	@Override
 	public int deleteProject(int pj_num) {
-
 		return projectMapper.deleteProject(pj_num);
 	}
 
 	@Override
 	public String checkMember(String pj_num, String user_id) {
-
 		return projectMapper.checkMember(pj_num, user_id);
 	}
 
@@ -161,9 +148,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ArrayList<UserScheduleVO> getTodoList(String todo_writer) {
-
 		return projectMapper.getTodoList(todo_writer);
-
 	}
 
 
