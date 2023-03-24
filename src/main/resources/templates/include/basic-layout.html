@@ -11,7 +11,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/assets/img/logo.png" rel="icon">
+  <link href="/assets/img/logo3.png" rel="icon">
   <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -47,7 +47,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
-        <img src="/assets/img/logo.png" alt="">
+        <img src="/assets/img/logo3.png" alt="">
         <span class="d-none d-lg-block" style="padding: 5px 5px 5px 5px;font-size:22px"> Project Management</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -118,14 +118,14 @@
         <a class="nav-link collapsed" data-bs-target="#teammates-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-fill"></i><span>프로젝트 팀원</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">	
+        <ul id="teammates-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li class="listInner" th:each="vo, status: ${list}" th:if="${vo.isObserver == false}">
 			<a href="#" onclick="showUserInfo(this)" data-bs-toggle="dropdown" data-bs-auto-close="outside">
 			  <span style="display:none">[[${vo.userId}]]</span>
 			  <i class="bi bi-circle"></i><span>[[${vo.userName}]]</span>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow showUserInfo">
-			
+
 			</ul>
 		  </li>
         </ul>
@@ -148,9 +148,9 @@
       </li>
     </ul>
   </aside><!-- End Sidebar-->
-  
+
   <th:block th:replace="${section}"></th:block>
-  
+
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
@@ -188,14 +188,14 @@
 			logout.href = "https://kauth.kakao.com/oauth/logout?client_id="+ apiKey +"&logout_redirect_uri=" + address;
 		}
 	});
-	
+
 	//레이아웃 사이드바 데이터 가져오기
 	$(document).ready(function() {
 		$.ajax({
 			url : "../get-project-list",
 			type : "get",
 			dataType : "json",
-			success : function(response){				
+			success : function(response){
 				for(let i = 0; i < response.length; i++) {
 					if(response[i].pjActive == true) {
 						let str = "";
@@ -210,7 +210,7 @@
 			            str += '<a href="http://localhost:8686/project/project-user-team-chart?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 진척률</a>';
 			            str += '</div>';
 			          	str += '</li>';
-			          	
+
 			          	$("#projects-nav").append(str); //자식으로 추가
 					}
 				}
@@ -219,7 +219,7 @@
 			}
 		})
 	});
-	
+
 	//프로젝트 팀원, 옵저버에 아무도 없을 경우 사이드바에서 사라지게 처리
 	$(document).ready(function() {
 		var teammates_nav = document.getElementById("teammates-nav");
@@ -231,7 +231,7 @@
 			teammates_nav.parentNode.style.display = "none";
 		}
 	});
-	
+
 	//프로젝트 디테일 보기
 	function showProjectDetail(e){
 		event.preventDefault();
@@ -241,14 +241,14 @@
 				if(details[i].style.display === ""){
 					details[i].style.display = "none";
 				} else {
-					details[i].style.display = "";				
+					details[i].style.display = "";
 				}
 			} else {
 				details[i].style.display = "none";
 			}
 		}
 	}
-	
+
 	//프로젝트 팀원, 옵저버의 정보 보기
 	function showUserInfo(e) {
 		event.preventDefault();
@@ -256,13 +256,13 @@
 			url : "../show-user-info",
 			type : "get",
 			data: { "userId": e.children[0].innerHTML },
-			success : function(response){								
+			success : function(response){
 				let str = "";
 				str += '<li style="padding-top:5px" class="dropdown-header text-start"><img src='+ response.userImg +' alt="Profile" class="rounded-circle" style="width:35px; height: 35px;"><strong style="padding-left:5px">'+ e.children[2].innerHTML + '</strong> | <span style="font-size:13px">' + response.departmentName + ' ' + response.userPosition +'</span></li>';
 				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">생년월일: '+ response.userBirth +'</li>';
 				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">휴대폰번호: '+ response.userCell +'</li>';
 				str += '<li style="padding-top:5px; font-size:14px" class="dropdown-header text-start">이메일: '+ response.userEmail +'</li>';
-				
+
 				$(".showUserInfo").html(str); //자식 노드로 추가
 			},
 			error : function(e){
