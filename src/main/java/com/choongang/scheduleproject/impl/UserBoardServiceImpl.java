@@ -14,10 +14,8 @@ import com.choongang.scheduleproject.command.UserBoardVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 @Service("userBoardService")
 public class UserBoardServiceImpl implements UserBoardService{
-	
 	@Autowired
 	private UserBoardMapper userBoardMapper;
 
@@ -60,16 +58,4 @@ public class UserBoardServiceImpl implements UserBoardService{
 	public ArrayList<FileVO> fileList(int board_num) {
 		return userBoardMapper.fileList(board_num);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
 }

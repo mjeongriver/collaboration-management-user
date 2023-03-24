@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectVO {
-
 	@NotNull
 	@NotBlank
 	@NotEmpty

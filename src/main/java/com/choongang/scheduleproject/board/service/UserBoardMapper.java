@@ -12,7 +12,6 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserBoardMapper {
-	
 	/***
 	 * 
 	 * @param map
@@ -64,6 +63,4 @@ public interface UserBoardMapper {
 	 * @return FileVO
 	 */
 	public ArrayList<FileVO> fileList(int board_num);
-	
-	
 }

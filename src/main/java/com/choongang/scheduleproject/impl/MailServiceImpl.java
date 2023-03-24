@@ -80,12 +80,12 @@ public class MailServiceImpl implements MailService {
         return key.toString();
     }
     
-    	/*
-        메일 발송
-        sendSimpleMessage의 매개변수로 들어온 to는 인증번호를 받을 메일주소
-        MimeMessage 객체 안에 내가 전송할 메일의 내용을 담아준다.
-        bean으로 등록해둔 javaMailSender 객체를 사용하여 이메일 send
-        */
+    /*
+    메일 발송
+    sendSimpleMessage의 매개변수로 들어온 to는 인증번호를 받을 메일주소
+    MimeMessage 객체 안에 내가 전송할 메일의 내용을 담아준다.
+    bean으로 등록해둔 javaMailSender 객체를 사용하여 이메일 send
+    */
     public String sendSimpleMessage(String to, String joinResetFind) throws Exception { // 이메일 보내기
     	ePw = createKey(); //메일을 보낼 때 랜덤문자열을 생성하여 보낼 때마다 다른 값을 넘기도록 설정
         MimeMessage message = createMessage(to);

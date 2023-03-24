@@ -54,7 +54,6 @@
 		<h1>프로젝트 수정</h1>
 	</div>
 	
-	<form action="/project/project-change-confirm" method="post" id="projectChangeForm">
 		<input style="display:none" name="pjNum" id="pjNum" th:value="${project.pjNum}">
 		<section class="section">
 		<div class="row" style="justify-content: center">
@@ -66,27 +65,27 @@
 						<div>
 							<span>프로젝트 명</span>
 							<span id="nameWarning" style="color: red; font-size: 14px; float: right;"></span>
-							<input class="form-control" type="text" name="pjName" id="pjName" placeholder="프로젝트 제목을 입력하세요." th:value="${project.pjName}" required><br>
+							<input class="form-control" type="text" name="pjName" id="pjName" placeholder="프로젝트 제목을 입력하세요." th:value="${project.pjName}" onblur="changeProjectName()" required><br>
 							<div style="padding-bottom: 50px">
 								<div style="float: left; width: 50%">
 									<span>프로젝트 시작일</span>
-									<input type="date" class="form-control" th:value="${project.pjStartdate}" name="pjStartdate" id="pjStartdate">
+									<input type="date" class="form-control" th:value="${project.pjStartdate}" onchange="changeProjectStartdate()" name="pjStartdate" id="pjStartdate">
 								</div>
 								<div style="float: right; width: 50%">
 									<span>프로젝트 종료일</span>
 									<span id="dateWarning" style="color: red; font-size: 14px; float: right;"></span>
-									<input type="date" class="form-control" th:value="${project.pjEnddate}" name="pjEnddate" id="pjEnddate">
+									<input type="date" class="form-control" th:value="${project.pjEnddate}" onchange="changeProjectEnddate()" name="pjEnddate" id="pjEnddate">
 								</div>
 							</div>
 							<div style="padding-top: 40px">
 								<span>프로젝트 상세 설명</span>
 								<span id="contentWarning" style="color: red; font-size: 14px; float: right;"></span>
-								<textarea class="form-control" type="text" name="pjDescription" id="pjDescription" placeholder="프로젝트에 관한 설명을 입력하세요." style="height: 200px; resize: none;">[[${project.pjDescription}]]</textarea>
+								<textarea class="form-control" type="text" name="pjDescription" id="pjDescription" placeholder="프로젝트에 관한 설명을 입력하세요." onblur="changeProjectDescription()" style="height: 200px; resize: none;">[[${project.pjDescription}]]</textarea>
 								
 								<div style="padding-top: 30px;">
 									<span>팀장</span>
 									<div style="border: 1px solid #ced4da;" class="form-control">
-										<span name="pjWriter" value="0" id="pjWriter" style="font-weight: 800;">[[${session.user_name}]]</span>
+										<span name="pjWriter" value="0" th:id="${session.user_id}" style="font-weight: 800;">[[${session.user_name}]]</span>
 									</div>
 								</div>
 								
@@ -102,7 +101,7 @@
 			</div>
 		</div>
 		</section>
-	</form>
+
 	<!-- 모달창 -->
 	<div id="basicModal" class="modal-overlay">
 		<div class="modal-content">
@@ -120,17 +119,14 @@
 									</div>
 								</div>
 							</div>
-							
 							<div style="padding-top: 10px">
 								<button type="button" class="btn btn-primary w-20" onclick="teamPlus(event)">추가</button>
 							</div>
-							
 						</div>
-						
 						<div style="float: right; width: 49%" required>
 							<p style="float: left">추가 목록</p>
 							<p style="float: right" class="allMember">일괄 삭제 
-							<input type=checkbox name="memberDelete" style="padding: 10px" onclick="selectAllMember(this)">
+								<input type=checkbox name="memberDelete" style="padding: 10px" onclick="selectAllMember(this)">
 							</p>
 							<div id=teamName class="form-control" type="text" style="height: 400px; overflow: auto;" readonly>
 								<div th:each="members : ${member}" th:unless="${members.userId == session.user_id}" name="member" th:data-name="${members.userName}" th:value="${members.userId}" style="margin: 5px">
@@ -147,11 +143,9 @@
 							</div>
 							<button type="button" onclick="memberDelete2()" class="btn btn-primary w-20" style="float: left;">삭제</button>
 						</div>
-						
 					</div>
 				</div>
 			</div>
-			
 			<div align="center">
 				<button type="button" class="modalOff btn btn-primary w-20" style="margin-top: 30px">닫기</button>
 			</div>
@@ -159,6 +153,4 @@
 	</div>
 	</main>
 </div>
-
-
 </html>

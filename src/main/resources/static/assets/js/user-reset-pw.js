@@ -90,7 +90,7 @@ function sendMail() {
 		}
 	});
 
-	if (checkCount == 1) {
+	if (checkCount === 1) {
 		return false;
 	}
 
@@ -114,7 +114,7 @@ function sendMail() {
 		}
 	});
 
-	if (sendCount == 1) {
+	if (sendCount === 1) {
 		return false;
 	}
 
@@ -201,11 +201,9 @@ function resetPw() {
 	let verifyBtn = document.getElementById("user_email_verify_btn");
 
 	let id = RegExp(/^[a-zA-Z0-9]{4,12}$/);
-
 	let idWarning = document.getElementById("idWarning");
-
+	
 	let resetPwForm = document.getElementById("resetPwForm");
-
 	let sendMailBtn = document.getElementById("sendMailBtn");
 
 	idWarning.innerHTML = "";
