@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -16,6 +15,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +44,10 @@ public class UserController {
 	@Autowired
 	//비밀번호 암호화
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	//중복 로그인 방지
+	private ServletListenerRegistrationBean ServletListenerRegistrationBean;
 
 	@Autowired
 	private KakaoAPI kakao;
@@ -180,6 +184,8 @@ public class UserController {
 					return "redirect:/user/user-login";
 				}
 			} else { // 비밀번호 같음 - 로그인
+				
+				
 				//계정이 비활성화되어있는지 확인
 				if(result.getUserActive() == 0) { // 계정이 비활성화되어있음
 					//로그인실패
