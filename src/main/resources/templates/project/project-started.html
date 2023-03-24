@@ -70,36 +70,7 @@
 								<h5 class="card-title">대화 내용</h5>
 								<div class="chat-content"
 									style="border: none; height: 480px; overflow: auto;">
-									<!-- <div style="display: flex;">
-										<div>
-											<img src="/assets/img/profile-img.jpg" width="40px"
-												alt="Profile" class="rounded-circle">
-										</div>
-										<div style="margin-left: 15px">
-											<div>
-												<span style="font-weight: 1000">김햄버거</span> <span
-													style="font-size: 10px">17:52</span>
-											</div>
-											<div>
-												<span>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</span>
-											</div>
-										</div>
-										<div class="filter">
-											<a class="icon" href="#" data-bs-toggle="dropdown"><i
-												class="bi bi-three-dots"></i></a>
-											<ul
-												class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-												<li class="dropdown-header text-start">
-													<h6>추가 작업</h6>
-												</li>
-												<li><a class="dropdown-item" href="#">복사</a></li>
-												<li><a class="dropdown-item" href="#"
-													style="color: blue">수정</a></li>
-												<li><a class="dropdown-item" href="#"
-													style="color: red">삭제</a></li>
-											</ul>
-										</div>
-									</div> -->
+
 								</div>
 
 								<div class="list-group-item-secondary">
@@ -227,12 +198,8 @@
 									+ response[i].userName
 									+ '</span> <span style="font-size: 10px">'
 									+ response[i].chatRegdate
-									+ '</span></div>';
-							str += '<div class="chatContentWrap"><span class="chatContent">'
-									+ response[i].chatContent
-									+ '</span></div>';
-							str += '</div>';
-							str += '<div class="filter">';
+									+ '</span>  ';
+							str += '<span class="filter">';
 							str += '<a class="icon" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside"><i class="bi bi-three-dots"></i></a>';
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
@@ -243,7 +210,14 @@
 									+response[i].chatContent.replaceAll("<br>","\r\n")
 									+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chatNum+');" style="float:right;margin-top:5px">저장</buton></li>';
 							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chatNum+');" style="color: red">삭제</a></li>';}
-							str += '</ul></div></div><hr style="margin:;0 0 1px 0"/>';
+							str += '</ul></span></div>'
+							str += '<div class="chatContentWrap"><span class="chatContent">'
+									+ response[i].chatContent
+									+ '</span></div>';
+							str += '</div>';
+
+
+							str += '</div><hr style="margin:;0 0 1px 0"/>';
 
 							chatList.append(str);
 							// 스크롤 위치 이동
@@ -276,26 +250,26 @@
 							str += '<div style="display: flex;"><div><img src="'+response[i].userImg+'" width="40px" height="40px" alt="Profile" class="rounded-circle" /></div>';
 							str += '<div style="margin-left: 15px">';
 							str += '<div><span style="font-weight: 1000">'
-									+ response[i].userName
-									+ '</span> <span style="font-size: 10px">'
-									+ response[i].chatRegdate
-									+ '</span></div>';
-							str += '<div class="chatContentWrap"><span class="chatContent">'
-									+ response[i].chatContent
-									+ '</span></div>';
-							str += '</div>';
-							str += '<div class="filter">';
+								+ response[i].userName
+								+ '</span> <span style="font-size: 10px">'
+								+ response[i].chatRegdate
+								+ '</span>  ';
+							str += '<span class="filter">';
 							str += '<a class="icon" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside"><i class="bi bi-three-dots"></i></a>';
 							str += '<ul	class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"><li class="dropdown-header text-start">';
 							str += '<h6>추가 작업</h6>';
 							str += '</li><li><a class="dropdown-item" onclick="copy(event)">복사</a></li>';
 								if(sessionId===response[i].chatWriter){
-								str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
-								str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
-										+response[i].chatContent.replaceAll("<br>","\r\n")
-										+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chatNum+');" style="float:right;margin-top:5px">저장</buton></li>';
-								str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chatNum+');" style="color: red">삭제</a></li>';}
-							str += '</ul></div></div><hr style="margin:;0 0 1px 0"/>';
+							str += '<li onclick="toggleHidden(this)"><a class="dropdown-item dropdown-toggle" style="color: blue;" >수정</a></li>';
+							str += '<li class="hidden" style="display:none;"><textarea class="form-control modifyTextarea" placeholder="입력">'
+								+response[i].chatContent.replaceAll("<br>","\r\n")
+								+'</textarea><button class="btn btn-outline-primary btn-sm" onclick="modifyChat(event, '+response[i].chatNum+');" style="float:right;margin-top:5px">저장</buton></li>';
+							str += '<li><a class="dropdown-item" onclick="deleteChat('+response[i].chatNum+');" style="color: red">삭제</a></li>';}
+							str += '</ul></span></div>'
+							str += '<div class="chatContentWrap"><span class="chatContent">'
+								+ response[i].chatContent
+								+ '</span></div>';
+							str += '</div>';
 
 							chatList.append(str);
 							// 스크롤 위치 이동
