@@ -21,5 +21,4 @@ public class AdminNoticeListVO {
 	private String noticeWriter;
 	private String noticeNote;
 
-
 }

@@ -1,8 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
-
 <th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
-
 
 	<div class="wrap">
 		<main id="main" class="main" style="background-color: #f6f9ff;">
@@ -11,19 +9,15 @@
 				<div class="row">
 					<div class="col-lg-8" style="margin:0 auto;">
 
-
-
 						<!-- 내용 박스 -->
 						<div class="card">
 							<div class="card-body" style="padding: 20px 50px 50px 50px;">
 								<h5 class="card-title">글 상세 보기</h5>
 
 								<form action="/admin/deleteform" method="post" name="actionForm">
-
 								<input type="hidden" name="noticeNum" th:value="${adminNoticeListVO.noticeNum }">
 
 									<div style="border: 1px solid #ccc; padding: 30px; border-radius: 10px;">
-
 										<div class="row mb-3">
 											<label for="process" class="col-sm-2 col-form-label">글 제목</label>
 											<div class="col-sm-10" style="padding: 4.75px 15px">
@@ -56,15 +50,11 @@
 							</div>
 						</div>
 					</div>
-
-
-
 				</div>
 
 			</section>
 		</main>
 		<!-- End #main -->
-
 	</div>
 
 </th:block>

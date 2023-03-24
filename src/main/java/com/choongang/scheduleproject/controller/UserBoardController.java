@@ -45,12 +45,12 @@ public class UserBoardController {
 	@GetMapping("/board-list")
 	public String boardList(Criteria cri, Model model,
 								@RequestParam("pj_num") int pj_num) {
-		
+
 		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
 		ArrayList<UserVO> list_user = new ArrayList<>();
 		list_user = projectService.getProjectMember(pj_num);
 
-		ProjectVO pjVO = projectService.getProject(pj_num);				
+		ProjectVO pjVO = projectService.getProject(pj_num);
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list_user);
 
@@ -58,27 +58,27 @@ public class UserBoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pjNum", pj_num);
 		map.put("cri", cri);
-	
+
 		int total = userBoardService.getCount(map); //토탈 검색(search에 따른 검색결과 건수 변화 위해 cri를 매개변수로 사용함)
 		model.addAttribute("count", total); //검색결과 건수
-		
+
 		List<UserBoardVO> list = userBoardService.getList(map); //페이지에 넘길 데이터를 모델에 담는다.
-		model.addAttribute("boardList", list);	
-		
-		PageVO pageVO = new PageVO(cri, total); //pageVO 객체에서 사용할 criteria 와 total 값 주입 
+		model.addAttribute("boardList", list);
+
+		PageVO pageVO = new PageVO(cri, total); //pageVO 객체에서 사용할 criteria 와 total 값 주입
 		model.addAttribute("pageVO", pageVO); //넘겨줄 VO 데이터
 		model.addAttribute("pjNum", pj_num);
-	
+
 		return "/userboards/board-list";
 	}
 
 	@GetMapping("/board-regist")
-	public String boardRegist(Model model,	
+	public String boardRegist(Model model,
 							  @RequestParam("pj_num") int pjNum) {
 		model.addAttribute("pjNum", pjNum);
 		return "/userboards/board-regist";
 	}
-	
+
 	@GetMapping("/board-modify")
 	public String boardModify() {
 		return "/userboards/board-modify";
@@ -88,19 +88,19 @@ public class UserBoardController {
 	public String boardContent(Model model,
 								@RequestParam("pj_num") int pjNum,
 								@RequestParam("board_num") int boardNum) {
-		
+
 		UserBoardVO userBoardVO = userBoardService.detailContent(pjNum, boardNum);
 		model.addAttribute("pjNum", pjNum);
 		model.addAttribute("boardNum", boardNum);
 		model.addAttribute(userBoardVO);
 		ArrayList<FileVO> fileList = userBoardService.fileList(boardNum);
-		model.addAttribute("fileList", fileList);                 
+		model.addAttribute("fileList", fileList);
 		System.out.println(fileList.toString());
 		System.out.println(userBoardVO.toString());
 		return "/userboards/board-content";
 	}
 
-	//여기서부터 user notice 
+	//여기서부터 user notice
 	@GetMapping("/notice-list")
 	public String noticeTableList(Criteria cri, Model model) {
 
@@ -109,7 +109,6 @@ public class UserBoardController {
 
 		PageVO pageVO = new PageVO(cri, total); //페이징에 사용
 		model.addAttribute("pageVO", pageVO);
-
 
 		return "/userboards/notice-list";
 	}
@@ -124,7 +123,5 @@ public class UserBoardController {
 
 		return "/userboards/notice-content";
 	}
-
-
 
 }

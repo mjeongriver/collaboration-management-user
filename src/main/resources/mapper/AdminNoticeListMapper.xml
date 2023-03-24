@@ -14,7 +14,6 @@
   		<if test="searchType == null or searchType == '' ">where 1 = 1</if>
   		order by notice_num desc
   		limit #{pageStart}, #{amount}
-
   	</select>
 
   	<!-- 검색 -->
@@ -33,7 +32,6 @@
 
   	<!-- 검색 결과 개수 -->
   	<select id="getCount" resultType="int">
-
   		select count(*) from admin_notice
              <choose>
                  <when test='searchType =="title" and search !=null'>
@@ -56,9 +54,5 @@
   		       notice_note
   		  from admin_notice where notice_num = #{noticeNum}
   	</select>
-
-
-
-
 
   </mapper>
