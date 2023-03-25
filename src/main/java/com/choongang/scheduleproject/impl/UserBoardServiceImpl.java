@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.choongang.scheduleproject.board.service.UserBoardMapper;
 import com.choongang.scheduleproject.board.service.UserBoardService;
+import com.choongang.scheduleproject.command.CommentVO;
 import com.choongang.scheduleproject.command.FileVO;
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.RegistCommentVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Service("userBoardService")
 public class UserBoardServiceImpl implements UserBoardService{
-	
+
 	@Autowired
 	private UserBoardMapper userBoardMapper;
 
@@ -35,7 +37,7 @@ public class UserBoardServiceImpl implements UserBoardService{
 	public int getContent(Map<String, Object> map) {
 		return userBoardMapper.getContent(map);
 	}
-	
+
 	@Override
 	public ArrayList<ProjectVO> getObserver(int pj_num) {
 		return userBoardMapper.getObserver(pj_num);
@@ -60,16 +62,36 @@ public class UserBoardServiceImpl implements UserBoardService{
 	public ArrayList<FileVO> fileList(int board_num) {
 		return userBoardMapper.fileList(board_num);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
+	@Override
+	public ArrayList<CommentVO> getComments(int boardNum, int pjNum) { //댓글들 가져오기
+		 ArrayList<CommentVO> list = new ArrayList<>();
+		 for(CommentVO vo : userBoardMapper.getComments(boardNum, pjNum) ) {
+			 vo.setCommentList(userBoardMapper.getSubComments(vo)); //대댓글 가져옴
+			 list.add(vo);
+		 }
+		return list;
+	}
+
+	@Override
+	public int deleteComment(int commentNum) { //댓글 삭제
+		return userBoardMapper.deleteComment(commentNum);
+	}
+
+	@Override
+	public int registComment(RegistCommentVO vo) { //댓글 등록
+		return userBoardMapper.registComment(vo);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 }

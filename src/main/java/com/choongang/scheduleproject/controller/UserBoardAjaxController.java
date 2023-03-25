@@ -27,15 +27,16 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.choongang.scheduleproject.board.service.UserBoardService;
 import com.choongang.scheduleproject.command.FileVO;
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.RegistCommentVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 
 @RestController
 public class UserBoardAjaxController {
-	
-	@Autowired 
+
+	@Autowired
 	private UserBoardService userBoardService;
 	private UserBoardVO vo;
-	
+
 	@Autowired
 	private AmazonS3Client amazonS3Client;
 
@@ -45,7 +46,7 @@ public class UserBoardAjaxController {
 	//업로드 패스
 	@Value("${project.uploadpath}")
 	private String uploadpath;
-	
+
 	//등록 요청
 	@PostMapping("/reg-board")
 	@ResponseBody
@@ -53,7 +54,7 @@ public class UserBoardAjaxController {
 		String msg = "";
 		int result = 0;
 		int result2 = 0;
-		
+
 		String categorySelect =  multipart.getParameter("categorySelect");
 		String processSelect = multipart.getParameter("processSelect");
 		String boardTitle = multipart.getParameter("boardTitle");
@@ -61,11 +62,11 @@ public class UserBoardAjaxController {
 		String startDate = multipart.getParameter("startDate");
 		String endDate = multipart.getParameter("endDate");
 		String description = multipart.getParameter("description");
-		
+
 		//multipart는 string 값으로 넘어오기 때문에 int로 형변환
 		String pjNum = multipart.getParameter("pjNum");
 		int pjNum2 = Integer.parseInt(pjNum);
-		
+
 		UserBoardVO vo = new UserBoardVO();
 		vo.setPjNum(pjNum2);
 		vo.setBoardCategory(categorySelect);
@@ -75,54 +76,54 @@ public class UserBoardAjaxController {
 		vo.setBoardStartdate(startDate);
 		vo.setBoardEnddate(endDate);
 		vo.setBoardContent(description);
-		
+
 		List<MultipartFile> mFiles = multipart.getFiles("fileUpload");
-		
+
 		List<FileVO> fvoList = new ArrayList<>();
 		for (MultipartFile file : mFiles) {
 			//파일명
-			String origin = file.getOriginalFilename(); 
-			
+			String origin = file.getOriginalFilename();
+
 			//브라우저별로 경로가 포함돼서 올라오는 경우가 있어서 간단한 처리
 			String fileName = origin.substring(origin.lastIndexOf("\\") + 1);
-			
+
 			//폴더 생성
 			String filepath = makeDir();
-			
+
 			//중복 파일의 처리 (어떤값이 들어가더라도 중복이 안되도록)
 			String boardfileUuid = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-			
+
 			//최종 저장 경로
 			String fileUrl= filepath + "/" + boardfileUuid;
-			
+
 			//aws에 업로드
 			ObjectMetadata metadata= new ObjectMetadata();
 			metadata.setContentType(file.getContentType());
 			metadata.setContentLength(file.getSize());
-			amazonS3Client.putObject(bucket,fileUrl,file.getInputStream(),metadata); 
-			
+			amazonS3Client.putObject(bucket,fileUrl,file.getInputStream(),metadata);
+
 			//db에 값 넣어주기
 			FileVO fvo = new FileVO();
-			fvo.setBoardfilePath(uploadpath + fileUrl);		
+			fvo.setBoardfilePath(uploadpath + fileUrl);
 			fvo.setBoardfileName(file.getOriginalFilename());
 			fvoList.add(fvo);
 		}
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("vo", vo);
-		
+
 		userBoardService.getContent(resultMap);
 		userBoardService.fileUploadList(fvoList);
-		
+
 		if(!(result == 0)) {
 			msg = "등록에 성공 하였습니다.";
 		}else {
 			msg = "등록에 실패 하였습니다.";
 		}
-		
+
 		return result;
 	}
-	
+
 	//날짜별로 폴더 생성
 	private String makeDir() {
 		//오늘날짜
@@ -138,15 +139,34 @@ public class UserBoardAjaxController {
 			file.mkdir(); //폴더 생성!
 		}
 		return now; // 년월일 폴더 위치
-	}			
-		
+	}
+
 	@GetMapping("/get-obmember")
 	public ArrayList<ProjectVO> getObserverMember(@RequestParam("pj_num") int pj_num){
-		
+
 		//옵저버 가져오기
 		ArrayList<ProjectVO> observerList = new ArrayList<>();
 		observerList = userBoardService.getObserver(pj_num);
-		
+
 		return observerList;
+	}
+	@PostMapping("delete-comment")
+	public String deleteComment(@RequestParam("comment_num") int commentNum) {//댓글 삭제 기능
+		int result = 0;
+		result = userBoardService.deleteComment(commentNum);
+		if(result == 0) return "삭제실패했습니다.";
+		return "삭제했습니다.";
+	}
+
+	@PostMapping("/regist-comment")
+	@ResponseBody
+	public String registComment(RegistCommentVO vo) {//댓글 등록 기능
+		System.out.println(vo.toString());
+		int result = 0;
+		if(result == 0) {
+			
+			return "등록하지 못했습니다.";
+		}
+		return "댓글 등록했습니다.";
 	}
 }
