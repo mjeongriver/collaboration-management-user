@@ -1,13 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
+
 <th:block th:replace="~{./include/basic-layout :: 함수( ~{:: .wrap } ) }">
+
     <div class="wrap">
         <main id="main" class="main">
 
             <div class="pagetitle">
-                <h1 class="card-title">
-                    [[${pjVO.pjName}]] </h1>
-                <h6 style="padding-bottom: 20px">
-                    [[${pjVO.pjDescription}]] </h6>
+                <h1 class="card-title">[[${pjVO.pjName}]] </h1>
+                <h6 style="padding-bottom: 20px">[[${pjVO.pjDescription}]] </h6>
 
                 <!-- 프로젝트 이름과 상세 내용 아래 메뉴 -->
                 <nav>
@@ -198,7 +198,6 @@
             location.href = "board-list?pj_num=" + pjNum + "&page=1&amount=" + e.target.value;
         }
     };
-
 
     //옵저버 멤버 가져와서 옵저버 멤버와 session.id값이 같으면 글쓰기 버튼 감추기 기능
     $(document).ready(function () {

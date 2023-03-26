@@ -14,7 +14,7 @@ public interface UserBoardService {
 	 * @param map
 	 * @return UserBoardVO
 	 */
-	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
+	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지, 글 목록 가져오기
 
 	/***
 	 * 
@@ -25,17 +25,17 @@ public interface UserBoardService {
 	
 	/***
 	 * 
-	 * @param map
+	 * @param UserBoardVO
 	 * @return int
 	 */
-	public int getContent(Map<String, Object> map); //글 등록 내용
+	public int getContent(UserBoardVO vo); //게시글 등록 내용
 	
 	/***
 	 * 
 	 * @param fvoList
 	 * @return int
 	 */
-	public int fileUploadList(List<FileVO> fvoList); //글 등록시 파일 업로드
+	public int fileUploadList(List<FileVO> fvoList); //글 등록시 파일 업로드(글 수정할 때도 사용)
 	
 	/***
 	 * 
@@ -78,6 +78,6 @@ public interface UserBoardService {
 	 * @param fileVO
 	 * @return int
 	 */
-	public int updateFileList(FileVO fileVO); //파일 수정-dCheck y로 변경
+	public int updateFileList(FileVO fileVO); //파일 수정-user_boardfile에서 컬럼 dCheck y로 변경해줌
 
 }

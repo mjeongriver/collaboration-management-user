@@ -15,14 +15,14 @@ import com.choongang.scheduleproject.command.UserVO;
 public interface ProjectService {
 	/***
 	 *
-	 * @param vo
+	 * @param ProjectVO
 	 * @return int
 	 */
 	public int regist(ProjectVO vo); //프로젝트 등록
 
 	/***
 	 *
-	 * @param pvo
+	 * @param ProjectMemberVO
 	 * @return int
 	 */
 	public int registMember(ProjectMemberVO pvo); //프로젝트 별 팀원 등록
@@ -59,7 +59,7 @@ public interface ProjectService {
 
 	//프로젝트 삭제
 	public int deleteProject(int pj_num);
-	
+
 	//프로젝트 멤버인지 확인
 	public String checkMember(String pj_num, String user_id);
 
@@ -71,19 +71,19 @@ public interface ProjectService {
 
 	//프로젝트 상세정보 수정하기
 	public int changeProjectDetail(ProjectVO vo);
-	
+
 	//프로젝트 수정 - 프로젝트명 수정하기
 	public int changeProjectName(ProjectVO vo);
-	
+
 	//프로젝트 수정 - 프로젝트 시작일 수정하기
 	public int changeProjectStartdate(ProjectVO vo);
-	
+
 	//프로젝트 수정 - 프로젝트 종료일 수정하기
 	public int changeProjectEnddate(ProjectVO vo);
-	
+
 	//프로젝트 수정 - 프로젝트 설명 수정하기
 	public int changeProjectDescription(ProjectVO vo);
-	
+
 	//프로젝트 수정 - 멤버 권한(팀원, 옵저버) 수정하기
 	public int changeMemberAuthority(ProjectVO vo);
 
