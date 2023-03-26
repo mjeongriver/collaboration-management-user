@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -150,7 +151,7 @@ public class UserBoardAjaxController {
 
 		return observerList;
 	}
-	@PostMapping("delete-comment")
+	@PostMapping("/delete-comment")
 	public String deleteComment(@RequestParam("comment_num") int commentNum) {//댓글 삭제 기능
 		int result = 0;
 		result = userBoardService.deleteComment(commentNum);
@@ -160,9 +161,8 @@ public class UserBoardAjaxController {
 
 	@PostMapping("/regist-comment")
 	@ResponseBody
-	public String registComment(RegistCommentVO vo) {//댓글 등록 기능
-		System.out.println(vo.toString());
-		int result = 0;
+	public String registComment(@RequestBody RegistCommentVO vo) {//댓글 등록 기능
+		int result = userBoardService.registComment(vo);
 		if(result == 0) {
 			
 			return "등록하지 못했습니다.";
