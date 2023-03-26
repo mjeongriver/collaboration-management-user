@@ -1,6 +1,5 @@
 package com.choongang.scheduleproject.project.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,52 +42,52 @@ public interface ProjectMapper {
 	//startProjectList
 	//프로젝트 멤버 받아옴
 	public ArrayList<UserVO> getProjectMember(int pj_num);
-	
+
 	//프로젝트 정보 받아옴
 	public ProjectVO getProject(int pj_num);
-	
+
 	//사용 안함
 	public UserVO getUserVO(String user_id);
-	
+
 	//채팅 내용 입력
 	public int setChat(ChatVO vo);
-	
+
 	//채팅 정보 받아옴
 	public ArrayList<ChatVO> getChat(int pj_num);
-	
+
 	//채팅 삭제
 	public int deleteChat(int chat_num);
-	
+
 	//채팅 수정
 	public int modifyChat(@Param("chat_num") int chat_num, @Param("modify_content") String modify_content);
-	
+
 	//getProjectList 메서드는 user_id를 매개변수로 받아 해당 사용자가 등록한 프로젝트 목록을 ArrayList<ProjectVO> 형태로 반환합니다.
 	public ArrayList<ProjectVO> getProjectList(@Param("user_id") String user_id);
-	
+
 	//changeBookmark 메서드는 user_id, pj_num, pj_bookmark를 매개변수로 받아 해당 사용자의 프로젝트 북마크 상태를 변경합니다.
 	//pj_bookmark가 true이면 북마크 추가, false이면 북마크 제거를 의미합니다.
 	public int changeBookmark(@Param("user_id") String user_id,@Param("pj_num") int pj_num,@Param("pj_bookmark") boolean pj_bookmark);
-	
+
 	//아직 사용 안함
 	public String getUserName(String user_id);
-	
+
 	//프로젝트 삭제
 	public int deleteProject(int pj_num);
-	
+
 	public String checkMember(@Param("pj_num")String pj_num, @Param("user_id")String user_id);
-	
+
 	//프로젝트 수정 - 프로젝트명 수정하기
 	public int changeProjectName(ProjectVO vo);
-	
+
 	//프로젝트 수정 - 프로젝트 시작일 수정하기
 	public int changeProjectStartdate(ProjectVO vo);
-	
+
 	//프로젝트 수정 - 프로젝트 종료일 수정하기
 	public int changeProjectEnddate(ProjectVO vo);
-	
+
 	//프로젝트 수정 - 프로젝트 설명 수정하기
 	public int changeProjectDescription(ProjectVO vo);
-	
+
 	//프로젝트 정보 가져오기
 	public ProjectVO getProjectDetail(int pj_num);
 

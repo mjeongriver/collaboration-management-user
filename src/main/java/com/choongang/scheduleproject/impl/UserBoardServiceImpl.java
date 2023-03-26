@@ -30,10 +30,10 @@ public class UserBoardServiceImpl implements UserBoardService{
 	}
 
 	@Override
-	public int getContent(Map<String, Object> map) {
-		return userBoardMapper.getContent(map);
+	public int getContent(UserBoardVO vo) {
+		return userBoardMapper.getContent(vo);
 	}
-	
+
 	@Override
 	public ArrayList<ProjectVO> getObserver(int pj_num) {
 		return userBoardMapper.getObserver(pj_num);

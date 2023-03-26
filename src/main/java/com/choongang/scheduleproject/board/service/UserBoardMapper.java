@@ -17,7 +17,7 @@ public interface UserBoardMapper {
 	 * @param map
 	 * @return UserBoardVO
 	 */
-	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지
+	public ArrayList<UserBoardVO> getList(Map<String, Object> map); //페이지, 글 목록 list 뿌려주기
 	
 	
 	/***
@@ -25,14 +25,14 @@ public interface UserBoardMapper {
 	 * @param map
 	 * @return int
 	 */
-	public int getCount(Map<String, Object> map); //검색 결과 건 수
+	public int getCount(Map<String, Object> map); //검색 결과 건 수 count
 	
 	/***
 	 * 
-	 * @param map
+	 * @param UserBoardVO
 	 * @return int
 	 */
-	public int getContent(Map<String, Object> map); //글 등록
+	public int getContent(UserBoardVO vo); //게시글 등록
 	
 	
 	/***
@@ -47,7 +47,7 @@ public interface UserBoardMapper {
 	 * @param FileVO
 	 * @return int
 	 */
-	public int fileUploadList(FileVO vo); //글 등록 시 파일 업로드
+	public int fileUploadList(FileVO vo); //글 등록 시 파일 업로드(글 수정할 때도 사용)
 	
 	/***
 	 * 
