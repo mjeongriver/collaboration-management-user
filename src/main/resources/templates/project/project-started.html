@@ -325,7 +325,7 @@
 			url : "../set-chat",
 			type : "get",
 			data : {
-				"chat_content" : chat_content.value.replace(/</gi,'&lt;').replace(/>/gi,'&gt;').replace(/\n/g, "<br>"), //줄바꿈 시 db에 줄바꾼것을 인식하기위해
+				"chat_content" : chat_content.value.replace(/</gi,'&lt;').replace(/>/gi,'&gt;').replace(/\n/g, "<br>") , //줄바꿈 시 db에 줄바꾼것을 인식하기위해
 				"pj_num" : pj_num
 			},
 			dataType : "JSON",
