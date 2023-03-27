@@ -19,4 +19,5 @@ public class AdminNoticeListVO {
 	private Timestamp noticeRegdate;
 	private String noticeWriter;
 	private String noticeNote;
+
 }

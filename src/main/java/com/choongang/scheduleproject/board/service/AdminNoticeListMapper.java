@@ -3,7 +3,6 @@ package com.choongang.scheduleproject.board.service;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import com.choongang.scheduleproject.command.AdminNoticeListVO;
 import com.choongang.scheduleproject.util.Criteria;
 

@@ -85,6 +85,7 @@ public class UserBoardController {
 		return "/userboards/board-regist";
 	}
 
+
 	//글 수정
 	@GetMapping("/board-modify")
 	public String boardModify(@RequestParam("pj_num") int pjNum,	
@@ -124,8 +125,8 @@ public class UserBoardController {
 	//글 상세 화면
 	@GetMapping("/board-content")
 	public String boardContent(@RequestParam("pj_num") int pjNum, 
-							   @RequestParam("board_num") int boardNum,
-							   Model model) {
+							               @RequestParam("board_num") int boardNum,
+							               Model model) {
 
 		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
 		ArrayList<UserVO> list_user = new ArrayList<>();
