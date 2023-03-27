@@ -6,7 +6,6 @@ import com.choongang.scheduleproject.command.AdminNoticeListVO;
 import com.choongang.scheduleproject.util.Criteria;
 
 public interface AdminNoticeService {
-
 	/***
 	 *
 	 * @param cri
@@ -34,6 +33,4 @@ public interface AdminNoticeService {
 	 * @return vo
 	 */
 	public AdminNoticeListVO getContent(int noticeNum); //상세조회
-
-
 }

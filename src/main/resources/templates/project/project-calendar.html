@@ -157,9 +157,9 @@
                 for (var i = 0; i < response.length; i++) {
                     list.push({
                         'title': response[i].userTodo,
-                        'start': response[i].userTododate + 'T' + response[i].userTodotime
+                        'start': response[i].userTododate + 'T' + response[i].userTodotime,
+                        'id' : response[i].todoNum
                     })
-
                 }
             }
 
@@ -201,7 +201,6 @@
                 }
 
 
-                console.log(list)
                 var calendarEl = document.getElementById('calendar');
 
                 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -212,38 +211,25 @@
                     },
                     initialDate: today,
                     navLinks: true, // 날짜를 선택하면 day나 week캘리더로 링크
-                    editable: true, // 수정가능?
+                    editable: false, // 수정가능?
                     dayMaxEvents: true, // 이벤트가 오버되면 높이제한
-                    events: list //이벤트 리스트를 뿌려줌
-                    /*   customButtons: {
-                        addEventButton: { // 추가한 버튼 설정
-                            text : "일정 추가"  // 버튼 내용
-                            click : function(){ // 버튼 클릭 시 이벤트 추가
-                                $("#calendarModal").modal("show"); // modal 나타내기
+                    events: list, //이벤트 리스트를 뿌려줌
+                    eventClick : function(calEvent, jsEvent, view){
+                    	if(calEvent.event.id == "") return false
+                    	if(confirm("해당 이벤트를 삭제하시겠습니까?")){
+                    		$.ajax({
+                    			url : "../delete-todo",
+                    			type : "post",
+                    			data : {"todo_num" : calEvent.event.id},
+                    			success : function(response){
+                                    list = [];
+                                    addTodo();
+                                    load();
+                    			}
+                    		})
 
-                                $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
-                                    var content = $("#calendar_content").val();
-                                    var start_date = $("#calendar_start_date").val();
-                                    var end_date = $("#calendar_end_date").val();
-
-                                    //내용 입력 여부 확인
-                                    if(content == null || content == ""){
-                                        alert("내용을 입력하세요.");
-                                    }else if(start_date == "" || end_date ==""){
-                                        alert("날짜를 입력하세요.");
-                                    }else{ // 정상적인 입력 시
-                                        var obj = {
-                                            "title" : content,
-                                            "start" : start_date
-
-                                        }//전송할 객체 생성
-
-                                        console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
-                                    }
-                                });
-                            }
-                        }
-                    }*/
+                    	}
+                    }
 
 
 

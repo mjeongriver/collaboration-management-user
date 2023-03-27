@@ -8,7 +8,7 @@ $("#user_pw").keypress(function(e) {
 
 //카카오 api
 $(".kakaoBtn").click(function() {
-	let apiKey = "0ad1808cae578c5f8edfdc6072415416";
+	let apiKey = "";
 	let address = "http://127.0.0.1:8686/user/kakao";
 	alert("이메일 수집에 꼭 동의해주세요! 일치하는 이메일이 없을 경우 회원가입으로 넘어갑니다!");
 	location.href = "https://kauth.kakao.com/oauth/authorize?client_id=" + apiKey + "&redirect_uri=" + address + "&response_type=code"
@@ -68,6 +68,14 @@ function loginCheck() {
 	//비밀번호 길이 확인
 	if (passCheck.value.length < 8) {
 		pwWarning.innerHTML = "비밀번호가 너무 짧습니다.";
+		passCheck.focus();
+		return false;
+	}
+	
+	//비밀번호 유효성검사
+	if (!password.test(passCheck.value)) {
+		pwWarning.innerHTML = "비밀번호는 영문 소문자, 숫자, 특수문자를 각각 1개 이상 조합되어 있습니다.";
+		passCheck.value = "";
 		passCheck.focus();
 		return false;
 	}

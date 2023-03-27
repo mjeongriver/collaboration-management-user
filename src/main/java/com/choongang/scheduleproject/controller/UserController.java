@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -59,7 +58,13 @@ public class UserController {
 	private String uploadpath;
 
 	@GetMapping("/user-login")
-	public String userLogin() {		
+	public String userLogin(HttpSession session, RedirectAttributes ra) {	
+		//세션값을 기반으로 DB에서 정보 조회
+		String user_id = (String)session.getAttribute("user_id");
+		if(user_id != null) {
+			ra.addFlashAttribute("msg", "로그아웃 후 이용해주세요.");
+			return "redirect:/user/user-start-project-list";
+		}
 		return "/user/user-login";
 	}
 
@@ -73,7 +78,13 @@ public class UserController {
 	}
 
 	@GetMapping("/user-register")
-	public String userRegister() {
+	public String userRegister(HttpSession session, RedirectAttributes ra) {
+		//세션값을 기반으로 DB에서 정보 조회
+		String user_id = (String)session.getAttribute("user_id");
+		if(user_id != null) {
+			ra.addFlashAttribute("msg", "로그아웃 후 이용해주세요.");
+			return "redirect:/user/user-start-project-list";
+		}
 		return "/user/user-register";
 	}
 
@@ -87,18 +98,25 @@ public class UserController {
 		return "/user/user-start-project-list";
 	}
 
-	@GetMapping("/user-confirm-mypage")
-	public String userConfirmMypage() {
-		return "/user/user-confirm-mypage";
-	}
-
 	@GetMapping("/user-find-id")
-	public String userFindId() {
+	public String userFindId(HttpSession session, RedirectAttributes ra) {
+		//세션값을 기반으로 DB에서 정보 조회
+		String user_id = (String)session.getAttribute("user_id");
+		if(user_id != null) {
+			ra.addFlashAttribute("msg", "로그아웃 후 이용해주세요.");
+			return "redirect:/user/user-start-project-list";
+		}
 		return "/user/user-find-id";
 	}
 
 	@GetMapping("/user-reset-pw")
-	public String userResetPw() {
+	public String userResetPw(HttpSession session, RedirectAttributes ra) {
+		//세션값을 기반으로 DB에서 정보 조회
+		String user_id = (String)session.getAttribute("user_id");
+		if(user_id != null) {
+			ra.addFlashAttribute("msg", "로그아웃 후 이용해주세요.");
+			return "redirect:/user/user-start-project-list";
+		}
 		return "/user/user-reset-pw";
 	}
 
@@ -180,6 +198,8 @@ public class UserController {
 					return "redirect:/user/user-login";
 				}
 			} else { // 비밀번호 같음 - 로그인
+				
+				
 				//계정이 비활성화되어있는지 확인
 				if(result.getUserActive() == 0) { // 계정이 비활성화되어있음
 					//로그인실패
@@ -198,6 +218,7 @@ public class UserController {
 					//모델에 DB정보를 담아서 화면에 뿌려줌
 					model.addAttribute("vo", result);
 					//세션 부여
+					session.setMaxInactiveInterval(7200); //2시간
 					session.setAttribute("user_name", result.getUserName());
 					session.setAttribute("user_id", result.getUserId());
 					session.setAttribute("user_img", result.getUserImg());
@@ -272,19 +293,19 @@ public class UserController {
 	}
 
 	//카카오 로그인
-	@GetMapping("/kakao")
-	public String kakao(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session, Model model) {
-		String token = kakao.getAccessToken(code);//인가코드 code를 가지고 token을 발급받기
-		Map<String, Object> map = kakao.getUserInfo(token);//어세스토큰 token을 가지고 사용자데이터를 가져오기		
-		//DB에서 조회해서 로그인처리
-		UserVO vo = new UserVO();
-		vo.setUserEmail((String)map.get("email")); //카카오에서 가져온 이메일값으로 로그인 시도
-		UserVO result = userService.kakaoLogin(vo);		
-		if(result == null) { //일치하는 이메일이 없음
-			// 카카오전용 회원가입 페이지로 넘겨줘야 함
-			//받아온 이메일값 넘겨주기
-			String email = (String)map.get("email");
-			
+//	@GetMapping("/kakao")
+//	public String kakao(@RequestParam("code") String code, RedirectAttributes ra, HttpSession session, Model model) {
+//		String token = kakao.getAccessToken(code);//인가코드 code를 가지고 token을 발급받기
+//		Map<String, Object> map = kakao.getUserInfo(token);//어세스토큰 token을 가지고 사용자데이터를 가져오기		
+//		//DB에서 조회해서 로그인처리
+//		UserVO vo = new UserVO();
+//		vo.setUserEmail((String)map.get("email")); //카카오에서 가져온 이메일값으로 로그인 시도
+//		UserVO result = userService.kakaoLogin(vo);		
+//		if(result == null) { //일치하는 이메일이 없음
+//			// 카카오전용 회원가입 페이지로 넘겨줘야 함
+//			//받아온 이메일값 넘겨주기
+//			String email = (String)map.get("email");
+//			
 //			if(email == null) {
 //				// 카카오계정 로그아웃
 //				String logoutToken = kakao.getAccessToken(code);//인가코드 code를 가지고 token을 발급받기
@@ -304,55 +325,55 @@ public class UserController {
 //	        int idx = email.indexOf("@"); 
 //			// @앞부분을 아이디로 쓸 것이다.
 //			String kakaoId = email.substring(0, idx);
-			
-			//랜덤 비밀번호 생성해서 넘겨주기
-			Random random = new Random(); 
-			int pwLength = 10;
-			StringBuffer randomPw = new StringBuffer();
-			for (int i = 0; i < pwLength; i++) {
-				int choice = random.nextInt(3);
-				switch(choice) {
-				case 0:
-					randomPw.append((char)((int)random.nextInt(25)+97));
-					break;
-				case 1:
-					randomPw.append((char)((int)random.nextInt(25)+65));
-					break;
-				case 2:
-					randomPw.append((char)((int)random.nextInt(10)+48));
-					break;
-				default:
-					break;
-				}
-			}
-			randomPw.append("!");
-			model.addAttribute("email", email);
-			//model.addAttribute("id", kakaoId); // 이메일이 없을 경우 프론트단에서 처리하여 카카오 로그아웃으로 이동.
-			model.addAttribute("pw", randomPw);
-			return "user/user-register-kakao";
-		} else { // 일치하는 이메일이 있음
-			if(result.getUserMethod().equals("web")) { //일반 회원가입 유저가 카카오 로그인을 시도했을 경우
-				//메시지 담아서 리다이렉트
-				String msg = "홈페이지에서 회원가입하셨습니다. 일반 로그인을 진행해주세요.";
-				ra.addFlashAttribute("msg", msg);
-				return "redirect:/user/user-login";
-			}
-			//user_log에 log기록 추가하기 - 마지막 로그인 시각을 저장
-			//현재 시간을 회원가입일 user_regdate에다가 저장
-			LocalDateTime nowTime = LocalDateTime.now();
-			result.setUserRegdate(nowTime);
-			userService.insertLog(result);
-			//모델에 DB정보를 담아서 화면에 뿌려줌
-			model.addAttribute("vo", result);
-			//세션 부여
-			session.setAttribute("user_name", result.getUserName());
-			session.setAttribute("user_id", result.getUserId());
-			session.setAttribute("user_img", result.getUserImg());
-			session.setAttribute("user_role", result.getUserRole());
-			session.setAttribute("user_method", result.getUserMethod());
-			return "user/user-start-project-list";							
-		}
-	}
+//			
+//			//랜덤 비밀번호 생성해서 넘겨주기
+//			Random random = new Random(); 
+//			int pwLength = 10;
+//			StringBuffer randomPw = new StringBuffer();
+//			for (int i = 0; i < pwLength; i++) {
+//				int choice = random.nextInt(3);
+//				switch(choice) {
+//				case 0:
+//					randomPw.append((char)((int)random.nextInt(25)+97));
+//					break;
+//				case 1:
+//					randomPw.append((char)((int)random.nextInt(25)+65));
+//					break;
+//				case 2:
+//					randomPw.append((char)((int)random.nextInt(10)+48));
+//					break;
+//				default:
+//					break;
+//				}
+//			}
+//			randomPw.append("!");
+//			model.addAttribute("email", email);
+//			//model.addAttribute("id", kakaoId); // 이메일이 없을 경우 프론트단에서 처리하여 카카오 로그아웃으로 이동.
+//			model.addAttribute("pw", randomPw);
+//			return "user/user-register-kakao";
+//		} else { // 일치하는 이메일이 있음
+//			if(result.getUserMethod().equals("web")) { //일반 회원가입 유저가 카카오 로그인을 시도했을 경우
+//				//메시지 담아서 리다이렉트
+//				String msg = "홈페이지에서 회원가입하셨습니다. 일반 로그인을 진행해주세요.";
+//				ra.addFlashAttribute("msg", msg);
+//				return "redirect:/user/user-login";
+//			}
+//			//user_log에 log기록 추가하기 - 마지막 로그인 시각을 저장
+//			//현재 시간을 회원가입일 user_regdate에다가 저장
+//			LocalDateTime nowTime = LocalDateTime.now();
+//			result.setUserRegdate(nowTime);
+//			userService.insertLog(result);
+//			//모델에 DB정보를 담아서 화면에 뿌려줌
+//			model.addAttribute("vo", result);
+//			//세션 부여
+//			session.setAttribute("user_name", result.getUserName());
+//			session.setAttribute("user_id", result.getUserId());
+//			session.setAttribute("user_img", result.getUserImg());
+//			session.setAttribute("user_role", result.getUserRole());
+//			session.setAttribute("user_method", result.getUserMethod());
+//			return "user/user-start-project-list";							
+//		}
+//	}
 
 	//마이페이지에서 개인정보만 변경
 	@PostMapping("/change-info")
@@ -406,7 +427,6 @@ public class UserController {
 				infoVO.setUserId(user_id);
 				infoVO.setUserCell(userCell);
 				infoVO.setUserBirth(userBirth);
-
 				int result2 = userService.changeInfo(infoVO);
 				String msg = result2 == 1 ? "회원정보 수정에 성공하였습니다." : "이메일 업로드에는 성공했으나 개인정보 수정에 실패했습니다. 다시 시도해주세요.";
 				ra.addFlashAttribute("msg", msg);
@@ -425,17 +445,13 @@ public class UserController {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
 		String now = sdf.format(date);
-
 		String path = bucket + "\\" + now; //경로
 		File file = new File(path);
-
 		//존재하면 true 존재하지 않으면 false
 		if(file.exists() == false) {
 			file.mkdir(); //폴더 생성!
 		}
-
 		return now; // 년월일 폴더 위치
-
 	}
 
 
@@ -450,7 +466,12 @@ public class UserController {
 		//메시지 담아서 리다이렉트
 		String msg = result == 1 ? "비밀번호 수정에 성공하였습니다. 다시 로그인해주세요." : "비밀번호 수정에 실패했습니다. 관리자에게 문의하세요.";
 		ra.addFlashAttribute("msg", msg);
-		session.invalidate(); // 세션 만료
+		//session.invalidate(); // 세션 만료
+		session.removeAttribute("user_id");
+		session.removeAttribute("user_name");
+		session.removeAttribute("user_img");
+		session.removeAttribute("user_role");
+		session.removeAttribute("user_method");
 		return "redirect:/user/user-login"; //로그인화면으로	
 	}
 
@@ -467,24 +488,33 @@ public class UserController {
 		return "redirect:/user/user-mypage"; //로그인화면으로	
 	}
 
-
 	//로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes ra) {
-		session.invalidate(); // 세션 만료시키기
+		// session.invalidate(); // 세션 만료시키기
+		session.removeAttribute("user_id");
+		session.removeAttribute("user_name");
+		session.removeAttribute("user_img");
+		session.removeAttribute("user_role");
+		session.removeAttribute("user_method");
 		String msg = "로그아웃되었습니다.";
 		ra.addFlashAttribute("msg", msg);
 		return "redirect:/user/user-login"; //로그인화면으로	
 	}
 	
 	//카카오 로그인시 로그아웃
-	@GetMapping("kakao-logout")
-	public String kakaoLogout(HttpSession session, RedirectAttributes ra) {
-		session.invalidate();
-		String msg = "로그아웃되었습니다.";
-		ra.addFlashAttribute("msg", msg);
-		return "redirect:/user/user-login"; //로그인화면으로	
-	}
+//	@GetMapping("kakao-logout")
+//	public String kakaoLogout(HttpSession session, RedirectAttributes ra) {
+//		// session.invalidate();
+//		session.removeAttribute("user_id");
+//		session.removeAttribute("user_name");
+//		session.removeAttribute("user_img");
+//		session.removeAttribute("user_role");
+//		session.removeAttribute("user_method");
+//		String msg = "로그아웃되었습니다.";
+//		ra.addFlashAttribute("msg", msg);
+//		return "redirect:/user/user-login"; //로그인화면으로	
+//	}
 }
 
 

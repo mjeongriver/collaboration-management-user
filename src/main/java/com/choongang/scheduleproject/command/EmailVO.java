@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmailVO {
 	private String email;
-	
 	private String code;
 	
 	@JsonProperty("expire_time")

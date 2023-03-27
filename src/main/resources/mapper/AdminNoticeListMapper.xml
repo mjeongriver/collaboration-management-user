@@ -57,8 +57,4 @@
   		  from admin_notice where notice_num = #{noticeNum}
   	</select>
 
-
-
-
-
   </mapper>

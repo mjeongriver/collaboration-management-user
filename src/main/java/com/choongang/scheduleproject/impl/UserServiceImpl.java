@@ -13,7 +13,6 @@ import com.choongang.scheduleproject.user.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-	
 	@Autowired
 	private UserMapper userMapper;
 	
