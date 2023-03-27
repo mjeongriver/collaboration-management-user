@@ -20,6 +20,7 @@ import com.choongang.scheduleproject.board.service.UserBoardService;
 import com.choongang.scheduleproject.command.AdminNoticeListVO;
 import com.choongang.scheduleproject.command.FileVO;
 import com.choongang.scheduleproject.command.ProjectVO;
+import com.choongang.scheduleproject.command.RegistCommentVO;
 import com.choongang.scheduleproject.command.UserBoardVO;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.project.service.ProjectService;
@@ -45,13 +46,13 @@ public class UserBoardController {
 	//글 목록 보기 화면
 	@GetMapping("/board-list")
 	public String boardList(Criteria cri, Model model,
-							@RequestParam("pj_num") int pj_num) {
+							            @RequestParam("pj_num") int pj_num) {
 
 		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
 		ArrayList<UserVO> list_user = new ArrayList<>();
 		list_user = projectService.getProjectMember(pj_num);
 
-		ProjectVO pjVO = projectService.getProject(pj_num);				
+		ProjectVO pjVO = projectService.getProject(pj_num);
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list_user);
 
@@ -75,7 +76,7 @@ public class UserBoardController {
 	//글 등록
 	@GetMapping("/board-regist")
 	public String boardRegist(Model model, 
-							  @RequestParam("pj_num") int pjNum) {
+							              @RequestParam("pj_num") int pjNum) {
 
 		ProjectVO pjVO = projectService.getProject(pjNum);				
 		model.addAttribute("pjVO", pjVO);
@@ -87,8 +88,8 @@ public class UserBoardController {
 	//글 수정
 	@GetMapping("/board-modify")
 	public String boardModify(@RequestParam("pj_num") int pjNum,	
-							  @RequestParam("board_num") int boardNum,
-							  RedirectAttributes ra, Model model) {
+							              @RequestParam("board_num") int boardNum,
+							              RedirectAttributes ra, Model model) {
 
 		//채팅화면에 멤버 정보를 받아옴 + 이거로 사이드바에 팀원이랑 옵저버 땡겨씀
 		ArrayList<UserVO> list = new ArrayList<>();
@@ -112,8 +113,8 @@ public class UserBoardController {
 	//글 삭제
 	@PostMapping("/delete-content")
 	public String deleteContent(@RequestParam("boardNum") int boardNum,
-								@RequestParam("pjNum") int pjNum,
-								RedirectAttributes ra) {
+								              @RequestParam("pjNum") int pjNum,
+								              RedirectAttributes ra) {
 		int result = userBoardService.deleteContent(boardNum);
 		String msg = result == 1 ? "삭제 되었습니다" : "삭제에 실패했습니다";
 		ra.addFlashAttribute("msg", msg);
@@ -130,7 +131,7 @@ public class UserBoardController {
 		ArrayList<UserVO> list_user = new ArrayList<>();
 		list_user = projectService.getProjectMember(pjNum);
 
-		ProjectVO pjVO = projectService.getProject(pjNum);				
+		ProjectVO pjVO = projectService.getProject(pjNum);
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list_user);
 
@@ -140,12 +141,13 @@ public class UserBoardController {
 		model.addAttribute(userBoardVO);
 
 		ArrayList<FileVO> fileList = userBoardService.fileList(boardNum);
-		model.addAttribute("fileList", fileList);  
+		model.addAttribute("fileList", fileList);
+		model.addAttribute("comments", userBoardService.getComments(boardNum, pjNum));// 댓글 가져오기-유저 댓글과 대댓글이 담긴 것을 넘겨줌
 
 		return "/userboards/board-content";
 	}
 
-	//여기서부터 user notice 
+	//여기서부터 user notice
 	@GetMapping("/notice-list")
 	public String noticeTableList(Criteria cri, Model model) {
 

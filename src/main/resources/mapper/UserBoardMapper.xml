@@ -140,4 +140,44 @@
 		where board_num = #{boardNum}
 	</update>
 
+	<!-- 댓글과 대댓글을 가져오는 쿼리문 -->
+	<select id="getComments" resultType="CommentVO">
+		select comment_num,
+			 	comment_writer,
+			 	comment_regdate,
+			 	comment_content,
+			 	c.board_num,
+			 	u.user_name,
+			 	u.user_img
+		from user_comment c
+		left join user_board b
+		on c.board_num =  b.board_num
+		left join user_user u
+		on c.comment_writer = u.user_id
+		where b.pj_num = #{pjNum} and c.board_num=#{boardNum} and c.comment_upper_num = 0
+	</select>
+	<select id="getSubComments" resultType="CommentVO">
+		select comment_num,
+				comment_writer,
+				comment_regdate,
+				comment_content,
+				u.user_name,
+				u.user_img
+		from user_comment c
+		left join user_user u
+		on c.comment_writer = u.user_id
+		where comment_upper_num = #{commentNum}
+	</select>
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="int">
+		delete from user_comment where comment_num = #{commentNum}
+	</delete>
+	<!-- 댓글 등록 -->
+	<insert id="registComment" parameterType="RegistCommentVO">
+		insert into user_comment
+		(board_num, comment_writer, comment_content, comment_upper_num)
+		values
+		(#{boardNum},#{commentWriter},#{commentContent},#{commentUpperNum})
+	</insert>
+
 </mapper>
