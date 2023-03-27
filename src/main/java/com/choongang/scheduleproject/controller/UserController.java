@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,10 +43,6 @@ public class UserController {
 	@Autowired
 	//비밀번호 암호화
 	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	//중복 로그인 방지
-	private ServletListenerRegistrationBean ServletListenerRegistrationBean;
 
 	@Autowired
 	private KakaoAPI kakao;
@@ -63,7 +58,13 @@ public class UserController {
 	private String uploadpath;
 
 	@GetMapping("/user-login")
-	public String userLogin() {		
+	public String userLogin(HttpSession session, RedirectAttributes ra) {	
+		//세션값을 기반으로 DB에서 정보 조회
+		String user_id = (String)session.getAttribute("user_id");
+		if(user_id != null) {
+			ra.addFlashAttribute("msg", "로그아웃 후 이용해주세요.");
+			return "redirect:/user/user-start-project-list";
+		}
 		return "/user/user-login";
 	}
 
@@ -77,7 +78,13 @@ public class UserController {
 	}
 
 	@GetMapping("/user-register")
-	public String userRegister() {
+	public String userRegister(HttpSession session, RedirectAttributes ra) {
+		//세션값을 기반으로 DB에서 정보 조회
+		String user_id = (String)session.getAttribute("user_id");
+		if(user_id != null) {
+			ra.addFlashAttribute("msg", "로그아웃 후 이용해주세요.");
+			return "redirect:/user/user-start-project-list";
+		}
 		return "/user/user-register";
 	}
 
@@ -91,18 +98,25 @@ public class UserController {
 		return "/user/user-start-project-list";
 	}
 
-	@GetMapping("/user-confirm-mypage")
-	public String userConfirmMypage() {
-		return "/user/user-confirm-mypage";
-	}
-
 	@GetMapping("/user-find-id")
-	public String userFindId() {
+	public String userFindId(HttpSession session, RedirectAttributes ra) {
+		//세션값을 기반으로 DB에서 정보 조회
+		String user_id = (String)session.getAttribute("user_id");
+		if(user_id != null) {
+			ra.addFlashAttribute("msg", "로그아웃 후 이용해주세요.");
+			return "redirect:/user/user-start-project-list";
+		}
 		return "/user/user-find-id";
 	}
 
 	@GetMapping("/user-reset-pw")
-	public String userResetPw() {
+	public String userResetPw(HttpSession session, RedirectAttributes ra) {
+		//세션값을 기반으로 DB에서 정보 조회
+		String user_id = (String)session.getAttribute("user_id");
+		if(user_id != null) {
+			ra.addFlashAttribute("msg", "로그아웃 후 이용해주세요.");
+			return "redirect:/user/user-start-project-list";
+		}
 		return "/user/user-reset-pw";
 	}
 
