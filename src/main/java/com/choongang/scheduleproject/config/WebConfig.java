@@ -51,7 +51,7 @@ public class WebConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/check-name-and-email"); //rest api
 
 
-			registry.addInterceptor(projectAuthHandler()) //pjnum 수정으로 이동 시 세션아이디가 해당 pj에 멤버가 아니면 못들어감.
+		registry.addInterceptor(projectAuthHandler()) //pjnum 수정으로 이동 시 세션아이디가 해당 pj에 멤버가 아니면 못들어감.
 				.addPathPatterns("/project/project-started")
 				.addPathPatterns("/userboards/board-list")
 				.addPathPatterns("/userboards/board-content")
