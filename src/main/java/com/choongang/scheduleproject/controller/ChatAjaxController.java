@@ -25,6 +25,7 @@ public class ChatAjaxController {
 					   @RequestParam("pj_num") int pj_num,HttpSession session) {
 		ChatVO vo = new ChatVO();
 		String user_id = (String)session.getAttribute("user_id");
+
 		vo.setChatContent(chat_content);
 		vo.setChatWriter(user_id);
 		vo.setPjNum(pj_num);
