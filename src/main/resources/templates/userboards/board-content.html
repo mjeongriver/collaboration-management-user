@@ -21,7 +21,7 @@
                                         <div class="row mb-3">
                                             <label for="category" class="col-sm-2 col-form-label">카테고리</label>
                                             <div class="col-sm-10" style="padding: 4.75px 15px; border: none;">
-                                            	[[${userBoardVO.boardCategory}]]</div>
+                                                [[${userBoardVO.boardCategory}]]</div>
                                         </div>
 
                                         <div class="row mb-3">
@@ -59,7 +59,7 @@
                                             <div class="col-sm-10" style="padding: 4.75px 15px">
                                                 <li th:each="file : ${fileList}" class="fileList">
                                                     <button th:src="${file.boardfilePath}" class="downloadBtn" style="border: none; background-color:white;" type="button" onclick="downloadBoardImg(event)" title="Download Board image">
-                                                    	[[${file.boardfileName}]]</button>
+                                                        [[${file.boardfileName}]]</button>
                                                 </li>
                                                 <li id="noFiles" style="display:none;">첨부된 파일이 없습니다.</li>
                                             </div>
@@ -81,16 +81,16 @@
                                         <div class="pagetitle">
                                             <h5 style="font-weight: 700;">댓글</h5>
 
-											                        <th:block th:each="commentVO:${comments}">
-	                                            <div  class="reply-wrap" style="border: 1px solid #ccc; border-radius: 10px; margin-top: 10px; margin-bottom: 10px;">
-	                                                <div style="padding: 10px;">
-	                                                    <div style="width: 70px; height: 70px; margin: 5px; float: left;">
-	                                                        <img th:src="${commentVO.userImg}" style="width: 100%; height: 100%;" class="rounded-circle">
-	                                                    </div>
+                                            <th:block th:each="commentVO:${comments}">
+                                                <div class="reply-wrap" style="border: 1px solid #ccc; border-radius: 10px; margin-top: 10px; margin-bottom: 10px;">
+                                                    <div style="padding: 10px;">
+                                                        <div style="width: 70px; height: 70px; margin: 5px; float: left;">
+                                                            <img th:src="${commentVO.userImg}" style="width: 100%; height: 100%;" class="rounded-circle">
+                                                        </div>
 
-	                                                    <div style="padding: 10px; overflow: hidden; position: relative;">
-		                                                        <p style="font-weight: 800;">[[${commentVO.userName}]]</p>
-		                                                        <p style="position: absolute; top: 10px; right: 10px; font-size: 10px; color: gray;" th:text="${#dates.format(commentVO.commentRegdate, 'yyyy-MM-dd HH:mm:ss')}"></p>
+                                                        <div style="padding: 10px; overflow: hidden; position: relative;">
+                                                            <p style="font-weight: 800;">[[${commentVO.userName}]]</p>
+                                                            <p style="position: absolute; top: 10px; right: 10px; font-size: 10px; color: gray;" th:text="${#dates.format(commentVO.commentRegdate, 'yyyy-MM-dd HH:mm:ss')}"></p>
 		                                                        <p th:utext="${commentVO.commentContent}"></p>
 	                                                    </div>
 	                                                </div>
@@ -100,14 +100,12 @@
 	                                                    <button th:if="${commentVO.commentWriter == session.user_id}" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;">삭제</button>
 	                                                    <button type="button" class="btn btn-primary btn-sm" style="margin-right:10px;">답글</button>
 	                                                </div>
+	                                                
 	                                                <!-- 대댓글을 반복시킴 -->
 	                                                <th:block th:each="sub_commentVO : ${commentVO.getCommentList}" style="display: flex;">
-														
 														<!-- 대댓글 -->
 		                                                <div style="margin-left: 5%; margin-bottom:10px; display:flex; position: relative;">
-															<div style="width: 40px; height: 40px; border-bottom: 3px solid #ced4da; border-left: 3px solid #ced4da;">
-																
-															</div>
+															<div style="width: 40px; height: 40px; border-bottom: 3px solid #ced4da; border-left: 3px solid #ced4da;"></div>
 															
 		                                                    <div style="width: 70px; height: 70px; margin: 5px; float: left;">
 		                                                        <img th:src="${sub_commentVO.userImg}" style="width: 70px; height: 70px;" class="rounded-circle">
@@ -124,7 +122,8 @@
 		                                                    <button th:if="${commentVO.commentWriter == session.user_id}" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;">삭제</button>
 		                                                </div>
 		                                            </th:block>
-													<!-- 대댓글등록 -->
+		                                            
+													<!-- 대댓글 등록 -->
 													<div style="display:none; " class="reply">
 															<div class="list-group-item-secondary" style="border-bottom-left-radius:10px; border-bottom-right-radius: 10px;">
 				                                                <div style="padding-top: 10px; margin-left:11%;" class="hidden">
@@ -139,12 +138,13 @@
 			                                                            <label for="floatingTextarea">댓글을 입력해주세요.</label>
 			                                                        </div>
 			                                                    </div>
+			                                                    
 			                                                    <div style="padding-bottom: 30px; position: relative;">
 			                                                        <button type="button" class="btn btn-success btn-sm" style="float: right; position: absolute; top: -10px; right: 10px;">등록</button>
 			                                                    </div>
 			                                                </div>
 
-													                      </div>
+													</div>
 	                                            </div>
 											</th:block>
 
@@ -165,7 +165,6 @@
                                                         <button type="button" class="btn btn-success btn-sm" style="float: right; position: absolute; top: -10px; right: 10px;">등록</button>
                                                     </div>
                                                 </div>
-
                                         </div>
                                         <!-- 여기까지가 댓글 -->
 
@@ -203,6 +202,24 @@
         let myImg = event.target.getAttribute("src");
         location.href = "../aws/profile-download?myProfileImg=" + myImg;
     }
+    
+    $(document).ready(function() {
+        //fileList가 없을 때 #noFiles를 표시
+        if ($('li.fileList').length === 0) {
+            console.log($('li.fileList').length);
+            $('#noFiles').show();
+        }
+
+        //sessionId와 작성자 id가 다르면 삭제와 수정 버튼 막기
+        let boardWriter = $('#boardWriter').attr('value');
+        console.log(boardWriter);
+        let sessionId = $("input[name='sessionId']").attr("id");
+        if (boardWriter !== sessionId) {
+            // session.id와 같을 경우 삭제, 수정 버튼을 보이게 처리
+            $("button[name='modiBtn']").prop("disabled", true)
+            $("button[name='delBtn']").prop("disabled", true)
+        }
+    });
 
 	//답글 토글
     $(".btn-primary").on('click',function(e){
@@ -281,27 +298,8 @@
 					}
 				})
 			}
-		}
-			
-	})
-  
-    $(document).ready(function() {
-        //fileList가 없을 때 #noFiles를 표시
-        if ($('li.fileList').length === 0) {
-            console.log($('li.fileList').length);
-            $('#noFiles').show();
-        }
-
-        //sessionId와 작성자 id가 다르면 삭제와 수정 버튼 막기
-        let boardWriter = $('#boardWriter').attr('value');
-        console.log(boardWriter);
-        let sessionId = $("input[name='sessionId']").attr("id");
-        if (boardWriter !== sessionId) {
-            // session.id와 같을 경우 삭제, 수정 버튼을 보이게 처리
-            $("button[name='modiBtn']").prop("disabled", true)
-            $("button[name='delBtn']").prop("disabled", true)
-        }
-    });
+		}	
+	});
 
     //수정, 삭제-목록으로 감, 목록으로 가기
     let urlParams = new URLSearchParams(window.location.search);

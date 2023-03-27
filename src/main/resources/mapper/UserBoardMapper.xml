@@ -156,6 +156,7 @@
 		on c.comment_writer = u.user_id
 		where b.pj_num = #{pjNum} and c.board_num=#{boardNum} and c.comment_upper_num = 0
 	</select>
+	
 	<select id="getSubComments" resultType="CommentVO">
 		select comment_num,
 				comment_writer,
@@ -168,10 +169,12 @@
 		on c.comment_writer = u.user_id
 		where comment_upper_num = #{commentNum}
 	</select>
+	
 	<!-- 댓글 삭제 -->
 	<delete id="deleteComment" parameterType="int">
 		delete from user_comment where comment_num = #{commentNum}
 	</delete>
+	
 	<!-- 댓글 등록 -->
 	<insert id="registComment" parameterType="RegistCommentVO">
 		insert into user_comment

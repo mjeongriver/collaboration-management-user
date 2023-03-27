@@ -63,7 +63,7 @@ public class UserBoardServiceImpl implements UserBoardService{
 	}
 
 	@Override
-  public int deleteContent(int board_num) {
+	public int deleteContent(int board_num) {
 		return userBoardMapper.deleteContent(board_num);
 	}
 
@@ -76,14 +76,14 @@ public class UserBoardServiceImpl implements UserBoardService{
 	public int updateFileList(FileVO fileVO) {
 		return userBoardMapper.updateFileList(fileVO);
 	}
-  
-  @Override
+
+	@Override
 	public ArrayList<CommentVO> getComments(int boardNum, int pjNum) { //댓글들 가져오기
-		 ArrayList<CommentVO> list = new ArrayList<>();
-		 for(CommentVO vo : userBoardMapper.getComments(boardNum, pjNum) ) {
-			 vo.setCommentList(userBoardMapper.getSubComments(vo)); //대댓글 가져옴
-			 list.add(vo);
-		 }
+		ArrayList<CommentVO> list = new ArrayList<>();
+		for(CommentVO vo : userBoardMapper.getComments(boardNum, pjNum) ) {
+			vo.setCommentList(userBoardMapper.getSubComments(vo)); //대댓글 가져옴
+			list.add(vo);
+		}
 		return list;
 	}
 

@@ -16,22 +16,22 @@ import lombok.NoArgsConstructor;
 public class UserBoardVO {
 	private int boardNum;
 	private int rowNum;
-	
+
 	@JsonProperty("pj_num")
 	private int pjNum;
-	
+
 	@NotNull
 	private String boardTitle;
-	
+
 	@NotNull
 	private String boardEnddate;
-	
+
 	@NotNull
 	private Timestamp boardRegdate;
-	
+
 	@NotNull
 	private String boardContent;
-	
+
 	private String userName;
 	private String boardWriter;
 	private String boardStartdate;

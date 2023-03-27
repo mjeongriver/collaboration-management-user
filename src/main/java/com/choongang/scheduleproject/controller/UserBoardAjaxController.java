@@ -83,7 +83,7 @@ public class UserBoardAjaxController {
 
 		//반복 돌려서 fvoList에 담아줌
 		for (MultipartFile file : mFiles) {
-    
+
 			String origin = file.getOriginalFilename(); //파일명
 			String filepath = makeDir(); //폴더 생성
 			String boardfileUuid = UUID.randomUUID().toString() + "_" + origin; //중복 파일의 처리 (어떤 값이 들어가더라도 중복이 안되도록 uuid 처리)
@@ -112,7 +112,7 @@ public class UserBoardAjaxController {
 		}
 
 		return result;
-    
+
 	}
 
 	//날짜 별로 폴더 생성
@@ -144,6 +144,7 @@ public class UserBoardAjaxController {
 	//글 수정 요청 - 기존에 있었던 파일들 삭제 여부를 모두 y로 변경하고 새로 추가하도록 구현(변경된 히스토리 내역 확인이 가능함)
 	@PostMapping("/board-modify-form")
 	public int modifyForm(MultipartHttpServletRequest multipart, HttpSession session) throws IllegalStateException, IOException {
+		
 		String msg = "";
 		int result = 0;
 
@@ -214,26 +215,26 @@ public class UserBoardAjaxController {
 
 		return result;
 	}		
-  
-  @PostMapping("/delete-comment")
-	public String deleteComment(@RequestParam("comment_num") int commentNum) {//댓글 삭제 기능
+
+	@PostMapping("/delete-comment")
+	public String deleteComment(@RequestParam("comment_num") int commentNum) { //댓글 삭제 기능
 		int result = 0;
 		result = userBoardService.deleteComment(commentNum);
-		if(result == 0) return "삭제실패했습니다.";
-		return "삭제했습니다.";
+		if(result == 0) return "삭제 실패 했습니다.";
+		return "삭제 했습니다.";
 	}
 
 	@PostMapping("/regist-comment")
 	@ResponseBody
-	public String registComment(@RequestBody RegistCommentVO vo) {//댓글 등록 기능
+	public String registComment(@RequestBody RegistCommentVO vo) { //댓글 등록 기능
 		int result = userBoardService.registComment(vo);
 		if(result == 0) {
-			
-			return "등록하지 못했습니다.";
+
+			return "등록 하지 못했습니다.";
 		}
-		return "댓글 등록했습니다.";
+		return "댓글을 등록 했습니다.";
 	}
-  
+
 }
 
 
