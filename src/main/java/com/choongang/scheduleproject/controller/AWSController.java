@@ -39,7 +39,6 @@ public class AWSController {
 
 	@GetMapping("/profile-download")
 	public ResponseEntity<byte[]> downloadFile(@RequestParam("myProfileImg") String myProfileImg) throws IOException { // 객체 다운 fileUrl : 폴더명/파일네임.파일확장자
-
 		String fileUrl = myProfileImg.substring(54); // 객체 URL에서 객체 키를 꺼내야 함
 		String fileName = myProfileImg.substring(98); // 다운로드할 때는 파일명만 나오게 하기 위함
 
@@ -54,7 +53,6 @@ public class AWSController {
 		String type = arr[arr.length -1];
 		fileUrl = URLEncoder.encode(type, "UTF-8");
 		httpHeaders.setContentDispositionFormData("Content-Disposition", fileUrl );
-
 		return new ResponseEntity<>(bytes, httpHeaders, HttpStatus.OK);
 	}
 

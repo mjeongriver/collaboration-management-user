@@ -12,7 +12,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 @PropertySource("classpath:application.properties")
 public class MailConfig {
-	
 	@Value("${spring.mail.username}")
     private String id;
     @Value("${spring.mail.password}")
@@ -25,7 +24,6 @@ public class MailConfig {
     @Bean
     public JavaMailSender javaMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-
         javaMailSender.setHost(host); // smtp 서버 주소
         javaMailSender.setUsername(id); // 설정(발신) 메일 아이디
         javaMailSender.setPassword(password); // 설정(발신) 메일 패스워드

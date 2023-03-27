@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ChartVO {
-
 	private String userName;
 	private String progress;
 	private String boardCategory;

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class AdminNoticeListVO {
-
 	private int noticeNum;
 	private String adminId;
 	private String noticeTitle;

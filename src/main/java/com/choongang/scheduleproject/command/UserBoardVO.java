@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserBoardVO {
-
 	private int boardNum;
 	private int rowNum;
 	

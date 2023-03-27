@@ -53,8 +53,5 @@ public class PageVO {
 	      for(int i = this.start; i<= this.end; i++) {
 	         pageList.add(i);
 	      }
-
 	}
-
-
 }

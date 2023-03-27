@@ -5,13 +5,10 @@ $(".modalOn").click(function(e) {
 
 //모달에서 일괄 삭제 전체 선택 기능
 function selectAllMember(selectAll) {
-
 	let checkboxes = document.getElementsByName('memberDelete');
-
 	checkboxes.forEach((checkbox) => {
 		checkbox.checked = selectAll.checked;
 	})
-
 }
 
 //ajax로 부서 출력
@@ -39,6 +36,8 @@ $(document).ready(function() {
 //ajax로 부서 클릭 시 부서에 있는 팀원 목록 출력 
 //여기서 세션 아이디 값 비교해서 본인이면 팀원 목록에 안 나오도록 처리
 function getDepList(e) {
+	
+	if(e.target.tagName === "LI"){
 	$.ajax({
 		url: "../get-dmlist",
 		type: "get",
@@ -49,7 +48,7 @@ function getDepList(e) {
 			let str = "";
 			str += '<ul class="depMemberList" style="position: relative; list-style: none; padding: 0px 0px 0px 18px">';
 			result.forEach(function(item, index) {
-				let pj_writer = $('span[name="pj_writer"]').attr('id');
+				let pj_writer = $('span[name="pjWriter"]').attr('id');
 				if (pj_writer !== `${item.userId}`) {
 					str += `<li class="depMemberList2" onclick="seleted(event)" data-value="${item.userId}" style="padding: 5px 0px 5px 5px; margin: 10px 0px 10px; cursor: pointer; border-radius: 10px;">${item.userName}</li>`;
 				}
@@ -67,7 +66,9 @@ function getDepList(e) {
 		}
 	});
 	
-	$('.depMemberList2').category_remove();
+	$('.depMemberList2').category_remove();	
+	}
+	
 }
 
 //다른 부서 눌렀을 때 이전 팀원 목록 삭제
@@ -88,13 +89,13 @@ let teamPlus = function(e) {
 	Array.from(allMember).forEach(function(element) {
 		element.checked = false;
 	});
-	
+
 	//DB에 추가된 사람들을 반영하기 위함
 	let dbArray = [];
-	
+
 	teamList.forEach(function(element, index) {
 		let name = teamList[index].innerHTML;
-		
+
 		//선택된 사람들의 이름
 		let name2 = teamList[index].dataset.value;
 		let value = teamList[index].getAttribute('value');
@@ -102,7 +103,7 @@ let teamPlus = function(e) {
 		let isMemberExist = Array.from(existingMembers).some(function(member) {
 			return member.getAttribute('value') === name2;
 		});
-			
+
 		//없는 이름이라면 추가해준다
 		if (!isMemberExist) {
 			let newListItem = document.createElement('div');
@@ -118,7 +119,7 @@ let teamPlus = function(e) {
 			selectBox.setAttribute('name', 'memberType');
 			selectBox.style.margin = '0px 20px 10px 10px';
 			selectBox.style.borderRadius = '5px';
-			
+
 			selectBox.setAttribute('onchange', 'beObserver(this)');
 
 			// 옵션
@@ -143,27 +144,27 @@ let teamPlus = function(e) {
 			newListItem.insertBefore(newInput, newListItem.firstChild);
 
 			teamNameDiv.appendChild(newListItem);
-			
-			dbArray.push(name2);
-			
+
+			dbArray.push(name2); // name2는 유저의 아이디
+
 		}
 		//추가가 되면 기존에 선택했던 팀원들 색 지워줌
 		element.classList.remove('selected');
 		element.style.color = '';
 		element.style.backgroundColor = 'white';
 	});
-	
-	if(dbArray.length !== 0){		
+
+	if (dbArray.length !== 0) {
 		$.ajax({
 			url: "../add-project-member",
 			type: "post",
 			data: {
-				"dbArray" : dbArray,
-				"pjNum" : pjNum
+				"dbArray": dbArray,
+				"pjNum": pjNum
 			},
 			success: function(result) {
 				console.log(result);
-				if(result !== -1){
+				if (result !== -1) {
 					alert("멤버 추가가 정상적으로 완료되지 않았습니다. 프로젝트 수정을 다시 진행해주세요.")
 				}
 			},
@@ -173,7 +174,6 @@ let teamPlus = function(e) {
 		});
 	}
 };
-
 
 //선택 했을 때 색상 변경 
 let seleted = function(e) {
@@ -188,10 +188,10 @@ function memberDelete2() {
 	let pjNum = document.getElementById("pjNum").value;
 	//DB에 삭제할 사람들을 반영하기 위함
 	let dbArray = [];
-	
+
 	// teamName 요소 선택하기
 	let teamNameElement = document.querySelectorAll('[name="member"]');
-			
+
 	teamNameElement.forEach(function(element, index) {
 		if (teamNameElement[index].children[0].checked) {
 			dbArray.push(teamNameElement[index].getAttribute("value")); // 삭제할 유저의 아이디를 배열에 담아줌
@@ -199,18 +199,17 @@ function memberDelete2() {
 		}
 	});
 
-
-	if(dbArray.length !== 0){		
+	if (dbArray.length !== 0) {
 		$.ajax({
 			url: "../delete-project-member",
 			type: "post",
 			data: {
-				"dbArray" : dbArray,
-				"pjNum" : pjNum
+				"dbArray": dbArray,
+				"pjNum": pjNum
 			},
 			success: function(result) {
 				console.log(result);
-				if(result !== -1){
+				if (result !== -1) {
 					alert("멤버 추가가 정상적으로 완료되지 않았습니다. 프로젝트 수정을 다시 진행해주세요.")
 				}
 			},
@@ -219,7 +218,6 @@ function memberDelete2() {
 			}
 		});
 	}
-	
 }
 
 //멤버 or 옵저버 변경 DB에 반영
@@ -227,7 +225,7 @@ function beObserver(is_Observer) {
 	let id = is_Observer.parentNode.getAttribute("value"); // 아이디
 	let beObserver = is_Observer.value; // 0이면 팀원, 1이면 옵저버
 	let pjNum = document.getElementById("pjNum");
-	
+
 	$.ajax({
 		url: "../change-member-authority",
 		type: "post",
@@ -237,7 +235,7 @@ function beObserver(is_Observer) {
 			"pjNum": pjNum.value
 		},
 		success: function(result) {
-			
+
 		},
 		error: function(err) {
 			alert("멤버의 권한 수정에 실패했습니다. 담당자에게 문의하세요.");
@@ -251,13 +249,14 @@ $("textarea[name=pjDescription]").on("keyup", function() {
 });
 
 function fnChkByte(projectDescription, maxByte) {
-	let str = $(projectDescription).val(); // textarea의 value를 가져옴
+	let str = projectDescription; // textarea의 value를 가져옴
 	let strLength = str.length;
 	let chkByte = 0;
 	let chkLen = 0;
 	let oneChar = '';
 	let str2 = '';
 	let contentWarning = $('#contentWarning'); // contentWarning를 가져옴
+
 
 	for (let i = 0; i < strLength; i++) {
 		oneChar = str.charAt(i);
@@ -281,34 +280,76 @@ function fnChkByte(projectDescription, maxByte) {
 		contentWarning.text(""); // warning 메시지 초기화
 		return true;
 	}
+	
+	
+	
 }
 
-//프로젝트 수정
-function changeProject() {
-	
-	let pjName = document.getElementById("pjName");
-	let pjStartdate = document.getElementById("pjStartdate");
-	let pjEnddate = document.getElementById("pjEnddate");
-	let projectChangeForm = document.getElementById("projectChangeForm");
+//프로젝트명 수정
+function changeProjectName() {
+	let pjNum = document.getElementById("pjNum").value;
+	let pjName = document.getElementById("pjName").value;
 	
 	//프로젝트 제목 필수
-	if (pjName.value.trim() === "") {
+	if (pjName === "") {
 		$('#nameWarning').text("프로젝트 제목은 필수입니다.").show();
 		$("input[name=pjName]").focus();
 		return false;
 	} else {
 		$('#nameWarning').hide();
 	}
+	
+	$.ajax({
+		url: "../change-project-name",
+		type: "post",
+		data: {
+			"pjNum": pjNum,
+			"pjName" : pjName 
+		},
+		success: function(result) {
+		},
+		error: function(err) {
+			alert("프로젝트명 수정에 실패했습니다. 담당자에게 문의하세요.");
+		}
+	});
+}
 
-	if (pjStartdate.value == "") {
+//프로젝트 시작일 수정
+function changeProjectStartdate() {
+	let pjNum = document.getElementById("pjNum").value;
+	let pjStartdate = document.getElementById("pjStartdate").value;
+		
+	if (pjStartdate === "") {
 		$('#dateWarning').text("프로젝트 시작일을 설정해주세요.");
 		$("input[name=pjStartdate]").focus();
 		return false;
 	} else {
 		$('#dateWarning').hide();
 	}
+		
+	$.ajax({
+		url: "../change-project-startdate",
+		type: "post",
+		data: {
+			"pjNum": pjNum,
+			"pjStartdate" : pjStartdate 
+		},
+		success: function(result) {
 
-	if (pjEnddate.value == "") {
+		},
+		error: function(err) {
+			alert("프로젝트 시작일 수정에 실패했습니다. 담당자에게 문의하세요.");
+		}
+	});
+}
+
+//프로젝트 종료일 수정
+function changeProjectEnddate() {
+	let pjNum = document.getElementById("pjNum").value;
+	let pjStartdate = document.getElementById("pjStartdate").value;
+	let pjEnddate = document.getElementById("pjEnddate").value;
+		
+	if (pjEnddate === "") {
 		$('#dateWarning').text("프로젝트 종료일을 설정해주세요.");
 		$('#dateWarning').show();
 		$("input[name=pjEnddate]").focus();
@@ -317,7 +358,105 @@ function changeProject() {
 		$('#dateWarning').hide();
 	}
 
-	if (pjStartdate.value > pjEnddate.value) {
+	if (pjStartdate > pjEnddate) {
+		$('#dateWarning').text("종료일은 시작일보다 작을 수 없습니다.");
+		$('#dateWarning').show();
+		$("input[name=pjEnddate]").focus();
+		return false;
+	}
+	
+	//프로젝트 종료일은 오늘 날짜보다 작을 수 없게 하는 코드
+	let currentDate = new Date();
+	currentDate.setHours(0, 0, 0, 0); 
+	let endDate = new Date(pjEnddate);
+	
+	if (currentDate > endDate){
+		console.log("gd");
+		$('#dateWarning').text("종료일은 오늘 날짜보다 작을 수 없습니다.");
+		$('#dateWarning').show();
+		$("input[name=pjEnddate]").focus();
+		return false;
+	}
+	
+	$.ajax({
+		url: "../change-project-enddate",
+		type: "post",
+		data: {
+			"pjNum": pjNum,
+			"pjEnddate" : pjEnddate 
+		},
+		success: function(result) {
+
+		},
+		error: function(err) {
+			alert("프로젝트 종료일 수정에 실패했습니다. 담당자에게 문의하세요.");
+		}
+	});
+}
+
+//프로젝트 설명 수정
+function changeProjectDescription() {
+	let pjDescription = document.getElementById("pjDescription").value;
+	let pjNum = document.getElementById("pjNum").value;
+	let result = fnChkByte(pjDescription, 100);
+	
+	if(result === false) {
+		pjDescription.value = "";
+		pjDescription.focus();
+		return false;
+	}
+	
+	$.ajax({
+		url: "../change-project-description",
+		type: "post",
+		data: {
+			"pjNum": pjNum,
+			"pjDescription" : pjDescription 
+		},
+		success: function(response) {
+				},
+		error: function(err) {
+			alert("프로젝트 설명 수정에 실패했습니다. 담당자에게 문의하세요.");
+		}
+	});
+}
+
+
+//프로젝트 수정
+function changeProject() {
+	let pjName = document.getElementById("pjName").value;
+	let pjStartdate = document.getElementById("pjStartdate").value;
+	let pjEnddate = document.getElementById("pjEnddate").value;
+	let pjDescription = document.getElementById("pjDescription").value;
+	let result = fnChkByte(pjDescription, 100);
+	
+	//프로젝트 제목 필수
+	if (pjName === "") {
+		$('#nameWarning').text("프로젝트 제목은 필수입니다.").show();
+		$("input[name=pjName]").focus();
+		return false;
+	} else {
+		$('#nameWarning').hide();
+	}
+
+	if (pjStartdate === "") {
+		$('#dateWarning').text("프로젝트 시작일을 설정해주세요.");
+		$("input[name=pjStartdate]").focus();
+		return false;
+	} else {
+		$('#dateWarning').hide();
+	}
+
+	if (pjEnddate === "") {
+		$('#dateWarning').text("프로젝트 종료일을 설정해주세요.");
+		$('#dateWarning').show();
+		$("input[name=pjEnddate]").focus();
+		return false;
+	} else {
+		$('#dateWarning').hide();
+	}
+
+	if (pjStartdate > pjEnddate) {
 		$('#dateWarning').text("종료일은 시작일보다 작을 수 없습니다.");
 		$('#dateWarning').show();
 		$("input[name=pjStartdate]").focus();
@@ -325,8 +464,29 @@ function changeProject() {
 		return false;
 	}
 	
-	projectChangeForm.submit();
+	//프로젝트 종료일은 오늘 날짜보다 작을 수 없게 하는 코드
+	let currentDate = new Date();
+	currentDate.setHours(0, 0, 0, 0); 
+	let endDate = new Date(pjEnddate);
 	
+	if (currentDate > endDate){
+		$('#dateWarning').text("종료일은 오늘 날짜보다 작을 수 없습니다.");
+		$('#dateWarning').show();
+		$("input[name=pjStartdate]").focus();
+		$("input[name=pjEnddate]").focus();
+		return false;
+	}
+
+	if(result === false) {
+		pjDescription.value = "";
+		pjDescription.focus();
+		return false;
+	}
+	
+	location.href = "/project/project-change-confirm";
+
+	//projectChangeForm.submit();
+
 }
 
 

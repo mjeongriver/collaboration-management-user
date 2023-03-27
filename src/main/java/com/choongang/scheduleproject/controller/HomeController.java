@@ -23,27 +23,19 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model model,HttpSession session) {
 		String user_id = (String)session.getAttribute("user_id");
-
 		ArrayList<ProjectVO> list = new ArrayList<>();
 		list = projectService.getProjectList(user_id);
-
 		model.addAttribute("list",list);
-
 		return "user/user-start-project-list";
-
 	}
-
 
 	@GetMapping("/2")
 	public String index2(Model model,HttpSession session) {
 		String user_id = (String)session.getAttribute("user_id");
 		ArrayList<ProjectVO> list = new ArrayList<>();
 		list = projectService.getProjectList(user_id);
-
 		model.addAttribute("list",list);
-
 		return "user/user-start-project-list2";
-
 	}
 
 	@GetMapping("/3")
@@ -51,13 +43,7 @@ public class HomeController {
 		String user_id = (String)session.getAttribute("user_id");
 		ArrayList<ProjectVO> list = new ArrayList<>();
 		list = projectService.getProjectList(user_id);
-
 		model.addAttribute("list",list);
-
 		return "user/user-start-project-list3";
-
 	}
-
-
-
 }

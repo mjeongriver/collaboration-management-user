@@ -2,57 +2,77 @@
 var inputFileList = new Array();
 
 $(document).ready(function() {
-    //summernote editor
+
+    //summernote editor 실행
     $('#summernote').summernote({
         height: 270,
         minHeight: null,
         maxHeight: null,
-        focus: true,
-        toolbar: [
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough', 'superscript', 'subscript']],
-            ['fontsize', ['fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']]
-        ]
+        focus: true
     });
 
-    //파일 이름 목록에 추가 
-    $('#formFile').on('change', function(e) {
-        let files = $(this).prop('files');
-        let fileNames = "";
-        if (files && files.length > 0) { // 파일이 첨부되어 있는 경우
-            for (var i = 0; i < files.length; i++) {
-                fileNames += "<li>" + files[i].name + "</li>";
-            }
+    //select 해서 가져올때 카테고리랑, 진행 과정 내용 가져오기
+    let boardCategory = document.getElementById("boardCategory").value;
+    let boardProcess = document.getElementById("boardProcess").value;
+    let categorySelect = document.getElementById("categorySelect");
+    let processSelect = document.getElementById("processSelect");
 
-            //change 됐을 때, 파일이 첨부되어 있을 때만 e.target.files를 받아와서 빈 배열에 넣어준다
-            inputFileList = []; // 기존 정보 제거: 등록할 때 계속 초기화
-            var fileList = e.target.files;
-            var filesArr = Array.prototype.slice.call(fileList); //가공 처리: 안했을 때 formData에 빈 배열(없는 파일) 추가 되는 오류 생김
-            for (f of filesArr) {
-                inputFileList.push(f);
-            }
+    if (boardCategory === "개발") {
+        categorySelect.value = "개발";
+    } else if (boardCategory === "기획") {
+        categorySelect.value = "기획";
+    } else if (boardCategory === "논의") {
+        categorySelect.value = "기획";
+    } else if (boardCategory === "제안") {
+        categorySelect.value = "기획";
+    }
 
-            $('#fileNames').html("<ul style='margin-top: 10px;'>" + fileNames + "</ul>");
-        } else { // 파일이 첨부되어 있지 않은 경우
-            $('#fileNames').empty();
-            $('#fileNames').html("");
-            $('#fileUpload').val(""); // value 값을 ""으로 설정
-            let formData = new FormData($('#form')[0]);
-            // FormData 객체에서 파일 삭제
-            if (files.length === 0) {
-                formData.delete('fileUpload'); //regist.html에서 name값이 fileUpload
-                alert("첨부된 파일이 없습니다.");
-            }
+    if (boardProcess === "진행") {
+        processSelect.value = "진행";
+    } else { // 완료
+        processSelect.value = "완료";
+    }
+
+})
+
+//파일 이름 목록에 추가 
+$('#formFile').on('change', function(e) {
+    let files = $(this).prop('files');
+    let fileNames = "";
+
+    if (files && files.length > 0) { // 파일이 첨부되어 있는 경우
+        for (var i = 0; i < files.length; i++) {
+            fileNames += "<li>" + files[i].name + "</li>";
         }
-    });
+
+        //change 됐을 때, 파일이 첨부되어 있을 때만 e.target.files를 받아와서 빈 배열에 넣어준다
+        inputFileList = [];
+        var fileList = e.target.files;
+        var filesArr = Array.prototype.slice.call(fileList);
+        for (f of filesArr) {
+            inputFileList.push(f);
+        }
+
+        $('#fileNames').html("<ul style='margin-top: 10px;'>" + fileNames + "</ul>");
+        
+    } else { // 파일이 첨부되어 있지 않은 경우
+        inputFileList = []; // 기존 정보 제거
+        $('#fileNames').empty();
+        $('#fileNames').html("");
+        $('#fileUpload').val(""); // value 값을 ""으로 설정
+
+        let formData = new FormData($('#form')[0]);
+        // FormData 객체에서 파일 삭제
+        if (files.length === 0) {
+            formData.delete('fileUpload'); //modify.html에서 name값이 fileUpload
+            alert("첨부된 파일이 없습니다.");
+        }
+    }
+
+    $('#changeChk').val("Y"); //onchange가 일어나면 파일이 첨부 되어있던지, 안되어있던지 모두 val을 Y로 해준다. onchange 안됐을 때는 기존 N
 });
 
-//작성 완료 버튼 누를 시 ajax로 데이터 넘김
-$("#boardSuccess").click(function(event) {
-    //기본으로 정의된 이벤트를 작동하지 못하게 함, 즉 submit을 막는다.
+$("#modiSuccess").click(function(event) {
     event.preventDefault();
 
     let urlParams = new URLSearchParams(window.location.search);
@@ -125,13 +145,12 @@ $("#boardSuccess").click(function(event) {
         $('#contentWarning').hide();
     }
 
-    formData = new FormData($('#boardRegistForm')[0]);
+    formData = new FormData($('#boadModifyForm')[0]);
 
-    //push해준 값을 배열로 돌려서 넣음 - 컨트롤러에서 처리
-    //배열에서 파일 꺼내 폼 객체에 담는다
+    //배열에서 파일을 꺼내 폼 객체에 담는다.
     for (let i = 0; i < inputFileList.length; i++) {
         formData.append("fileUploadImg", inputFileList[i]);
-    };
+    }
 
     //파일 유효성 검사 수행
     if (!validateFiles()) {
@@ -139,26 +158,25 @@ $("#boardSuccess").click(function(event) {
     }
 
     //ajax로 글 등록하기
-    $("#boardSuccess").prop("disabled", true);
-
+    $("#modiSuccess").prop("disabled", true);
     $.ajax({
         type: "POST",
-        url: "../reg-board",
+        url: "../board-modify-form",
         data: formData,
         processData: false,
         contentType: false,
         cache: false,
         success: function(data) {
-            alert("등록이 완료되었습니다.")
-            location.href = "/userboards/board-list?pj_num=" + urlParams.get('pj_num');
+            alert("수정이 완료되었습니다.")
+            location.href = "/userboards/board-content?pj_num=" + urlParams.get('pj_num') + "&board_num=" + urlParams.get('board_num');
         },
         error: function(e) {
             console.log("ERROR: ", e);
-            //버튼 사용 불가
-            $("#boardSuccess").prop("disabled", false);
+            //처리가 안됐을 때 버튼 사용 불가
+            $("#modiSuccess").prop("disabled", false);
             alert("fail");
         }
-    });
+    })
 });
 
 function validateFiles() {

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectVO {
-
 	@NotNull
 	@NotBlank
 	@NotEmpty
@@ -41,6 +40,5 @@ public class ProjectVO {
 	private int pjTotalmember;
 	private int pjObservercount;
 	private int pjMembercount;
-
 
 }
