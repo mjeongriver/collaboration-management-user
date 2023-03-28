@@ -20,7 +20,7 @@
 			   (select count(b.board_process) from user_board b where b.board_writer = u.user_id and b.pj_num=#{pjNum}) )*100)) progress
 		from user_user u
 		left join mapping m
-		on u.user_id = m.user_id
+		on u.user_id = m.user_id and m.is_observer=false
 		where m.pj_num = #{pjNum}
 	</select>
 	<!-- 프로젝트 팀에 해당하는 자기자신 카테고리별 진행률 -->
