@@ -91,7 +91,7 @@
                                                         <div style="padding: 10px; overflow: hidden; position: relative;">
                                                             <p style="font-weight: 800;">[[${commentVO.userName}]]</p>
                                                             <p style="position: absolute; top: 10px; right: 10px; font-size: 10px; color: gray;" th:text="${#dates.format(commentVO.commentRegdate, 'yyyy-MM-dd HH:mm:ss')}"></p>
-		                                                        <p th:utext="${commentVO.commentContent}"></p>
+		                                                    <p th:each="line : ${#strings.arraySplit(commentVO.commentContent, '&lt;br&gt;')}" th:text="${line}" style="margin:0;"></p>
 	                                                    </div>
 	                                                </div>
 
@@ -100,13 +100,13 @@
 	                                                    <button th:if="${commentVO.commentWriter == session.user_id}" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;">삭제</button>
 	                                                    <button type="button" class="btn btn-primary btn-sm" style="margin-right:10px;">답글</button>
 	                                                </div>
-	                                                
+
 	                                                <!-- 대댓글을 반복시킴 -->
 	                                                <th:block th:each="sub_commentVO : ${commentVO.getCommentList}" style="display: flex;">
 														<!-- 대댓글 -->
 		                                                <div style="margin-left: 5%; margin-bottom:10px; display:flex; position: relative;">
 															<div style="width: 40px; height: 40px; border-bottom: 3px solid #ced4da; border-left: 3px solid #ced4da;"></div>
-															
+
 		                                                    <div style="width: 70px; height: 70px; margin: 5px; float: left;">
 		                                                        <img th:src="${sub_commentVO.userImg}" style="width: 70px; height: 70px;" class="rounded-circle">
 		                                                    </div>
@@ -114,15 +114,15 @@
 		                                                    <div style="padding: 10px; overflow: hidden; width: 390px;">
 		                                                        <p style="font-weight: 800;">[[${sub_commentVO.userName}]]</p>
 		                                                        <p style="position: absolute; top: 10px; right: 10px; font-size: 10px; color: gray;" th:text="${#dates.format(sub_commentVO.commentRegdate, 'yyyy-MM-dd HH:mm:ss')}"></p>
-		                                                        <p th:utext="${sub_commentVO.commentContent}"></p>
+		                                                        <p th:each="line : ${#strings.arraySplit(sub_commentVO.commentContent, '&lt;br&gt;')}" th:text="${line}" style="margin:0;"></p>
 	                                                    	</div>
 		                                                </div>
 														<div align="right" style="width: 100%; height: 40px; display:block;">
 															<input type="hidden" th:value="${sub_commentVO.commentNum}" id="commentNum">
-		                                                    <button th:if="${commentVO.commentWriter == session.user_id}" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;">삭제</button>
+		                                                    <button th:if="${sub_commentVO.commentWriter == session.user_id}" type="button" class="btn btn-danger btn-sm" style="margin-right: 5px;">삭제</button>
 		                                                </div>
 		                                            </th:block>
-		                                            
+
 													<!-- 대댓글 등록 -->
 													<div style="display:none; " class="reply">
 															<div class="list-group-item-secondary" style="border-bottom-left-radius:10px; border-bottom-right-radius: 10px;">
@@ -138,7 +138,7 @@
 			                                                            <label for="floatingTextarea">댓글을 입력해주세요.</label>
 			                                                        </div>
 			                                                    </div>
-			                                                    
+
 			                                                    <div style="padding-bottom: 30px; position: relative;">
 			                                                        <button type="button" class="btn btn-success btn-sm" style="float: right; position: absolute; top: -10px; right: 10px;">등록</button>
 			                                                    </div>
@@ -202,7 +202,7 @@
         let myImg = event.target.getAttribute("src");
         location.href = "../aws/profile-download?myProfileImg=" + myImg;
     }
-    
+
     $(document).ready(function() {
         //fileList가 없을 때 #noFiles를 표시
         if ($('li.fileList').length === 0) {
@@ -247,7 +247,7 @@
 
 	//댓글 등록
 	$('.btn-success').click(function(e){
-		
+
 		let regist_data = {
 				pj_num:'[[${pjVO.pjNum}]]',
 				board_num:'[[${boardNum}]]',
@@ -255,8 +255,8 @@
 				comment_content:$(e.target).closest('div').closest('.list-group-item-secondary').find('#floatingTextarea').val(),
 				comment_upper_num:$(e.target).closest('div').closest('.list-group-item-secondary').find("input[name='commentUpperNum']").val()
 			} //댓글 데이터
-		
-		
+
+
 		$.ajax({ //댓글을 포스트로 넘겨줌
 			url:'../regist-comment',
 			type:'post',
@@ -269,9 +269,9 @@
 			error:function(){
 				alert("250자 초과 또는 등록 중 오류가 생겼습니다.");
 			}
-		})	
+		})
 	})
-  
+
 	//엔터키 눌렀을 때
 	$('.form-control').on('keydown',function(e){
 		if (e.keyCode === 13){
@@ -283,7 +283,7 @@
 						comment_content:$(e.target).closest('div').closest('.list-group-item-secondary').find('#floatingTextarea').val().replaceAll(/(\n|\r\n)/g, "<br>"),
 						comment_upper_num:$(e.target).closest('div').closest('.list-group-item-secondary').find("input[name='commentUpperNum']").val()
 					} //댓글 데이터
-					
+
 				$.ajax({ //댓글을 포스트로 넘겨줌
 					url:'../regist-comment',
 					type:'post',
@@ -298,7 +298,7 @@
 					}
 				})
 			}
-		}	
+		}
 	});
 
     //수정, 삭제-목록으로 감, 목록으로 가기
