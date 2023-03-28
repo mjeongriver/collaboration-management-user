@@ -223,7 +223,7 @@
 
 	//답글 토글
     $(".btn-primary").on('click',function(e){
-    	$(e.target).closest('div').closest('.reply-wrap').find('.reply').toggle('fast')
+    	$(e.target).closest('div').closest('.reply-wrap').find('.reply').toggle('fast');
     });
 
 	//댓글 삭제
@@ -256,7 +256,10 @@
 				comment_upper_num:$(e.target).closest('div').closest('.list-group-item-secondary').find("input[name='commentUpperNum']").val()
 			} //댓글 데이터
 
-
+		if(regist_data.comment_content.trim()===''){
+			e.preventDefault(); //공백 입력 막음
+			return;
+		};
 		$.ajax({ //댓글을 포스트로 넘겨줌
 			url:'../regist-comment',
 			type:'post',
@@ -283,7 +286,10 @@
 						comment_content:$(e.target).closest('div').closest('.list-group-item-secondary').find('#floatingTextarea').val().replaceAll(/(\n|\r\n)/g, "<br>"),
 						comment_upper_num:$(e.target).closest('div').closest('.list-group-item-secondary').find("input[name='commentUpperNum']").val()
 					} //댓글 데이터
-
+				if(regist_data.comment_content.trim()===''){
+					e.preventDefault(); //공백 입력 막음
+					return;
+				};
 				$.ajax({ //댓글을 포스트로 넘겨줌
 					url:'../regist-comment',
 					type:'post',
