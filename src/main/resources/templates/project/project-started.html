@@ -306,7 +306,7 @@
 		})
 	}
 
-	setInterval( checkChat , 500); //0.5초마다 채팅값 확인
+	 setInterval( checkChat , 500); //0.5초마다 채팅값 확인
 
 
 
@@ -315,12 +315,12 @@
 
 	//엔터입력 시 함수실행
 	function enterKey(e) {
-		console.log($('floatingTextarea').val());
+
 		if(chat_content.value.trim()===''){
-			event.returnValue=false; //공백 입력 막음
+			event.preventDefault(); //공백 입력 막음
 			return;
 		};
-		console.log(chat_content.value);
+
 		$.ajax({
 			url : "../set-chat",
 			type : "get",
