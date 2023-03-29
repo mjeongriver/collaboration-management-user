@@ -30,7 +30,7 @@
 				and board_title like concat('%', #{cri.search}, '%')
 			</when>
 			<when test='cri.searchType == "boardWriter" and cri.search != null'>
-				and board_writer like concat('%', #{cri.search}, '%')
+				and user_name like concat('%', #{cri.search}, '%')
 			</when>
 			<when test='cri.searchType == "boardRegdate" and cri.search != null'>
 				and board_regdate like concat('%', #{cri.search}, '%')
@@ -156,7 +156,7 @@
 		on c.comment_writer = u.user_id
 		where b.pj_num = #{pjNum} and c.board_num=#{boardNum} and c.comment_upper_num = 0
 	</select>
-	
+
 	<select id="getSubComments" resultType="CommentVO">
 		select comment_num,
 				comment_writer,
@@ -169,12 +169,12 @@
 		on c.comment_writer = u.user_id
 		where comment_upper_num = #{commentNum}
 	</select>
-	
+
 	<!-- 댓글 삭제 -->
 	<delete id="deleteComment" parameterType="int">
 		delete from user_comment where comment_num = #{commentNum}
 	</delete>
-	
+
 	<!-- 댓글 등록 -->
 	<insert id="registComment" parameterType="RegistCommentVO">
 		insert into user_comment
