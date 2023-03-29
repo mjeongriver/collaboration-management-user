@@ -428,11 +428,13 @@
 		let name = listInner.getElementsByClassName("name");
 		let department = listInner.getElementsByClassName("department");
 		let position = listInner.getElementsByClassName("position");
+		let observer = listInner.getElementsByClassName("observer");
 
 		for (let i = 0; i < name.length; i++) {
 			if (name[i].innerHTML.toLowerCase().includes(search)
 					|| department[i].innerHTML.toLowerCase().includes(search)
-					|| position[i].innerHTML.toLowerCase().includes(search)) {
+					|| position[i].innerHTML.toLowerCase().includes(search)
+					|| observer[i].innerHTML.toLowerCase().includes(search)) {
 				searchUser[i].style.display = "";
 			} else {
 				searchUser[i].style.display = "none";
