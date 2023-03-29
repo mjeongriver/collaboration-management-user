@@ -319,7 +319,7 @@ function joinSubmit() {
 
 	//아이디 유효성검사
 	if (!id.test(idCheck.value)) {
-		idWarning.innerHTML = "형식에 맞게 입력해주세요";
+		idWarning.innerHTML = "형식에 맞게 입력해주세요. 영문, 숫자만 가능합니다.";
 		idCheck.value = "";
 		idCheck.focus();
 		return false;
@@ -366,7 +366,7 @@ function joinSubmit() {
 
 	//아이디 비밀번호 같음 확인
 	if (idCheck.value == passCheck.value) {
-		pwWarning.innerHTML = "아이디와 비밀번호가 같습니다";
+		pwWarning.innerHTML = "아이디와 비밀번호가 같습니다.";
 		passCheck.value = "";
 		passCheck.focus();
 		return false;
@@ -374,7 +374,7 @@ function joinSubmit() {
 
 	//비밀번호 유효성검사
 	if (!password.test(passCheck.value)) {
-		pwWarning.innerHTML = "비밀번호는 영문 소문자, 숫자, 특수문자를 각각 1개 이상 조합해주세요";
+		pwWarning.innerHTML = "비밀번호는 영문 소문자, 숫자, 특수문자를 각각 1개 이상 조합해주세요.";
 		passCheck.value = "";
 		passCheck.focus();
 		return false;
@@ -382,7 +382,7 @@ function joinSubmit() {
 
 	//비밀번호 확인란 공백 확인
 	if (passCheckch.value == "") {
-		pwCheckWarning.innerHTML = "비밀번호 확인을 입력해주세요";
+		pwCheckWarning.innerHTML = "비밀번호 확인을 입력해주세요.";
 		passCheckch.focus();
 		return false;
 	}
@@ -397,21 +397,21 @@ function joinSubmit() {
 
 	//휴대폰번호 공백 확인
 	if (phoneNumberCheck.value == "") {
-		phoneWarning.innerHTML = "핸드폰 번호를 입력해주세요";
+		phoneWarning.innerHTML = "핸드폰 번호를 입력해주세요.";
 		phoneNumberCheck.focus();
 		return false;
 	}
 
 	//휴대폰번호 길이 확인
 	if (phoneNumberCheck.value.length < 10) {
-		phoneWarning.innerHTML = "핸드폰 번호를 다시 확인해주세요";
+		phoneWarning.innerHTML = "핸드폰 번호를 다시 확인해주세요.";
 		phoneNumberCheck.focus();
 		return false;
 	}
 
 	//휴대폰번호 유효성검사
 	if (!phoneNumber.test(phoneNumberCheck.value)) {
-		phoneWarning.innerHTML = "핸드폰 번호는 숫자로만 입력해주세요";
+		phoneWarning.innerHTML = "핸드폰 번호는 숫자로만 입력해주세요.";
 		phoneNumberCheck.value = "";
 		phoneNumberCheck.focus();
 		return false;
@@ -419,14 +419,14 @@ function joinSubmit() {
 
 	//이메일 공백 확인
 	if (emailCheck.value == "") {
-		emailWarning.innerHTML = "이메일을 입력해주세요";
+		emailWarning.innerHTML = "이메일을 입력해주세요.";
 		emailCheck.focus();
 		return false;
 	}
 	
 	//이메일 유효성 검사
 	if (!email.test(emailCheck.value)) {
-		emailWarning.innerHTML = "이메일형식에 맞게 입력해주세요";
+		emailWarning.innerHTML = "이메일형식에 맞게 입력해주세요.";
 		emailCheck.value = "";
 		emailCheck.focus();
 		return false;
@@ -444,7 +444,7 @@ function joinSubmit() {
 
 	//생년월일 8자인지 확인
 	if (birthdayCheck.value.length < 8) {
-		birthWarning.innerHTML = "생년월일 8자리를 입력하세요";
+		birthWarning.innerHTML = "생년월일 8자리를 입력하세요.";
 		birthdayCheck.value = "";
 		birthdayCheck.focus();
 		return false;
@@ -460,13 +460,13 @@ function joinSubmit() {
 
 	//담당 부서 검사
 	if (department.value === "선택") {
-		departmentWarning.innerHTML = "담당 부서를 선택해주세요";
+		departmentWarning.innerHTML = "담당 부서를 선택해주세요.";
 		return false;
 	}
 
 	//담당 부서 검사
 	if (position.value === "선택") {
-		positionWarning.innerHTML = "담당 부서를 선택해주세요";
+		positionWarning.innerHTML = "담당 부서를 선택해주세요.";
 		return false;
 	}
 
