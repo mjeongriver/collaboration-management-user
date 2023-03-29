@@ -174,10 +174,10 @@
 			            str += '<i class="bi bi-circle"></i><span>' + response[i].pjName + '</span>';
 			            str += '</a>';
 			            str += '<div style="padding-left:20px; display:none" class="details">';
-			            str += '<a href="http://localhost:8686/project/project-started?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 홈</a>';
-			            str += '<a href="http://localhost:8686/userboards/board-list?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 게시판</a>';
-			            str += '<a href="http://localhost:8686/project/project-calendar?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 캘린더</a>';
-			            str += '<a href="http://localhost:8686/project/project-user-team-chart?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 진척률</a>';
+			            str += '<a href="/project/project-started?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 홈</a>';
+			            str += '<a href="/userboards/board-list?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 게시판</a>';
+			            str += '<a href="/project/project-calendar?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 캘린더</a>';
+			            str += '<a href="/project/project-user-team-chart?pj_num='+response[i].pjNum+'" style="font-size:13px; padding: 5px 0 0 40px">- 진척률</a>';
 			            str += '</div>';
 			          	str += '</li>';
 
