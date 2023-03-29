@@ -52,7 +52,7 @@ function loginCheck() {
 
 	//아이디 유효성검사
 	if (!id.test(idCheck.value)) {
-		idWarning.innerHTML = "형식에 맞게 입력해주세요";
+		idWarning.innerHTML = "형식에 맞게 입력해주세요. 아이디는 영문자, 숫자만 가능합니다.";
 		idCheck.value = "";
 		idCheck.focus();
 		return false;
