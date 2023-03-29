@@ -23,7 +23,7 @@ public interface UserMapper {
 	public void unlockAccount(UserVO vo); // 계정 활성화
 	public void failReset(UserVO vo); //로그인 성공 시 실패횟수 0으로 바꾸기
 	public void insertLog(UserVO vo); // 로그인 성공 시 로그에 기록하기
-	public int sendVerifyCode(EmailVO vo); // 이메일인증요청을 보내면 만료시간과 인증코드를 DB에 저장 / EmailMapper를 따로 만들어야 하나요?
+	public int sendVerifyCode(EmailVO vo); // 이메일인증요청을 보내면 만료시간과 인증코드를 DB에 저장 / EmailMapper를 따로 만들어야 하나요? -> EmailImpl랑 UserMapper로 처리
 	public EmailVO verifyMail(EmailVO vo); // 이메일과 인증코드로 인증하기
 	public UserVO checkIdAndEmail(UserVO vo); // 아이디와 이메일 일치여부 확인하기
 	public UserVO checkNameAndEmail(UserVO vo); // 이름과 이메일 일치여부 확인하기

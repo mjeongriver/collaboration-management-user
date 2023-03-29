@@ -11,7 +11,6 @@ import com.choongang.scheduleproject.util.interceptor.ProjectAuthHandler;
 
 @Configuration //스프링설정파일
 public class WebConfig implements WebMvcConfigurer {
-
 	//프리핸들러
 	@Bean
 	public UserAuthHandler userAuthHandler() {
@@ -60,10 +59,5 @@ public class WebConfig implements WebMvcConfigurer {
 				.addPathPatterns("/project/project-calendar")
 				.addPathPatterns("/project/project-user-team-chart")
 				.addPathPatterns("/project/project-user-my-chart");
-
-
 	}
-
-
-
 }

@@ -30,7 +30,6 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.choongang.scheduleproject.command.UserVO;
 import com.choongang.scheduleproject.user.service.UserService;
-import com.choongang.scheduleproject.util.KakaoAPI;
 
 @Controller
 @RequestMapping("/user")
@@ -44,8 +43,8 @@ public class UserController {
 	//비밀번호 암호화
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private KakaoAPI kakao;
+//	@Autowired
+//	private KakaoAPI kakao;
 
 	@Autowired
 	private AmazonS3Client amazonS3Client;
