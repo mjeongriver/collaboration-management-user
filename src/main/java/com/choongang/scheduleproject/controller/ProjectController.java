@@ -26,28 +26,28 @@ public class ProjectController {
 	//프로젝트 생성
 	@GetMapping("/project-add")
 	public String projectAdd() {
-		return "/project/project-add";
+		return "project/project-add";
 	}
-	
+
 	//프로젝트 수정
 	@GetMapping("/project-change")
-	public String projectChange(@RequestParam("pj_num") int pj_num, Model model) {		
+	public String projectChange(@RequestParam("pj_num") int pj_num, Model model) {
 		ProjectVO project = projectService.getProjectDetail(pj_num);
 		ArrayList<ProjectVO> member = projectService.getProjectDetailMember(pj_num);
 		model.addAttribute("project", project);
 		model.addAttribute("member", member);
-		return "/project/project-change";
+		return "project/project-change";
 	}
-	
+
 	//프로젝트 수정 완료
 	@GetMapping("/project-change-confirm")
 	public String projectChangeConfirm(RedirectAttributes ra) {
 		//메시지 담아서 리다이렉트
 		String msg = "프로젝트 정보 수정되었습니다. 수정된 팀원, 옵저버를 확인해주세요.";
 		ra.addFlashAttribute("msg", msg);
-		return "redirect:/"; //메인화면으로	
+		return "redirect:/"; //메인화면으로
 	}
-	
+
 
 	@GetMapping("/project-started")
 	public String projectStarted(Model model,@RequestParam("pj_num") int pj_num) {
@@ -57,7 +57,7 @@ public class ProjectController {
 		ProjectVO pjVO = projectService.getProject(pj_num);
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list);
-		return "/project/project-started";
+		return "project/project-started";
 	}
 
 	//전체 진척률 보기
@@ -69,7 +69,7 @@ public class ProjectController {
 		ProjectVO pjVO = projectService.getProject(pj_num);
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list);
-		return "/project/project-user-team-chart";
+		return "project/project-user-team-chart";
 	}
 
 	@GetMapping("/project-user-my-chart")
@@ -80,7 +80,7 @@ public class ProjectController {
 		ProjectVO pjVO = projectService.getProject(pj_num);
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list);
-		return "/project/project-user-my-chart";
+		return "project/project-user-my-chart";
 	}
 
 	@GetMapping("/project-calendar")
@@ -91,7 +91,7 @@ public class ProjectController {
 		ProjectVO pjVO = projectService.getProject(pj_num);
 		model.addAttribute("pjVO",pjVO);
 		model.addAttribute("list",list);
-		return "/project/project-calendar";
+		return "project/project-calendar";
 	}
 
 }

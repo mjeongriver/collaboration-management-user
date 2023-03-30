@@ -63,31 +63,31 @@ public class UserBoardController {
 		model.addAttribute("count", total); //검색 결과 건수
 
 		List<UserBoardVO> list = userBoardService.getList(map); //페이지에 넘길 데이터를 모델에 담는다.
-		model.addAttribute("boardList", list);	
+		model.addAttribute("boardList", list);
 
-		PageVO pageVO = new PageVO(cri, total); //pageVO 객체에서 사용할 criteria 와 total 값 주입 
+		PageVO pageVO = new PageVO(cri, total); //pageVO 객체에서 사용할 criteria 와 total 값 주입
 		model.addAttribute("pageVO", pageVO); //넘겨줄 VO 데이터
 		model.addAttribute("pjNum", pj_num);
 
-		return "/userboards/board-list";
+		return "userboards/board-list";
 	}
 
 	//글 등록
 	@GetMapping("/board-regist")
-	public String boardRegist(Model model, 
+	public String boardRegist(Model model,
 			@RequestParam("pj_num") int pjNum) {
 
-		ProjectVO pjVO = projectService.getProject(pjNum);				
+		ProjectVO pjVO = projectService.getProject(pjNum);
 		model.addAttribute("pjVO", pjVO);
 		model.addAttribute("pjNum", pjNum);
 
-		return "/userboards/board-regist";
+		return "userboards/board-regist";
 	}
 
 
 	//글 수정
 	@GetMapping("/board-modify")
-	public String boardModify(@RequestParam("pj_num") int pjNum,	
+	public String boardModify(@RequestParam("pj_num") int pjNum,
 			@RequestParam("board_num") int boardNum,
 			RedirectAttributes ra, Model model) {
 
@@ -107,7 +107,7 @@ public class UserBoardController {
 		model.addAttribute("fvo", fvo);
 
 		//글 상세 화면으로
-		return "/userboards/board-modify";
+		return "userboards/board-modify";
 	}
 
 	//글 삭제
@@ -123,7 +123,7 @@ public class UserBoardController {
 
 	//글 상세 화면
 	@GetMapping("/board-content")
-	public String boardContent(@RequestParam("pj_num") int pjNum, 
+	public String boardContent(@RequestParam("pj_num") int pjNum,
 			@RequestParam("board_num") int boardNum,
 			Model model) {
 
@@ -144,7 +144,7 @@ public class UserBoardController {
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("comments", userBoardService.getComments(boardNum, pjNum));// 댓글 가져오기-유저 댓글과 대댓글이 담긴 것을 넘겨줌
 
-		return "/userboards/board-content";
+		return "userboards/board-content";
 	}
 
 	//여기서부터 user notice
@@ -157,7 +157,7 @@ public class UserBoardController {
 		PageVO pageVO = new PageVO(cri, total); //페이징에 사용
 		model.addAttribute("pageVO", pageVO);
 
-		return "/userboards/notice-list";
+		return "userboards/notice-list";
 	}
 
 	//위의 noticeTableList를 상세 조회하는 컨트롤러
@@ -167,7 +167,7 @@ public class UserBoardController {
 		AdminNoticeListVO adminNoticeListVO = adminNoticeService.getContent(noticeNum); //클릭한 글 번호에 대한 내용을 조회
 		model.addAttribute("adminNoticeListVO", adminNoticeListVO);
 
-		return "/userboards/notice-content";
+		return "userboards/notice-content";
 	}
 
 }
