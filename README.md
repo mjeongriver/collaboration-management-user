@@ -1,15 +1,6 @@
 # 📆 Collaboration Management(user) Project 
 
-<img src="https://user-images.githubusercontent.com/116552282/232567652-aa754986-158b-4c86-9403-e077d0af2bed.png">
-
-> 프로젝트 생성 및 관리, 사용자 게시판, 그리고 다른 부서와의 협업을 위한 기능을 제공합니다. 
-<br/>
-
-### 레퍼런스
----
-<img src="https://user-images.githubusercontent.com/116552282/232567464-1bcba549-d4fb-4bb1-9724-ce3fbd5ade9f.png">
-
-> 현재 일정관리 툴로 사용되고 있는 flow, slack 등을 참고하여 기능 및 UI를 설계 하였습니다.
+> 현재 일정관리 툴로 사용되고 있는 flow, slack 등을 참고하여 만든 프로젝트로 프로젝트 생성 및 관리, 사용자 게시판, 그리고 다른 부서와의 협업을 위한 기능을 제공합니다. 
 <br/>
 
 ### 바로가기
