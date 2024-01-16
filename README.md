@@ -1,4 +1,4 @@
-# 📆 Collaboration management(user) Project 
+# 📆 Collaboration Management(user) Project 
 
 <img src="https://user-images.githubusercontent.com/116552282/232567652-aa754986-158b-4c86-9403-e077d0af2bed.png">
 
